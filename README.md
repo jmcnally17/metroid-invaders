@@ -1,6 +1,6 @@
 # Space Invaders &nbsp; <img src="./public/images/octopus.png" height="30"> <img src="./public/images/crab.png" height="30"> <img src="./public/images/squid.png" height="30"> <img src="./public/images/ufo.png" height="30">
 
-This solo project is an imitation of the classic 1978 Taito game, Space Invaders.
+This solo project is an imitation of the classic 1978 Taito game, Space Invaders. This game has been made in C++ using the [SFML](https://www.sfml-dev.org/) graphics library.
 
 This game can be played by simply entering
 
@@ -12,7 +12,7 @@ into your terminal while in the [main](https://github.com/jmcnally17/space-invad
 
 ## Getting Started
 
-This game uses the [SFML](https://www.sfml-dev.org/) graphics library to display the game. First, open up a terminal and install Homebrew by running
+First, open up a terminal and install Homebrew by running
 
 ```
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
