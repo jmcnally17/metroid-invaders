@@ -1,6 +1,6 @@
 # Space Invaders &nbsp; <img src="./public/images/octopus.png" height="30"> <img src="./public/images/crab.png" height="30"> <img src="./public/images/squid.png" height="30"> <img src="./public/images/ufo.png" height="30">
 
-This solo project is an imitation of the classic 1978 Taito game, Space Invaders. This game has been made in C++ using the [SFML](https://www.sfml-dev.org/) graphics library.
+This solo project is an imitation of the classic 1978 Taito game, Space Invaders. This game has been written in [C++](https://en.wikipedia.org/wiki/C%2B%2B) using the [SFML](https://www.sfml-dev.org/) graphics library.
 
 This game can be played by simply entering
 
@@ -40,4 +40,6 @@ As mentioned earlier, this code has to be compiled into an executable file that 
 g++ -o bin/SpaceInvaders $(find src -name "*.cpp") -I /opt/homebrew/Cellar/sfml/2.5.1_2/include -L /opt/homebrew/Cellar/sfml/2.5.1_2/lib -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio  -std=c++20
 ```
 
-Then, enter `bin/SpaceInvaders` and a window should open with the game running.
+As of writing, the current SFML version from Homebrew is 2.5.1. You can check which version you have by using `brew info sfml`. This will also show you the correct path for the `-I` and `-L` options used in the compile command.
+
+Enter `bin/SpaceInvaders` into your terminal and a window should open with the game running.
