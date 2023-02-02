@@ -43,3 +43,25 @@ g++ -o bin/SpaceInvaders $(find src -name "*.cpp") -I /opt/homebrew/Cellar/sfml/
 As of writing, the current SFML version from Homebrew is 2.5.1. You can check which version you have by using `brew info sfml`. This will also show you the correct path for the `-I` and `-L` options used in the compile command.
 
 Enter `bin/SpaceInvaders` into your terminal and a window should open with the game running.
+
+## Testing
+
+Tests have been written using the [GoogleTest](http://google.github.io/googletest/) framework while adhering to the TDD process. To run the tests, enter
+
+```
+bin/tests
+```
+
+while in the [main](https://github.com/jmcnally17/space-invaders) directory. If you want to compile the tests yourself, you can start by installing GoogleTest with Homebrew by entering
+
+```
+brew install googletest
+```
+
+Then, using the g++ command mentioned in the previoud section, compile the tests with
+
+```
+g++ -o bin/tests $(find tests -name "*.cpp") $(find src -name "*.cpp" ! -name "spaceInvaders.cpp")  -I /opt/homebrew/Cellar/googletest/1.13.0/include -I /opt/homebrew/Cellar/sfml/2.5.1_2/include -L /opt/homebrew/Cellar/googletest/1.13.0/lib -lgtest -lgtest_main -lgmock -lgmock_main -pthread -L /opt/homebrew/Cellar/sfml/2.5.1_2/lib -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -std=c++20
+```
+
+Then the executable file should be in the [bin](https://github.com/jmcnally17/space-invaders/tree/main/bin) folder.
