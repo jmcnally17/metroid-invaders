@@ -8,11 +8,11 @@ class LaserCannon : public ILaserCannon
 {
 public:
   LaserCannon(ISprite &sprite);
-  float getWidth();
-  void setPosition(sf::Vector2f vector);
-  sf::Vector2f getPosition() const;
-  void draw(IRenderWindow &window) const;
-  void move(float x);
+  float getWidth() const;
+  void setPosition(const sf::Vector2f &vector);
+  sf::Vector2f getPosition() const override;
+  void draw(IRenderWindow &window) const override;
+  void move(float x) override;
 
 private:
   float width_;

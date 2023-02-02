@@ -6,12 +6,12 @@ LaserCannon::LaserCannon(ISprite &sprite) : position_(sf::Vector2f(120, 1224)), 
   sprite_.setPosition(position_);
 }
 
-float LaserCannon::getWidth()
+float LaserCannon::getWidth() const
 {
   return width_;
 }
 
-void LaserCannon::setPosition(sf::Vector2f vector)
+void LaserCannon::setPosition(const sf::Vector2f &vector)
 {
   position_ = vector;
 }
