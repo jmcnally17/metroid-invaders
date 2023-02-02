@@ -8,6 +8,7 @@ class LaserCannon : public ILaserCannon
 {
 public:
   LaserCannon(ISprite &sprite);
+  void setPosition(sf::Vector2f vector);
   sf::Vector2f getPosition() const;
   void draw(IRenderWindow &window) const;
   void move(float x);

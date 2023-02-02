@@ -44,3 +44,16 @@ TEST(LaserCannon, moveUpdatesXPositionOfSpriteClassMember)
       .Times(1);
   laserCannon.move(75);
 }
+
+TEST(laserCannon, moveDoesNotMovePositionRightIfPositionIsOffScreen)
+{
+  MockSprite sprite;
+  LaserCannon laserCannon(sprite);
+  laserCannon.setPosition(sf::Vector2f(-10, 1224));
+
+  EXPECT_CALL(sprite, setPosition)
+      .Times(0);
+  laserCannon.move(-50);
+  EXPECT_EQ(laserCannon.getPosition().x, -10);
+  EXPECT_EQ(laserCannon.getPosition().y, 1224);
+}
