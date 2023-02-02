@@ -1,7 +1,6 @@
 #ifndef I_LASER_CANNON_HPP
 #define I_LASER_CANNON_HPP
 
-#include <SFML/Graphics.hpp>
 #include "../wrappers/iRenderWindow.hpp"
 
 class ILaserCannon
