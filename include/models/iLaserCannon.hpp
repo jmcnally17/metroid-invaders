@@ -7,6 +7,7 @@ class ILaserCannon
 {
 public:
   virtual void draw(IRenderWindow &window) const = 0;
+  virtual void move(float x) = 0;
 };
 
 #endif

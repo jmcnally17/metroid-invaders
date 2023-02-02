@@ -9,6 +9,7 @@ class MockLaserCannon : public ILaserCannon
 public:
   MOCK_METHOD(sf::Vector2f, getPosition, (), (const override));
   MOCK_METHOD(void, draw, (IRenderWindow & window), (const override));
+  MOCK_METHOD(void, move, (float x), (override));
 };
 
 #endif
