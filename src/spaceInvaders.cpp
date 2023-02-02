@@ -7,7 +7,7 @@ int main()
   RenderWindowWrapper window(sf::VideoMode(1536, 1344), "Space Invaders");
 
   sf::Texture cannonTexture;
-  cannonTexture.loadFromFile("public/images/laserCannon.png");
+  cannonTexture.loadFromFile("public/images/newSprites/laserCannon.png");
   sf::Sprite cannonSprite(cannonTexture);
   SpriteWrapper cannonSpriteWrapper(cannonSprite);
   LaserCannon laserCannon(cannonSpriteWrapper);
