@@ -22,7 +22,7 @@ void LaserCannon::draw(IRenderWindow &window) const
 
 void LaserCannon::move(float x)
 {
-  if (!(x < 0 && position_.x < 0))
+  if (!((x < 0 && position_.x <= 0) || (x > 0 && position_.x >= 1536 - 78)))
   {
     position_.x += x;
     sprite_.setPosition(position_);
