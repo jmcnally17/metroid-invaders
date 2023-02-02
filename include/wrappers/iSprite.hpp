@@ -3,7 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 
-class ISprite : public sf::Drawable
+class ISprite : virtual public sf::Drawable
 {
 public:
   virtual void setPosition(const sf::Vector2f &position) = 0;

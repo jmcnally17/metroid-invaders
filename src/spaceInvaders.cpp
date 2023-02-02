@@ -24,7 +24,6 @@ int main()
     }
 
     window.clear();
-    window.draw(cannonSpriteWrapper);
     laserCannon.draw(window);
     window.display();
   }
