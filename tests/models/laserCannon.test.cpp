@@ -6,10 +6,10 @@ TEST(LaserCannon, setsOwnPositionMemberAndSpriteMemberPosition)
 {
   MockSprite sprite;
 
-  EXPECT_CALL(sprite, setPosition(sf::Vector2f(1416, 1224)))
+  EXPECT_CALL(sprite, setPosition(sf::Vector2f(120, 1224)))
       .Times(1);
   LaserCannon laserCannon(sprite);
-  EXPECT_EQ(laserCannon.getPosition().x, 1416);
+  EXPECT_EQ(laserCannon.getPosition().x, 120);
   EXPECT_EQ(laserCannon.getPosition().y, 1224);
 }
 

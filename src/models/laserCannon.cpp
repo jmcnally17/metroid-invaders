@@ -1,6 +1,6 @@
 #include "../../include/models/laserCannon.hpp"
 
-LaserCannon::LaserCannon(ISprite &sprite) : position_(sf::Vector2f(1416, 1224)), sprite_(sprite)
+LaserCannon::LaserCannon(ISprite &sprite) : position_(sf::Vector2f(120, 1224)), sprite_(sprite)
 {
   sprite_.setPosition(position_);
 }

@@ -1,8 +1,16 @@
-#include <SFML/Graphics.hpp>
+#include "../include/wrappers/renderWindowWrapper.hpp"
+#include "../include/wrappers/spriteWrapper.hpp"
+#include "../include/models/laserCannon.hpp"
 
 int main()
 {
-  sf::RenderWindow window(sf::VideoMode(1536, 1344), "Space Invaders");
+  RenderWindowWrapper window(sf::VideoMode(1536, 1344), "Space Invaders");
+
+  sf::Texture cannonTexture;
+  cannonTexture.loadFromFile("public/images/laserCannon.png");
+  sf::Sprite cannonSprite(cannonTexture);
+  SpriteWrapper cannonSpriteWrapper(cannonSprite);
+  LaserCannon laserCannon(cannonSpriteWrapper);
 
   while (window.isOpen())
   {
@@ -16,6 +24,8 @@ int main()
     }
 
     window.clear();
+    window.draw(cannonSpriteWrapper);
+    laserCannon.draw(window);
     window.display();
   }
 
