@@ -34,3 +34,12 @@ TEST(LaserCannon, moveChangesXOfPositionClassMember)
   EXPECT_EQ(laserCannon.getPosition().x, 195);
   EXPECT_EQ(laserCannon.getPosition().y, 1224);
 }
+
+TEST(LaserCannon, moveUpdatesXPositionOfSpriteClassMember)
+{
+  MockSprite sprite;
+  LaserCannon laserCannon(sprite);
+
+  EXPECT_CALL(sprite, setPosition(sf::Vector2f(195, 1224)));
+  laserCannon.move(75);
+}
