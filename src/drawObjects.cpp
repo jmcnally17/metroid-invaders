@@ -4,4 +4,5 @@
 void drawObjects(IRenderWindow &window, const ILaserCannon &cannon)
 {
   window.clear();
+  cannon.draw(window);
 }
