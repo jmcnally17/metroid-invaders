@@ -8,6 +8,7 @@ class IRenderWindow
 public:
   virtual void draw(const sf::Drawable &drawable) = 0;
   virtual void clear() = 0;
+  virtual void display() = 0;
 };
 
 #endif

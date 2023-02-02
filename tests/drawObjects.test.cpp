@@ -21,3 +21,13 @@ TEST(drawObjects, callsDrawOnTheLaserCannon)
       .Times(1);
   drawObjects(window, cannon);
 }
+
+TEST(drawObjects, callsDisplayOnTheWindow)
+{
+  MockRenderWindow window;
+  MockLaserCannon cannon;
+
+  EXPECT_CALL(window, display())
+      .Times(1);
+  drawObjects(window, cannon);
+}

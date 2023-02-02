@@ -12,7 +12,7 @@ public:
   void close();
   void clear() override;
   void draw(const sf::Drawable &drawable) override;
-  void display();
+  void display() override;
 
 private:
   sf::RenderWindow window_;
