@@ -10,9 +10,9 @@ public:
   bool isOpen() const;
   bool pollEvent(sf::Event &event);
   void close();
-  void clear();
+  void clear() override;
   void draw(const sf::Drawable &drawable) override;
-  void display();
+  void display() override;
 
 private:
   sf::RenderWindow window_;

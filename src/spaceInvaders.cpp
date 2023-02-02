@@ -1,6 +1,7 @@
 #include "../include/wrappers/renderWindowWrapper.hpp"
 #include "../include/wrappers/spriteWrapper.hpp"
 #include "../include/models/laserCannon.hpp"
+#include "../include/spaceInvaders.hpp"
 
 int main()
 {
@@ -23,9 +24,7 @@ int main()
       }
     }
 
-    window.clear();
-    laserCannon.draw(window);
-    window.display();
+    drawObjects(window, laserCannon);
   }
 
   return 0;
