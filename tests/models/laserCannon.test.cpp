@@ -2,11 +2,13 @@
 #include "../mockModels/mockSprite.hpp"
 #include "../mockModels/mockRenderWindow.hpp"
 
-TEST(LaserCannon, hasAPositionUponInstantiation)
+TEST(LaserCannon, setsOwnPositionMemberAndSpriteMemberPosition)
 {
   MockSprite sprite;
-  LaserCannon laserCannon(sprite);
 
+  EXPECT_CALL(sprite, setPosition(sf::Vector2f(1416, 1224)))
+      .Times(1);
+  LaserCannon laserCannon(sprite);
   EXPECT_EQ(laserCannon.getPosition().x, 1416);
   EXPECT_EQ(laserCannon.getPosition().y, 1224);
 }
