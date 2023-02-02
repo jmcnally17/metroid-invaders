@@ -10,6 +10,7 @@ public:
   LaserCannon(ISprite &sprite);
   sf::Vector2f getPosition() const;
   void draw(IRenderWindow &window) const;
+  void move(float x);
 
 private:
   sf::Vector2f position_;

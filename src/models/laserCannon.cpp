@@ -14,3 +14,8 @@ void LaserCannon::draw(IRenderWindow &window) const
 {
   window.draw(sprite_);
 }
+
+void LaserCannon::move(float x)
+{
+  position_.x += x;
+}

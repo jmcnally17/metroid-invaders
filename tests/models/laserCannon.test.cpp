@@ -24,3 +24,13 @@ TEST(LaserCannon, drawCallsDrawOnTheWindowWithSpriteArgument)
       .Times(1);
   laserCannon.draw(window);
 }
+
+TEST(LaserCannon, moveChangesXOfPositionClassMember)
+{
+  MockSprite sprite;
+  LaserCannon laserCannon(sprite);
+
+  laserCannon.move(75);
+  EXPECT_EQ(laserCannon.getPosition().x, 195);
+  EXPECT_EQ(laserCannon.getPosition().y, 1224);
+}
