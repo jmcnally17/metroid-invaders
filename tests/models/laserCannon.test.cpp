@@ -13,6 +13,14 @@ TEST(LaserCannon, setsOwnPositionMemberAndSpriteMemberPosition)
   EXPECT_EQ(laserCannon.getPosition().y, 1224);
 }
 
+TEST(LaserCannon, hasAWidthClassMemberOf78)
+{
+  MockSprite sprite;
+  LaserCannon laserCannon(sprite);
+
+  EXPECT_EQ(laserCannon.getWidth(), 78);
+}
+
 TEST(LaserCannon, drawCallsDrawOnTheWindowWithSpriteArgument)
 {
   MockSprite sprite;
