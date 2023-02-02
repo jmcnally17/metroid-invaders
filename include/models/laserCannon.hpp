@@ -1,11 +1,10 @@
 #ifndef LASER_CANNON_HPP
 #define LASER_CANNON_HPP
 
-#include <SFML/Graphics.hpp>
+#include "./iLaserCannon.hpp"
 #include "../wrappers/iSprite.hpp"
-#include "../wrappers/iRenderWindow.hpp"
 
-class LaserCannon
+class LaserCannon : public ILaserCannon
 {
 public:
   LaserCannon(ISprite &sprite);
