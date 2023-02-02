@@ -40,6 +40,7 @@ TEST(LaserCannon, moveUpdatesXPositionOfSpriteClassMember)
   MockSprite sprite;
   LaserCannon laserCannon(sprite);
 
-  EXPECT_CALL(sprite, setPosition(sf::Vector2f(195, 1224)));
+  EXPECT_CALL(sprite, setPosition(sf::Vector2f(195, 1224)))
+      .Times(1);
   laserCannon.move(75);
 }
