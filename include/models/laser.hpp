@@ -8,6 +8,7 @@ class Laser
 public:
   Laser();
   sf::Vector2f getPosition() const;
+  void setPosition(const sf::Vector2f &vector);
 
 private:
   sf::Vector2f position_;

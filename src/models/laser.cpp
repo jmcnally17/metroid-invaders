@@ -9,3 +9,8 @@ sf::Vector2f Laser::getPosition() const
 {
   return position_;
 }
+
+void Laser::setPosition(const sf::Vector2f &vector)
+{
+  position_ = vector;
+}

@@ -5,6 +5,13 @@ TEST(Laser, hasAPositionUponInstantiation)
 {
   Laser laser;
 
-  EXPECT_EQ(laser.getPosition().x, 120);
-  EXPECT_EQ(laser.getPosition().y, -24);
+  EXPECT_EQ(laser.getPosition(), sf::Vector2f(120, -24));
+}
+
+TEST(Laser, setPositionChangesLaserPosition)
+{
+  Laser laser;
+
+  laser.setPosition(sf::Vector2f(530, 890));
+  EXPECT_EQ(laser.getPosition(), sf::Vector2f(530, 890));
 }

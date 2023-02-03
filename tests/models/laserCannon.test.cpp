@@ -11,8 +11,7 @@ TEST(LaserCannon, setsOwnPositionMemberAndSpriteMemberPosition)
   EXPECT_CALL(sprite, setPosition(sf::Vector2f(120, 1224)))
       .Times(1);
   LaserCannon laserCannon(sprite);
-  EXPECT_EQ(laserCannon.getPosition().x, 120);
-  EXPECT_EQ(laserCannon.getPosition().y, 1224);
+  EXPECT_EQ(laserCannon.getPosition(), sf::Vector2f(120, 1224));
 }
 
 TEST(LaserCannon, hasAWidthClassMemberOf78)
@@ -41,8 +40,7 @@ TEST(LaserCannon, moveChangesXOfPositionClassMember)
   LaserCannon laserCannon(sprite);
 
   laserCannon.move(75);
-  EXPECT_EQ(laserCannon.getPosition().x, 195);
-  EXPECT_EQ(laserCannon.getPosition().y, 1224);
+  EXPECT_EQ(laserCannon.getPosition(), sf::Vector2f(195, 1224));
 }
 
 TEST(LaserCannon, moveUpdatesXPositionOfSpriteClassMember)
@@ -64,8 +62,7 @@ TEST(laserCannon, moveDoesNotMovePositionLeftIfPositionIsOffScreenLeft)
   EXPECT_CALL(sprite, setPosition)
       .Times(0);
   laserCannon.move(-50);
-  EXPECT_EQ(laserCannon.getPosition().x, -10);
-  EXPECT_EQ(laserCannon.getPosition().y, 1224);
+  EXPECT_EQ(laserCannon.getPosition(), sf::Vector2f(-10, 1224));
 }
 
 TEST(laserCannon, moveDoesNotMovePositionRightIfPositionIsOffScreenRight)
@@ -77,6 +74,5 @@ TEST(laserCannon, moveDoesNotMovePositionRightIfPositionIsOffScreenRight)
   EXPECT_CALL(sprite, setPosition)
       .Times(0);
   laserCannon.move(50);
-  EXPECT_EQ(laserCannon.getPosition().x, 1550);
-  EXPECT_EQ(laserCannon.getPosition().y, 1224);
+  EXPECT_EQ(laserCannon.getPosition(), sf::Vector2f(1550, 1224));
 }
