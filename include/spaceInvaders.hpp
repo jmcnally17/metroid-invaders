@@ -9,6 +9,8 @@ void drawObjects(IRenderWindow &window, const ILaserCannon &cannon, const ILaser
 
 void moveLaserCannon(ILaserCannon &cannon, float x);
 
+void moveLaser(ILaser &laser);
+
 void fireLaser(ILaserCannon &cannon);
 
 #endif
