@@ -1,17 +1,18 @@
 #ifndef LASER_HPP
 #define LASER_HPP
 
+#include "./iLaser.hpp"
 #include "../wrappers/iSprite.hpp"
 #include "../wrappers/iRenderWindow.hpp"
 
-class Laser
+class Laser : public ILaser
 {
 public:
   Laser(ISprite &sprite);
-  float getWidth() const;
+  float getWidth() const override;
   float getHeight() const;
-  sf::Vector2f getPosition() const;
-  void setPosition(const sf::Vector2f &vector);
+  sf::Vector2f getPosition() const override;
+  void setPosition(const sf::Vector2f &vector) override;
   void draw(IRenderWindow &window) const;
   void move();
 
