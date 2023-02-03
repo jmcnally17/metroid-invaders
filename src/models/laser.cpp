@@ -13,4 +13,5 @@ sf::Vector2f Laser::getPosition() const
 void Laser::setPosition(const sf::Vector2f &vector)
 {
   position_ = vector;
+  sprite_.setPosition(position_);
 }

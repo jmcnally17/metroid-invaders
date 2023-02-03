@@ -28,3 +28,12 @@ TEST(Laser, setPositionChangesPositionClassMember)
   laser.setPosition(sf::Vector2f(530, 890));
   EXPECT_EQ(laser.getPosition(), sf::Vector2f(530, 890));
 }
+
+TEST(Laser, setPositionChangesSpritePosition)
+{
+  NiceMock<MockSprite> sprite;
+  Laser laser(sprite);
+
+  EXPECT_CALL(sprite, setPosition(sf::Vector2f(530, 890)));
+  laser.setPosition(sf::Vector2f(530, 890));
+}
