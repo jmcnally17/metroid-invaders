@@ -17,7 +17,8 @@ TEST(Laser, setsSpritePositionUponInstantiation)
 {
   MockSprite sprite;
 
-  EXPECT_CALL(sprite, setPosition(sf::Vector2f(120, -24)));
+  EXPECT_CALL(sprite, setPosition(sf::Vector2f(120, -24)))
+      .Times(1);
   Laser laser(sprite);
 }
 
@@ -35,7 +36,8 @@ TEST(Laser, setPositionChangesSpritePosition)
   NiceMock<MockSprite> sprite;
   Laser laser(sprite);
 
-  EXPECT_CALL(sprite, setPosition(sf::Vector2f(530, 890)));
+  EXPECT_CALL(sprite, setPosition(sf::Vector2f(530, 890)))
+      .Times(1);
   laser.setPosition(sf::Vector2f(530, 890));
 }
 
@@ -67,6 +69,26 @@ TEST(Laser, moveUpdatesSpritePositionWhenLaserIsOnTheBoard)
   Laser laser(sprite);
   laser.setPosition(sf::Vector2f(500, 1000));
 
-  EXPECT_CALL(sprite, setPosition(sf::Vector2f(500, 999.5)));
+  EXPECT_CALL(sprite, setPosition(sf::Vector2f(500, 999.5)))
+      .Times(1);
+  laser.move();
+}
+
+TEST(Laser, moveDoesNotDecreaseYPositionWhenLaserIsAboveTheBoard)
+{
+  NiceMock<MockSprite> sprite;
+  Laser laser(sprite);
+
+  laser.move();
+  EXPECT_EQ(laser.getPosition(), sf::Vector2f(120, -24));
+}
+
+TEST(Laser, moveDoesNotUpdateSpritePositionWhenLaserIsAboveTheBoard)
+{
+  NiceMock<MockSprite> sprite;
+  Laser laser(sprite);
+
+  EXPECT_CALL(sprite, setPosition)
+      .Times(0);
   laser.move();
 }

@@ -35,7 +35,8 @@ TEST(LaserCannon, setPositionChangesSpritePosition)
   NiceMock<MockSprite> sprite;
   LaserCannon laserCannon(sprite);
 
-  EXPECT_CALL(sprite, setPosition(sf::Vector2f(205, 920)));
+  EXPECT_CALL(sprite, setPosition(sf::Vector2f(205, 920)))
+      .Times(1);
   laserCannon.setPosition(sf::Vector2f(205, 920));
 }
 
