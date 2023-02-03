@@ -8,6 +8,7 @@ class Laser
 {
 public:
   Laser(ISprite &sprite);
+  float getWidth() const;
   float getHeight() const;
   sf::Vector2f getPosition() const;
   void setPosition(const sf::Vector2f &vector);
@@ -15,6 +16,7 @@ public:
   void move();
 
 private:
+  float width_;
   float height_;
   sf::Vector2f position_;
   ISprite &sprite_;

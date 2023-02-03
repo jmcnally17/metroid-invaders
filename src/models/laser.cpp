@@ -2,8 +2,14 @@
 
 Laser::Laser(ISprite &sprite) : position_(sf::Vector2f(120, -24)), sprite_(sprite)
 {
+  width_ = 6;
   height_ = 24;
   sprite_.setPosition(position_);
+}
+
+float Laser::getWidth() const
+{
+  return width_;
 }
 
 float Laser::getHeight() const

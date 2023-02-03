@@ -21,6 +21,14 @@ TEST(Laser, setsSpritePositionUponInstantiation)
   Laser laser(sprite);
 }
 
+TEST(Laser, hasAWidthClassMemberOf6)
+{
+  NiceMock<MockSprite> sprite;
+  Laser laser(sprite);
+
+  EXPECT_EQ(laser.getWidth(), 6);
+}
+
 TEST(Laser, hasAHeightClassMemberOf24)
 {
   NiceMock<MockSprite> sprite;
