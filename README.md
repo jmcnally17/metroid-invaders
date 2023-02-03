@@ -2,13 +2,21 @@
 
 This solo project is an imitation of the classic 1978 Taito game, Space Invaders. It has been written in [C++](https://en.wikipedia.org/wiki/C%2B%2B) using the [SFML](https://www.sfml-dev.org/) graphics library.
 
-This game can be played by simply entering
+## How To Use
+
+Start by opening up a terminal and cloning this repository by entering
+
+```
+git clone https://github.com/jmcnally17/space-invaders.git
+```
+
+Then run the game by entering
 
 ```
 bin/SpaceInvaders
 ```
 
-into your terminal while in the [main](https://github.com/jmcnally17/space-invaders) directory. However, if you would like to have a go at compiling the code yourself, a few frameworks must be installed first. See the instructions below for macOS to get started.
+into your terminal while in the [main](https://github.com/jmcnally17/space-invaders) directory. However, if you would like to have a go at compiling the code yourself, see the instructions below for macOS to get started.
 
 ## Getting Started
 
@@ -26,13 +34,7 @@ This code is compiled using the g++ compile command that comes with the Xcode co
 xcode-select --install
 ```
 
-Then, all that's left is to clone this repository and you will be ready to run the compiler:
-
-```
-git clone https://github.com/jmcnally17/space-invaders.git
-```
-
-## How To Use
+## Compiling
 
 As mentioned earlier, this code has to be compiled into an executable file that your computer can run. This can be done by entering the following command into your terminal while in the [main](https://github.com/jmcnally17/space-invaders) directory:
 
