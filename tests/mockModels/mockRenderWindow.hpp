@@ -7,9 +7,9 @@
 class MockRenderWindow : public IRenderWindow
 {
 public:
-  MOCK_METHOD(void, clear, (), (override));
-  MOCK_METHOD(void, draw, (const sf::Drawable &drawable), (override));
-  MOCK_METHOD(void, display, (), (override));
+  MOCK_METHOD(void, clear, ());
+  MOCK_METHOD(void, draw, (const sf::Drawable &drawable));
+  MOCK_METHOD(void, display, ());
 };
 
 #endif
