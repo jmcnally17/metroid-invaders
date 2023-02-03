@@ -119,7 +119,7 @@ TEST(laserCannon, moveDoesNotMovePositionRightIfPositionIsOffScreenRight)
 TEST(LaserCannon, fireSetsPositionDownOnLaserClassMemberWhenAboveBoard)
 {
   NiceMock<MockSprite> sprite;
-  MockLaser laser;
+  NiceMock<MockLaser> laser;
   LaserCannon laserCannon(sprite, laser);
   ON_CALL(laser, getPosition)
       .WillByDefault(Return(sf::Vector2f(500, -26)));
@@ -137,7 +137,7 @@ TEST(LaserCannon, fireSetsPositionDownOnLaserClassMemberWhenAboveBoard)
 TEST(LaserCannon, fireDoesNotSetPositionDownOnLaserClassMemberWhenOnBoard)
 {
   NiceMock<MockSprite> sprite;
-  MockLaser laser;
+  NiceMock<MockLaser> laser;
   LaserCannon laserCannon(sprite, laser);
   ON_CALL(laser, getPosition)
       .WillByDefault(Return(sf::Vector2f(500, 500)));
