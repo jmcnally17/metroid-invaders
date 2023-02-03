@@ -60,7 +60,7 @@ while in the [main](https://github.com/jmcnally17/space-invaders) directory. If 
 brew install googletest
 ```
 
-Then, using the g++ command mentioned in the previoud section, compile the tests with
+Then, using the g++ command mentioned in the previous section, compile the tests with
 
 ```
 g++ -o bin/tests $(find tests -name "*.cpp") $(find src -name "*.cpp" ! -name "spaceInvaders.cpp")  -I /opt/homebrew/Cellar/googletest/1.13.0/include -I /opt/homebrew/Cellar/sfml/2.5.1_2/include -L /opt/homebrew/Cellar/googletest/1.13.0/lib -lgtest -lgtest_main -lgmock -lgmock_main -pthread -L /opt/homebrew/Cellar/sfml/2.5.1_2/lib -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -std=c++20
