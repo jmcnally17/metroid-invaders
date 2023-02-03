@@ -1,6 +1,6 @@
 #include "../../include/models/laserCannon.hpp"
 
-LaserCannon::LaserCannon(ISprite &sprite, ILaser &laser) : width_(78), position_(sf::Vector2f(120, 1224)), sprite_(sprite), laser_(laser)
+LaserCannon::LaserCannon(ISprite &sprite, ILaser &laser) : width_(78), height_(48), position_(sf::Vector2f(120, 1224)), sprite_(sprite), laser_(laser)
 {
   sprite_.setPosition(position_);
 }
@@ -8,6 +8,11 @@ LaserCannon::LaserCannon(ISprite &sprite, ILaser &laser) : width_(78), position_
 float LaserCannon::getWidth() const
 {
   return width_;
+}
+
+float LaserCannon::getHeight() const
+{
+  return height_;
 }
 
 void LaserCannon::setPosition(const sf::Vector2f &vector)

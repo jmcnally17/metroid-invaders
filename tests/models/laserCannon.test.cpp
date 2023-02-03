@@ -35,6 +35,15 @@ TEST(LaserCannon, hasAWidthClassMemberOf78)
   EXPECT_EQ(cannon.getWidth(), 78);
 }
 
+TEST(LaserCannon, hasAHeightClassMemberOf48)
+{
+  NiceMock<MockSprite> sprite;
+  MockLaser laser;
+  LaserCannon cannon(sprite, laser);
+
+  EXPECT_EQ(cannon.getHeight(), 48);
+}
+
 TEST(LaserCannon, setPositionChangesPositionClassMember)
 {
   NiceMock<MockSprite> sprite;
