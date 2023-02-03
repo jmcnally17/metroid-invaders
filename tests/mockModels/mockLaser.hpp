@@ -11,6 +11,7 @@ public:
   MOCK_METHOD(float, getHeight, (), (const));
   MOCK_METHOD(sf::Vector2f, getPosition, (), (const));
   MOCK_METHOD(void, setPosition, (const sf::Vector2f &vector));
+  MOCK_METHOD(void, draw, (IRenderWindow &window), (const));
 };
 
 #endif
