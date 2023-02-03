@@ -32,7 +32,7 @@ int main()
       }
     }
 
-    drawObjects(window, laserCannon);
+    drawObjects(window, laserCannon, laser);
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
     {
       moveLaserCannon(laserCannon, 0.25);
