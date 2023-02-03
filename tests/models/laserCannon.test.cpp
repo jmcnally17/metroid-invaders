@@ -6,12 +6,19 @@ using ::testing::NiceMock;
 
 TEST(LaserCannon, setsOwnPositionMemberAndSpriteMemberPosition)
 {
+  NiceMock<MockSprite> sprite;
+  LaserCannon laserCannon(sprite);
+
+  EXPECT_EQ(laserCannon.getPosition(), sf::Vector2f(120, 1224));
+}
+
+TEST(LaserCannon, setsSpritePositionUponInstantiation)
+{
   MockSprite sprite;
 
   EXPECT_CALL(sprite, setPosition(sf::Vector2f(120, 1224)))
       .Times(1);
   LaserCannon laserCannon(sprite);
-  EXPECT_EQ(laserCannon.getPosition(), sf::Vector2f(120, 1224));
 }
 
 TEST(LaserCannon, hasAWidthClassMemberOf78)
