@@ -8,4 +8,6 @@ void drawObjects(IRenderWindow &window, const ILaserCannon &cannon);
 
 void moveLaserCannon(ILaserCannon &cannon, float x);
 
+void fireLaser(ILaserCannon &cannon);
+
 #endif

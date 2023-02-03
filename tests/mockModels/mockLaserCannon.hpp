@@ -9,6 +9,7 @@ class MockLaserCannon : public ILaserCannon
 public:
   MOCK_METHOD(void, draw, (IRenderWindow & window), (const));
   MOCK_METHOD(void, move, (float x));
+  MOCK_METHOD(void, fire, ());
 };
 
 #endif

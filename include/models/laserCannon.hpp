@@ -14,7 +14,7 @@ public:
   sf::Vector2f getPosition() const;
   void draw(IRenderWindow &window) const override;
   void move(float x) override;
-  void fire();
+  void fire() override;
 
 private:
   float width_;
