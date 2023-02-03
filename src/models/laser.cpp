@@ -15,3 +15,8 @@ void Laser::setPosition(const sf::Vector2f &vector)
   position_ = vector;
   sprite_.setPosition(position_);
 }
+
+void Laser::draw(IRenderWindow &window) const
+{
+  window.draw(sprite_);
+}
