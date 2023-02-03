@@ -141,6 +141,8 @@ TEST(LaserCannon, fireDoesNotSetPositionDownOnLaserClassMemberWhenOnBoard)
   LaserCannon laserCannon(sprite, laser);
   ON_CALL(laser, getPosition)
       .WillByDefault(Return(sf::Vector2f(500, 500)));
+  ON_CALL(laser, getHeight)
+      .WillByDefault(Return(24));
   float laserXTarget = laserCannon.getPosition().x + (laserCannon.getWidth() - laser.getWidth()) / 2;
 
   InSequence s;
