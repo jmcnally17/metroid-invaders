@@ -2,10 +2,12 @@
 #include "./mockModels/mockRenderWindow.hpp"
 #include "./mockModels/mockLaserCannon.hpp"
 
+using ::testing::NiceMock;
+
 TEST(drawObjects, callsClearOnTheWindow)
 {
-  MockRenderWindow window;
-  MockLaserCannon cannon;
+  NiceMock<MockRenderWindow> window;
+  NiceMock<MockLaserCannon> cannon;
 
   EXPECT_CALL(window, clear())
       .Times(1);
@@ -14,7 +16,7 @@ TEST(drawObjects, callsClearOnTheWindow)
 
 TEST(drawObjects, callsDrawOnTheLaserCannon)
 {
-  MockRenderWindow window;
+  NiceMock<MockRenderWindow> window;
   MockLaserCannon cannon;
 
   EXPECT_CALL(cannon, draw)
@@ -24,8 +26,8 @@ TEST(drawObjects, callsDrawOnTheLaserCannon)
 
 TEST(drawObjects, callsDisplayOnTheWindow)
 {
-  MockRenderWindow window;
-  MockLaserCannon cannon;
+  NiceMock<MockRenderWindow> window;
+  NiceMock<MockLaserCannon> cannon;
 
   EXPECT_CALL(window, display())
       .Times(1);

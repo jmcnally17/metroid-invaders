@@ -2,6 +2,8 @@
 #include "../mockModels/mockSprite.hpp"
 #include "../mockModels/mockRenderWindow.hpp"
 
+using ::testing::NiceMock;
+
 TEST(LaserCannon, setsOwnPositionMemberAndSpriteMemberPosition)
 {
   MockSprite sprite;
@@ -15,7 +17,7 @@ TEST(LaserCannon, setsOwnPositionMemberAndSpriteMemberPosition)
 
 TEST(LaserCannon, hasAWidthClassMemberOf78)
 {
-  MockSprite sprite;
+  NiceMock<MockSprite> sprite;
   LaserCannon laserCannon(sprite);
 
   EXPECT_EQ(laserCannon.getWidth(), 78);
@@ -23,7 +25,7 @@ TEST(LaserCannon, hasAWidthClassMemberOf78)
 
 TEST(LaserCannon, drawCallsDrawOnTheWindowWithSpriteArgument)
 {
-  MockSprite sprite;
+  NiceMock<MockSprite> sprite;
   LaserCannon laserCannon(sprite);
   MockRenderWindow window;
 
@@ -35,7 +37,7 @@ TEST(LaserCannon, drawCallsDrawOnTheWindowWithSpriteArgument)
 
 TEST(LaserCannon, moveChangesXOfPositionClassMember)
 {
-  MockSprite sprite;
+  NiceMock<MockSprite> sprite;
   LaserCannon laserCannon(sprite);
 
   laserCannon.move(75);
@@ -45,7 +47,7 @@ TEST(LaserCannon, moveChangesXOfPositionClassMember)
 
 TEST(LaserCannon, moveUpdatesXPositionOfSpriteClassMember)
 {
-  MockSprite sprite;
+  NiceMock<MockSprite> sprite;
   LaserCannon laserCannon(sprite);
 
   EXPECT_CALL(sprite, setPosition(sf::Vector2f(195, 1224)))
@@ -55,7 +57,7 @@ TEST(LaserCannon, moveUpdatesXPositionOfSpriteClassMember)
 
 TEST(laserCannon, moveDoesNotMovePositionLeftIfPositionIsOffScreenLeft)
 {
-  MockSprite sprite;
+  NiceMock<MockSprite> sprite;
   LaserCannon laserCannon(sprite);
   laserCannon.setPosition(sf::Vector2f(-10, 1224));
 
@@ -68,7 +70,7 @@ TEST(laserCannon, moveDoesNotMovePositionLeftIfPositionIsOffScreenLeft)
 
 TEST(laserCannon, moveDoesNotMovePositionRightIfPositionIsOffScreenRight)
 {
-  MockSprite sprite;
+  NiceMock<MockSprite> sprite;
   LaserCannon laserCannon(sprite);
   laserCannon.setPosition(sf::Vector2f(1550, 1224));
 
