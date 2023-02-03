@@ -14,6 +14,7 @@ float LaserCannon::getWidth() const
 void LaserCannon::setPosition(const sf::Vector2f &vector)
 {
   position_ = vector;
+  sprite_.setPosition(position_);
 }
 
 sf::Vector2f LaserCannon::getPosition() const
