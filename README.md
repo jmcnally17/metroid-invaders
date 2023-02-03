@@ -2,6 +2,25 @@
 
 This solo project is an imitation of the classic 1978 Taito game, Space Invaders. It has been written in [C++](https://en.wikipedia.org/wiki/C%2B%2B) using the [SFML](https://www.sfml-dev.org/) graphics library.
 
+## Features Pending
+
+- Classes for each type of Invader: Crab, Octopus, Squid, and UFO
+- Drawing the Invaders on the window
+- Collision detection between Invaders and Laser
+- Invader horizontal movement
+- Invader vertical movement when reaching the edges
+- Invade condition when the Invaders reach the bottom of the board
+- Random spawning of UFO Invader at the top of the window
+- Invaders randomly shooting lasers down
+- Collision detection between Invader lasers and Laser Cannon
+- Collisions between Invader lasers and Laser Cannon laser
+- Lives for the player
+- Player score information displayed
+- Bunkers protecting the Laser Cannon at the bottom
+- Title screen
+- Play again option after game over
+- (under consideration) Submit the player score into a database with their name at game over and display the leaderboard either at game over or on a live website
+
 ## How To Use
 
 Start by opening up a terminal and cloning this repository by entering
