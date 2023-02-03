@@ -10,7 +10,7 @@ public:
   LaserCannon(ISprite &sprite);
   float getWidth() const;
   void setPosition(const sf::Vector2f &vector);
-  sf::Vector2f getPosition() const override;
+  sf::Vector2f getPosition() const;
   void draw(IRenderWindow &window) const override;
   void move(float x) override;
 
