@@ -1,5 +1,6 @@
 #include "../include/wrappers/renderWindowWrapper.hpp"
 #include "../include/wrappers/spriteWrapper.hpp"
+#include "../include/models/laser.hpp"
 #include "../include/models/laserCannon.hpp"
 #include "../include/spaceInvaders.hpp"
 
@@ -11,7 +12,14 @@ int main()
   cannonTexture.loadFromFile("public/images/newSprites/laserCannon.png");
   sf::Sprite cannonSprite(cannonTexture);
   SpriteWrapper cannonSpriteWrapper(cannonSprite);
-  LaserCannon laserCannon(cannonSpriteWrapper);
+
+  sf::Texture laserTexture;
+  laserTexture.loadFromFile("public/images/newSprites/laser.png");
+  sf::Sprite laserSprite(laserTexture);
+  SpriteWrapper laserSpriteWrapper(laserSprite);
+  Laser laser(laserSpriteWrapper);
+
+  LaserCannon cannon(cannonSpriteWrapper, laser);
 
   while (window.isOpen())
   {
@@ -24,14 +32,19 @@ int main()
       }
     }
 
-    drawObjects(window, laserCannon);
+    drawObjects(window, cannon, laser);
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
     {
-      moveLaserCannon(laserCannon, 0.25);
+      moveLaserCannon(cannon, 0.25);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
     {
-      moveLaserCannon(laserCannon, -0.25);
+      moveLaserCannon(cannon, -0.25);
+    }
+    laser.move();
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+    {
+      fireLaser(cannon);
     }
   }
 
