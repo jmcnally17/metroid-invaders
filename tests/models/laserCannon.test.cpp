@@ -122,7 +122,7 @@ TEST(LaserCannon, fireSetsPositionDownOnLaserClassMemberWhenAboveBoard)
   MockLaser laser;
   LaserCannon laserCannon(sprite, laser);
   ON_CALL(laser, getPosition)
-      .WillByDefault(Return(sf::Vector2f(-26, 500)));
+      .WillByDefault(Return(sf::Vector2f(500, -26)));
   float laserXTarget = laserCannon.getPosition().x + (laserCannon.getWidth() - laser.getWidth()) / 2;
 
   InSequence s;
@@ -131,5 +131,23 @@ TEST(LaserCannon, fireSetsPositionDownOnLaserClassMemberWhenAboveBoard)
       .Times(1);
   EXPECT_CALL(laser, setPosition(sf::Vector2f(laserXTarget, 1224)))
       .Times(1);
+  laserCannon.fire();
+}
+
+TEST(LaserCannon, fireDoesNotSetPositionDownOnLaserClassMemberWhenOnBoard)
+{
+  NiceMock<MockSprite> sprite;
+  MockLaser laser;
+  LaserCannon laserCannon(sprite, laser);
+  ON_CALL(laser, getPosition)
+      .WillByDefault(Return(sf::Vector2f(500, 500)));
+  float laserXTarget = laserCannon.getPosition().x + (laserCannon.getWidth() - laser.getWidth()) / 2;
+
+  InSequence s;
+
+  EXPECT_CALL(laser, getPosition())
+      .Times(1);
+  EXPECT_CALL(laser, setPosition(sf::Vector2f(laserXTarget, 1224)))
+      .Times(0);
   laserCannon.fire();
 }
