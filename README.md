@@ -30,7 +30,7 @@ The player controls a Laser Cannon shooter at the bottom of the window which can
 - The player may only have 1 laser on the screen at any given time, meaning once the player fires the laser, they must wait for the laser to reach the top of the window for them to be able to fire again.
 
 <p align="center">
-  <img src="./public/images/gameplay.png" width="55%">
+  <img src="./public/images/gameplay.png" width="70%">
 </p>
 
 <p align="center">
