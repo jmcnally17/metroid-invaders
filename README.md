@@ -26,7 +26,7 @@ This solo project is an imitation of the classic 1978 Taito game, Space Invaders
 The player controls a Laser Cannon shooter at the bottom of the window which can be moved horizontally using the left and right arrow keys. Pressing the spacebar will fire the laser directly upwards from the Cannon's current position at the time the spacebar is pressed.
 
 <p align="center">
-  <img src="./public/images/gameplay.png">
+  <img src="./public/images/gameplay.png" width="55%">
 </p>
 
 <p align="center">
