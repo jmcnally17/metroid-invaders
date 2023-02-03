@@ -19,7 +19,11 @@ This solo project is an imitation of the classic 1978 Taito game, Space Invaders
 - Bunkers protecting the Laser Cannon at the bottom
 - Title screen
 - Play again option after game over
-- ***(Under consideration)*** Submit the player score into a database with their name at game over and display the leaderboard either at game over or on a live website
+- **_(Under consideration)_** Submit the player score into a database with their name at game over and display the leaderboard either at game over or on a live website
+
+## Gameplay
+
+The player controls a Laser Cannon shooter at the bottom of the window which can be moved horizontally using the left and right arrow keys. Pressing the spacebar will fire the laser directly upwards from the Cannon's current position at the time the spacebar is pressed.
 
 ## How To Use
 
