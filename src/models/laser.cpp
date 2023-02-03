@@ -24,7 +24,10 @@ void Laser::setPosition(const sf::Vector2f &vector)
 
 void Laser::draw(IRenderWindow &window) const
 {
-  window.draw(sprite_);
+  if (position_.y > 0 - height_)
+  {
+    window.draw(sprite_);
+  }
 }
 
 void Laser::move()

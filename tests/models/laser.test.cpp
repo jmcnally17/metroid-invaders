@@ -48,7 +48,20 @@ TEST(Laser, setPositionChangesSpritePosition)
   laser.setPosition(sf::Vector2f(530, 890));
 }
 
-TEST(Laser, drawCallsDrawOnWindowArgument)
+TEST(Laser, drawCallsDrawOnWindowArgumentWhenLaserIsOnBoard)
+{
+  NiceMock<MockSprite> sprite;
+  Laser laser(sprite);
+  MockRenderWindow window;
+  laser.setPosition(sf::Vector2f(600, 700));
+
+  EXPECT_CALL(window, draw(testing::Truly([](const sf::Drawable &drawable)
+                                          { return true; })))
+      .Times(1);
+  laser.draw(window);
+}
+
+TEST(Laser, drawDoesNotCallDrawOnWindowArgumentWhenLaserIsAboveBoard)
 {
   NiceMock<MockSprite> sprite;
   Laser laser(sprite);
@@ -56,7 +69,7 @@ TEST(Laser, drawCallsDrawOnWindowArgument)
 
   EXPECT_CALL(window, draw(testing::Truly([](const sf::Drawable &drawable)
                                           { return true; })))
-      .Times(1);
+      .Times(0);
   laser.draw(window);
 }
 
