@@ -21,6 +21,14 @@ TEST(LaserCannon, setsSpritePositionUponInstantiation)
   LaserCannon laserCannon(sprite);
 }
 
+TEST(LaserCannon, hasAWidthClassMemberOf78)
+{
+  NiceMock<MockSprite> sprite;
+  LaserCannon laserCannon(sprite);
+
+  EXPECT_EQ(laserCannon.getWidth(), 78);
+}
+
 TEST(LaserCannon, setPositionChangesPositionClassMember)
 {
   NiceMock<MockSprite> sprite;
@@ -38,14 +46,6 @@ TEST(LaserCannon, setPositionChangesSpritePosition)
   EXPECT_CALL(sprite, setPosition(sf::Vector2f(205, 920)))
       .Times(1);
   laserCannon.setPosition(sf::Vector2f(205, 920));
-}
-
-TEST(LaserCannon, hasAWidthClassMemberOf78)
-{
-  NiceMock<MockSprite> sprite;
-  LaserCannon laserCannon(sprite);
-
-  EXPECT_EQ(laserCannon.getWidth(), 78);
 }
 
 TEST(LaserCannon, drawCallsDrawOnTheWindowWithSpriteArgument)

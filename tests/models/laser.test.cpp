@@ -1,4 +1,3 @@
-#include <gtest/gtest.h>
 #include "../../include/models/laser.hpp"
 #include "../mockModels/mockSprite.hpp"
 #include "../mockModels/mockRenderWindow.hpp"
@@ -20,6 +19,14 @@ TEST(Laser, setsSpritePositionUponInstantiation)
   EXPECT_CALL(sprite, setPosition(sf::Vector2f(120, -24)))
       .Times(1);
   Laser laser(sprite);
+}
+
+TEST(Laser, hasAHeightClassMemberOf24)
+{
+  NiceMock<MockSprite> sprite;
+  Laser laser(sprite);
+
+  EXPECT_EQ(laser.getHeight(), 24);
 }
 
 TEST(Laser, setPositionChangesPositionClassMember)
