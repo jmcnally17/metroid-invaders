@@ -29,7 +29,7 @@ void Laser::draw(IRenderWindow &window) const
 
 void Laser::move()
 {
-  if (position_.y > 0 - 24)
+  if (position_.y > 0 - height_)
   {
     position_.y -= 0.5;
     sprite_.setPosition(position_);
