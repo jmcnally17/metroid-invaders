@@ -41,6 +41,11 @@ int main()
     {
       moveLaserCannon(laserCannon, -0.25);
     }
+    laser.move();
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+    {
+      fireLaser(laserCannon);
+    }
   }
 
   return 0;
