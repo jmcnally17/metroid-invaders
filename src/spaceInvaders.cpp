@@ -19,7 +19,7 @@ int main()
   SpriteWrapper laserSpriteWrapper(laserSprite);
   Laser laser(laserSpriteWrapper);
 
-  LaserCannon laserCannon(cannonSpriteWrapper, laser);
+  LaserCannon cannon(cannonSpriteWrapper, laser);
 
   while (window.isOpen())
   {
@@ -32,19 +32,19 @@ int main()
       }
     }
 
-    drawObjects(window, laserCannon, laser);
+    drawObjects(window, cannon, laser);
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
     {
-      moveLaserCannon(laserCannon, 0.25);
+      moveLaserCannon(cannon, 0.25);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
     {
-      moveLaserCannon(laserCannon, -0.25);
+      moveLaserCannon(cannon, -0.25);
     }
     laser.move();
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
     {
-      fireLaser(laserCannon);
+      fireLaser(cannon);
     }
   }
 

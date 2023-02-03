@@ -11,9 +11,9 @@ TEST(LaserCannon, setsOwnPositionMemberAndSpriteMemberPosition)
 {
   NiceMock<MockSprite> sprite;
   MockLaser laser;
-  LaserCannon laserCannon(sprite, laser);
+  LaserCannon cannon(sprite, laser);
 
-  EXPECT_EQ(laserCannon.getPosition(), sf::Vector2f(120, 1224));
+  EXPECT_EQ(cannon.getPosition(), sf::Vector2f(120, 1224));
 }
 
 TEST(LaserCannon, setsSpritePositionUponInstantiation)
@@ -23,107 +23,107 @@ TEST(LaserCannon, setsSpritePositionUponInstantiation)
 
   EXPECT_CALL(sprite, setPosition(sf::Vector2f(120, 1224)))
       .Times(1);
-  LaserCannon laserCannon(sprite, laser);
+  LaserCannon cannon(sprite, laser);
 }
 
 TEST(LaserCannon, hasAWidthClassMemberOf78)
 {
   NiceMock<MockSprite> sprite;
   MockLaser laser;
-  LaserCannon laserCannon(sprite, laser);
+  LaserCannon cannon(sprite, laser);
 
-  EXPECT_EQ(laserCannon.getWidth(), 78);
+  EXPECT_EQ(cannon.getWidth(), 78);
 }
 
 TEST(LaserCannon, setPositionChangesPositionClassMember)
 {
   NiceMock<MockSprite> sprite;
   MockLaser laser;
-  LaserCannon laserCannon(sprite, laser);
+  LaserCannon cannon(sprite, laser);
 
-  laserCannon.setPosition(sf::Vector2f(205, 920));
-  EXPECT_EQ(laserCannon.getPosition(), sf::Vector2f(205, 920));
+  cannon.setPosition(sf::Vector2f(205, 920));
+  EXPECT_EQ(cannon.getPosition(), sf::Vector2f(205, 920));
 }
 
 TEST(LaserCannon, setPositionChangesSpritePosition)
 {
   NiceMock<MockSprite> sprite;
   MockLaser laser;
-  LaserCannon laserCannon(sprite, laser);
+  LaserCannon cannon(sprite, laser);
 
   EXPECT_CALL(sprite, setPosition(sf::Vector2f(205, 920)))
       .Times(1);
-  laserCannon.setPosition(sf::Vector2f(205, 920));
+  cannon.setPosition(sf::Vector2f(205, 920));
 }
 
 TEST(LaserCannon, drawCallsDrawOnTheWindowWithSpriteArgument)
 {
   NiceMock<MockSprite> sprite;
   MockLaser laser;
-  LaserCannon laserCannon(sprite, laser);
+  LaserCannon cannon(sprite, laser);
   MockRenderWindow window;
 
   EXPECT_CALL(window, draw(testing::Truly([](const sf::Drawable &drawable)
                                           { return true; })))
       .Times(1);
-  laserCannon.draw(window);
+  cannon.draw(window);
 }
 
 TEST(LaserCannon, moveChangesXOfPositionClassMember)
 {
   NiceMock<MockSprite> sprite;
   MockLaser laser;
-  LaserCannon laserCannon(sprite, laser);
+  LaserCannon cannon(sprite, laser);
 
-  laserCannon.move(75);
-  EXPECT_EQ(laserCannon.getPosition(), sf::Vector2f(195, 1224));
+  cannon.move(75);
+  EXPECT_EQ(cannon.getPosition(), sf::Vector2f(195, 1224));
 }
 
 TEST(LaserCannon, moveUpdatesXPositionOfSpriteClassMember)
 {
   NiceMock<MockSprite> sprite;
   MockLaser laser;
-  LaserCannon laserCannon(sprite, laser);
+  LaserCannon cannon(sprite, laser);
 
   EXPECT_CALL(sprite, setPosition(sf::Vector2f(195, 1224)))
       .Times(1);
-  laserCannon.move(75);
+  cannon.move(75);
 }
 
 TEST(laserCannon, moveDoesNotMovePositionLeftIfPositionIsOffScreenLeft)
 {
   NiceMock<MockSprite> sprite;
   MockLaser laser;
-  LaserCannon laserCannon(sprite, laser);
-  laserCannon.setPosition(sf::Vector2f(-10, 1224));
+  LaserCannon cannon(sprite, laser);
+  cannon.setPosition(sf::Vector2f(-10, 1224));
 
   EXPECT_CALL(sprite, setPosition)
       .Times(0);
-  laserCannon.move(-50);
-  EXPECT_EQ(laserCannon.getPosition(), sf::Vector2f(-10, 1224));
+  cannon.move(-50);
+  EXPECT_EQ(cannon.getPosition(), sf::Vector2f(-10, 1224));
 }
 
 TEST(laserCannon, moveDoesNotMovePositionRightIfPositionIsOffScreenRight)
 {
   NiceMock<MockSprite> sprite;
   MockLaser laser;
-  LaserCannon laserCannon(sprite, laser);
-  laserCannon.setPosition(sf::Vector2f(1550, 1224));
+  LaserCannon cannon(sprite, laser);
+  cannon.setPosition(sf::Vector2f(1550, 1224));
 
   EXPECT_CALL(sprite, setPosition)
       .Times(0);
-  laserCannon.move(50);
-  EXPECT_EQ(laserCannon.getPosition(), sf::Vector2f(1550, 1224));
+  cannon.move(50);
+  EXPECT_EQ(cannon.getPosition(), sf::Vector2f(1550, 1224));
 }
 
 TEST(LaserCannon, fireSetsPositionDownOnLaserClassMemberWhenAboveBoard)
 {
   NiceMock<MockSprite> sprite;
   NiceMock<MockLaser> laser;
-  LaserCannon laserCannon(sprite, laser);
+  LaserCannon cannon(sprite, laser);
   ON_CALL(laser, getPosition)
       .WillByDefault(Return(sf::Vector2f(500, -26)));
-  float laserXTarget = laserCannon.getPosition().x + (laserCannon.getWidth() - laser.getWidth()) / 2;
+  float laserXTarget = cannon.getPosition().x + (cannon.getWidth() - laser.getWidth()) / 2;
 
   InSequence s;
 
@@ -131,19 +131,19 @@ TEST(LaserCannon, fireSetsPositionDownOnLaserClassMemberWhenAboveBoard)
       .Times(1);
   EXPECT_CALL(laser, setPosition(sf::Vector2f(laserXTarget, 1224)))
       .Times(1);
-  laserCannon.fire();
+  cannon.fire();
 }
 
 TEST(LaserCannon, fireDoesNotSetPositionDownOnLaserClassMemberWhenOnBoard)
 {
   NiceMock<MockSprite> sprite;
   NiceMock<MockLaser> laser;
-  LaserCannon laserCannon(sprite, laser);
+  LaserCannon cannon(sprite, laser);
   ON_CALL(laser, getPosition)
       .WillByDefault(Return(sf::Vector2f(500, 500)));
   ON_CALL(laser, getHeight)
       .WillByDefault(Return(24));
-  float laserXTarget = laserCannon.getPosition().x + (laserCannon.getWidth() - laser.getWidth()) / 2;
+  float laserXTarget = cannon.getPosition().x + (cannon.getWidth() - laser.getWidth()) / 2;
 
   InSequence s;
 
@@ -151,5 +151,5 @@ TEST(LaserCannon, fireDoesNotSetPositionDownOnLaserClassMemberWhenOnBoard)
       .Times(1);
   EXPECT_CALL(laser, setPosition(sf::Vector2f(laserXTarget, 1224)))
       .Times(0);
-  laserCannon.fire();
+  cannon.fire();
 }
