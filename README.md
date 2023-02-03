@@ -25,17 +25,17 @@ This solo project is an imitation of the classic 1978 Taito game, Space Invaders
 
 The player controls a Laser Cannon shooter at the bottom of the window which can be moved horizontally using the left and right arrow keys. Pressing the spacebar will fire the laser directly upwards from the Cannon's current position at the time the spacebar is pressed.
 
+### Rules
+
+- The player may only have 1 laser on the screen at any given time, meaning once the player fires the laser, they must wait for the laser to reach the top of the window for them to be able to fire again.
+
 <p align="center">
   <img src="./public/images/gameplay.png" width="55%">
 </p>
 
 <p align="center">
-  <b>Fig.1 -</b> A screenshot of the game window with the Laser Cannon at the bottom of the board just after firing the Laser upwards
+  <b>Fig.1 -</b> A screenshot of the game window with the Laser Cannon at the bottom of the board just after firing the Laser
 </p>
-
-### Rules
-
-- The player may only have 1 laser on the screen at any given time, meaning once the player fires the laser, they must wait for the laser to reach the top of the window for them to be able to fire again.
 
 ## How To Use
 
