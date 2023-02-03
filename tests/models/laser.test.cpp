@@ -60,3 +60,13 @@ TEST(Laser, moveDecreasesYPositionWhenLaserIsOnTheBoard)
   laser.move();
   EXPECT_EQ(laser.getPosition(), sf::Vector2f(500, 999.5));
 }
+
+TEST(Laser, moveUpdatesSpritePositionWhenLaserIsOnTheBoard)
+{
+  NiceMock<MockSprite> sprite;
+  Laser laser(sprite);
+  laser.setPosition(sf::Vector2f(500, 1000));
+
+  EXPECT_CALL(sprite, setPosition(sf::Vector2f(500, 999.5)));
+  laser.move();
+}
