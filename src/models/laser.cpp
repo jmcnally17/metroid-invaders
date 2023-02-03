@@ -20,3 +20,8 @@ void Laser::draw(IRenderWindow &window) const
 {
   window.draw(sprite_);
 }
+
+void Laser::move()
+{
+  position_.y -= 0.5;
+}

@@ -12,6 +12,7 @@ public:
   sf::Vector2f getPosition() const;
   void setPosition(const sf::Vector2f &vector);
   void draw(IRenderWindow &window) const;
+  void move();
 
 private:
   sf::Vector2f position_;

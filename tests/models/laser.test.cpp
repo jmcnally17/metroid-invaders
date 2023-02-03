@@ -50,3 +50,13 @@ TEST(Laser, drawCallsDrawOnWindowArgument)
       .Times(1);
   laser.draw(window);
 }
+
+TEST(Laser, moveDecreasesYPositionWhenLaserIsOnTheBoard)
+{
+  NiceMock<MockSprite> sprite;
+  Laser laser(sprite);
+  laser.setPosition(sf::Vector2f(500, 1000));
+
+  laser.move();
+  EXPECT_EQ(laser.getPosition(), sf::Vector2f(500, 999.5));
+}
