@@ -1,8 +1,8 @@
 #include "../../include/models/laser.hpp"
 
-Laser::Laser()
+Laser::Laser(ISprite &sprite) : position_(sf::Vector2f(120, -24)), sprite_(sprite)
 {
-  position_ = sf::Vector2f(120, -24);
+  sprite_.setPosition(position_);
 }
 
 sf::Vector2f Laser::getPosition() const
