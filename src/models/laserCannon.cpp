@@ -1,8 +1,7 @@
 #include "../../include/models/laserCannon.hpp"
 
-LaserCannon::LaserCannon(ISprite &sprite, ILaser &laser) : position_(sf::Vector2f(120, 1224)), sprite_(sprite), laser_(laser)
+LaserCannon::LaserCannon(ISprite &sprite, ILaser &laser) : width_(78), position_(sf::Vector2f(120, 1224)), sprite_(sprite), laser_(laser)
 {
-  width_ = 78;
   sprite_.setPosition(position_);
 }
 

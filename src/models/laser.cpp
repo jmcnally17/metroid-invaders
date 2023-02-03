@@ -1,9 +1,7 @@
 #include "../../include/models/laser.hpp"
 
-Laser::Laser(ISprite &sprite) : position_(sf::Vector2f(120, -24)), sprite_(sprite)
+Laser::Laser(ISprite &sprite) : width_(6), height_(24), position_(sf::Vector2f(120, -24)), sprite_(sprite)
 {
-  width_ = 6;
-  height_ = 24;
   sprite_.setPosition(position_);
 }
 
