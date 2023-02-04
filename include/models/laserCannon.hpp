@@ -4,11 +4,12 @@
 #include "./iLaserCannon.hpp"
 #include "../wrappers/iSprite.hpp"
 #include "./iLaser.hpp"
+#include "../wrappers/iSound.hpp"
 
 class LaserCannon : public ILaserCannon
 {
 public:
-  LaserCannon(ISprite &sprite, ILaser &laser);
+  LaserCannon(ISprite &sprite, ILaser &laser, ISound &sound);
   float getWidth() const;
   float getHeight() const;
   void setPosition(const sf::Vector2f &vector);
@@ -23,6 +24,7 @@ private:
   sf::Vector2f position_;
   ISprite &sprite_;
   ILaser &laser_;
+  ISound &sound_;
 };
 
 #endif
