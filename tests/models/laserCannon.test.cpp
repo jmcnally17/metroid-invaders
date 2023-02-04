@@ -145,6 +145,8 @@ TEST(LaserCannon, fireChecksPositionOfLaserClassMember)
 
   EXPECT_CALL(laser, getPosition())
       .Times(1);
+  EXPECT_CALL(laser, getHeight())
+      .Times(1);
   cannon.fire();
 }
 
@@ -156,9 +158,27 @@ TEST(LaserCannon, fireSetsPositionDownOnLaserClassMemberWhenAboveBoard)
   LaserCannon cannon(sprite, laser, sound);
   ON_CALL(laser, getPosition)
       .WillByDefault(Return(sf::Vector2f(500, -26)));
+  ON_CALL(laser, getHeight)
+      .WillByDefault(Return(24));
   float laserXTarget = cannon.getPosition().x + (cannon.getWidth() - laser.getWidth()) / 2;
 
   EXPECT_CALL(laser, setPosition(sf::Vector2f(laserXTarget, 1224)))
+      .Times(1);
+  cannon.fire();
+}
+
+TEST(LaserCannon, fireCallsPlayOnSoundClassMemberWhenAboveBoard)
+{
+  NiceMock<MockSprite> sprite;
+  NiceMock<MockLaser> laser;
+  MockSound sound;
+  LaserCannon cannon(sprite, laser, sound);
+  ON_CALL(laser, getPosition)
+      .WillByDefault(Return(sf::Vector2f(500, -26)));
+  ON_CALL(laser, getHeight)
+      .WillByDefault(Return(24));
+
+  EXPECT_CALL(sound, play())
       .Times(1);
   cannon.fire();
 }
@@ -167,15 +187,28 @@ TEST(LaserCannon, fireDoesNotSetPositionDownOnLaserClassMemberWhenOnBoard)
 {
   NiceMock<MockSprite> sprite;
   NiceMock<MockLaser> laser;
-  NiceMock<MockSound> sound;
+  MockSound sound;
   LaserCannon cannon(sprite, laser, sound);
   ON_CALL(laser, getPosition)
       .WillByDefault(Return(sf::Vector2f(500, 500)));
   ON_CALL(laser, getHeight)
       .WillByDefault(Return(24));
-  float laserXTarget = cannon.getPosition().x + (cannon.getWidth() - laser.getWidth()) / 2;
 
-  EXPECT_CALL(laser, setPosition(sf::Vector2f(laserXTarget, 1224)))
+  EXPECT_CALL(laser, setPosition)
+      .Times(0);
+  cannon.fire();
+}
+
+TEST(LaserCannon, fireDoesNotCallPlayOnSoundClassMemberWhenOnBoard)
+{
+  NiceMock<MockSprite> sprite;
+  NiceMock<MockLaser> laser;
+  MockSound sound;
+  LaserCannon cannon(sprite, laser, sound);
+  ON_CALL(laser, getPosition)
+      .WillByDefault(Return(sf::Vector2f(500, 500)));
+
+  EXPECT_CALL(sound, play)
       .Times(0);
   cannon.fire();
 }

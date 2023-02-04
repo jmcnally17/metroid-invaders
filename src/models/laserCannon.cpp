@@ -47,8 +47,10 @@ void LaserCannon::move(float x)
 
 void LaserCannon::fire()
 {
-  if (laser_.getPosition().y <= 0 - laser_.getHeight())
+  if (laser_.getPosition().y <= -laser_.getHeight())
   {
-    laser_.setPosition(sf::Vector2f(position_.x + (width_ - laser_.getWidth()) / 2, position_.y));
+    float startingXPosition = position_.x + (width_ - laser_.getWidth()) / 2;
+    laser_.setPosition(sf::Vector2f(startingXPosition, position_.y));
+    sound_.play();
   }
 }
