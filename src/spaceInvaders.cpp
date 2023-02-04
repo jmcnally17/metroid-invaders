@@ -1,6 +1,7 @@
 #include "../include/wrappers/renderWindowWrapper.hpp"
 #include "../include/wrappers/spriteWrapper.hpp"
 #include "../include/models/laser.hpp"
+#include "../include/wrappers/soundWrapper.hpp"
 #include "../include/models/laserCannon.hpp"
 #include "../include/spaceInvaders.hpp"
 
@@ -19,7 +20,11 @@ int main()
   SpriteWrapper laserSpriteWrapper(laserSprite);
   Laser laser(laserSpriteWrapper);
 
-  LaserCannon cannon(cannonSpriteWrapper, laser);
+  sf::SoundBuffer fireSoundBuffer;
+  fireSoundBuffer.loadFromFile("public/audio/shoot.wav");
+  SoundWrapper fireSoundWrapper(fireSoundBuffer);
+
+  LaserCannon cannon(cannonSpriteWrapper, laser, fireSoundWrapper);
 
   while (window.isOpen())
   {
