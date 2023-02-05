@@ -13,4 +13,8 @@ void moveLaser(ILaser &laser);
 
 void fireLaser(ILaserCannon &cannon);
 
+Laser makeLaser();
+
+LaserCannon makeCannon(Laser &laser);
+
 #endif
