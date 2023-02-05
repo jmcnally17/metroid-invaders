@@ -6,3 +6,8 @@ sf::Vector2f Invader::getPosition() const
 {
   return position_;
 }
+
+void Invader::setPosition(const sf::Vector2f &position)
+{
+  position_ = position;
+}

@@ -28,3 +28,11 @@ TEST(Squid, setsOwnPositionMember)
 
   EXPECT_EQ(squid.getPosition(), sf::Vector2f(200, 320));
 }
+
+TEST(Squid, setPositionChangesPosition)
+{
+  Squid squid(200, 320);
+
+  squid.setPosition(sf::Vector2f(500, 920));
+  EXPECT_EQ(squid.getPosition(), sf::Vector2f(500, 920));
+}
