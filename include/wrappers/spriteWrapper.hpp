@@ -6,11 +6,12 @@
 class SpriteWrapper : public ISprite, virtual public sf::Drawable
 {
 public:
-  SpriteWrapper(sf::Sprite &sprite);
+  SpriteWrapper(sf::Texture &texture);
   void setPosition(const sf::Vector2f &position) override;
   void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
 private:
+  sf::Texture texture_;
   sf::Sprite sprite_;
 };
 
