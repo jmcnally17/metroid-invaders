@@ -6,7 +6,7 @@
 class Squid : public Invader
 {
 public:
-  Squid(float x, float y);
+  Squid(float x, float y, ISprite &sprite);
   float getWidth() const;
   float getHeight() const;
   int getPoints() const;
