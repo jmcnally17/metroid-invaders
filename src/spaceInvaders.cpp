@@ -9,16 +9,14 @@ int main()
 {
   RenderWindowWrapper window(sf::VideoMode(1536, 1344), "Space Invaders");
 
-  sf::Texture cannonTexture;
-  cannonTexture.loadFromFile("public/images/newSprites/laserCannon.png");
-  sf::Sprite cannonSprite(cannonTexture);
-  SpriteWrapper cannonSpriteWrapper(cannonSprite);
-
   sf::Texture laserTexture;
   laserTexture.loadFromFile("public/images/newSprites/laser.png");
-  sf::Sprite laserSprite(laserTexture);
-  SpriteWrapper laserSpriteWrapper(laserSprite);
+  SpriteWrapper laserSpriteWrapper(laserTexture);
   Laser laser(laserSpriteWrapper);
+
+  sf::Texture cannonTexture;
+  cannonTexture.loadFromFile("public/images/newSprites/laserCannon.png");
+  SpriteWrapper cannonSpriteWrapper(cannonTexture);
 
   sf::SoundBuffer fireSoundBuffer;
   fireSoundBuffer.loadFromFile("public/audio/shoot.wav");

@@ -1,6 +1,9 @@
 #include "../../include/wrappers/spriteWrapper.hpp"
 
-SpriteWrapper::SpriteWrapper(sf::Sprite &sprite) : sprite_(sprite) {}
+SpriteWrapper::SpriteWrapper(sf::Texture &texture) : texture_(texture)
+{
+  sprite_.setTexture(texture_);
+}
 
 void SpriteWrapper::setPosition(const sf::Vector2f &position)
 {
