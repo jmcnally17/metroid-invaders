@@ -7,7 +7,7 @@
 using ::testing::NiceMock;
 using ::testing::Return;
 
-TEST(LaserCannon, setsOwnPositionMemberAndSpriteMemberPosition)
+TEST(LaserCannon, setsOwnPositionMember)
 {
   NiceMock<MockSprite> sprite;
   MockLaser laser;
