@@ -4,7 +4,6 @@ This solo project is an imitation of the classic 1978 Taito game, Space Invaders
 
 ## Features Pending
 
-- Classes for each type of Invader: Crab, Octopus, Squid, and UFO
 - Drawing the Invaders on the window
 - Collision detection between Invaders and Laser
 - Invader horizontal movement
