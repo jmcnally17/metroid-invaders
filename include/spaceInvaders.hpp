@@ -2,8 +2,8 @@
 #define SPACE_INVADERS_HPP
 
 #include "./wrappers/iRenderWindow.hpp"
-#include "./models/iLaserCannon.hpp"
-#include "./models/iLaser.hpp"
+#include "./models/laserCannon.hpp"
+#include "./models/laser.hpp"
 
 void drawObjects(IRenderWindow &window, const ILaserCannon &cannon, const ILaser &laser);
 
