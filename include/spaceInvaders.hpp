@@ -4,8 +4,9 @@
 #include "./wrappers/iRenderWindow.hpp"
 #include "./models/laserCannon.hpp"
 #include "./models/laser.hpp"
+#include "./models/iInvader.hpp"
 
-void drawObjects(IRenderWindow &window, const ILaserCannon &cannon, const ILaser &laser);
+void drawObjects(IRenderWindow &window, const ILaserCannon &cannon, const ILaser &laser, const IInvader &invader);
 
 void moveLaserCannon(ILaserCannon &cannon, float x);
 
