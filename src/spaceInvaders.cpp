@@ -1,7 +1,5 @@
 #include "../include/wrappers/renderWindowWrapper.hpp"
-#include "../include/wrappers/spriteWrapper.hpp"
 #include "../include/models/laser.hpp"
-#include "../include/wrappers/soundWrapper.hpp"
 #include "../include/models/laserCannon.hpp"
 #include "../include/spaceInvaders.hpp"
 
@@ -9,20 +7,8 @@ int main()
 {
   RenderWindowWrapper window(sf::VideoMode(1536, 1344), "Space Invaders");
 
-  sf::Texture laserTexture;
-  laserTexture.loadFromFile("public/images/newSprites/laser.png");
-  SpriteWrapper laserSpriteWrapper(laserTexture);
-  Laser laser(laserSpriteWrapper);
-
-  sf::Texture cannonTexture;
-  cannonTexture.loadFromFile("public/images/newSprites/laserCannon.png");
-  SpriteWrapper cannonSpriteWrapper(cannonTexture);
-
-  sf::SoundBuffer fireSoundBuffer;
-  fireSoundBuffer.loadFromFile("public/audio/shoot.wav");
-  SoundWrapper fireSoundWrapper(fireSoundBuffer);
-
-  LaserCannon cannon(cannonSpriteWrapper, laser, fireSoundWrapper);
+  Laser laser = makeLaser();
+  LaserCannon cannon = makeCannon(laser);
 
   while (window.isOpen())
   {
@@ -52,4 +38,16 @@ int main()
   }
 
   return 0;
+}
+
+Laser makeLaser()
+{
+  Laser laser;
+  return laser;
+}
+
+LaserCannon makeCannon(Laser &laser)
+{
+  LaserCannon cannon(laser);
+  return cannon;
 }

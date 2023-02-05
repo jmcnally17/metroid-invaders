@@ -1,13 +1,12 @@
 #include "../../include/models/laserCannon.hpp"
 
-LaserCannon::LaserCannon(ISprite &sprite, ILaser &laser, ISound &sound) : width_(78),
-                                                                          height_(48),
-                                                                          position_(sf::Vector2f(120, 1224)),
-                                                                          sprite_(sprite),
-                                                                          laser_(laser),
-                                                                          sound_(sound)
+LaserCannon::LaserCannon(ILaser &laser) : width_(78), height_(48), position_(sf::Vector2f(120, 1224)), laser_(laser)
 {
+  texture_.loadFromFile("public/images/newSprites/laserCannon.png");
+  sprite_.setTexture(texture_);
   sprite_.setPosition(position_);
+  buffer_.loadFromFile("public/audio/shoot.wav");
+  sound_.setBuffer(buffer_);
 }
 
 float LaserCannon::getWidth() const

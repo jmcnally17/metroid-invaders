@@ -1,7 +1,9 @@
 #include "../../include/models/laser.hpp"
 
-Laser::Laser(ISprite &sprite) : width_(6), height_(24), position_(sf::Vector2f(120, -24)), sprite_(sprite)
+Laser::Laser() : width_(6), height_(24), position_(sf::Vector2f(120, -24))
 {
+  texture_.loadFromFile("public/images/newSprites/laser.png");
+  sprite_.setTexture(texture_);
   sprite_.setPosition(position_);
 }
 
