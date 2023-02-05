@@ -1,10 +1,12 @@
 #ifndef SQUID_HPP
 #define SQUID_HPP
 
-class Squid
+#include "./invader.hpp"
+
+class Squid : public Invader
 {
 public:
-  Squid();
+  Squid(float x, float y);
   float getWidth() const;
   float getHeight() const;
   int getPoints() const;
