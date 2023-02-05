@@ -14,3 +14,8 @@ void Invader::setPosition(const sf::Vector2f &position)
 {
   position_ = position;
 }
+
+void Invader::draw(IRenderWindow &window) const
+{
+  window.draw(sprite_);
+}

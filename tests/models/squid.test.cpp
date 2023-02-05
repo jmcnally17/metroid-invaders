@@ -1,5 +1,6 @@
 #include "../../include/models/squid.hpp"
 #include "../mockModels/mockSprite.hpp"
+#include "../mockModels/mockRenderWindow.hpp"
 
 using ::testing::NiceMock;
 
@@ -51,4 +52,16 @@ TEST(Squid, setPositionChangesPosition)
 
   squid.setPosition(sf::Vector2f(500, 920));
   EXPECT_EQ(squid.getPosition(), sf::Vector2f(500, 920));
+}
+
+TEST(Squid, drawCallsDrawOnTheSpriteClassMember)
+{
+  NiceMock<MockSprite> sprite;
+  Squid squid(200, 320, sprite);
+  MockRenderWindow window;
+
+  EXPECT_CALL(window, draw(testing::Truly([](const sf::Drawable &drawable)
+                                          { return true; })))
+      .Times(1);
+  squid.draw(window);
 }
