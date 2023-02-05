@@ -1,6 +1,11 @@
 #include "../../include/models/laserCannon.hpp"
 
-LaserCannon::LaserCannon(ISprite &sprite, ILaser &laser) : width_(78), height_(48), position_(sf::Vector2f(120, 1224)), sprite_(sprite), laser_(laser)
+LaserCannon::LaserCannon(ISprite &sprite, ILaser &laser, ISound &sound) : width_(78),
+                                                                          height_(48),
+                                                                          position_(sf::Vector2f(120, 1224)),
+                                                                          sprite_(sprite),
+                                                                          laser_(laser),
+                                                                          sound_(sound)
 {
   sprite_.setPosition(position_);
 }
@@ -42,8 +47,10 @@ void LaserCannon::move(float x)
 
 void LaserCannon::fire()
 {
-  if (laser_.getPosition().y <= 0 - laser_.getHeight())
+  if (laser_.getPosition().y <= -laser_.getHeight())
   {
-    laser_.setPosition(sf::Vector2f(position_.x + (width_ - laser_.getWidth()) / 2, position_.y));
+    float startingXPosition = position_.x + (width_ - laser_.getWidth()) / 2;
+    laser_.setPosition(sf::Vector2f(startingXPosition, position_.y));
+    sound_.play();
   }
 }
