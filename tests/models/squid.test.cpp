@@ -7,3 +7,10 @@ TEST(Squid, hasAWidthClassMemberOf48)
 
   EXPECT_EQ(squid.getWidth(), 48);
 }
+
+TEST(Squid, hasAHeightClassMemberOf48)
+{
+  Squid squid;
+
+  EXPECT_EQ(squid.getHeight(), 48);
+}
