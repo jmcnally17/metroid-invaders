@@ -4,7 +4,7 @@
 #include "./wrappers/iRenderWindow.hpp"
 #include "./models/laserCannon.hpp"
 #include "./models/laser.hpp"
-#include "./models/iInvader.hpp"
+#include "./models/invader.hpp"
 
 void drawObjects(IRenderWindow &window, const ILaserCannon &cannon, const ILaser &laser, const IInvader &invader);
 
@@ -17,5 +17,7 @@ void fireLaser(ILaserCannon &cannon);
 Laser makeLaser();
 
 LaserCannon makeCannon(Laser &laser);
+
+Invader makeInvader(float x, float y);
 
 #endif
