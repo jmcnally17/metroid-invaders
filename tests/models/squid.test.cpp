@@ -14,3 +14,10 @@ TEST(Squid, hasAHeightClassMemberOf48)
 
   EXPECT_EQ(squid.getHeight(), 48);
 }
+
+TEST(Squid, hasAPointsClassMemberOf30)
+{
+  Squid squid;
+
+  EXPECT_EQ(squid.getPoints(), 30);
+}
