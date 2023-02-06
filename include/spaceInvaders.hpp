@@ -5,8 +5,9 @@
 #include "./models/laserCannon.hpp"
 #include "./models/laser.hpp"
 #include "./models/invader.hpp"
+#include <vector>
 
-void drawObjects(IRenderWindow &window, const ILaserCannon &cannon, const ILaser &laser, const IInvader &invader);
+void drawObjects(IRenderWindow &window, const ILaserCannon &cannon, const ILaser &laser, std::vector<std::vector<Invader *>> &invaders);
 
 void moveLaserCannon(ILaserCannon &cannon, float x);
 
@@ -18,6 +19,6 @@ Laser makeLaser();
 
 LaserCannon makeCannon(Laser &laser);
 
-Invader makeInvader(float x, float y);
+std::vector<std::vector<Invader *>> makeInvaders();
 
 #endif

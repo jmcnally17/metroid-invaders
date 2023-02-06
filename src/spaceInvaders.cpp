@@ -4,6 +4,8 @@
 #include "../include/wrappers/soundWrapper.hpp"
 #include "../include/models/laserCannon.hpp"
 #include "../include/models/squid.hpp"
+#include "../include/models/crab.hpp"
+#include "../include/models/octopus.hpp"
 #include "../include/spaceInvaders.hpp"
 
 int main()
@@ -12,7 +14,7 @@ int main()
 
   Laser laser = makeLaser();
   LaserCannon cannon = makeCannon(laser);
-  Invader squid = makeInvader(400, 500);
+  std::vector<std::vector<Invader *>> invaders = makeInvaders();
 
   while (window.isOpen())
   {
@@ -25,7 +27,7 @@ int main()
       }
     }
 
-    drawObjects(window, cannon, laser, squid);
+    drawObjects(window, cannon, laser, invaders);
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
     {
       moveLaserCannon(cannon, 0.25);
@@ -71,13 +73,48 @@ LaserCannon makeCannon(Laser &laser)
   return cannon;
 }
 
-Invader makeInvader(float x, float y)
+std::vector<std::vector<Invader *>> makeInvaders()
 {
   sf::Texture squidTexture;
   squidTexture.loadFromFile("public/images/newSprites/squid.png");
-  SpriteWrapper *squidSpriteWrapper = new SpriteWrapper(squidTexture);
-  SpriteWrapper &rSpriteWrapper = *squidSpriteWrapper;
+  sf::Texture crabTexture;
+  crabTexture.loadFromFile("public/images/newSprites/crab.png");
+  sf::Texture octopusTexture;
+  octopusTexture.loadFromFile("public/images/newSprites/octopus.png");
+  std::vector<std::vector<Invader *>> invaders(5);
 
-  Squid squid(x, y, rSpriteWrapper);
-  return squid;
+  float xOffset = 200;
+  float yOffset = 400;
+
+  for (int i = 0; i < 5; i++)
+  {
+    std::vector<Invader *> invaderRow(11);
+    for (int j = 0; j < 11; j++)
+    {
+      if (i == 0)
+      {
+        SpriteWrapper *squidSpriteWrapper = new SpriteWrapper(squidTexture);
+        SpriteWrapper &rSpriteWrapper = *squidSpriteWrapper;
+        Squid *squid = new Squid(j * 90 + xOffset, i * 90 + yOffset, rSpriteWrapper);
+        invaderRow[j] = squid;
+      }
+      else if (i < 3)
+      {
+        SpriteWrapper *crabSpriteWrapper = new SpriteWrapper(crabTexture);
+        SpriteWrapper &rSpriteWrapper = *crabSpriteWrapper;
+        Crab *crab = new Crab(j * 90 + xOffset, i * 90 + yOffset, rSpriteWrapper);
+        invaderRow[j] = crab;
+      }
+      else
+      {
+        SpriteWrapper *octopusSpriteWrapper = new SpriteWrapper(octopusTexture);
+        SpriteWrapper &rSpriteWrapper = *octopusSpriteWrapper;
+        Octopus *octopus = new Octopus(j * 90 + xOffset, i * 90 + yOffset, rSpriteWrapper);
+        invaderRow[j] = octopus;
+      }
+    }
+    invaders[i] = invaderRow;
+  }
+
+  return invaders;
 }
