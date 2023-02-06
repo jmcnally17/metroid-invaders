@@ -11,10 +11,12 @@ public:
   sf::Vector2f getPosition() const;
   void setPosition(const sf::Vector2f &position);
   void draw(IRenderWindow &window) const override;
+  bool isAlive() const;
 
 private:
   sf::Vector2f position_;
   ISprite &sprite_;
+  bool alive_;
 };
 
 #endif

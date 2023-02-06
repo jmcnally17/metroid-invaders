@@ -36,6 +36,14 @@ TEST(Octopus, setsOwnPositionMember)
   EXPECT_EQ(octopus.getPosition(), sf::Vector2f(200, 320));
 }
 
+TEST(Octopus, hasABoolClassMemberCalledAliveSetToTrue)
+{
+  NiceMock<MockSprite> sprite;
+  Octopus octopus(200, 320, sprite);
+
+  EXPECT_EQ(octopus.isAlive(), true);
+}
+
 TEST(Octopus, setsPositionOnSpriteClassMember)
 {
   MockSprite sprite;
