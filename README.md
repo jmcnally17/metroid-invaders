@@ -4,7 +4,6 @@ This solo project is an imitation of the classic 1978 Taito game, Space Invaders
 
 ## Features Pending
 
-- Drawing the Invaders on the window
 - Collision detection between Invaders and Laser
 - Invader horizontal movement
 - Invader vertical movement when reaching the edges
@@ -33,7 +32,7 @@ The player controls a Laser Cannon shooter at the bottom of the window which can
 </p>
 
 <p align="center">
-  <b>Fig.1 -</b> A screenshot of the game window with the Laser Cannon at the bottom of the board just after firing the Laser
+  <b>Fig.1 -</b> A screenshot of the game window with the Laser Cannon at the bottom of the board just after firing the Laser with the grid of Invaders in their starting positions above
 </p>
 
 ## How To Use

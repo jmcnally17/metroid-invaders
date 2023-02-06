@@ -1,19 +1,19 @@
 #include "../include/wrappers/iRenderWindow.hpp"
 #include "../include/models/iLaserCannon.hpp"
 #include "../include/models/iLaser.hpp"
-#include "../include/models/invader.hpp"
+#include "../include/models/iInvader.hpp"
 #include <vector>
 
-void drawObjects(IRenderWindow &window, const ILaserCannon &cannon, const ILaser &laser, std::vector<std::vector<Invader *>> &invaders)
+void drawObjects(IRenderWindow &window, const ILaserCannon &cannon, const ILaser &laser, const std::vector<std::vector<IInvader *>> &invaders)
 {
   window.clear();
   cannon.draw(window);
   laser.draw(window);
-  for (int i = 0; i < 5; i++)
+  for (auto vec : invaders)
   {
-    for (int j = 0; j < 11; j++)
+    for (auto IInvader : vec)
     {
-      invaders[i][j]->draw(window);
+      IInvader->draw(window);
     }
   }
   window.display();
