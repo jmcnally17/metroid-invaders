@@ -27,7 +27,7 @@ int main()
       }
     }
 
-    drawObjects(window, cannon, laser);
+    drawObjects(window, cannon, laser, invaders);
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
     {
       moveLaserCannon(cannon, 0.25);
@@ -83,6 +83,9 @@ std::vector<std::vector<Invader *>> makeInvaders()
   octopusTexture.loadFromFile("public/images/newSprites/octopus.png");
   std::vector<std::vector<Invader *>> invaders(5);
 
+  float xOffset = 200;
+  float yOffset = 400;
+
   for (int i = 0; i < 5; i++)
   {
     std::vector<Invader *> invaderRow(11);
@@ -90,24 +93,27 @@ std::vector<std::vector<Invader *>> makeInvaders()
     {
       if (i == 0)
       {
-        SpriteWrapper squidSpriteWrapper(squidTexture);
-        Squid *squid = new Squid(i * 15, j * 15, squidSpriteWrapper);
-        invaderRow.push_back(squid);
+        SpriteWrapper *squidSpriteWrapper = new SpriteWrapper(squidTexture);
+        SpriteWrapper &rSpriteWrapper = *squidSpriteWrapper;
+        Squid *squid = new Squid(j * 90 + xOffset, i * 90 + yOffset, rSpriteWrapper);
+        invaderRow[j] = squid;
       }
       else if (i < 3)
       {
-        SpriteWrapper crabSpriteWrapper(crabTexture);
-        Crab *crab = new Crab(i * 15, j * 15, crabSpriteWrapper);
-        invaderRow.push_back(crab);
+        SpriteWrapper *crabSpriteWrapper = new SpriteWrapper(crabTexture);
+        SpriteWrapper &rSpriteWrapper = *crabSpriteWrapper;
+        Crab *crab = new Crab(j * 90 + xOffset, i * 90 + yOffset, rSpriteWrapper);
+        invaderRow[j] = crab;
       }
       else
       {
-        SpriteWrapper octopusSpriteWrapper(octopusTexture);
-        Octopus *octopus = new Octopus(i * 15, j * 15, octopusSpriteWrapper);
-        invaderRow.push_back(octopus);
+        SpriteWrapper *octopusSpriteWrapper = new SpriteWrapper(octopusTexture);
+        SpriteWrapper &rSpriteWrapper = *octopusSpriteWrapper;
+        Octopus *octopus = new Octopus(j * 90 + xOffset, i * 90 + yOffset, rSpriteWrapper);
+        invaderRow[j] = octopus;
       }
     }
-    invaders.push_back(invaderRow);
+    invaders[i] = invaderRow;
   }
 
   return invaders;

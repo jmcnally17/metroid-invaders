@@ -7,7 +7,7 @@
 #include "./models/invader.hpp"
 #include <vector>
 
-void drawObjects(IRenderWindow &window, const ILaserCannon &cannon, const ILaser &laser);
+void drawObjects(IRenderWindow &window, const ILaserCannon &cannon, const ILaser &laser, std::vector<std::vector<Invader *>> &invaders);
 
 void moveLaserCannon(ILaserCannon &cannon, float x);
 
