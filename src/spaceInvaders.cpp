@@ -85,6 +85,7 @@ std::vector<std::vector<IInvader *>> makeInvaders()
 
   float xOffset = 282;
   float yOffset = 348;
+  float extraSquidXOffset = 12;
 
   for (int i = 0; i < 5; i++)
   {
@@ -95,7 +96,7 @@ std::vector<std::vector<IInvader *>> makeInvaders()
       {
         SpriteWrapper *squidSpriteWrapper = new SpriteWrapper(squidTexture);
         SpriteWrapper &rSpriteWrapper = *squidSpriteWrapper;
-        Squid *squid = new Squid(j * 90 + xOffset, i * 90 + yOffset, rSpriteWrapper);
+        Squid *squid = new Squid(j * 90 + xOffset + extraSquidXOffset, i * 90 + yOffset, rSpriteWrapper);
         invaderRow[j] = squid;
       }
       else if (i < 3)
