@@ -4,6 +4,8 @@
 #include "../include/wrappers/soundWrapper.hpp"
 #include "../include/models/laserCannon.hpp"
 #include "../include/models/squid.hpp"
+#include "../include/models/crab.hpp"
+#include "../include/models/octopus.hpp"
 #include "../include/spaceInvaders.hpp"
 
 int main()
@@ -12,7 +14,6 @@ int main()
 
   Laser laser = makeLaser();
   LaserCannon cannon = makeCannon(laser);
-  Invader squid = makeInvader(400, 500);
 
   while (window.isOpen())
   {
@@ -25,7 +26,7 @@ int main()
       }
     }
 
-    drawObjects(window, cannon, laser, squid);
+    drawObjects(window, cannon, laser);
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
     {
       moveLaserCannon(cannon, 0.25);
@@ -69,15 +70,4 @@ LaserCannon makeCannon(Laser &laser)
 
   LaserCannon cannon(rSpriteWrapper, laser, rSoundWrapper);
   return cannon;
-}
-
-Invader makeInvader(float x, float y)
-{
-  sf::Texture squidTexture;
-  squidTexture.loadFromFile("public/images/newSprites/squid.png");
-  SpriteWrapper *squidSpriteWrapper = new SpriteWrapper(squidTexture);
-  SpriteWrapper &rSpriteWrapper = *squidSpriteWrapper;
-
-  Squid squid(x, y, rSpriteWrapper);
-  return squid;
 }
