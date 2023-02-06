@@ -83,8 +83,8 @@ std::vector<std::vector<IInvader *>> makeInvaders()
   octopusTexture.loadFromFile("public/images/newSprites/octopus.png");
   std::vector<std::vector<IInvader *>> invaders(5);
 
-  float xOffset = 200;
-  float yOffset = 400;
+  float xOffset = 282;
+  float yOffset = 348;
 
   for (int i = 0; i < 5; i++)
   {
