@@ -15,6 +15,8 @@ void moveLaser(ILaser &laser);
 
 void fireLaser(ILaserCannon &cannon);
 
+bool hasInvaderBeenHit(ILaser &laser, IInvader &invader);
+
 Laser makeLaser();
 
 LaserCannon makeCannon(Laser &laser);
