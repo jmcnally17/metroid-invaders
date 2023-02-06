@@ -1,15 +1,13 @@
 #ifndef I_INVADER_HPP
 #define I_INVADER_HPP
 
+#include "./objectInterface.hpp"
 #include "../wrappers/iRenderWindow.hpp"
 
-class IInvader
+class IInvader : public ObjectInterface
 {
 public:
   virtual void draw(IRenderWindow &window) const = 0;
-  virtual float getWidth() const = 0;
-  virtual float getHeight() const = 0;
-  virtual sf::Vector2f getPosition() const = 0;
 };
 
 #endif

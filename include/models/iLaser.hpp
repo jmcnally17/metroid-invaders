@@ -1,14 +1,12 @@
 #ifndef I_LASER_HPP
 #define I_LASER_HPP
 
+#include "./objectInterface.hpp"
 #include "../wrappers/iRenderWindow.hpp"
 
-class ILaser
+class ILaser : public ObjectInterface
 {
 public:
-  virtual float getWidth() const = 0;
-  virtual float getHeight() const = 0;
-  virtual sf::Vector2f getPosition() const = 0;
   virtual void setPosition(const sf::Vector2f &vector) = 0;
   virtual void draw(IRenderWindow &window) const = 0;
   virtual void move() = 0;
