@@ -73,3 +73,12 @@ TEST(Crab, drawCallsDrawOnTheSpriteClassMember)
       .Times(1);
   crab.draw(window);
 }
+
+TEST(Crab, dieChangesAliveClassMemberToFalse)
+{
+  NiceMock<MockSprite> sprite;
+  Crab crab(200, 320, sprite);
+
+  crab.die();
+  EXPECT_EQ(crab.isAlive(), false);
+}

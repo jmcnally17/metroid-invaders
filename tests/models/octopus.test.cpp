@@ -73,3 +73,12 @@ TEST(Octopus, drawCallsDrawOnTheSpriteClassMember)
       .Times(1);
   octopus.draw(window);
 }
+
+TEST(Octopus, dieChangesAliveClassMemberToFalse)
+{
+  NiceMock<MockSprite> sprite;
+  Octopus octopus(200, 320, sprite);
+
+  octopus.die();
+  EXPECT_EQ(octopus.isAlive(), false);
+}

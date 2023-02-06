@@ -24,3 +24,8 @@ bool Invader::isAlive() const
 {
   return alive_;
 }
+
+void Invader::die()
+{
+  alive_ = false;
+}

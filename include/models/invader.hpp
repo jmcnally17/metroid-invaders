@@ -12,6 +12,7 @@ public:
   void setPosition(const sf::Vector2f &position);
   void draw(IRenderWindow &window) const override;
   bool isAlive() const;
+  void die();
 
 private:
   sf::Vector2f position_;

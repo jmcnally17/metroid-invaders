@@ -73,3 +73,12 @@ TEST(Squid, drawCallsDrawOnTheSpriteClassMember)
       .Times(1);
   squid.draw(window);
 }
+
+TEST(Squid, dieChangesAliveClassMemberToFalse)
+{
+  NiceMock<MockSprite> sprite;
+  Squid squid(200, 320, sprite);
+
+  squid.die();
+  EXPECT_EQ(squid.isAlive(), false);
+}
