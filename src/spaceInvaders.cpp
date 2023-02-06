@@ -14,6 +14,7 @@ int main()
 
   Laser laser = makeLaser();
   LaserCannon cannon = makeCannon(laser);
+  std::vector<std::vector<Invader *>> invaders = makeInvaders();
 
   while (window.isOpen())
   {
@@ -70,4 +71,44 @@ LaserCannon makeCannon(Laser &laser)
 
   LaserCannon cannon(rSpriteWrapper, laser, rSoundWrapper);
   return cannon;
+}
+
+std::vector<std::vector<Invader *>> makeInvaders()
+{
+  sf::Texture squidTexture;
+  squidTexture.loadFromFile("public/images/newSprites/squid.png");
+  sf::Texture crabTexture;
+  crabTexture.loadFromFile("public/images/newSprites/crab.png");
+  sf::Texture octopusTexture;
+  octopusTexture.loadFromFile("public/images/newSprites/octopus.png");
+  std::vector<std::vector<Invader *>> invaders(5);
+
+  for (int i = 0; i < 5; i++)
+  {
+    std::vector<Invader *> invaderRow(11);
+    for (int j = 0; j < 11; j++)
+    {
+      if (i == 0)
+      {
+        SpriteWrapper squidSpriteWrapper(squidTexture);
+        Squid *squid = new Squid(i * 15, j * 15, squidSpriteWrapper);
+        invaderRow.push_back(squid);
+      }
+      else if (i < 3)
+      {
+        SpriteWrapper crabSpriteWrapper(crabTexture);
+        Crab *crab = new Crab(i * 15, j * 15, crabSpriteWrapper);
+        invaderRow.push_back(crab);
+      }
+      else
+      {
+        SpriteWrapper octopusSpriteWrapper(octopusTexture);
+        Octopus *octopus = new Octopus(i * 15, j * 15, octopusSpriteWrapper);
+        invaderRow.push_back(octopus);
+      }
+    }
+    invaders.push_back(invaderRow);
+  }
+
+  return invaders;
 }
