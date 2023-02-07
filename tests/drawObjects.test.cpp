@@ -5,6 +5,7 @@
 #include "./mockModels/mockInvader.hpp"
 
 using ::testing::NiceMock;
+using ::testing::Return;
 
 TEST(drawObjects, callsClearOnTheWindow)
 {
@@ -75,7 +76,7 @@ TEST(drawObjects, callsDrawOnTheLaser)
   drawObjects(window, cannon, laser, invaders);
 }
 
-TEST(drawObjects, callsDrawOnAllTheInvaders)
+TEST(drawObjects, callsDrawOnAllTheInvadersIfTheyAreAlive)
 {
   NiceMock<MockRenderWindow> window;
   NiceMock<MockLaserCannon> cannon;
@@ -92,6 +93,8 @@ TEST(drawObjects, callsDrawOnAllTheInvaders)
     }
     invaders[i] = invaderRow;
   }
+  ON_CALL(invader, isAlive())
+      .WillByDefault(Return(true));
 
   EXPECT_CALL(invader, draw)
       .Times(55);
