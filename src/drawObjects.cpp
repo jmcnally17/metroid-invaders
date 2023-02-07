@@ -13,7 +13,10 @@ void drawObjects(IRenderWindow &window, const ILaserCannon &cannon, const ILaser
   {
     for (auto IInvader : vec)
     {
-      IInvader->draw(window);
+      if (IInvader->isAlive())
+      {
+        IInvader->draw(window);
+      }
     }
   }
   window.display();
