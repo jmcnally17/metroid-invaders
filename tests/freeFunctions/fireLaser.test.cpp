@@ -1,5 +1,5 @@
-#include "../include/spaceInvaders.hpp"
-#include "./mockModels/mockLaserCannon.hpp"
+#include "../../include/spaceInvaders.hpp"
+#include "../mockModels/mockLaserCannon.hpp"
 
 TEST(fireLaser, callsFireOnLaserCannon)
 {

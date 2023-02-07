@@ -1,5 +1,5 @@
-#include "../include/spaceInvaders.hpp"
-#include "./mockModels/mockLaser.hpp"
+#include "../../include/spaceInvaders.hpp"
+#include "../mockModels/mockLaser.hpp"
 
 TEST(moveLaser, callsMoveOnLaser)
 {

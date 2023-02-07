@@ -1,4 +1,4 @@
-#include "../include/models/iLaser.hpp"
+#include "../../include/models/iLaser.hpp"
 
 void moveLaser(ILaser &laser)
 {

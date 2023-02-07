@@ -1,4 +1,4 @@
-#include "../include/models/iLaserCannon.hpp"
+#include "../../include/models/iLaserCannon.hpp"
 
 void fireLaser(ILaserCannon &cannon)
 {

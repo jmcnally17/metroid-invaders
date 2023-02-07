@@ -1,8 +1,8 @@
-#include "../include/spaceInvaders.hpp"
-#include "./mockModels/mockRenderWindow.hpp"
-#include "./mockModels/mockLaserCannon.hpp"
-#include "./mockModels/mockLaser.hpp"
-#include "./mockModels/mockInvader.hpp"
+#include "../../include/spaceInvaders.hpp"
+#include "../mockModels/mockRenderWindow.hpp"
+#include "../mockModels/mockLaserCannon.hpp"
+#include "../mockModels/mockLaser.hpp"
+#include "../mockModels/mockInvader.hpp"
 
 using ::testing::NiceMock;
 using ::testing::Return;
