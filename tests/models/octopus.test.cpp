@@ -36,6 +36,14 @@ TEST(Octopus, setsOwnPositionMember)
   EXPECT_EQ(octopus.getPosition(), sf::Vector2f(200, 320));
 }
 
+TEST(Octopus, hasABoolClassMemberCalledAliveSetToTrue)
+{
+  NiceMock<MockSprite> sprite;
+  Octopus octopus(200, 320, sprite);
+
+  EXPECT_EQ(octopus.isAlive(), true);
+}
+
 TEST(Octopus, setsPositionOnSpriteClassMember)
 {
   MockSprite sprite;
@@ -64,4 +72,13 @@ TEST(Octopus, drawCallsDrawOnTheSpriteClassMember)
                                           { return true; })))
       .Times(1);
   octopus.draw(window);
+}
+
+TEST(Octopus, dieChangesAliveClassMemberToFalse)
+{
+  NiceMock<MockSprite> sprite;
+  Octopus octopus(200, 320, sprite);
+
+  octopus.die();
+  EXPECT_EQ(octopus.isAlive(), false);
 }

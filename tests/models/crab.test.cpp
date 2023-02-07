@@ -36,6 +36,14 @@ TEST(Crab, setsOwnPositionMember)
   EXPECT_EQ(crab.getPosition(), sf::Vector2f(200, 320));
 }
 
+TEST(Crab, hasABoolClassMemberCalledAliveSetToTrue)
+{
+  NiceMock<MockSprite> sprite;
+  Crab crab(200, 320, sprite);
+
+  EXPECT_EQ(crab.isAlive(), true);
+}
+
 TEST(Crab, setsPositionOnSpriteClassMember)
 {
   MockSprite sprite;
@@ -64,4 +72,13 @@ TEST(Crab, drawCallsDrawOnTheSpriteClassMember)
                                           { return true; })))
       .Times(1);
   crab.draw(window);
+}
+
+TEST(Crab, dieChangesAliveClassMemberToFalse)
+{
+  NiceMock<MockSprite> sprite;
+  Crab crab(200, 320, sprite);
+
+  crab.die();
+  EXPECT_EQ(crab.isAlive(), false);
 }
