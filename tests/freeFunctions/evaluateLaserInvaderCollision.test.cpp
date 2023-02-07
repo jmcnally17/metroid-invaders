@@ -7,11 +7,11 @@
 using ::testing::NiceMock;
 using ::testing::Return;
 
-TEST(evaluateLaserInvaderCollision, killsInvadersThatLaserHasCollidedWith)
+TEST(evaluateLaserInvaderCollision, killsInvadersThatAreAliveAndLaserHasCollidedWith)
 {
   NiceMock<MockCollision> collision;
   MockLaser laser;
-  MockInvader invader;
+  NiceMock<MockInvader> invader;
   MockInvader *pInvader = &invader;
   std::vector<std::vector<IInvader *>> invaders(2);
   for (int i = 0; i < 2; i++)
@@ -24,6 +24,8 @@ TEST(evaluateLaserInvaderCollision, killsInvadersThatLaserHasCollidedWith)
     invaders[i] = invaderRow;
   }
 
+  ON_CALL(invader, isAlive())
+      .WillByDefault(Return(true));
   ON_CALL(collision, haveCollided)
       .WillByDefault(Return(true));
 
@@ -32,11 +34,11 @@ TEST(evaluateLaserInvaderCollision, killsInvadersThatLaserHasCollidedWith)
   evaluateLaserInvaderCollision(collision, laser, invaders);
 }
 
-TEST(evaluateLaserInvaderCollision, doesNotKillInvadersThatLaserHasNotCollidedWith)
+TEST(evaluateLaserInvaderCollision, doesNotKillInvadersThatAreAliveAndLaserHasNotCollidedWith)
 {
   NiceMock<MockCollision> collision;
   MockLaser laser;
-  MockInvader invader;
+  NiceMock<MockInvader> invader;
   MockInvader *pInvader = &invader;
   std::vector<std::vector<IInvader *>> invaders(2);
   for (int i = 0; i < 2; i++)
@@ -49,6 +51,8 @@ TEST(evaluateLaserInvaderCollision, doesNotKillInvadersThatLaserHasNotCollidedWi
     invaders[i] = invaderRow;
   }
 
+  ON_CALL(invader, isAlive())
+      .WillByDefault(Return(true));
   ON_CALL(collision, haveCollided)
       .WillByDefault(Return(false));
 
