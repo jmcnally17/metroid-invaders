@@ -7,7 +7,7 @@
 using ::testing::NiceMock;
 using ::testing::Return;
 
-TEST(evaluateLaserInvaderCollision, killsInvadersThatAreAliveAndLaserIsCollidingWith)
+TEST(evaluateLaserInvaderCollision, killsInvaderThatIsAliveAndLaserIsCollidingWith)
 {
   NiceMock<MockCollision> collision;
   MockLaser laser;
@@ -30,7 +30,7 @@ TEST(evaluateLaserInvaderCollision, killsInvadersThatAreAliveAndLaserIsColliding
       .WillByDefault(Return(true));
 
   EXPECT_CALL(invader, die())
-      .Times(20);
+      .Times(1);
   evaluateLaserInvaderCollision(collision, laser, invaders);
 }
 

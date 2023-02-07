@@ -13,6 +13,7 @@ void evaluateLaserInvaderCollision(const CollisionInterface &collision, const IL
       if (rInvader.isAlive() && collision.haveCollided(laser, rInvader))
       {
         invader->die();
+        return;
       }
     }
   }
