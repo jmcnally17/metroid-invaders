@@ -9,6 +9,7 @@ class IInvader : public ObjectInterface
 public:
   virtual void draw(IRenderWindow &window) const = 0;
   virtual bool isAlive() const = 0;
+  virtual void die() = 0;
 };
 
 #endif
