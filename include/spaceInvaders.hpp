@@ -10,7 +10,7 @@
 
 void drawObjects(IRenderWindow &window, const ILaserCannon &cannon, const ILaser &laser, const std::vector<std::vector<IInvader *>> &invaders);
 
-void evaluateLaserInvaderCollision(const CollisionInterface &collision, const ILaser &laser, const std::vector<std::vector<IInvader *>> &invaders);
+void evaluateLaserInvaderCollision(const CollisionInterface &collision, ILaser &laser, const std::vector<std::vector<IInvader *>> &invaders);
 
 void moveLaserCannon(ILaserCannon &cannon, float x);
 

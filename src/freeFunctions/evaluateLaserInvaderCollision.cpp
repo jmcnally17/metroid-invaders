@@ -3,7 +3,7 @@
 #include "../../include/models/iLaser.hpp"
 #include "../../include/models/iInvader.hpp"
 
-void evaluateLaserInvaderCollision(const CollisionInterface &collision, const ILaser &laser, const std::vector<std::vector<IInvader *>> &invaders)
+void evaluateLaserInvaderCollision(const CollisionInterface &collision, ILaser &laser, const std::vector<std::vector<IInvader *>> &invaders)
 {
   for (auto vec : invaders)
   {
@@ -13,6 +13,7 @@ void evaluateLaserInvaderCollision(const CollisionInterface &collision, const IL
       if (rInvader.isAlive() && collision.haveCollided(laser, rInvader))
       {
         invader->die();
+        laser.reset();
         return;
       }
     }

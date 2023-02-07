@@ -10,7 +10,7 @@ using ::testing::Return;
 TEST(evaluateLaserInvaderCollision, killsInvaderThatIsAliveAndLaserIsCollidingWith)
 {
   NiceMock<MockCollision> collision;
-  MockLaser laser;
+  NiceMock<MockLaser> laser;
   NiceMock<MockInvader> invader;
   MockInvader *pInvader = &invader;
   std::vector<std::vector<IInvader *>> invaders(2);
@@ -30,6 +30,33 @@ TEST(evaluateLaserInvaderCollision, killsInvaderThatIsAliveAndLaserIsCollidingWi
       .WillByDefault(Return(true));
 
   EXPECT_CALL(invader, die())
+      .Times(1);
+  evaluateLaserInvaderCollision(collision, laser, invaders);
+}
+
+TEST(evaluateLaserInvaderCollision, callsResetOnLaserWhenCollidingWithInvaderThatIsAlive)
+{
+  NiceMock<MockCollision> collision;
+  MockLaser laser;
+  NiceMock<MockInvader> invader;
+  MockInvader *pInvader = &invader;
+  std::vector<std::vector<IInvader *>> invaders(2);
+  for (int i = 0; i < 2; i++)
+  {
+    std::vector<IInvader *> invaderRow(10);
+    for (int j = 0; j < 10; j++)
+    {
+      invaderRow[j] = pInvader;
+    }
+    invaders[i] = invaderRow;
+  }
+
+  ON_CALL(invader, isAlive())
+      .WillByDefault(Return(true));
+  ON_CALL(collision, haveCollided)
+      .WillByDefault(Return(true));
+
+  EXPECT_CALL(laser, reset())
       .Times(1);
   evaluateLaserInvaderCollision(collision, laser, invaders);
 }

@@ -10,6 +10,7 @@ public:
   virtual void setPosition(const sf::Vector2f &vector) = 0;
   virtual void draw(IRenderWindow &window) const = 0;
   virtual void move() = 0;
+  virtual void reset() = 0;
 };
 
 #endif
