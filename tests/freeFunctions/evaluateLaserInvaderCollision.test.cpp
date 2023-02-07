@@ -31,32 +31,9 @@ TEST(evaluateLaserInvaderCollision, killsInvaderThatIsAliveAndLaserIsCollidingWi
 
   EXPECT_CALL(invader, die())
       .Times(1);
-  evaluateLaserInvaderCollision(collision, laser, invaders);
-}
-
-TEST(evaluateLaserInvaderCollision, callsResetOnLaserWhenCollidingWithInvaderThatIsAlive)
-{
-  NiceMock<MockCollision> collision;
-  MockLaser laser;
-  NiceMock<MockInvader> invader;
-  MockInvader *pInvader = &invader;
-  std::vector<std::vector<IInvader *>> invaders(2);
-  for (int i = 0; i < 2; i++)
-  {
-    std::vector<IInvader *> invaderRow(10);
-    for (int j = 0; j < 10; j++)
-    {
-      invaderRow[j] = pInvader;
-    }
-    invaders[i] = invaderRow;
-  }
-
-  ON_CALL(invader, isAlive())
-      .WillByDefault(Return(true));
-  ON_CALL(collision, haveCollided)
-      .WillByDefault(Return(true));
-
   EXPECT_CALL(laser, reset())
+      .Times(1);
+  EXPECT_CALL(laser, playInvaderDeath())
       .Times(1);
   evaluateLaserInvaderCollision(collision, laser, invaders);
 }
@@ -85,6 +62,10 @@ TEST(evaluateLaserInvaderCollision, doesNotKillInvadersThatAreAliveAndLaserIsNot
 
   EXPECT_CALL(invader, die())
       .Times(0);
+  EXPECT_CALL(laser, reset())
+      .Times(0);
+  EXPECT_CALL(laser, playInvaderDeath())
+      .Times(0);
   evaluateLaserInvaderCollision(collision, laser, invaders);
 }
 
@@ -112,6 +93,10 @@ TEST(evaluateLaserInvaderCollision, doesNotKillInvadersThatAreDeadAndLaserIsColl
 
   EXPECT_CALL(invader, die())
       .Times(0);
+  EXPECT_CALL(laser, reset())
+      .Times(0);
+  EXPECT_CALL(laser, playInvaderDeath())
+      .Times(0);
   evaluateLaserInvaderCollision(collision, laser, invaders);
 }
 
@@ -138,6 +123,10 @@ TEST(evaluateLaserInvaderCollision, doesNotKillInvadersThatAreDeadAndLaserIsNotC
       .WillByDefault(Return(false));
 
   EXPECT_CALL(invader, die())
+      .Times(0);
+  EXPECT_CALL(laser, reset())
+      .Times(0);
+  EXPECT_CALL(laser, playInvaderDeath())
       .Times(0);
   evaluateLaserInvaderCollision(collision, laser, invaders);
 }

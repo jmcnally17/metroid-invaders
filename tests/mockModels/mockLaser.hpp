@@ -14,6 +14,7 @@ public:
   MOCK_METHOD(void, draw, (IRenderWindow & window), (const));
   MOCK_METHOD(void, move, ());
   MOCK_METHOD(void, reset, ());
+  MOCK_METHOD(void, playInvaderDeath, ());
 };
 
 #endif
