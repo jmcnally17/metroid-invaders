@@ -6,13 +6,13 @@
 class CollisionInterface
 {
 public:
-  virtual bool haveCollided(ObjectInterface &object1, ObjectInterface &object2) const = 0;
+  virtual bool haveCollided(const ObjectInterface &object1, const ObjectInterface &object2) const = 0;
 };
 
 class Collision : public CollisionInterface
 {
 public:
-  bool haveCollided(ObjectInterface &object1, ObjectInterface &object2) const override;
+  bool haveCollided(const ObjectInterface &object1, const ObjectInterface &object2) const override;
 };
 
 #endif

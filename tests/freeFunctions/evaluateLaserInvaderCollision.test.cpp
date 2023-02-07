@@ -31,3 +31,28 @@ TEST(evaluateLaserInvaderCollision, killsInvadersThatLaserHasCollidedWith)
       .Times(20);
   evaluateLaserInvaderCollision(collision, laser, invaders);
 }
+
+TEST(evaluateLaserInvaderCollision, doesNotKillInvadersThatLaserHasNotCollidedWith)
+{
+  NiceMock<MockCollision> collision;
+  MockLaser laser;
+  MockInvader invader;
+  MockInvader *pInvader = &invader;
+  std::vector<std::vector<IInvader *>> invaders(2);
+  for (int i = 0; i < 2; i++)
+  {
+    std::vector<IInvader *> invaderRow(10);
+    for (int j = 0; j < 10; j++)
+    {
+      invaderRow[j] = pInvader;
+    }
+    invaders[i] = invaderRow;
+  }
+
+  ON_CALL(collision, haveCollided)
+      .WillByDefault(Return(false));
+
+  EXPECT_CALL(invader, die())
+      .Times(0);
+  evaluateLaserInvaderCollision(collision, laser, invaders);
+}

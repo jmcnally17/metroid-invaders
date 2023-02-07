@@ -9,7 +9,11 @@ void evaluateLaserInvaderCollision(const CollisionInterface &collision, const IL
   {
     for (auto invader : vec)
     {
-      invader->die();
+      IInvader &rInvader = *invader;
+      if (collision.haveCollided(laser, rInvader))
+      {
+        invader->die();
+      }
     }
   }
 }

@@ -7,7 +7,7 @@
 class MockCollision : public CollisionInterface
 {
 public:
-  MOCK_METHOD(bool, haveCollided, (ObjectInterface & object1, ObjectInterface &object2), (const));
+  MOCK_METHOD(bool, haveCollided, (const ObjectInterface &object1, const ObjectInterface &object2), (const));
 };
 
 #endif
