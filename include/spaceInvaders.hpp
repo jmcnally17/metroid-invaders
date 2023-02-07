@@ -6,7 +6,6 @@
 #include "./models/laserCannon.hpp"
 #include "./models/laser.hpp"
 #include "./models/iInvader.hpp"
-#include "./models/objectInterface.hpp"
 
 void drawObjects(IRenderWindow &window, const ILaserCannon &cannon, const ILaser &laser, const std::vector<std::vector<IInvader *>> &invaders);
 
@@ -15,8 +14,6 @@ void moveLaserCannon(ILaserCannon &cannon, float x);
 void moveLaser(ILaser &laser);
 
 void fireLaser(ILaserCannon &cannon);
-
-bool haveCollided(ObjectInterface &object1, ObjectInterface &object2);
 
 Laser makeLaser();
 
