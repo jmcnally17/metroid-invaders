@@ -1,12 +1,12 @@
+#include "../include/spaceInvaders.hpp"
 #include "../include/wrappers/renderWindowWrapper.hpp"
 #include "../include/wrappers/spriteWrapper.hpp"
-#include "../include/models/laser.hpp"
 #include "../include/wrappers/soundWrapper.hpp"
+#include "../include/models/laser.hpp"
 #include "../include/models/laserCannon.hpp"
 #include "../include/models/squid.hpp"
 #include "../include/models/crab.hpp"
 #include "../include/models/octopus.hpp"
-#include "../include/spaceInvaders.hpp"
 
 int main()
 {
