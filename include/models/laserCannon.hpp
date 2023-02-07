@@ -10,10 +10,10 @@ class LaserCannon : public ILaserCannon
 {
 public:
   LaserCannon(ISprite &sprite, ILaser &laser, ISound &sound);
-  float getWidth() const;
-  float getHeight() const;
+  float getWidth() const override;
+  float getHeight() const override;
   void setPosition(const sf::Vector2f &vector);
-  sf::Vector2f getPosition() const;
+  sf::Vector2f getPosition() const override;
   void draw(IRenderWindow &window) const override;
   void move(float x) override;
   void fire() override;

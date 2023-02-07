@@ -8,13 +8,16 @@ class Invader : public IInvader
 {
 public:
   Invader(float x, float y, ISprite &sprite);
-  sf::Vector2f getPosition() const;
+  sf::Vector2f getPosition() const override;
   void setPosition(const sf::Vector2f &position);
   void draw(IRenderWindow &window) const override;
+  bool isAlive() const override;
+  void die() override;
 
 private:
   sf::Vector2f position_;
   ISprite &sprite_;
+  bool alive_;
 };
 
 #endif

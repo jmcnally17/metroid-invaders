@@ -36,6 +36,14 @@ TEST(Squid, setsOwnPositionMember)
   EXPECT_EQ(squid.getPosition(), sf::Vector2f(200, 320));
 }
 
+TEST(Squid, hasABoolClassMemberCalledAliveSetToTrue)
+{
+  NiceMock<MockSprite> sprite;
+  Squid squid(200, 320, sprite);
+
+  EXPECT_EQ(squid.isAlive(), true);
+}
+
 TEST(Squid, setsPositionOnSpriteClassMember)
 {
   MockSprite sprite;
@@ -64,4 +72,13 @@ TEST(Squid, drawCallsDrawOnTheSpriteClassMember)
                                           { return true; })))
       .Times(1);
   squid.draw(window);
+}
+
+TEST(Squid, dieChangesAliveClassMemberToFalse)
+{
+  NiceMock<MockSprite> sprite;
+  Squid squid(200, 320, sprite);
+
+  squid.die();
+  EXPECT_EQ(squid.isAlive(), false);
 }

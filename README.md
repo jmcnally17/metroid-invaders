@@ -4,7 +4,6 @@ This solo project is an imitation of the classic 1978 Taito game, Space Invaders
 
 ## Features Pending
 
-- Collision detection between Invaders and Laser
 - Invader horizontal movement
 - Invader vertical movement when reaching the edges
 - Invade condition when the Invaders reach the bottom of the board

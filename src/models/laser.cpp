@@ -42,3 +42,8 @@ void Laser::move()
     sprite_.setPosition(position_);
   }
 }
+
+void Laser::reset()
+{
+  setPosition(sf::Vector2f(120, -24));
+}

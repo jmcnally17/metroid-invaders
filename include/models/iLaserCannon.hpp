@@ -1,9 +1,10 @@
 #ifndef I_LASER_CANNON_HPP
 #define I_LASER_CANNON_HPP
 
+#include "./objectInterface.hpp"
 #include "../wrappers/iRenderWindow.hpp"
 
-class ILaserCannon
+class ILaserCannon : public ObjectInterface
 {
 public:
   virtual void draw(IRenderWindow &window) const = 0;

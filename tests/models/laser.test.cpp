@@ -120,3 +120,13 @@ TEST(Laser, moveDoesNotUpdateSpritePositionWhenLaserIsAboveTheBoard)
       .Times(0);
   laser.move();
 }
+
+TEST(Laser, resetSetsPositionBackAboveTheBoard)
+{
+  NiceMock<MockSprite> sprite;
+  Laser laser(sprite);
+  laser.setPosition(sf::Vector2f(400, 900));
+
+  laser.reset();
+  EXPECT_EQ(laser.getPosition(), sf::Vector2f(120, -24));
+}

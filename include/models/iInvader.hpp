@@ -1,12 +1,15 @@
 #ifndef I_INVADER_HPP
 #define I_INVADER_HPP
 
+#include "./objectInterface.hpp"
 #include "../wrappers/iRenderWindow.hpp"
 
-class IInvader
+class IInvader : public ObjectInterface
 {
 public:
   virtual void draw(IRenderWindow &window) const = 0;
+  virtual bool isAlive() const = 0;
+  virtual void die() = 0;
 };
 
 #endif
