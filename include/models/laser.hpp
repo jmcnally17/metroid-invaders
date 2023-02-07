@@ -17,12 +17,14 @@ public:
   void draw(IRenderWindow &window) const override;
   void move() override;
   void reset() override;
+  void playInvaderDeath();
 
 private:
   float width_;
   float height_;
   sf::Vector2f position_;
   ISprite &sprite_;
+  ISound &sound_;
 };
 
 #endif

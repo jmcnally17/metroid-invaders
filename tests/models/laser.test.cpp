@@ -144,3 +144,14 @@ TEST(Laser, resetSetsPositionBackAboveTheBoard)
   laser.reset();
   EXPECT_EQ(laser.getPosition(), sf::Vector2f(120, -24));
 }
+
+TEST(Laser, playInvaderDeathCallsPlayOnTheSoundClassMember)
+{
+  NiceMock<MockSprite> sprite;
+  MockSound sound;
+  Laser laser(sprite, sound);
+
+  EXPECT_CALL(sound, play())
+      .Times(1);
+  laser.playInvaderDeath();
+}
