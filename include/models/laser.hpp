@@ -15,6 +15,7 @@ public:
   void setPosition(const sf::Vector2f &vector) override;
   void draw(IRenderWindow &window) const override;
   void move() override;
+  void reset();
 
 private:
   float width_;
