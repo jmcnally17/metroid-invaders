@@ -11,6 +11,7 @@ public:
   virtual void draw(IRenderWindow &window) const = 0;
   virtual void move() = 0;
   virtual void reset() = 0;
+  virtual void playInvaderDeath() = 0;
 };
 
 #endif
