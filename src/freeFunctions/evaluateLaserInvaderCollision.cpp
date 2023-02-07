@@ -10,7 +10,7 @@ void evaluateLaserInvaderCollision(const CollisionInterface &collision, const IL
     for (auto invader : vec)
     {
       IInvader &rInvader = *invader;
-      if (collision.haveCollided(laser, rInvader))
+      if (rInvader.isAlive() && collision.haveCollided(laser, rInvader))
       {
         invader->die();
       }
