@@ -1,27 +1,26 @@
 #include "../include/spaceInvaders.hpp"
-#include "./mockModels/mockLaser.hpp"
-#include "./mockModels/mockInvader.hpp"
+#include "./mockModels/mockObjectInterface.hpp"
 
 using ::testing::NiceMock;
 using ::testing::Return;
 
-TEST(hasInvaderBeenHit, returnsTrueForALaserCollidingWithTopOfInvader)
+TEST(haveCollided, returnsTrueForObject1CollidingWithTopOfObject2)
 {
-  NiceMock<MockLaser> laser;
-  ON_CALL(laser, getWidth())
-      .WillByDefault(Return(6));
-  ON_CALL(laser, getHeight())
+  NiceMock<MockObjectInterface> object1;
+  ON_CALL(object1, getWidth())
       .WillByDefault(Return(24));
-  ON_CALL(laser, getPosition())
+  ON_CALL(object1, getHeight())
+      .WillByDefault(Return(24));
+  ON_CALL(object1, getPosition())
       .WillByDefault(Return(sf::Vector2f(400, 720)));
 
-  NiceMock<MockInvader> invader;
-  ON_CALL(invader, getWidth())
+  NiceMock<MockObjectInterface> object2;
+  ON_CALL(object2, getWidth())
       .WillByDefault(Return(48));
-  ON_CALL(invader, getHeight())
+  ON_CALL(object2, getHeight())
       .WillByDefault(Return(48));
-  ON_CALL(invader, getPosition())
+  ON_CALL(object2, getPosition())
       .WillByDefault(Return(sf::Vector2f(390, 743)));
 
-  EXPECT_TRUE(haveCollided(laser, invader));
+  EXPECT_TRUE(haveCollided(object1, object2));
 }
