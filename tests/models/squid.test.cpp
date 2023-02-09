@@ -44,6 +44,14 @@ TEST(Squid, hasABoolClassMemberCalledAliveSetToTrue)
   EXPECT_EQ(squid.isAlive(), true);
 }
 
+TEST(Squid, hasADirectionClassMemberInitiallySetTo1)
+{
+  NiceMock<MockSprite> sprite;
+  Squid squid(200, 320, sprite);
+
+  EXPECT_EQ(squid.getDirection(), 1);
+}
+
 TEST(Squid, setsPositionOnSpriteClassMember)
 {
   MockSprite sprite;
@@ -81,4 +89,41 @@ TEST(Squid, dieChangesAliveClassMemberToFalse)
 
   squid.die();
   EXPECT_EQ(squid.isAlive(), false);
+}
+
+TEST(Squid, changeDirectionMultipliesDirectionByMinus1)
+{
+  NiceMock<MockSprite> sprite;
+  Squid squid(200, 320, sprite);
+
+  squid.changeDirection();
+  EXPECT_EQ(squid.getDirection(), -1);
+}
+
+TEST(Squid, moveAdds14Point1ToXPositionWhenDirectionIs1)
+{
+  NiceMock<MockSprite> sprite;
+  Squid squid(200, 320, sprite);
+
+  squid.move();
+  EXPECT_EQ(squid.getPosition(), sf::Vector2f(214.1, 320));
+}
+
+TEST(Squid, moveTakesAway14Point1ToXPositionWhenDirectionIsMinus1)
+{
+  NiceMock<MockSprite> sprite;
+  Squid squid(200, 320, sprite);
+
+  squid.changeDirection();
+  squid.move();
+  EXPECT_EQ(squid.getPosition(), sf::Vector2f(185.9, 320));
+}
+
+TEST(Squid, moveUpdatesPositionOnSpriteMember)
+{
+  NiceMock<MockSprite> sprite;
+  Squid squid(200, 320, sprite);
+
+  EXPECT_CALL(sprite, setPosition(sf::Vector2f(214.1, 320)));
+  squid.move();
 }

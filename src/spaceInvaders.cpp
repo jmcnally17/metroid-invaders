@@ -2,6 +2,7 @@
 #include "../include/wrappers/renderWindowWrapper.hpp"
 #include "../include/wrappers/spriteWrapper.hpp"
 #include "../include/wrappers/soundWrapper.hpp"
+#include "../include/wrappers/clockWrapper.hpp"
 #include "../include/models/laser.hpp"
 #include "../include/models/laserCannon.hpp"
 #include "../include/models/squid.hpp"
@@ -16,6 +17,10 @@ int main()
   Laser laser = makeLaser();
   LaserCannon cannon = makeCannon(laser);
   std::vector<std::vector<IInvader *>> invaders = makeInvaders();
+
+  ClockWrapper clock;
+  int interval = 1000;
+  int step = 1;
 
   Collision collisionInterface;
 
@@ -41,6 +46,7 @@ int main()
       moveLaserCannon(cannon, -0.25);
     }
     moveLaser(laser);
+    moveInvaders(invaders, clock, interval, step);
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
     {
       fireLaser(cannon);

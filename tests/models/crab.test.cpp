@@ -44,6 +44,14 @@ TEST(Crab, hasABoolClassMemberCalledAliveSetToTrue)
   EXPECT_EQ(crab.isAlive(), true);
 }
 
+TEST(Crab, hasADirectionClassMemberInitiallySetTo1)
+{
+  NiceMock<MockSprite> sprite;
+  Crab crab(200, 320, sprite);
+
+  EXPECT_EQ(crab.getDirection(), 1);
+}
+
 TEST(Crab, setsPositionOnSpriteClassMember)
 {
   MockSprite sprite;
@@ -81,4 +89,41 @@ TEST(Crab, dieChangesAliveClassMemberToFalse)
 
   crab.die();
   EXPECT_EQ(crab.isAlive(), false);
+}
+
+TEST(Crab, changeDirectionMultipliesDirectionByMinus1)
+{
+  NiceMock<MockSprite> sprite;
+  Crab crab(200, 320, sprite);
+
+  crab.changeDirection();
+  EXPECT_EQ(crab.getDirection(), -1);
+}
+
+TEST(Crab, moveAdds14Point1ToXPositionWhenDirectionIs1)
+{
+  NiceMock<MockSprite> sprite;
+  Crab crab(200, 320, sprite);
+
+  crab.move();
+  EXPECT_EQ(crab.getPosition(), sf::Vector2f(214.1, 320));
+}
+
+TEST(Crab, moveTakesAway14Point1ToXPositionWhenDirectionIsMinus1)
+{
+  NiceMock<MockSprite> sprite;
+  Crab crab(200, 320, sprite);
+
+  crab.changeDirection();
+  crab.move();
+  EXPECT_EQ(crab.getPosition(), sf::Vector2f(185.9, 320));
+}
+
+TEST(Crab, moveUpdatesPositionOnSpriteMember)
+{
+  NiceMock<MockSprite> sprite;
+  Crab crab(200, 320, sprite);
+
+  EXPECT_CALL(sprite, setPosition(sf::Vector2f(214.1, 320)));
+  crab.move();
 }

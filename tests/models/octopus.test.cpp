@@ -44,6 +44,14 @@ TEST(Octopus, hasABoolClassMemberCalledAliveSetToTrue)
   EXPECT_EQ(octopus.isAlive(), true);
 }
 
+TEST(Octopus, hasADirectionClassMemberInitiallySetTo1)
+{
+  NiceMock<MockSprite> sprite;
+  Octopus Octopus(200, 320, sprite);
+
+  EXPECT_EQ(Octopus.getDirection(), 1);
+}
+
 TEST(Octopus, setsPositionOnSpriteClassMember)
 {
   MockSprite sprite;
@@ -81,4 +89,41 @@ TEST(Octopus, dieChangesAliveClassMemberToFalse)
 
   octopus.die();
   EXPECT_EQ(octopus.isAlive(), false);
+}
+
+TEST(Octopus, changeDirectionMultipliesDirectionByMinus1)
+{
+  NiceMock<MockSprite> sprite;
+  Octopus octopus(200, 320, sprite);
+
+  octopus.changeDirection();
+  EXPECT_EQ(octopus.getDirection(), -1);
+}
+
+TEST(Octopus, moveAdds14Point1ToXPositionWhenDirectionIs1)
+{
+  NiceMock<MockSprite> sprite;
+  Octopus octopus(200, 320, sprite);
+
+  octopus.move();
+  EXPECT_EQ(octopus.getPosition(), sf::Vector2f(214.1, 320));
+}
+
+TEST(Octopus, moveTakesAway14Point1ToXPositionWhenDirectionIsMinus1)
+{
+  NiceMock<MockSprite> sprite;
+  Octopus octopus(200, 320, sprite);
+
+  octopus.changeDirection();
+  octopus.move();
+  EXPECT_EQ(octopus.getPosition(), sf::Vector2f(185.9, 320));
+}
+
+TEST(Octopus, moveUpdatesPositionOnSpriteMember)
+{
+  NiceMock<MockSprite> sprite;
+  Octopus octopus(200, 320, sprite);
+
+  EXPECT_CALL(sprite, setPosition(sf::Vector2f(214.1, 320)));
+  octopus.move();
 }
