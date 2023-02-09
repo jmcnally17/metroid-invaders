@@ -14,7 +14,7 @@ public:
   bool isAlive() const override;
   void die() override;
   int getDirection() const;
-  void move();
+  void move() override;
   void changeDirection();
 
 private:

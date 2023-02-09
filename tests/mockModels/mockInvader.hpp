@@ -13,6 +13,7 @@ public:
   MOCK_METHOD(sf::Vector2f, getPosition, (), (const));
   MOCK_METHOD(bool, isAlive, (), (const));
   MOCK_METHOD(void, die, ());
+  MOCK_METHOD(void, move, ());
 };
 
 #endif
