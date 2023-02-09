@@ -118,3 +118,12 @@ TEST(Squid, moveTakesAway14Point1ToXPositionWhenDirectionIsMinus1)
   squid.move();
   EXPECT_EQ(squid.getPosition(), sf::Vector2f(185.9, 320));
 }
+
+TEST(Squid, moveUpdatesPositionOnSpriteMember)
+{
+  NiceMock<MockSprite> sprite;
+  Squid squid(200, 320, sprite);
+
+  EXPECT_CALL(sprite, setPosition(sf::Vector2f(214.1, 320)));
+  squid.move();
+}

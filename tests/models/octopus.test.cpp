@@ -118,3 +118,12 @@ TEST(Octopus, moveTakesAway14Point1ToXPositionWhenDirectionIsMinus1)
   octopus.move();
   EXPECT_EQ(octopus.getPosition(), sf::Vector2f(185.9, 320));
 }
+
+TEST(Octopus, moveUpdatesPositionOnSpriteMember)
+{
+  NiceMock<MockSprite> sprite;
+  Octopus octopus(200, 320, sprite);
+
+  EXPECT_CALL(sprite, setPosition(sf::Vector2f(214.1, 320)));
+  octopus.move();
+}

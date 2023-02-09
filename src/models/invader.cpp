@@ -38,6 +38,7 @@ int Invader::getDirection() const
 void Invader::move()
 {
   position_.x += 14.1 * direction_;
+  sprite_.setPosition(position_);
 }
 
 void Invader::changeDirection()

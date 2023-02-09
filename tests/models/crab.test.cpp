@@ -118,3 +118,12 @@ TEST(Crab, moveTakesAway14Point1ToXPositionWhenDirectionIsMinus1)
   crab.move();
   EXPECT_EQ(crab.getPosition(), sf::Vector2f(185.9, 320));
 }
+
+TEST(Crab, moveUpdatesPositionOnSpriteMember)
+{
+  NiceMock<MockSprite> sprite;
+  Crab crab(200, 320, sprite);
+
+  EXPECT_CALL(sprite, setPosition(sf::Vector2f(214.1, 320)));
+  crab.move();
+}
