@@ -2,10 +2,10 @@
 
 sf::Time ClockWrapper::getElapsedTime() const
 {
-  sf::Clock::getElapsedTime();
+  return sf::Clock::getElapsedTime();
 }
 
 sf::Time ClockWrapper::restart()
 {
-  sf::Clock::restart();
+  return sf::Clock::restart();
 }
