@@ -39,3 +39,8 @@ void Invader::move()
 {
   position_.x += 14.1;
 }
+
+void Invader::changeDirection()
+{
+  direction_ *= -1;
+}

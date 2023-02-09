@@ -99,3 +99,12 @@ TEST(Squid, moveAdds14Point1ToXPositionWhenDirectionIs1)
   squid.move();
   EXPECT_EQ(squid.getPosition(), sf::Vector2f(214.1, 320));
 }
+
+TEST(Squid, changeDirectionMultipliesDirectionByMinus1)
+{
+  NiceMock<MockSprite> sprite;
+  Squid squid(200, 320, sprite);
+
+  squid.changeDirection();
+  EXPECT_EQ(squid.getDirection(), -1);
+}

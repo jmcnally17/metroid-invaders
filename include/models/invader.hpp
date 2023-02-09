@@ -15,6 +15,7 @@ public:
   void die() override;
   int getDirection() const;
   void move();
+  void changeDirection();
 
 private:
   sf::Vector2f position_;
