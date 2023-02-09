@@ -11,4 +11,5 @@ void moveInvaders(const std::vector<std::vector<IInvader *>> &invaders, IClock &
       invader->move();
     }
   }
+  step++;
 }
