@@ -7,7 +7,7 @@
 class TimeWrapper : public ITime, public sf::Time
 {
 public:
-  int asMilliseconds() const;
+  int asMilliseconds() const override;
 };
 
 #endif
