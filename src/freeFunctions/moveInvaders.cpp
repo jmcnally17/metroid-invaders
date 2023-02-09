@@ -4,12 +4,15 @@
 
 void moveInvaders(const std::vector<std::vector<IInvader *>> &invaders, IClock &clock, int &interval, int &step)
 {
-  for (auto vec : invaders)
+  if (clock.getElapsedTime().asMilliseconds() >= interval * step)
   {
-    for (auto invader : vec)
+    for (auto vec : invaders)
     {
-      invader->move();
+      for (auto invader : vec)
+      {
+        invader->move();
+      }
     }
+    step++;
   }
-  step++;
 }
