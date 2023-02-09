@@ -91,6 +91,15 @@ TEST(Crab, dieChangesAliveClassMemberToFalse)
   EXPECT_EQ(crab.isAlive(), false);
 }
 
+TEST(Crab, changeDirectionMultipliesDirectionByMinus1)
+{
+  NiceMock<MockSprite> sprite;
+  Crab crab(200, 320, sprite);
+
+  crab.changeDirection();
+  EXPECT_EQ(crab.getDirection(), -1);
+}
+
 TEST(Crab, moveAdds14Point1ToXPositionWhenDirectionIs1)
 {
   NiceMock<MockSprite> sprite;
@@ -100,11 +109,12 @@ TEST(Crab, moveAdds14Point1ToXPositionWhenDirectionIs1)
   EXPECT_EQ(crab.getPosition(), sf::Vector2f(214.1, 320));
 }
 
-TEST(Crab, changeDirectionMultipliesDirectionByMinus1)
+TEST(Crab, moveTakesAway14Point1ToXPositionWhenDirectionIsMinus1)
 {
   NiceMock<MockSprite> sprite;
   Crab crab(200, 320, sprite);
 
   crab.changeDirection();
-  EXPECT_EQ(crab.getDirection(), -1);
+  crab.move();
+  EXPECT_EQ(crab.getPosition(), sf::Vector2f(185.9, 320));
 }

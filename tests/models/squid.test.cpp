@@ -91,6 +91,15 @@ TEST(Squid, dieChangesAliveClassMemberToFalse)
   EXPECT_EQ(squid.isAlive(), false);
 }
 
+TEST(Squid, changeDirectionMultipliesDirectionByMinus1)
+{
+  NiceMock<MockSprite> sprite;
+  Squid squid(200, 320, sprite);
+
+  squid.changeDirection();
+  EXPECT_EQ(squid.getDirection(), -1);
+}
+
 TEST(Squid, moveAdds14Point1ToXPositionWhenDirectionIs1)
 {
   NiceMock<MockSprite> sprite;
@@ -100,11 +109,12 @@ TEST(Squid, moveAdds14Point1ToXPositionWhenDirectionIs1)
   EXPECT_EQ(squid.getPosition(), sf::Vector2f(214.1, 320));
 }
 
-TEST(Squid, changeDirectionMultipliesDirectionByMinus1)
+TEST(Squid, moveTakesAway14Point1ToXPositionWhenDirectionIsMinus1)
 {
   NiceMock<MockSprite> sprite;
   Squid squid(200, 320, sprite);
 
   squid.changeDirection();
-  EXPECT_EQ(squid.getDirection(), -1);
+  squid.move();
+  EXPECT_EQ(squid.getPosition(), sf::Vector2f(185.9, 320));
 }

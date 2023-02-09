@@ -37,7 +37,7 @@ int Invader::getDirection() const
 
 void Invader::move()
 {
-  position_.x += 14.1;
+  position_.x += 14.1 * direction_;
 }
 
 void Invader::changeDirection()
