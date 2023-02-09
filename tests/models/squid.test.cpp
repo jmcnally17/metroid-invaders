@@ -90,3 +90,12 @@ TEST(Squid, dieChangesAliveClassMemberToFalse)
   squid.die();
   EXPECT_EQ(squid.isAlive(), false);
 }
+
+TEST(Squid, moveAdds14Point1ToXPositionWhenDirectionIs1)
+{
+  NiceMock<MockSprite> sprite;
+  Squid squid(200, 320, sprite);
+
+  squid.move();
+  EXPECT_EQ(squid.getPosition(), sf::Vector2f(214.1, 320));
+}

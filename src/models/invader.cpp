@@ -34,3 +34,8 @@ int Invader::getDirection() const
 {
   return direction_;
 }
+
+void Invader::move()
+{
+  position_.x += 14.1;
+}

@@ -14,6 +14,7 @@ public:
   bool isAlive() const override;
   void die() override;
   int getDirection() const;
+  void move();
 
 private:
   sf::Vector2f position_;

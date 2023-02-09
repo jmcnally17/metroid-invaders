@@ -90,3 +90,12 @@ TEST(Octopus, dieChangesAliveClassMemberToFalse)
   octopus.die();
   EXPECT_EQ(octopus.isAlive(), false);
 }
+
+TEST(Octopus, moveAdds14Point1ToXPositionWhenDirectionIs1)
+{
+  NiceMock<MockSprite> sprite;
+  Octopus octopus(200, 320, sprite);
+
+  octopus.move();
+  EXPECT_EQ(octopus.getPosition(), sf::Vector2f(214.1, 320));
+}

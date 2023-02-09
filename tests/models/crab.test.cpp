@@ -90,3 +90,12 @@ TEST(Crab, dieChangesAliveClassMemberToFalse)
   crab.die();
   EXPECT_EQ(crab.isAlive(), false);
 }
+
+TEST(Crab, moveAdds14Point1ToXPositionWhenDirectionIs1)
+{
+  NiceMock<MockSprite> sprite;
+  Crab crab(200, 320, sprite);
+
+  crab.move();
+  EXPECT_EQ(crab.getPosition(), sf::Vector2f(214.1, 320));
+}
