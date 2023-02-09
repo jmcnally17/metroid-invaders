@@ -13,11 +13,13 @@ public:
   void draw(IRenderWindow &window) const override;
   bool isAlive() const override;
   void die() override;
+  int getDirection() const;
 
 private:
   sf::Vector2f position_;
   ISprite &sprite_;
   bool alive_;
+  int direction_;
 };
 
 #endif

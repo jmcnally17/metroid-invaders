@@ -44,6 +44,14 @@ TEST(Octopus, hasABoolClassMemberCalledAliveSetToTrue)
   EXPECT_EQ(octopus.isAlive(), true);
 }
 
+TEST(Octopus, hasADirectionClassMemberInitiallySetTo1)
+{
+  NiceMock<MockSprite> sprite;
+  Octopus Octopus(200, 320, sprite);
+
+  EXPECT_EQ(Octopus.getDirection(), 1);
+}
+
 TEST(Octopus, setsPositionOnSpriteClassMember)
 {
   MockSprite sprite;

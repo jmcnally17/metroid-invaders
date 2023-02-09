@@ -44,6 +44,14 @@ TEST(Squid, hasABoolClassMemberCalledAliveSetToTrue)
   EXPECT_EQ(squid.isAlive(), true);
 }
 
+TEST(Squid, hasADirectionClassMemberInitiallySetTo1)
+{
+  NiceMock<MockSprite> sprite;
+  Squid squid(200, 320, sprite);
+
+  EXPECT_EQ(squid.getDirection(), 1);
+}
+
 TEST(Squid, setsPositionOnSpriteClassMember)
 {
   MockSprite sprite;
