@@ -19,7 +19,7 @@ int main()
   std::vector<std::vector<IInvader *>> invaders = makeInvaders();
 
   ClockWrapper clock;
-  int interval = 1000;
+  int interval = 665;
   int step = 1;
 
   Collision collisionInterface;
