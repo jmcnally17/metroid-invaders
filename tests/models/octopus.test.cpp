@@ -28,6 +28,14 @@ TEST(Octopus, hasAPointsClassMemberOf30)
   EXPECT_EQ(octopus.getPoints(), 10);
 }
 
+TEST(Octopus, hasAnOriginalPositionMember)
+{
+  NiceMock<MockSprite> sprite;
+  Octopus octopus(200, 320, sprite);
+
+  EXPECT_EQ(octopus.getOriginalPosition(), sf::Vector2f(200, 320));
+}
+
 TEST(Octopus, setsOwnPositionMember)
 {
   NiceMock<MockSprite> sprite;

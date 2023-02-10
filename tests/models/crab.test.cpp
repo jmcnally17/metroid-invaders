@@ -28,6 +28,14 @@ TEST(Crab, hasAPointsClassMemberOf30)
   EXPECT_EQ(crab.getPoints(), 20);
 }
 
+TEST(Crab, hasAnOriginalPositionMember)
+{
+  NiceMock<MockSprite> sprite;
+  Crab crab(200, 320, sprite);
+
+  EXPECT_EQ(crab.getOriginalPosition(), sf::Vector2f(200, 320));
+}
+
 TEST(Crab, setsOwnPositionMember)
 {
   NiceMock<MockSprite> sprite;

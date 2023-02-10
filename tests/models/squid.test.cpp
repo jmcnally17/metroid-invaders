@@ -28,6 +28,14 @@ TEST(Squid, hasAPointsClassMemberOf30)
   EXPECT_EQ(squid.getPoints(), 30);
 }
 
+TEST(Squid, hasAnOriginalPositionMember)
+{
+  NiceMock<MockSprite> sprite;
+  Squid squid(200, 320, sprite);
+
+  EXPECT_EQ(squid.getOriginalPosition(), sf::Vector2f(200, 320));
+}
+
 TEST(Squid, setsOwnPositionMember)
 {
   NiceMock<MockSprite> sprite;
