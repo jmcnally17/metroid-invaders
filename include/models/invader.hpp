@@ -8,6 +8,7 @@ class Invader : public IInvader
 {
 public:
   Invader(float x, float y, ISprite &sprite);
+  sf::Vector2f getOriginalPosition() const;
   sf::Vector2f getPosition() const override;
   void setPosition(const sf::Vector2f &position);
   void draw(IRenderWindow &window) const override;
@@ -16,12 +17,15 @@ public:
   int getDirection() const;
   void move() override;
   void changeDirection();
+  bool hasJustMovedDown() const;
 
 private:
+  sf::Vector2f originalPosition_;
   sf::Vector2f position_;
   ISprite &sprite_;
   bool alive_;
   int direction_;
+  bool justMovedDown_;
 };
 
 #endif

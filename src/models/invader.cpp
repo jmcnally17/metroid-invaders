@@ -1,8 +1,18 @@
 #include "../../include/models/invader.hpp"
 
-Invader::Invader(float x, float y, ISprite &sprite) : position_(sf::Vector2f(x, y)), sprite_(sprite), alive_(true), direction_(1)
+Invader::Invader(float x, float y, ISprite &sprite) : originalPosition_(sf::Vector2f(x, y)),
+                                                      position_(sf::Vector2f(x, y)),
+                                                      sprite_(sprite),
+                                                      alive_(true),
+                                                      direction_(1),
+                                                      justMovedDown_(false)
 {
   sprite_.setPosition(position_);
+}
+
+sf::Vector2f Invader::getOriginalPosition() const
+{
+  return originalPosition_;
 }
 
 sf::Vector2f Invader::getPosition() const
@@ -13,6 +23,7 @@ sf::Vector2f Invader::getPosition() const
 void Invader::setPosition(const sf::Vector2f &position)
 {
   position_ = position;
+  sprite_.setPosition(position_);
 }
 
 void Invader::draw(IRenderWindow &window) const
@@ -37,11 +48,26 @@ int Invader::getDirection() const
 
 void Invader::move()
 {
-  position_.x += 14.1 * direction_;
+  if (!justMovedDown_ && (abs(position_.x - originalPosition_.x - 282) < 1e-3 || abs(position_.x - originalPosition_.x + 282) < 1e-3))
+  {
+    position_.y += 42;
+    justMovedDown_ = true;
+    changeDirection();
+  }
+  else
+  {
+    position_.x += 14.1 * direction_;
+    justMovedDown_ = false;
+  }
   sprite_.setPosition(position_);
 }
 
 void Invader::changeDirection()
 {
   direction_ *= -1;
+}
+
+bool Invader::hasJustMovedDown() const
+{
+  return justMovedDown_;
 }
