@@ -146,6 +146,16 @@ TEST(Crab, moveAdds42ToYPositionWhenCrabIsAtRightSideBoundary)
   EXPECT_EQ(crab.getPosition(), sf::Vector2f(482, 362));
 }
 
+TEST(Crab, moveAdds42ToYPositionWhenCrabIsAtLeftSideBoundary)
+{
+  NiceMock<MockSprite> sprite;
+  Crab crab(300, 320, sprite);
+
+  crab.setPosition(sf::Vector2f(18, 320));
+  crab.move();
+  EXPECT_EQ(crab.getPosition(), sf::Vector2f(18, 362));
+}
+
 TEST(Crab, moveUpdatesPositionOnSpriteMember)
 {
   NiceMock<MockSprite> sprite;
