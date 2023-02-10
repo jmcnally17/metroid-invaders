@@ -134,7 +134,7 @@ TEST(Squid, moveAdds14Point1ToXPositionWhenDirectionIs1AndSquidIsNotAtSideBounda
   EXPECT_EQ(squid.getPosition(), sf::Vector2f(214.1, 320));
 }
 
-TEST(Squid, moveTakesAway14Point1ToXPositionWhenDirectionIsMinus1AndSquidIsNotAtSideBoundary)
+TEST(Squid, moveTakesAway14Point1FromXPositionWhenDirectionIsMinus1AndSquidIsNotAtSideBoundary)
 {
   NiceMock<MockSprite> sprite;
   Squid squid(200, 320, sprite);
@@ -142,6 +142,31 @@ TEST(Squid, moveTakesAway14Point1ToXPositionWhenDirectionIsMinus1AndSquidIsNotAt
   squid.changeDirection();
   squid.move();
   EXPECT_EQ(squid.getPosition(), sf::Vector2f(185.9, 320));
+}
+
+TEST(Squid, moveAdds14Point1ToXPositionWhenSquidIsAtLeftBoundaryAndJustMovedDownIsTrue)
+{
+  NiceMock<MockSprite> sprite;
+  Squid squid(300, 320, sprite);
+
+  squid.setPosition(sf::Vector2f(18, 320)); // put squid at left boundary
+  squid.changeDirection();                  // squid would be moving left so need to mimic that direction
+  squid.move();                             // call to move squid down which sets justMovedDownToTrue
+
+  squid.move();
+  EXPECT_EQ(squid.getPosition(), sf::Vector2f(32.1, 362));
+}
+
+TEST(Squid, moveTakesAway14Point1FromXPositionWhenSquidIsAtRightBoundaryAndJustMovedDownIsTrue)
+{
+  NiceMock<MockSprite> sprite;
+  Squid squid(200, 320, sprite);
+
+  squid.setPosition(sf::Vector2f(482, 320)); // put squid at right boundary
+  squid.move();                              // call to move squid down which sets justMovedDownToTrue
+
+  squid.move();
+  EXPECT_EQ(squid.getPosition(), sf::Vector2f(467.9, 362));
 }
 
 TEST(Squid, moveAdds42ToYPositionWhenSquidIsAtRightSideBoundaryAndHasNotJustMovedDown)

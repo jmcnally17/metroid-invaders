@@ -134,7 +134,7 @@ TEST(Crab, moveAdds14Point1ToXPositionWhenDirectionIs1AndCrabIsNotAtSideBoundary
   EXPECT_EQ(crab.getPosition(), sf::Vector2f(214.1, 320));
 }
 
-TEST(Crab, moveTakesAway14Point1ToXPositionWhenDirectionIsMinus1AndCrabIsNotAtSideBoundary)
+TEST(Crab, moveTakesAway14Point1FromXPositionWhenDirectionIsMinus1AndCrabIsNotAtSideBoundary)
 {
   NiceMock<MockSprite> sprite;
   Crab crab(200, 320, sprite);
@@ -142,6 +142,31 @@ TEST(Crab, moveTakesAway14Point1ToXPositionWhenDirectionIsMinus1AndCrabIsNotAtSi
   crab.changeDirection();
   crab.move();
   EXPECT_EQ(crab.getPosition(), sf::Vector2f(185.9, 320));
+}
+
+TEST(Crab, moveAdds14Point1ToXPositionWhenCrabIsAtLeftBoundaryAndJustMovedDownIsTrue)
+{
+  NiceMock<MockSprite> sprite;
+  Crab crab(300, 320, sprite);
+
+  crab.setPosition(sf::Vector2f(18, 320)); // put crab at left boundary
+  crab.changeDirection();                  // crab would be moving left so need to mimic that direction
+  crab.move();                             // call to move crab down which sets justMovedDownToTrue
+
+  crab.move();
+  EXPECT_EQ(crab.getPosition(), sf::Vector2f(32.1, 362));
+}
+
+TEST(Crab, moveTakesAway14Point1FromXPositionWhenCrabIsAtRightBoundaryAndJustMovedDownIsTrue)
+{
+  NiceMock<MockSprite> sprite;
+  Crab crab(200, 320, sprite);
+
+  crab.setPosition(sf::Vector2f(482, 320)); // put crab at right boundary
+  crab.move();                              // call to move crab down which sets justMovedDownToTrue
+
+  crab.move();
+  EXPECT_EQ(crab.getPosition(), sf::Vector2f(467.9, 362));
 }
 
 TEST(Crab, moveAdds42ToYPositionWhenCrabIsAtRightSideBoundaryAndHasNotJustMovedDown)
