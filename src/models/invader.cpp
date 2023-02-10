@@ -47,7 +47,14 @@ int Invader::getDirection() const
 
 void Invader::move()
 {
-  position_.x += 14.1 * direction_;
+  if (position_.x == originalPosition_.x + 282)
+  {
+    position_.y += 42;
+  }
+  else
+  {
+    position_.x += 14.1 * direction_;
+  }
   sprite_.setPosition(position_);
 }
 
