@@ -57,6 +57,7 @@ void Invader::move()
   else
   {
     position_.x += 14.1 * direction_;
+    justMovedDown_ = false;
   }
   sprite_.setPosition(position_);
 }

@@ -169,6 +169,30 @@ TEST(Squid, moveTakesAway14Point1FromXPositionWhenSquidIsAtRightBoundaryAndJustM
   EXPECT_EQ(squid.getPosition(), sf::Vector2f(467.9, 362));
 }
 
+TEST(Squid, moveSetsJustMovedDownToFalseWhenSquidIsAtLeftBoundaryAndJustMovedDownIsTrue)
+{
+  NiceMock<MockSprite> sprite;
+  Squid squid(300, 320, sprite);
+
+  squid.setPosition(sf::Vector2f(18, 320)); // put squid at left boundary
+  squid.move();                             // call to move squid down which sets justMovedDownToTrue
+
+  squid.move();
+  EXPECT_EQ(squid.hasJustMovedDown(), false);
+}
+
+TEST(Squid, moveSetsJustMovedDownToFalseWhenSquidIsAtRightBoundaryAndJustMovedDownIsTrue)
+{
+  NiceMock<MockSprite> sprite;
+  Squid squid(200, 320, sprite);
+
+  squid.setPosition(sf::Vector2f(482, 320)); // put squid at right boundary
+  squid.move();                              // call to move squid down which sets justMovedDownToTrue
+
+  squid.move();
+  EXPECT_EQ(squid.hasJustMovedDown(), false);
+}
+
 TEST(Squid, moveAdds42ToYPositionWhenSquidIsAtRightSideBoundaryAndHasNotJustMovedDown)
 {
   NiceMock<MockSprite> sprite;

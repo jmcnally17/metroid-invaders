@@ -169,6 +169,30 @@ TEST(Octopus, moveTakesAway14Point1FromXPositionWhenOctopusIsAtRightBoundaryAndJ
   EXPECT_EQ(octopus.getPosition(), sf::Vector2f(467.9, 362));
 }
 
+TEST(Octopus, moveSetsJustMovedDownToFalseWhenOctopusIsAtLeftBoundaryAndJustMovedDownIsTrue)
+{
+  NiceMock<MockSprite> sprite;
+  Octopus octopus(300, 320, sprite);
+
+  octopus.setPosition(sf::Vector2f(18, 320)); // put octopus at left boundary
+  octopus.move();                             // call to move octopus down which sets justMovedDownToTrue
+
+  octopus.move();
+  EXPECT_EQ(octopus.hasJustMovedDown(), false);
+}
+
+TEST(Octopus, moveSetsJustMovedDownToFalseWhenOctopusIsAtRightBoundaryAndJustMovedDownIsTrue)
+{
+  NiceMock<MockSprite> sprite;
+  Octopus octopus(200, 320, sprite);
+
+  octopus.setPosition(sf::Vector2f(482, 320)); // put octopus at right boundary
+  octopus.move();                              // call to move octopus down which sets justMovedDownToTrue
+
+  octopus.move();
+  EXPECT_EQ(octopus.hasJustMovedDown(), false);
+}
+
 TEST(Octopus, moveAdds42ToYPositionWhenOctopusIsAtRightSideBoundaryAndHasNotJustMovedDown)
 {
   NiceMock<MockSprite> sprite;
