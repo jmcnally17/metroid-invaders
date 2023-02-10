@@ -47,7 +47,7 @@ int Invader::getDirection() const
 
 void Invader::move()
 {
-  if (position_.x == originalPosition_.x + 282)
+  if (abs(position_.x - originalPosition_.x - 282) < 1e-3)
   {
     position_.y += 42;
   }
