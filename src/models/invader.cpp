@@ -51,6 +51,7 @@ void Invader::move()
   if (abs(position_.x - originalPosition_.x - 282) < 1e-3 || abs(position_.x - originalPosition_.x + 282) < 1e-3)
   {
     position_.y += 42;
+    justMovedDown_ = true;
     changeDirection();
   }
   else
