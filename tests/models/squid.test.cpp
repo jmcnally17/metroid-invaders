@@ -144,7 +144,7 @@ TEST(Squid, moveTakesAway14Point1ToXPositionWhenDirectionIsMinus1AndCrabIsNotAtS
   EXPECT_EQ(squid.getPosition(), sf::Vector2f(185.9, 320));
 }
 
-TEST(Squid, moveAdds42ToYPositionWhenCrabIsAtRightSideBoundary)
+TEST(Squid, moveAdds42ToYPositionWhenCrabIsAtRightSideBoundaryAndHasNotJustMovedDown)
 {
   NiceMock<MockSprite> sprite;
   Squid squid(200, 320, sprite);
@@ -154,7 +154,7 @@ TEST(Squid, moveAdds42ToYPositionWhenCrabIsAtRightSideBoundary)
   EXPECT_EQ(squid.getPosition(), sf::Vector2f(482, 362));
 }
 
-TEST(Squid, moveChangesDirectionWhenCrabIsAtRightSideBoundary)
+TEST(Squid, moveChangesDirectionWhenCrabIsAtRightSideBoundaryAndHasNotJustMovedDown)
 {
   NiceMock<MockSprite> sprite;
   Squid squid(200, 320, sprite);
@@ -164,7 +164,7 @@ TEST(Squid, moveChangesDirectionWhenCrabIsAtRightSideBoundary)
   EXPECT_EQ(squid.getDirection(), -1);
 }
 
-TEST(Squid, moveAdds42ToYPositionWhenCrabIsAtLeftSideBoundary)
+TEST(Squid, moveAdds42ToYPositionWhenCrabIsAtLeftSideBoundaryAndHasNotJustMovedDown)
 {
   NiceMock<MockSprite> sprite;
   Squid squid(300, 320, sprite);
@@ -174,7 +174,7 @@ TEST(Squid, moveAdds42ToYPositionWhenCrabIsAtLeftSideBoundary)
   EXPECT_EQ(squid.getPosition(), sf::Vector2f(18, 362));
 }
 
-TEST(Squid, moveChangesDirectionWhenCrabIsAtLeftSideBoundary)
+TEST(Squid, moveChangesDirectionWhenCrabIsAtLeftSideBoundaryAndHasNotJustMovedDown)
 {
   NiceMock<MockSprite> sprite;
   Squid squid(300, 320, sprite);
