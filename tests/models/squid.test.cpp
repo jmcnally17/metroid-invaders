@@ -78,6 +78,15 @@ TEST(Squid, setPositionChangesPosition)
   EXPECT_EQ(squid.getPosition(), sf::Vector2f(500, 920));
 }
 
+TEST(Squid, setPositionUpdatesSpritePosition)
+{
+  NiceMock<MockSprite> sprite;
+  Squid squid(200, 320, sprite);
+
+  EXPECT_CALL(sprite, setPosition(sf::Vector2f(500, 920)));
+  squid.setPosition(sf::Vector2f(500, 920));
+}
+
 TEST(Squid, drawCallsDrawOnTheSpriteClassMember)
 {
   NiceMock<MockSprite> sprite;

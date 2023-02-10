@@ -78,6 +78,15 @@ TEST(Crab, setPositionChangesPosition)
   EXPECT_EQ(crab.getPosition(), sf::Vector2f(500, 920));
 }
 
+TEST(Crab, setPositionUpdatesSpritePosition)
+{
+  NiceMock<MockSprite> sprite;
+  Crab crab(200, 320, sprite);
+
+  EXPECT_CALL(sprite, setPosition(sf::Vector2f(500, 920)));
+  crab.setPosition(sf::Vector2f(500, 920));
+}
+
 TEST(Crab, drawCallsDrawOnTheSpriteClassMember)
 {
   NiceMock<MockSprite> sprite;

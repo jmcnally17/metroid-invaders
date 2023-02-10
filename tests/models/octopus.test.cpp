@@ -78,6 +78,15 @@ TEST(Octopus, setPositionChangesPosition)
   EXPECT_EQ(octopus.getPosition(), sf::Vector2f(500, 920));
 }
 
+TEST(Octopus, setPositionUpdatesSpritePosition)
+{
+  NiceMock<MockSprite> sprite;
+  Octopus octopus(200, 320, sprite);
+
+  EXPECT_CALL(sprite, setPosition(sf::Vector2f(500, 920)));
+  octopus.setPosition(sf::Vector2f(500, 920));
+}
+
 TEST(Octopus, drawCallsDrawOnTheSpriteClassMember)
 {
   NiceMock<MockSprite> sprite;

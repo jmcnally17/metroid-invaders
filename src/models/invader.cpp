@@ -22,6 +22,7 @@ sf::Vector2f Invader::getPosition() const
 void Invader::setPosition(const sf::Vector2f &position)
 {
   position_ = position;
+  sprite_.setPosition(position_);
 }
 
 void Invader::draw(IRenderWindow &window) const
