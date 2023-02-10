@@ -32,7 +32,7 @@ TEST(moveInvaders, callsMoveOnInvadersWhenTimeElapsedIsPastIntervalMultipliedByS
   moveInvaders(invaders, clock, interval, step);
 }
 
-TEST(moveInvaders, adds1ToTheStepCounterWhenTimeElapsedIsPastIntervalMultipliedByStep)
+TEST(moveInvaders, adds1ToTheStepCounterWhenTimeElapsedIsPastIntervalMultipliedByStepAndInvadersHaveNotJustMovedDown)
 {
   NiceMock<MockInvader> invader;
   MockInvader *pInvader = &invader;
@@ -53,6 +53,8 @@ TEST(moveInvaders, adds1ToTheStepCounterWhenTimeElapsedIsPastIntervalMultipliedB
 
   ON_CALL(clock, getElapsedTime())
       .WillByDefault(Return(time));
+  ON_CALL(invader, hasJustMovedDown())
+      .WillByDefault(Return(false));
 
   moveInvaders(invaders, clock, interval, step);
   EXPECT_EQ(step, 8);
@@ -85,7 +87,7 @@ TEST(moveInvaders, doesNotCallMoveOnInvadersWhenTimeElapsedIsNotPastIntervalMult
   moveInvaders(invaders, clock, interval, step);
 }
 
-TEST(moveInvaders, doesNotAdd1ToTheStepCounterWhenTimeElapsedIsNotPastIntervalMultipliedByStep)
+TEST(moveInvaders, doesNotAdd1ToTheStepCounterWhenTimeElapsedIsNotPastIntervalMultipliedByStepAndInvadersHaveNotJustMovedDown)
 {
   NiceMock<MockInvader> invader;
   MockInvader *pInvader = &invader;
@@ -106,6 +108,8 @@ TEST(moveInvaders, doesNotAdd1ToTheStepCounterWhenTimeElapsedIsNotPastIntervalMu
 
   ON_CALL(clock, getElapsedTime())
       .WillByDefault(Return(time));
+  ON_CALL(invader, hasJustMovedDown())
+      .WillByDefault(Return(false));
 
   moveInvaders(invaders, clock, interval, step);
   EXPECT_EQ(step, 7);
