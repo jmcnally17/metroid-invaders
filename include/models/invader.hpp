@@ -17,6 +17,7 @@ public:
   int getDirection() const;
   void move() override;
   void changeDirection();
+  bool hasJustMovedDown() const;
 
 private:
   sf::Vector2f originalPosition_;
@@ -24,6 +25,7 @@ private:
   ISprite &sprite_;
   bool alive_;
   int direction_;
+  bool justMovedDown_;
 };
 
 #endif

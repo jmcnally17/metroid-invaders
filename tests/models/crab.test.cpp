@@ -60,6 +60,14 @@ TEST(Crab, hasADirectionClassMemberInitiallySetTo1)
   EXPECT_EQ(crab.getDirection(), 1);
 }
 
+TEST(Crab, hasAJustMovedDownMemberSetToFalse)
+{
+  NiceMock<MockSprite> sprite;
+  Crab crab(200, 320, sprite);
+
+  EXPECT_EQ(crab.hasJustMovedDown(), false);
+}
+
 TEST(Crab, setsPositionOnSpriteClassMember)
 {
   MockSprite sprite;

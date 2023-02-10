@@ -4,7 +4,8 @@ Invader::Invader(float x, float y, ISprite &sprite) : originalPosition_(sf::Vect
                                                       position_(sf::Vector2f(x, y)),
                                                       sprite_(sprite),
                                                       alive_(true),
-                                                      direction_(1)
+                                                      direction_(1),
+                                                      justMovedDown_(false)
 {
   sprite_.setPosition(position_);
 }
@@ -62,4 +63,9 @@ void Invader::move()
 void Invader::changeDirection()
 {
   direction_ *= -1;
+}
+
+bool Invader::hasJustMovedDown() const
+{
+  return justMovedDown_;
 }

@@ -60,6 +60,14 @@ TEST(Octopus, hasADirectionClassMemberInitiallySetTo1)
   EXPECT_EQ(Octopus.getDirection(), 1);
 }
 
+TEST(Octopus, hasAJustMovedDownMemberSetToFalse)
+{
+  NiceMock<MockSprite> sprite;
+  Octopus octopus(200, 320, sprite);
+
+  EXPECT_EQ(octopus.hasJustMovedDown(), false);
+}
+
 TEST(Octopus, setsPositionOnSpriteClassMember)
 {
   MockSprite sprite;

@@ -60,6 +60,14 @@ TEST(Squid, hasADirectionClassMemberInitiallySetTo1)
   EXPECT_EQ(squid.getDirection(), 1);
 }
 
+TEST(Squid, hasAJustMovedDownMemberSetToFalse)
+{
+  NiceMock<MockSprite> sprite;
+  Squid squid(200, 320, sprite);
+
+  EXPECT_EQ(squid.hasJustMovedDown(), false);
+}
+
 TEST(Squid, setsPositionOnSpriteClassMember)
 {
   MockSprite sprite;
