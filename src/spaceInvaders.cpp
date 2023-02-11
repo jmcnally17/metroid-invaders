@@ -22,6 +22,9 @@ int main()
   int interval = 665;
   int step = 1;
 
+  std::vector<ISound *> invaderSounds = makeInvaderSounds();
+  int soundCounter = 0;
+
   Collision collisionInterface;
 
   while (window.isOpen())
@@ -46,7 +49,7 @@ int main()
       moveLaserCannon(cannon, -0.25);
     }
     moveLaser(laser);
-    moveInvaders(invaders, clock, interval, step);
+    moveInvaders(invaders, clock, interval, step, invaderSounds, soundCounter);
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
     {
       fireLaser(cannon);
@@ -133,4 +136,26 @@ std::vector<std::vector<IInvader *>> makeInvaders()
   }
 
   return invaders;
+}
+
+std::vector<ISound *> makeInvaderSounds()
+{
+  sf::SoundBuffer sound0Buffer;
+  sound0Buffer.loadFromFile("public/audio/invader0.wav");
+  SoundWrapper *sound0Wrapper = new SoundWrapper(sound0Buffer);
+
+  sf::SoundBuffer sound1Buffer;
+  sound1Buffer.loadFromFile("public/audio/invader1.wav");
+  SoundWrapper *sound1Wrapper = new SoundWrapper(sound1Buffer);
+
+  sf::SoundBuffer sound2Buffer;
+  sound2Buffer.loadFromFile("public/audio/invader2.wav");
+  SoundWrapper *sound2Wrapper = new SoundWrapper(sound2Buffer);
+
+  sf::SoundBuffer sound3Buffer;
+  sound3Buffer.loadFromFile("public/audio/invader3.wav");
+  SoundWrapper *sound3Wrapper = new SoundWrapper(sound3Buffer);
+
+  std::vector<ISound *> invaderSounds = {sound0Wrapper, sound1Wrapper, sound2Wrapper, sound3Wrapper};
+  return invaderSounds;
 }

@@ -28,4 +28,6 @@ LaserCannon makeCannon(Laser &laser);
 
 std::vector<std::vector<IInvader *>> makeInvaders();
 
+std::vector<ISound *> makeInvaderSounds();
+
 #endif
