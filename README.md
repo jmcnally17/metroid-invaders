@@ -4,7 +4,6 @@ This solo project is an imitation of the classic 1978 Taito game, Space Invaders
 
 ## Features Pending
 
-- Invaders speed up when they move down one level
 - Invade condition when the Invaders reach the bottom of the board
 - Random spawning of UFO Invader at the top of the window
 - Invaders randomly shooting lasers down
