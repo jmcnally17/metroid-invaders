@@ -25,5 +25,6 @@ void moveInvaders(const std::vector<std::vector<IInvader *>> &invaders, IClock &
       step++;
     }
     sounds[soundCounter % 4]->play();
+    soundCounter++;
   }
 }
