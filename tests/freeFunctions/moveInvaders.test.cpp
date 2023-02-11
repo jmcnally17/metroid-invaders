@@ -143,3 +143,31 @@ TEST(moveInvaders, decreasesIntervalBy35WhenTimeElapsedIsPastIntervalMultipliedB
   moveInvaders(invaders, clock, interval, step);
   EXPECT_EQ(interval, 965);
 }
+
+TEST(moveInvaders, setsStepCounterTo1WhenTimeElapsedIsPastIntervalMultipliedByStepAndInvadersHaveJustMovedDown)
+{
+  NiceMock<MockInvader> invader;
+  MockInvader *pInvader = &invader;
+  std::vector<std::vector<IInvader *>> invaders(2);
+  for (int i = 0; i < 2; i++)
+  {
+    std::vector<IInvader *> invaderRow(7);
+    for (int j = 0; j < 7; j++)
+    {
+      invaderRow[j] = pInvader;
+    }
+    invaders[i] = invaderRow;
+  }
+  NiceMock<MockClock> clock;
+  int interval = 1000;
+  int step = 7;
+  sf::Time time(sf::milliseconds(7005));
+
+  ON_CALL(clock, getElapsedTime())
+      .WillByDefault(Return(time));
+  ON_CALL(invader, hasJustMovedDown())
+      .WillByDefault(Return(true));
+
+  moveInvaders(invaders, clock, interval, step);
+  EXPECT_EQ(step, 1);
+}
