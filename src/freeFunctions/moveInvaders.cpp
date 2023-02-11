@@ -1,8 +1,9 @@
 #include <vector>
 #include "../../include/models/iInvader.hpp"
 #include "../../include/wrappers/iClock.hpp"
+#include "../../include/wrappers/iSound.hpp"
 
-void moveInvaders(const std::vector<std::vector<IInvader *>> &invaders, IClock &clock, int &interval, int &step)
+void moveInvaders(const std::vector<std::vector<IInvader *>> &invaders, IClock &clock, int &interval, int &step, std::vector<ISound *> &sounds, int &soundCounter)
 {
   if (clock.getElapsedTime().asMilliseconds() >= interval * step)
   {

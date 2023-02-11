@@ -1,6 +1,7 @@
 #include "../../include/spaceInvaders.hpp"
 #include "../mockModels/mockInvader.hpp"
 #include "../mockModels/mockClock.hpp"
+#include "../mockModels/mockSound.hpp"
 
 using ::testing::NiceMock;
 using ::testing::Return;
@@ -23,13 +24,23 @@ TEST(moveInvaders, callsMoveOnInvadersWhenTimeElapsedIsPastIntervalMultipliedByS
   int interval = 1000;
   int step = 7;
   sf::Time time(sf::milliseconds(7005));
+  NiceMock<MockSound> sound0;
+  MockSound *pSound0 = &sound0;
+  NiceMock<MockSound> sound1;
+  MockSound *pSound1 = &sound1;
+  NiceMock<MockSound> sound2;
+  MockSound *pSound2 = &sound2;
+  NiceMock<MockSound> sound3;
+  MockSound *pSound3 = &sound3;
+  std::vector<ISound *> sounds = {pSound0, pSound1, pSound2, pSound3};
+  int soundCounter = 1;
 
   ON_CALL(clock, getElapsedTime())
       .WillByDefault(Return(time));
 
   EXPECT_CALL(invader, move())
       .Times(14);
-  moveInvaders(invaders, clock, interval, step);
+  moveInvaders(invaders, clock, interval, step, sounds, soundCounter);
 }
 
 TEST(moveInvaders, doesNotCallMoveOnInvadersWhenTimeElapsedIsNotPastIntervalMultipliedByStep)
@@ -50,13 +61,23 @@ TEST(moveInvaders, doesNotCallMoveOnInvadersWhenTimeElapsedIsNotPastIntervalMult
   int interval = 1000;
   int step = 7;
   sf::Time time(sf::milliseconds(6995));
+  NiceMock<MockSound> sound0;
+  MockSound *pSound0 = &sound0;
+  NiceMock<MockSound> sound1;
+  MockSound *pSound1 = &sound1;
+  NiceMock<MockSound> sound2;
+  MockSound *pSound2 = &sound2;
+  NiceMock<MockSound> sound3;
+  MockSound *pSound3 = &sound3;
+  std::vector<ISound *> sounds = {pSound0, pSound1, pSound2, pSound3};
+  int soundCounter = 1;
 
   ON_CALL(clock, getElapsedTime())
       .WillByDefault(Return(time));
 
   EXPECT_CALL(invader, move())
       .Times(0);
-  moveInvaders(invaders, clock, interval, step);
+  moveInvaders(invaders, clock, interval, step, sounds, soundCounter);
 }
 
 TEST(moveInvaders, adds1ToTheStepCounterWhenTimeElapsedIsPastIntervalMultipliedByStepAndInvadersHaveNotJustMovedDown)
@@ -77,13 +98,23 @@ TEST(moveInvaders, adds1ToTheStepCounterWhenTimeElapsedIsPastIntervalMultipliedB
   int interval = 1000;
   int step = 7;
   sf::Time time(sf::milliseconds(7005));
+  NiceMock<MockSound> sound0;
+  MockSound *pSound0 = &sound0;
+  NiceMock<MockSound> sound1;
+  MockSound *pSound1 = &sound1;
+  NiceMock<MockSound> sound2;
+  MockSound *pSound2 = &sound2;
+  NiceMock<MockSound> sound3;
+  MockSound *pSound3 = &sound3;
+  std::vector<ISound *> sounds = {pSound0, pSound1, pSound2, pSound3};
+  int soundCounter = 1;
 
   ON_CALL(clock, getElapsedTime())
       .WillByDefault(Return(time));
   ON_CALL(invader, hasJustMovedDown())
       .WillByDefault(Return(false));
 
-  moveInvaders(invaders, clock, interval, step);
+  moveInvaders(invaders, clock, interval, step, sounds, soundCounter);
   EXPECT_EQ(step, 8);
 }
 
@@ -105,6 +136,16 @@ TEST(moveInvaders, callsRestartOnClockWhenTimeElapsedIsPastIntervalMultipliedByS
   int interval = 1000;
   int step = 7;
   sf::Time time(sf::milliseconds(7005));
+  NiceMock<MockSound> sound0;
+  MockSound *pSound0 = &sound0;
+  NiceMock<MockSound> sound1;
+  MockSound *pSound1 = &sound1;
+  NiceMock<MockSound> sound2;
+  MockSound *pSound2 = &sound2;
+  NiceMock<MockSound> sound3;
+  MockSound *pSound3 = &sound3;
+  std::vector<ISound *> sounds = {pSound0, pSound1, pSound2, pSound3};
+  int soundCounter = 1;
 
   ON_CALL(clock, getElapsedTime())
       .WillByDefault(Return(time));
@@ -113,7 +154,7 @@ TEST(moveInvaders, callsRestartOnClockWhenTimeElapsedIsPastIntervalMultipliedByS
 
   EXPECT_CALL(clock, restart())
       .Times(1);
-  moveInvaders(invaders, clock, interval, step);
+  moveInvaders(invaders, clock, interval, step, sounds, soundCounter);
 }
 
 TEST(moveInvaders, decreasesIntervalBy35WhenTimeElapsedIsPastIntervalMultipliedByStepAndInvadersHaveJustMovedDown)
@@ -134,13 +175,23 @@ TEST(moveInvaders, decreasesIntervalBy35WhenTimeElapsedIsPastIntervalMultipliedB
   int interval = 1000;
   int step = 7;
   sf::Time time(sf::milliseconds(7005));
+  NiceMock<MockSound> sound0;
+  MockSound *pSound0 = &sound0;
+  NiceMock<MockSound> sound1;
+  MockSound *pSound1 = &sound1;
+  NiceMock<MockSound> sound2;
+  MockSound *pSound2 = &sound2;
+  NiceMock<MockSound> sound3;
+  MockSound *pSound3 = &sound3;
+  std::vector<ISound *> sounds = {pSound0, pSound1, pSound2, pSound3};
+  int soundCounter = 1;
 
   ON_CALL(clock, getElapsedTime())
       .WillByDefault(Return(time));
   ON_CALL(invader, hasJustMovedDown())
       .WillByDefault(Return(true));
 
-  moveInvaders(invaders, clock, interval, step);
+  moveInvaders(invaders, clock, interval, step, sounds, soundCounter);
   EXPECT_EQ(interval, 965);
 }
 
@@ -162,12 +213,22 @@ TEST(moveInvaders, setsStepCounterTo1WhenTimeElapsedIsPastIntervalMultipliedBySt
   int interval = 1000;
   int step = 7;
   sf::Time time(sf::milliseconds(7005));
+  NiceMock<MockSound> sound0;
+  MockSound *pSound0 = &sound0;
+  NiceMock<MockSound> sound1;
+  MockSound *pSound1 = &sound1;
+  NiceMock<MockSound> sound2;
+  MockSound *pSound2 = &sound2;
+  NiceMock<MockSound> sound3;
+  MockSound *pSound3 = &sound3;
+  std::vector<ISound *> sounds = {pSound0, pSound1, pSound2, pSound3};
+  int soundCounter = 1;
 
   ON_CALL(clock, getElapsedTime())
       .WillByDefault(Return(time));
   ON_CALL(invader, hasJustMovedDown())
       .WillByDefault(Return(true));
 
-  moveInvaders(invaders, clock, interval, step);
+  moveInvaders(invaders, clock, interval, step, sounds, soundCounter);
   EXPECT_EQ(step, 1);
 }
