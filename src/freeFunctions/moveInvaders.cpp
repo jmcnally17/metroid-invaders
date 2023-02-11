@@ -13,6 +13,15 @@ void moveInvaders(const std::vector<std::vector<IInvader *>> &invaders, IClock &
         invader->move();
       }
     }
-    step++;
+    if (invaders[0][0]->hasJustMovedDown())
+    {
+      clock.restart();
+      interval -= 35;
+      step = 1;
+    }
+    else
+    {
+      step++;
+    }
   }
 }

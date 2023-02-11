@@ -17,7 +17,7 @@ public:
   int getDirection() const;
   void move() override;
   void changeDirection();
-  bool hasJustMovedDown() const;
+  bool hasJustMovedDown() const override;
 
 private:
   sf::Vector2f originalPosition_;
