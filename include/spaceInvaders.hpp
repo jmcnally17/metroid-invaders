@@ -24,7 +24,7 @@ void moveInvaders(const std::vector<std::vector<IInvader *>> &invaders, IClock &
 
 void fireLaser(ILaserCannon &cannon);
 
-void endGame(bool &gameOver);
+void endGame(bool &isPlaying, bool &gameOver);
 
 Laser makeLaser();
 
