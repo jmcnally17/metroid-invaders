@@ -28,6 +28,7 @@ int main()
 
   Collision collisionInterface;
 
+  bool isPlaying = true;
   bool gameOver = false;
 
   while (window.isOpen())
@@ -41,13 +42,13 @@ int main()
       }
     }
 
-    if (!gameOver)
+    if (isPlaying)
     {
       drawObjects(window, cannon, laser, invaders);
       evaluateLaserInvaderCollision(collisionInterface, laser, invaders);
       if (invadersHaveInvaded(invaders))
       {
-        endGame(gameOver);
+        endGame(isPlaying, gameOver);
         std::cout << "Game Over!\n";
       }
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
