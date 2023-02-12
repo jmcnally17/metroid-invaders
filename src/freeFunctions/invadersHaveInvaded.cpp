@@ -7,7 +7,7 @@ bool invadersHaveInvaded(const std::vector<std::vector<IInvader *>> &invaders)
   {
     for (auto invader : vec)
     {
-      if (invader->getPosition().y >= 1128)
+      if (invader->isAlive() && invader->getPosition().y >= 1128)
       {
         return true;
       }

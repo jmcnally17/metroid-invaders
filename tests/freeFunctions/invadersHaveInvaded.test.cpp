@@ -2,13 +2,14 @@
 #include "../../include/spaceInvaders.hpp"
 #include "../mockModels/mockInvader.hpp"
 
+using ::testing::NiceMock;
 using ::testing::Return;
 
 TEST(invadersHaveInvaded, returnsTrueIfAnInvaderHasReachedTheBottomAndIsAlive)
 {
-  MockInvader invader1;
+  NiceMock<MockInvader> invader1;
   MockInvader *pInvader1 = &invader1;
-  MockInvader invader2;
+  NiceMock<MockInvader> invader2;
   MockInvader *pInvader2 = &invader2;
   std::vector<std::vector<IInvader *>> invaders(2);
 
@@ -35,7 +36,7 @@ TEST(invadersHaveInvaded, returnsTrueIfAnInvaderHasReachedTheBottomAndIsAlive)
 
 TEST(invadersHaveInvaded, returnsfalseIfInvadersHaveNotReachedTheBottomAndAreAlive)
 {
-  MockInvader invader;
+  NiceMock<MockInvader> invader;
   MockInvader *pInvader = &invader;
   std::vector<std::vector<IInvader *>> invaders(2);
 
@@ -53,6 +54,30 @@ TEST(invadersHaveInvaded, returnsfalseIfInvadersHaveNotReachedTheBottomAndAreAli
       .WillByDefault(Return(sf::Vector2f(500, 900)));
   ON_CALL(invader, isAlive)
       .WillByDefault(Return(true));
+
+  EXPECT_EQ(invadersHaveInvaded(invaders), false);
+}
+
+TEST(invadersHaveInvaded, returnsfalseIfInvadersHaveReachedTheBottomButAreDead)
+{
+  NiceMock<MockInvader> invader;
+  MockInvader *pInvader = &invader;
+  std::vector<std::vector<IInvader *>> invaders(2);
+
+  for (int i = 0; i < 2; i++)
+  {
+    std::vector<IInvader *> invaderRow(2);
+    for (int j = 0; j < 2; j++)
+    {
+      invaderRow[j] = pInvader;
+    }
+    invaders[i] = invaderRow;
+  }
+
+  ON_CALL(invader, getPosition)
+      .WillByDefault(Return(sf::Vector2f(500, 1128)));
+  ON_CALL(invader, isAlive)
+      .WillByDefault(Return(false));
 
   EXPECT_EQ(invadersHaveInvaded(invaders), false);
 }
