@@ -11,3 +11,12 @@ TEST(displayGameOverScreen, callsClearOnTheWindow)
       .Times(1);
   displayGameOverScreen(window);
 }
+
+TEST(displayGameOverScreen, callsDisplayOnTheWindow)
+{
+  NiceMock<MockRenderWindow> window;
+
+  EXPECT_CALL(window, display())
+      .Times(1);
+  displayGameOverScreen(window);
+}

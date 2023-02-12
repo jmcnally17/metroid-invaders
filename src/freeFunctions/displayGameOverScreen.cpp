@@ -3,4 +3,5 @@
 void displayGameOverScreen(IRenderWindow &window)
 {
   window.clear();
+  window.display();
 }
