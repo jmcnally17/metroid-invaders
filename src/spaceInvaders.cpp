@@ -1,3 +1,4 @@
+#include <iostream>
 #include "../include/spaceInvaders.hpp"
 #include "../include/wrappers/renderWindowWrapper.hpp"
 #include "../include/wrappers/spriteWrapper.hpp"
@@ -27,6 +28,8 @@ int main()
 
   Collision collisionInterface;
 
+  bool gameOver = false;
+
   while (window.isOpen())
   {
     sf::Event event;
@@ -38,21 +41,29 @@ int main()
       }
     }
 
-    drawObjects(window, cannon, laser, invaders);
-    evaluateLaserInvaderCollision(collisionInterface, laser, invaders);
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+    if (!gameOver)
     {
-      moveLaserCannon(cannon, 0.25);
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-    {
-      moveLaserCannon(cannon, -0.25);
-    }
-    moveLaser(laser);
-    moveInvaders(invaders, clock, interval, step, invaderSounds, soundCounter);
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-    {
-      fireLaser(cannon);
+      drawObjects(window, cannon, laser, invaders);
+      evaluateLaserInvaderCollision(collisionInterface, laser, invaders);
+      if (invadersHaveInvaded(invaders))
+      {
+        endGame(gameOver);
+        std::cout << "Game Over!\n";
+      }
+      if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+      {
+        moveLaserCannon(cannon, 0.25);
+      }
+      if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+      {
+        moveLaserCannon(cannon, -0.25);
+      }
+      moveLaser(laser);
+      moveInvaders(invaders, clock, interval, step, invaderSounds, soundCounter);
+      if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+      {
+        fireLaser(cannon);
+      }
     }
   }
 

@@ -14,6 +14,8 @@ void drawObjects(IRenderWindow &window, const ILaserCannon &cannon, const ILaser
 
 void evaluateLaserInvaderCollision(const CollisionInterface &collision, ILaser &laser, const std::vector<std::vector<IInvader *>> &invaders);
 
+bool invadersHaveInvaded(const std::vector<std::vector<IInvader *>> &invaders);
+
 void moveLaserCannon(ILaserCannon &cannon, float x);
 
 void moveLaser(ILaser &laser);
@@ -21,6 +23,8 @@ void moveLaser(ILaser &laser);
 void moveInvaders(const std::vector<std::vector<IInvader *>> &invaders, IClock &clock, int &interval, int &step, std::vector<ISound *> &sounds, int &soundCounter);
 
 void fireLaser(ILaserCannon &cannon);
+
+void endGame(bool &gameOver);
 
 Laser makeLaser();
 
