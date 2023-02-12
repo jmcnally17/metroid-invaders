@@ -3,5 +3,15 @@
 
 bool invadersHaveInvaded(const std::vector<std::vector<IInvader *>> &invaders)
 {
-  return true;
+  for (auto vec : invaders)
+  {
+    for (auto invader : vec)
+    {
+      if (invader->getPosition().y >= 1128)
+      {
+        return true;
+      }
+    }
+  }
+  return false;
 }
