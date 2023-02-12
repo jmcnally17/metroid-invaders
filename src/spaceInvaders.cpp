@@ -1,4 +1,3 @@
-#include <iostream>
 #include "../include/spaceInvaders.hpp"
 #include "../include/wrappers/renderWindowWrapper.hpp"
 #include "../include/wrappers/spriteWrapper.hpp"
@@ -49,7 +48,6 @@ int main()
       if (invadersHaveInvaded(invaders))
       {
         endGame(isPlaying, gameOver);
-        std::cout << "Game Over!\n";
       }
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
       {
