@@ -17,7 +17,7 @@ public:
   void draw(IRenderWindow &window) const override;
   void move(float x) override;
   void fire() override;
-  void reset();
+  void reset() override;
 
 private:
   float width_;
