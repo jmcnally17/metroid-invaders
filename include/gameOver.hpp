@@ -6,6 +6,6 @@
 
 void displayGameOverScreen(IRenderWindow &window, IText &gameOverText, IText &playAgainText);
 
-void playAgain(bool &gameOver);
+void playAgain(bool &isPlaying, bool &gameOver);
 
 #endif
