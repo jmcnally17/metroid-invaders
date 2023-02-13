@@ -232,6 +232,6 @@ TEST(LaserCannon, resetSetsSpritePositionBackToStartingPoint)
   LaserCannon cannon(sprite, laser, sound);
 
   EXPECT_CALL(sprite, setPosition(sf::Vector2f(120, 1224)))
-      .Times(2); // needs to be 2 times because of the initial call in the constructor!
+      .Times(1);
   cannon.reset();
 }
