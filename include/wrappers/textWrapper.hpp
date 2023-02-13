@@ -12,6 +12,8 @@ public:
   void setCharacterSize(unsigned int size);
   void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
   void setString(const std::string &string) override;
+  sf::FloatRect getLocalBounds() const override;
+  void setOrigin(float x, float y) override;
 
 private:
   sf::String string_;

@@ -25,3 +25,13 @@ void TextWrapper::setString(const std::string &string)
 {
   text_.setString(string);
 }
+
+sf::FloatRect TextWrapper::getLocalBounds() const
+{
+  return text_.getLocalBounds();
+}
+
+void TextWrapper::setOrigin(float x, float y)
+{
+  text_.setOrigin(x, y);
+}
