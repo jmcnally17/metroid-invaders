@@ -75,6 +75,10 @@ int main()
     else if (gameOver)
     {
       displayGameOverScreen(window, gameOverText, playAgainText);
+      if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+      {
+        playAgain(isPlaying, gameOver, cannon, laser, invaders, interval, step, soundCounter, clock);
+      }
     }
   }
 
