@@ -3,6 +3,7 @@
 #include "../include/wrappers/spriteWrapper.hpp"
 #include "../include/wrappers/soundWrapper.hpp"
 #include "../include/wrappers/clockWrapper.hpp"
+#include "../include/wrappers/textWrapper.hpp"
 #include "../include/models/laser.hpp"
 #include "../include/models/laserCannon.hpp"
 #include "../include/models/squid.hpp"
@@ -26,6 +27,19 @@ int main()
   int soundCounter = 0;
 
   Collision collisionInterface;
+
+  sf::Font m56;
+  m56.loadFromFile("public/fonts/MicroN56.ttf");
+
+  std::string gameOverString = "Game Over";
+  TextWrapper gameOverText(gameOverString, m56);
+  gameOverText.setPosition(sf::Vector2f(192, 200));
+  gameOverText.setCharacterSize(153);
+
+  std::string playAgainString = "Press p to play again";
+  TextWrapper playAgainText(playAgainString, m56);
+  playAgainText.setPosition(sf::Vector2f(384, 1000));
+  playAgainText.setCharacterSize(48);
 
   bool isPlaying = true;
   bool gameOver = false;
@@ -63,6 +77,10 @@ int main()
       {
         fireLaser(cannon);
       }
+    }
+    else if (gameOver)
+    {
+      displayGameOverScreen(window, gameOverText, playAgainText);
     }
   }
 
