@@ -15,8 +15,10 @@ std::vector<std::vector<IInvader *>> makeInvaders();
 
 std::vector<ISound *> makeInvaderSounds();
 
-TextWrapper makeGameOverText(sf::Font &font);
+TextWrapper makeScoreText(const sf::Font &font);
 
-TextWrapper makePlayAgainText(sf::Font &font);
+TextWrapper makeGameOverText(const sf::Font &font);
+
+TextWrapper makePlayAgainText(const sf::Font &font);
 
 #endif

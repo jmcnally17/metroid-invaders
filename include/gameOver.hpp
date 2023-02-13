@@ -9,7 +9,7 @@
 #include "./models/iLaser.hpp"
 #include "./models/iInvader.hpp"
 
-void displayGameOverScreen(IRenderWindow &window, IText &gameOverText, IText &playAgainText);
+void displayGameOverScreen(IRenderWindow &window, const IText &gameOverText, const IText &scoreText, const IText &playAgainText);
 
 void playAgain(bool &isPlaying,
                bool &gameOver,
@@ -21,6 +21,7 @@ void playAgain(bool &isPlaying,
                int &soundCounter,
                int &level,
                int &score,
+               IText &scoretext,
                IClock &clock);
 
 #endif

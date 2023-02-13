@@ -9,7 +9,6 @@ This solo project is an imitation of the classic 1978 Taito game, Space Invaders
 - Collision detection between Invader lasers and Laser Cannon
 - Collisions between Invader lasers and Laser Cannon laser
 - Lives for the player
-- Player score information displayed
 - Bunkers protecting the Laser Cannon at the bottom
 - Title screen
 - **_(Under consideration)_** Submit the player score into a database with their name at game over and display the leaderboard either at game over or on a live website
@@ -29,7 +28,7 @@ The player controls a Laser Cannon at the bottom of the window which can be move
 </p>
 
 <p align="center">
-  <b>Fig.1 -</b> A screenshot of the game window with the Laser Cannon at the bottom of the board, firing the Laser with the grid of Invaders above
+  <b>Fig.1 -</b> A screenshot of the game window with the Laser Cannon at the bottom of the board, firing the Laser with the grid of Invaders above. The player's score can be seen in the top left hand corner
 </p>
 
 <p align="center">

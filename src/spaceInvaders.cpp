@@ -30,13 +30,14 @@ int main()
 
   Collision collisionInterface;
 
-  sf::Font m56;
-  m56.loadFromFile("public/fonts/MicroN56.ttf");
-  TextWrapper gameOverText = makeGameOverText(m56);
-  TextWrapper playAgainText = makePlayAgainText(m56);
-
   int level = 1;
   int score = 0;
+
+  sf::Font m56;
+  m56.loadFromFile("public/fonts/MicroN56.ttf");
+  TextWrapper scoreText = makeScoreText(m56);
+  TextWrapper gameOverText = makeGameOverText(m56);
+  TextWrapper playAgainText = makePlayAgainText(m56);
 
   bool isPlaying = true;
   bool gameOver = false;
@@ -54,11 +55,11 @@ int main()
 
     if (isPlaying)
     {
-      drawObjects(window, cannon, laser, invaders);
-      evaluateLaserInvaderCollision(collisionInterface, laser, invaders);
+      drawObjects(window, cannon, laser, invaders, scoreText);
+      evaluateLaserInvaderCollision(collisionInterface, laser, invaders, score, scoreText);
       if (invadersHaveInvaded(invaders))
       {
-        endGame(isPlaying, gameOver);
+        endGame(isPlaying, gameOver, score, scoreText);
       }
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
       {
@@ -77,10 +78,10 @@ int main()
     }
     else if (gameOver)
     {
-      displayGameOverScreen(window, gameOverText, playAgainText);
+      displayGameOverScreen(window, gameOverText, scoreText, playAgainText);
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
       {
-        playAgain(isPlaying, gameOver, cannon, laser, invaders, interval, step, soundCounter, level, score, clock);
+        playAgain(isPlaying, gameOver, cannon, laser, invaders, interval, step, soundCounter, level, score, scoreText, clock);
       }
     }
   }
@@ -189,7 +190,16 @@ std::vector<ISound *> makeInvaderSounds()
   return invaderSounds;
 }
 
-TextWrapper makeGameOverText(sf::Font &font)
+TextWrapper makeScoreText(const sf::Font &font)
+{
+  std::string scoreString = "Score: 0";
+  TextWrapper scoreText(scoreString, font);
+  scoreText.setPosition(sf::Vector2f(20, 0));
+  scoreText.setCharacterSize(50);
+  return scoreText;
+}
+
+TextWrapper makeGameOverText(const sf::Font &font)
 {
   std::string gameOverString = "Game Over";
   TextWrapper gameOverText(gameOverString, font);
@@ -198,7 +208,7 @@ TextWrapper makeGameOverText(sf::Font &font)
   return gameOverText;
 }
 
-TextWrapper makePlayAgainText(sf::Font &font)
+TextWrapper makePlayAgainText(const sf::Font &font)
 {
   std::string playAgainString = "Press p to play again";
   TextWrapper playAgainText(playAgainString, font);

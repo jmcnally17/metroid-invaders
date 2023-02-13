@@ -1,10 +1,11 @@
 #include <vector>
 #include "../../../include/wrappers/iRenderWindow.hpp"
+#include "../../../include/wrappers/iText.hpp"
 #include "../../../include/models/iLaserCannon.hpp"
 #include "../../../include/models/iLaser.hpp"
 #include "../../../include/models/iInvader.hpp"
 
-void drawObjects(IRenderWindow &window, const ILaserCannon &cannon, const ILaser &laser, const std::vector<std::vector<IInvader *>> &invaders)
+void drawObjects(IRenderWindow &window, const ILaserCannon &cannon, const ILaser &laser, const std::vector<std::vector<IInvader *>> &invaders, const IText &scoreText)
 {
   window.clear();
   cannon.draw(window);
@@ -19,5 +20,6 @@ void drawObjects(IRenderWindow &window, const ILaserCannon &cannon, const ILaser
       }
     }
   }
+  window.draw(scoreText);
   window.display();
 }
