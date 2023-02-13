@@ -5,6 +5,7 @@
 #include "./wrappers/iRenderWindow.hpp"
 #include "./wrappers/iClock.hpp"
 #include "./wrappers/iSound.hpp"
+#include "./wrappers/iText.hpp"
 #include "./models/laserCannon.hpp"
 #include "./models/laser.hpp"
 #include "./models/iInvader.hpp"
@@ -26,7 +27,7 @@ void fireLaser(ILaserCannon &cannon);
 
 void endGame(bool &isPlaying, bool &gameOver);
 
-void displayGameOverScreen(IRenderWindow &window);
+void displayGameOverScreen(IRenderWindow &window, IText &gameOverText);
 
 Laser makeLaser();
 
