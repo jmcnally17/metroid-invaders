@@ -3,7 +3,13 @@
 #include "../../../include/models/iLaser.hpp"
 #include "../../../include/models/iInvader.hpp"
 
-void playAgain(bool &isPlaying, bool &gameOver, ILaserCannon &cannon, ILaser &laser, const std::vector<std::vector<IInvader *>> &invaders, int &interval)
+void playAgain(bool &isPlaying,
+               bool &gameOver,
+               ILaserCannon &cannon,
+               ILaser &laser,
+               const std::vector<std::vector<IInvader *>> &invaders,
+               int &interval,
+               int &step)
 {
   isPlaying = true;
   gameOver = false;
@@ -17,4 +23,5 @@ void playAgain(bool &isPlaying, bool &gameOver, ILaserCannon &cannon, ILaser &la
     }
   }
   interval = 665;
+  step = 1;
 }

@@ -14,8 +14,9 @@ TEST(playAgain, setsIsPlayingToTrue)
   NiceMock<MockLaser> laser;
   std::vector<std::vector<IInvader *>> invaders;
   int interval = 105;
+  int step = 8;
 
-  playAgain(isPlaying, gameOver, cannon, laser, invaders, interval);
+  playAgain(isPlaying, gameOver, cannon, laser, invaders, interval, step);
   EXPECT_EQ(isPlaying, true);
 }
 
@@ -27,8 +28,9 @@ TEST(playAgain, setsGameOverToFalse)
   NiceMock<MockLaser> laser;
   std::vector<std::vector<IInvader *>> invaders;
   int interval = 105;
+  int step = 8;
 
-  playAgain(isPlaying, gameOver, cannon, laser, invaders, interval);
+  playAgain(isPlaying, gameOver, cannon, laser, invaders, interval, step);
   EXPECT_EQ(gameOver, false);
 }
 
@@ -40,10 +42,11 @@ TEST(playAgain, resetsTheLaserCannon)
   NiceMock<MockLaser> laser;
   std::vector<std::vector<IInvader *>> invaders;
   int interval = 105;
+  int step = 8;
 
   EXPECT_CALL(cannon, reset())
       .Times(1);
-  playAgain(isPlaying, gameOver, cannon, laser, invaders, interval);
+  playAgain(isPlaying, gameOver, cannon, laser, invaders, interval, step);
 }
 
 TEST(playAgain, resetsTheLaser)
@@ -54,10 +57,11 @@ TEST(playAgain, resetsTheLaser)
   MockLaser laser;
   std::vector<std::vector<IInvader *>> invaders;
   int interval = 105;
+  int step = 8;
 
   EXPECT_CALL(laser, reset())
       .Times(1);
-  playAgain(isPlaying, gameOver, cannon, laser, invaders, interval);
+  playAgain(isPlaying, gameOver, cannon, laser, invaders, interval, step);
 }
 
 TEST(playAgain, resetsTheInvaders)
@@ -79,10 +83,11 @@ TEST(playAgain, resetsTheInvaders)
     invaders[i] = invaderRow;
   }
   int interval = 105;
+  int step = 8;
 
   EXPECT_CALL(invader, reset())
       .Times(12);
-  playAgain(isPlaying, gameOver, cannon, laser, invaders, interval);
+  playAgain(isPlaying, gameOver, cannon, laser, invaders, interval, step);
 }
 
 TEST(playAgain, resetsClockInterval)
@@ -93,7 +98,22 @@ TEST(playAgain, resetsClockInterval)
   NiceMock<MockLaser> laser;
   std::vector<std::vector<IInvader *>> invaders;
   int interval = 105;
+  int step = 8;
 
-  playAgain(isPlaying, gameOver, cannon, laser, invaders, interval);
+  playAgain(isPlaying, gameOver, cannon, laser, invaders, interval, step);
   EXPECT_EQ(interval, 665);
+}
+
+TEST(playAgain, resetsClockStepCounter)
+{
+  bool isPlaying = false;
+  bool gameOver = true;
+  NiceMock<MockLaserCannon> cannon;
+  NiceMock<MockLaser> laser;
+  std::vector<std::vector<IInvader *>> invaders;
+  int interval = 105;
+  int step = 8;
+
+  playAgain(isPlaying, gameOver, cannon, laser, invaders, interval, step);
+  EXPECT_EQ(step, 1);
 }
