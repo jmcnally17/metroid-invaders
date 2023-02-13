@@ -30,16 +30,8 @@ int main()
 
   sf::Font m56;
   m56.loadFromFile("public/fonts/MicroN56.ttf");
-
-  std::string gameOverString = "Game Over";
-  TextWrapper gameOverText(gameOverString, m56);
-  gameOverText.setPosition(sf::Vector2f(192, 200));
-  gameOverText.setCharacterSize(153);
-
-  std::string playAgainString = "Press p to play again";
-  TextWrapper playAgainText(playAgainString, m56);
-  playAgainText.setPosition(sf::Vector2f(384, 1000));
-  playAgainText.setCharacterSize(48);
+  TextWrapper gameOverText = makeGameOverText(m56);
+  TextWrapper playAgainText = makePlayAgainText(m56);
 
   bool isPlaying = true;
   bool gameOver = false;
@@ -186,4 +178,22 @@ std::vector<ISound *> makeInvaderSounds()
 
   std::vector<ISound *> invaderSounds = {sound0Wrapper, sound1Wrapper, sound2Wrapper, sound3Wrapper};
   return invaderSounds;
+}
+
+TextWrapper makeGameOverText(sf::Font &font)
+{
+  std::string gameOverString = "Game Over";
+  TextWrapper gameOverText(gameOverString, font);
+  gameOverText.setPosition(sf::Vector2f(192, 200));
+  gameOverText.setCharacterSize(153);
+  return gameOverText;
+}
+
+TextWrapper makePlayAgainText(sf::Font &font)
+{
+  std::string playAgainString = "Press p to play again";
+  TextWrapper playAgainText(playAgainString, font);
+  playAgainText.setPosition(sf::Vector2f(384, 1000));
+  playAgainText.setCharacterSize(48);
+  return playAgainText;
 }

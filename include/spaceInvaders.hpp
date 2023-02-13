@@ -5,7 +5,7 @@
 #include "./wrappers/iRenderWindow.hpp"
 #include "./wrappers/iClock.hpp"
 #include "./wrappers/iSound.hpp"
-#include "./wrappers/iText.hpp"
+#include "./wrappers/textWrapper.hpp"
 #include "./models/laserCannon.hpp"
 #include "./models/laser.hpp"
 #include "./models/iInvader.hpp"
@@ -36,5 +36,9 @@ LaserCannon makeCannon(Laser &laser);
 std::vector<std::vector<IInvader *>> makeInvaders();
 
 std::vector<ISound *> makeInvaderSounds();
+
+TextWrapper makeGameOverText(sf::Font &font);
+
+TextWrapper makePlayAgainText(sf::Font &font);
 
 #endif
