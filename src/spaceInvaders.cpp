@@ -59,7 +59,7 @@ int main()
       evaluateLaserInvaderCollision(collisionInterface, laser, invaders, score, scoreText);
       if (invadersHaveInvaded(invaders))
       {
-        endGame(isPlaying, gameOver);
+        endGame(isPlaying, gameOver, score, scoreText);
       }
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
       {
