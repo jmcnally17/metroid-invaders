@@ -39,7 +39,7 @@ TEST(endGame, updatesScoreText)
 
   EXPECT_CALL(scoreText, setString("You scored 1200 points"))
       .Times(1);
-  EXPECT_CALL(scoreText, setPosition(sf::Vector2f(768, 550)))
+  EXPECT_CALL(scoreText, setPosition(sf::Vector2f(768, 600)))
       .Times(1);
   EXPECT_CALL(scoreText, setOrigin(200, 0))
       .Times(1);
