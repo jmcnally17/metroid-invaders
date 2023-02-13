@@ -262,3 +262,37 @@ TEST(Crab, moveUpdatesPositionOnSpriteMember)
   EXPECT_CALL(sprite, setPosition(sf::Vector2f(214.1, 320)));
   crab.move();
 }
+
+TEST(Crab, resetSetsPositionBackToOriginalPosition)
+{
+  NiceMock<MockSprite> sprite;
+  Crab crab(200, 320, sprite);
+
+  crab.setPosition(sf::Vector2f(900, 1100));
+
+  crab.reset();
+  EXPECT_EQ(crab.getPosition(), sf::Vector2f(200, 320));
+}
+
+TEST(Crab, resetSetsSpritePositionBackToOriginalPosition)
+{
+  NiceMock<MockSprite> sprite;
+  Crab crab(200, 320, sprite);
+
+  crab.setPosition(sf::Vector2f(900, 1100));
+
+  EXPECT_CALL(sprite, setPosition(sf::Vector2f(200, 320)))
+      .Times(1);
+  crab.reset();
+}
+
+TEST(Crab, resetSetsAliveBackToTrue)
+{
+  NiceMock<MockSprite> sprite;
+  Crab crab(200, 320, sprite);
+
+  crab.die();
+
+  crab.reset();
+  EXPECT_EQ(crab.isAlive(), true);
+}

@@ -18,6 +18,7 @@ public:
   void move() override;
   void changeDirection();
   bool hasJustMovedDown() const override;
+  void reset() override;
 
 private:
   sf::Vector2f originalPosition_;

@@ -1,9 +1,11 @@
-#include <iostream>
 #include "../include/spaceInvaders.hpp"
+#include "../include/game.hpp"
+#include "../include/gameOver.hpp"
 #include "../include/wrappers/renderWindowWrapper.hpp"
 #include "../include/wrappers/spriteWrapper.hpp"
 #include "../include/wrappers/soundWrapper.hpp"
 #include "../include/wrappers/clockWrapper.hpp"
+#include "../include/wrappers/textWrapper.hpp"
 #include "../include/models/laser.hpp"
 #include "../include/models/laserCannon.hpp"
 #include "../include/models/squid.hpp"
@@ -28,6 +30,12 @@ int main()
 
   Collision collisionInterface;
 
+  sf::Font m56;
+  m56.loadFromFile("public/fonts/MicroN56.ttf");
+  TextWrapper gameOverText = makeGameOverText(m56);
+  TextWrapper playAgainText = makePlayAgainText(m56);
+
+  bool isPlaying = true;
   bool gameOver = false;
 
   while (window.isOpen())
@@ -41,14 +49,13 @@ int main()
       }
     }
 
-    if (!gameOver)
+    if (isPlaying)
     {
       drawObjects(window, cannon, laser, invaders);
       evaluateLaserInvaderCollision(collisionInterface, laser, invaders);
       if (invadersHaveInvaded(invaders))
       {
-        endGame(gameOver);
-        std::cout << "Game Over!\n";
+        endGame(isPlaying, gameOver);
       }
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
       {
@@ -63,6 +70,14 @@ int main()
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
       {
         fireLaser(cannon);
+      }
+    }
+    else if (gameOver)
+    {
+      displayGameOverScreen(window, gameOverText, playAgainText);
+      if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+      {
+        playAgain(isPlaying, gameOver, cannon, laser, invaders, interval, step, soundCounter, clock);
       }
     }
   }
@@ -169,4 +184,22 @@ std::vector<ISound *> makeInvaderSounds()
 
   std::vector<ISound *> invaderSounds = {sound0Wrapper, sound1Wrapper, sound2Wrapper, sound3Wrapper};
   return invaderSounds;
+}
+
+TextWrapper makeGameOverText(sf::Font &font)
+{
+  std::string gameOverString = "Game Over";
+  TextWrapper gameOverText(gameOverString, font);
+  gameOverText.setPosition(sf::Vector2f(192, 200));
+  gameOverText.setCharacterSize(153);
+  return gameOverText;
+}
+
+TextWrapper makePlayAgainText(sf::Font &font)
+{
+  std::string playAgainString = "Press p to play again";
+  TextWrapper playAgainText(playAgainString, font);
+  playAgainText.setPosition(sf::Vector2f(384, 1000));
+  playAgainText.setCharacterSize(48);
+  return playAgainText;
 }

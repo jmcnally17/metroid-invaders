@@ -8,6 +8,7 @@ class ILaserCannon : public ObjectInterface
 public:
   virtual void move(float x) = 0;
   virtual void fire() = 0;
+  virtual void reset() = 0;
 };
 
 #endif
