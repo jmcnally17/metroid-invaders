@@ -9,7 +9,7 @@ public:
   Octopus(float x, float y, ISprite &sprite);
   float getWidth() const override;
   float getHeight() const override;
-  int getPoints() const;
+  int getPoints() const override;
 
 private:
   float width_;

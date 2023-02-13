@@ -11,6 +11,7 @@ public:
   virtual void move() = 0;
   virtual bool hasJustMovedDown() const = 0;
   virtual void reset() = 0;
+  virtual int getPoints() const = 0;
 };
 
 #endif
