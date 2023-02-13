@@ -12,7 +12,6 @@ This solo project is an imitation of the classic 1978 Taito game, Space Invaders
 - Player score information displayed
 - Bunkers protecting the Laser Cannon at the bottom
 - Title screen
-- Game over screen with button to play again
 - **_(Under consideration)_** Submit the player score into a database with their name at game over and display the leaderboard either at game over or on a live website
 
 ## Gameplay
