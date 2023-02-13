@@ -285,3 +285,14 @@ TEST(Crab, resetSetsSpritePositionBackToOriginalPosition)
       .Times(1);
   crab.reset();
 }
+
+TEST(Crab, resetSetsAliveBackToTrue)
+{
+  NiceMock<MockSprite> sprite;
+  Crab crab(200, 320, sprite);
+
+  crab.die();
+
+  crab.reset();
+  EXPECT_EQ(crab.isAlive(), true);
+}

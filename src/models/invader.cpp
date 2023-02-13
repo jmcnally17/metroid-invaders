@@ -75,4 +75,5 @@ bool Invader::hasJustMovedDown() const
 void Invader::reset()
 {
   setPosition(originalPosition_);
+  alive_ = true;
 }

@@ -285,3 +285,14 @@ TEST(Squid, resetSetsSpritePositionBackToOriginalPosition)
       .Times(1);
   squid.reset();
 }
+
+TEST(Squid, resetSetsAliveBackToTrue)
+{
+  NiceMock<MockSprite> sprite;
+  Squid squid(200, 320, sprite);
+
+  squid.die();
+
+  squid.reset();
+  EXPECT_EQ(squid.isAlive(), true);
+}

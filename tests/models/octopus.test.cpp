@@ -285,3 +285,14 @@ TEST(Octopus, resetSetsSpritePositionBackToOriginalPosition)
       .Times(1);
   octopus.reset();
 }
+
+TEST(Octopus, resetSetsAliveBackToTrue)
+{
+  NiceMock<MockSprite> sprite;
+  Octopus octopus(200, 320, sprite);
+
+  octopus.die();
+
+  octopus.reset();
+  EXPECT_EQ(octopus.isAlive(), true);
+}
