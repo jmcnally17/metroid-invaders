@@ -3,6 +3,7 @@
 #include "../../mockInterfaces/mockCollision.hpp"
 #include "../../mockModels/mockLaser.hpp"
 #include "../../mockModels/mockInvader.hpp"
+#include "../../mockModels/mockText.hpp"
 
 using ::testing::NiceMock;
 using ::testing::Return;
@@ -24,6 +25,7 @@ TEST(evaluateLaserInvaderCollision, killsInvaderThatIsAliveAndLaserIsCollidingWi
     invaders[i] = invaderRow;
   }
   int score = 0;
+  NiceMock<MockText> scoreText;
 
   ON_CALL(invader, isAlive())
       .WillByDefault(Return(true));
@@ -36,7 +38,7 @@ TEST(evaluateLaserInvaderCollision, killsInvaderThatIsAliveAndLaserIsCollidingWi
       .Times(1);
   EXPECT_CALL(laser, playInvaderDeath())
       .Times(1);
-  evaluateLaserInvaderCollision(collision, laser, invaders, score);
+  evaluateLaserInvaderCollision(collision, laser, invaders, score, scoreText);
 }
 
 TEST(evaluateLaserInvaderCollision, addsTheInvaderPointsToTheScore)
@@ -56,6 +58,7 @@ TEST(evaluateLaserInvaderCollision, addsTheInvaderPointsToTheScore)
     invaders[i] = invaderRow;
   }
   int score = 0;
+  MockText scoreText;
 
   ON_CALL(invader, isAlive())
       .WillByDefault(Return(true));
@@ -64,7 +67,9 @@ TEST(evaluateLaserInvaderCollision, addsTheInvaderPointsToTheScore)
   ON_CALL(invader, getPoints())
       .WillByDefault(Return(30));
 
-  evaluateLaserInvaderCollision(collision, laser, invaders, score);
+  EXPECT_CALL(scoreText, setString("Score: 30"))
+      .Times(1);
+  evaluateLaserInvaderCollision(collision, laser, invaders, score, scoreText);
   EXPECT_EQ(score, 30);
 }
 
@@ -85,6 +90,7 @@ TEST(evaluateLaserInvaderCollision, doesNotKillInvadersThatAreAliveAndLaserIsNot
     invaders[i] = invaderRow;
   }
   int score = 0;
+  NiceMock<MockText> scoreText;
 
   ON_CALL(invader, isAlive())
       .WillByDefault(Return(true));
@@ -97,7 +103,7 @@ TEST(evaluateLaserInvaderCollision, doesNotKillInvadersThatAreAliveAndLaserIsNot
       .Times(0);
   EXPECT_CALL(laser, playInvaderDeath())
       .Times(0);
-  evaluateLaserInvaderCollision(collision, laser, invaders, score);
+  evaluateLaserInvaderCollision(collision, laser, invaders, score, scoreText);
 }
 
 TEST(evaluateLaserInvaderCollision, doesNotKillInvadersThatAreDeadAndLaserIsCollidingWith)
@@ -117,6 +123,7 @@ TEST(evaluateLaserInvaderCollision, doesNotKillInvadersThatAreDeadAndLaserIsColl
     invaders[i] = invaderRow;
   }
   int score = 0;
+  NiceMock<MockText> scoreText;
 
   ON_CALL(invader, isAlive())
       .WillByDefault(Return(false));
@@ -129,7 +136,7 @@ TEST(evaluateLaserInvaderCollision, doesNotKillInvadersThatAreDeadAndLaserIsColl
       .Times(0);
   EXPECT_CALL(laser, playInvaderDeath())
       .Times(0);
-  evaluateLaserInvaderCollision(collision, laser, invaders, score);
+  evaluateLaserInvaderCollision(collision, laser, invaders, score, scoreText);
 }
 
 TEST(evaluateLaserInvaderCollision, doesNotKillInvadersThatAreDeadAndLaserIsNotCollidingWith)
@@ -149,6 +156,7 @@ TEST(evaluateLaserInvaderCollision, doesNotKillInvadersThatAreDeadAndLaserIsNotC
     invaders[i] = invaderRow;
   }
   int score = 0;
+  NiceMock<MockText> scoreText;
 
   ON_CALL(invader, isAlive())
       .WillByDefault(Return(false));
@@ -161,5 +169,5 @@ TEST(evaluateLaserInvaderCollision, doesNotKillInvadersThatAreDeadAndLaserIsNotC
       .Times(0);
   EXPECT_CALL(laser, playInvaderDeath())
       .Times(0);
-  evaluateLaserInvaderCollision(collision, laser, invaders, score);
+  evaluateLaserInvaderCollision(collision, laser, invaders, score, scoreText);
 }

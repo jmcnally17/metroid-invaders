@@ -5,6 +5,8 @@
 
 class IText : virtual public sf::Drawable
 {
+public:
+  virtual void setString(const std::string &string) = 0;
 };
 
 #endif

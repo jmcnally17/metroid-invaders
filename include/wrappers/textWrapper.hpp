@@ -11,6 +11,7 @@ public:
   void setPosition(const sf::Vector2f &position);
   void setCharacterSize(unsigned int size);
   void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+  void setString(const std::string &string) override;
 
 private:
   sf::String string_;

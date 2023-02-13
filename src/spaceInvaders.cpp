@@ -35,7 +35,7 @@ int main()
 
   sf::Font m56;
   m56.loadFromFile("public/fonts/MicroN56.ttf");
-  TextWrapper scoreText = makeScoreText(m56, score);
+  TextWrapper scoreText = makeScoreText(m56);
   TextWrapper gameOverText = makeGameOverText(m56);
   TextWrapper playAgainText = makePlayAgainText(m56);
 
@@ -190,9 +190,9 @@ std::vector<ISound *> makeInvaderSounds()
   return invaderSounds;
 }
 
-TextWrapper makeScoreText(const sf::Font &font, const int score)
+TextWrapper makeScoreText(const sf::Font &font)
 {
-  std::string scoreString = "Score: " + std::to_string(score);
+  std::string scoreString = "Score: 0";
   TextWrapper scoreText(scoreString, font);
   scoreText.setPosition(sf::Vector2f(0, 0));
   scoreText.setCharacterSize(100);

@@ -20,3 +20,8 @@ void TextWrapper::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
   target.draw(text_, states);
 };
+
+void TextWrapper::setString(const std::string &string)
+{
+  text_.setString(string);
+}
