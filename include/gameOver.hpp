@@ -21,6 +21,7 @@ void playAgain(bool &isPlaying,
                int &soundCounter,
                int &level,
                int &score,
+               IText &scoretext,
                IClock &clock);
 
 #endif
