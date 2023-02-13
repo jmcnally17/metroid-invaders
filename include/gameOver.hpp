@@ -16,6 +16,7 @@ void playAgain(bool &isPlaying,
                ILaser &laser,
                const std::vector<std::vector<IInvader *>> &invaders,
                int &interval,
-               int &step);
+               int &step,
+               int &soundCounter);
 
 #endif

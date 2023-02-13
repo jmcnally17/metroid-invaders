@@ -15,8 +15,9 @@ TEST(playAgain, setsIsPlayingToTrue)
   std::vector<std::vector<IInvader *>> invaders;
   int interval = 105;
   int step = 8;
+  int soundCounter = 3;
 
-  playAgain(isPlaying, gameOver, cannon, laser, invaders, interval, step);
+  playAgain(isPlaying, gameOver, cannon, laser, invaders, interval, step, soundCounter);
   EXPECT_EQ(isPlaying, true);
 }
 
@@ -29,8 +30,9 @@ TEST(playAgain, setsGameOverToFalse)
   std::vector<std::vector<IInvader *>> invaders;
   int interval = 105;
   int step = 8;
+  int soundCounter = 3;
 
-  playAgain(isPlaying, gameOver, cannon, laser, invaders, interval, step);
+  playAgain(isPlaying, gameOver, cannon, laser, invaders, interval, step, soundCounter);
   EXPECT_EQ(gameOver, false);
 }
 
@@ -43,10 +45,11 @@ TEST(playAgain, resetsTheLaserCannon)
   std::vector<std::vector<IInvader *>> invaders;
   int interval = 105;
   int step = 8;
+  int soundCounter = 3;
 
   EXPECT_CALL(cannon, reset())
       .Times(1);
-  playAgain(isPlaying, gameOver, cannon, laser, invaders, interval, step);
+  playAgain(isPlaying, gameOver, cannon, laser, invaders, interval, step, soundCounter);
 }
 
 TEST(playAgain, resetsTheLaser)
@@ -58,10 +61,11 @@ TEST(playAgain, resetsTheLaser)
   std::vector<std::vector<IInvader *>> invaders;
   int interval = 105;
   int step = 8;
+  int soundCounter = 3;
 
   EXPECT_CALL(laser, reset())
       .Times(1);
-  playAgain(isPlaying, gameOver, cannon, laser, invaders, interval, step);
+  playAgain(isPlaying, gameOver, cannon, laser, invaders, interval, step, soundCounter);
 }
 
 TEST(playAgain, resetsTheInvaders)
@@ -84,10 +88,11 @@ TEST(playAgain, resetsTheInvaders)
   }
   int interval = 105;
   int step = 8;
+  int soundCounter = 3;
 
   EXPECT_CALL(invader, reset())
       .Times(12);
-  playAgain(isPlaying, gameOver, cannon, laser, invaders, interval, step);
+  playAgain(isPlaying, gameOver, cannon, laser, invaders, interval, step, soundCounter);
 }
 
 TEST(playAgain, resetsClockInterval)
@@ -99,8 +104,9 @@ TEST(playAgain, resetsClockInterval)
   std::vector<std::vector<IInvader *>> invaders;
   int interval = 105;
   int step = 8;
+  int soundCounter = 3;
 
-  playAgain(isPlaying, gameOver, cannon, laser, invaders, interval, step);
+  playAgain(isPlaying, gameOver, cannon, laser, invaders, interval, step, soundCounter);
   EXPECT_EQ(interval, 665);
 }
 
@@ -113,7 +119,23 @@ TEST(playAgain, resetsClockStepCounter)
   std::vector<std::vector<IInvader *>> invaders;
   int interval = 105;
   int step = 8;
+  int soundCounter = 3;
 
-  playAgain(isPlaying, gameOver, cannon, laser, invaders, interval, step);
+  playAgain(isPlaying, gameOver, cannon, laser, invaders, interval, step, soundCounter);
   EXPECT_EQ(step, 1);
+}
+
+TEST(playAgain, resetsSoundCounter)
+{
+  bool isPlaying = false;
+  bool gameOver = true;
+  NiceMock<MockLaserCannon> cannon;
+  NiceMock<MockLaser> laser;
+  std::vector<std::vector<IInvader *>> invaders;
+  int interval = 105;
+  int step = 8;
+  int soundCounter = 3;
+
+  playAgain(isPlaying, gameOver, cannon, laser, invaders, interval, step, soundCounter);
+  EXPECT_EQ(soundCounter, 0);
 }
