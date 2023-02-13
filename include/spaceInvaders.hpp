@@ -27,7 +27,7 @@ void fireLaser(ILaserCannon &cannon);
 
 void endGame(bool &isPlaying, bool &gameOver);
 
-void displayGameOverScreen(IRenderWindow &window, IText &gameOverText);
+void displayGameOverScreen(IRenderWindow &window, IText &gameOverText, IText &playAgainText);
 
 Laser makeLaser();
 
