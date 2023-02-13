@@ -13,8 +13,9 @@ TEST(playAgain, setsIsPlayingToTrue)
   NiceMock<MockLaserCannon> cannon;
   NiceMock<MockLaser> laser;
   std::vector<std::vector<IInvader *>> invaders;
+  int interval = 105;
 
-  playAgain(isPlaying, gameOver, cannon, laser, invaders);
+  playAgain(isPlaying, gameOver, cannon, laser, invaders, interval);
   EXPECT_EQ(isPlaying, true);
 }
 
@@ -25,8 +26,9 @@ TEST(playAgain, setsGameOverToFalse)
   NiceMock<MockLaserCannon> cannon;
   NiceMock<MockLaser> laser;
   std::vector<std::vector<IInvader *>> invaders;
+  int interval = 105;
 
-  playAgain(isPlaying, gameOver, cannon, laser, invaders);
+  playAgain(isPlaying, gameOver, cannon, laser, invaders, interval);
   EXPECT_EQ(gameOver, false);
 }
 
@@ -37,10 +39,11 @@ TEST(playAgain, resetsTheLaserCannon)
   MockLaserCannon cannon;
   NiceMock<MockLaser> laser;
   std::vector<std::vector<IInvader *>> invaders;
+  int interval = 105;
 
   EXPECT_CALL(cannon, reset())
       .Times(1);
-  playAgain(isPlaying, gameOver, cannon, laser, invaders);
+  playAgain(isPlaying, gameOver, cannon, laser, invaders, interval);
 }
 
 TEST(playAgain, resetsTheLaser)
@@ -50,10 +53,11 @@ TEST(playAgain, resetsTheLaser)
   NiceMock<MockLaserCannon> cannon;
   MockLaser laser;
   std::vector<std::vector<IInvader *>> invaders;
+  int interval = 105;
 
   EXPECT_CALL(laser, reset())
       .Times(1);
-  playAgain(isPlaying, gameOver, cannon, laser, invaders);
+  playAgain(isPlaying, gameOver, cannon, laser, invaders, interval);
 }
 
 TEST(playAgain, resetsTheInvaders)
@@ -74,8 +78,22 @@ TEST(playAgain, resetsTheInvaders)
     }
     invaders[i] = invaderRow;
   }
+  int interval = 105;
 
   EXPECT_CALL(invader, reset())
       .Times(12);
-  playAgain(isPlaying, gameOver, cannon, laser, invaders);
+  playAgain(isPlaying, gameOver, cannon, laser, invaders, interval);
+}
+
+TEST(playAgain, resetsClockInterval)
+{
+  bool isPlaying = false;
+  bool gameOver = true;
+  NiceMock<MockLaserCannon> cannon;
+  NiceMock<MockLaser> laser;
+  std::vector<std::vector<IInvader *>> invaders;
+  int interval = 105;
+
+  playAgain(isPlaying, gameOver, cannon, laser, invaders, interval);
+  EXPECT_EQ(interval, 665);
 }

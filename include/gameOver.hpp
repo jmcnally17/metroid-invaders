@@ -10,6 +10,6 @@
 
 void displayGameOverScreen(IRenderWindow &window, IText &gameOverText, IText &playAgainText);
 
-void playAgain(bool &isPlaying, bool &gameOver, ILaserCannon &cannon, ILaser &laser, const std::vector<std::vector<IInvader *>> &invaders);
+void playAgain(bool &isPlaying, bool &gameOver, ILaserCannon &cannon, ILaser &laser, const std::vector<std::vector<IInvader *>> &invaders, int &interval);
 
 #endif
