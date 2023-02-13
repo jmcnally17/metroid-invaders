@@ -13,6 +13,7 @@ void playAgain(bool &isPlaying,
                int &step,
                int &soundCounter,
                int &level,
+               int &score,
                IClock &clock)
 {
   isPlaying = true;
@@ -30,5 +31,6 @@ void playAgain(bool &isPlaying,
   step = 1;
   soundCounter = 0;
   level = 1;
+  score = 0;
   clock.restart();
 }
