@@ -19,6 +19,7 @@ void playAgain(bool &isPlaying,
                int &interval,
                int &step,
                int &soundCounter,
+               int &level,
                IClock &clock);
 
 #endif
