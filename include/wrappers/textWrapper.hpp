@@ -1,0 +1,21 @@
+#ifndef TEXT_WRAPPER_HPP
+#define TEXT_WRAPPER_HPP
+
+#include <SFML/Graphics.hpp>
+#include "./iText.hpp"
+
+class TextWrapper : public IText, virtual public sf::Drawable
+{
+public:
+  TextWrapper(const sf::String &string, const sf::Font &font);
+  void setPosition(const sf::Vector2f &position);
+  void setCharacterSize(unsigned int size);
+  void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+
+private:
+  sf::String string_;
+  sf::Font font_;
+  sf::Text text_;
+};
+
+#endif
