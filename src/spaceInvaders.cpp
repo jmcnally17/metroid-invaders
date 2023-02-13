@@ -30,13 +30,14 @@ int main()
 
   Collision collisionInterface;
 
-  sf::Font m56;
-  m56.loadFromFile("public/fonts/MicroN56.ttf");
-  TextWrapper gameOverText = makeGameOverText(m56);
-  TextWrapper playAgainText = makePlayAgainText(m56);
-
   int level = 1;
   int score = 0;
+
+  sf::Font m56;
+  m56.loadFromFile("public/fonts/MicroN56.ttf");
+  TextWrapper scoreText = makeScoreText(m56, score);
+  TextWrapper gameOverText = makeGameOverText(m56);
+  TextWrapper playAgainText = makePlayAgainText(m56);
 
   bool isPlaying = true;
   bool gameOver = false;
@@ -54,7 +55,7 @@ int main()
 
     if (isPlaying)
     {
-      drawObjects(window, cannon, laser, invaders);
+      drawObjects(window, cannon, laser, invaders, scoreText);
       evaluateLaserInvaderCollision(collisionInterface, laser, invaders, score);
       if (invadersHaveInvaded(invaders))
       {
@@ -189,7 +190,16 @@ std::vector<ISound *> makeInvaderSounds()
   return invaderSounds;
 }
 
-TextWrapper makeGameOverText(sf::Font &font)
+TextWrapper makeScoreText(const sf::Font &font, const int score)
+{
+  std::string scoreString = "Score: " + std::to_string(score);
+  TextWrapper scoreText(scoreString, font);
+  scoreText.setPosition(sf::Vector2f(0, 0));
+  scoreText.setCharacterSize(100);
+  return scoreText;
+}
+
+TextWrapper makeGameOverText(const sf::Font &font)
 {
   std::string gameOverString = "Game Over";
   TextWrapper gameOverText(gameOverString, font);
@@ -198,7 +208,7 @@ TextWrapper makeGameOverText(sf::Font &font)
   return gameOverText;
 }
 
-TextWrapper makePlayAgainText(sf::Font &font)
+TextWrapper makePlayAgainText(const sf::Font &font)
 {
   std::string playAgainString = "Press p to play again";
   TextWrapper playAgainText(playAgainString, font);
