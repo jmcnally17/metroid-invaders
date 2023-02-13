@@ -54,3 +54,9 @@ void LaserCannon::fire()
     sound_.play();
   }
 }
+
+void LaserCannon::reset()
+{
+  setPosition(sf::Vector2f(120, 1224));
+  sprite_.setPosition(position_);
+}
