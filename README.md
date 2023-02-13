@@ -32,6 +32,14 @@ The player controls a Laser Cannon at the bottom of the window which can be move
   <b>Fig.1 -</b> A screenshot of the game window with the Laser Cannon at the bottom of the board, firing the Laser with the grid of Invaders above
 </p>
 
+<p align="center">
+  <img src="./public/images/gameOver.png" width="70%">
+</p>
+
+<p align="center">
+  <b>Fig.2 -</b> A screenshot of the game over screen, which will be rendered once the Invaders have reached the bottom of the window
+</p>
+
 ## How To Use
 
 Start by opening up a terminal and cloning this repository by entering
