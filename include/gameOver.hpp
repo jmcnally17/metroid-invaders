@@ -4,6 +4,7 @@
 #include <vector>
 #include "./wrappers/iRenderWindow.hpp"
 #include "./wrappers/iText.hpp"
+#include "./wrappers/iClock.hpp"
 #include "./models/iLaserCannon.hpp"
 #include "./models/iLaser.hpp"
 #include "./models/iInvader.hpp"
@@ -17,6 +18,7 @@ void playAgain(bool &isPlaying,
                const std::vector<std::vector<IInvader *>> &invaders,
                int &interval,
                int &step,
-               int &soundCounter);
+               int &soundCounter,
+               IClock &clock);
 
 #endif

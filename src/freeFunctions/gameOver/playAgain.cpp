@@ -1,4 +1,5 @@
 #include <vector>
+#include "../../../include/wrappers/iClock.hpp"
 #include "../../../include/models/iLaserCannon.hpp"
 #include "../../../include/models/iLaser.hpp"
 #include "../../../include/models/iInvader.hpp"
@@ -10,7 +11,8 @@ void playAgain(bool &isPlaying,
                const std::vector<std::vector<IInvader *>> &invaders,
                int &interval,
                int &step,
-               int &soundCounter)
+               int &soundCounter,
+               IClock &clock)
 {
   isPlaying = true;
   gameOver = false;
@@ -26,4 +28,5 @@ void playAgain(bool &isPlaying,
   interval = 665;
   step = 1;
   soundCounter = 0;
+  clock.restart();
 }
