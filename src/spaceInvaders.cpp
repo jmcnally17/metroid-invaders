@@ -194,8 +194,8 @@ TextWrapper makeScoreText(const sf::Font &font)
 {
   std::string scoreString = "Score: 0";
   TextWrapper scoreText(scoreString, font);
-  scoreText.setPosition(sf::Vector2f(0, 0));
-  scoreText.setCharacterSize(100);
+  scoreText.setPosition(sf::Vector2f(20, 0));
+  scoreText.setCharacterSize(50);
   return scoreText;
 }
 
