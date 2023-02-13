@@ -15,6 +15,7 @@ public:
   MOCK_METHOD(void, die, ());
   MOCK_METHOD(void, move, ());
   MOCK_METHOD(bool, hasJustMovedDown, (), (const));
+  MOCK_METHOD(void, reset, ());
 };
 
 #endif
