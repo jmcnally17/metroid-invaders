@@ -262,3 +262,26 @@ TEST(Squid, moveUpdatesPositionOnSpriteMember)
   EXPECT_CALL(sprite, setPosition(sf::Vector2f(214.1, 320)));
   squid.move();
 }
+
+TEST(Squid, resetSetsPositionBackToOriginalPosition)
+{
+  NiceMock<MockSprite> sprite;
+  Squid squid(200, 320, sprite);
+
+  squid.setPosition(sf::Vector2f(900, 1100));
+
+  squid.reset();
+  EXPECT_EQ(squid.getPosition(), sf::Vector2f(200, 320));
+}
+
+TEST(Squid, resetSetsSpritePositionBackToOriginalPosition)
+{
+  NiceMock<MockSprite> sprite;
+  Squid squid(200, 320, sprite);
+
+  squid.setPosition(sf::Vector2f(900, 1100));
+
+  EXPECT_CALL(sprite, setPosition(sf::Vector2f(200, 320)))
+      .Times(1);
+  squid.reset();
+}

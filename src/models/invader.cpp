@@ -71,3 +71,8 @@ bool Invader::hasJustMovedDown() const
 {
   return justMovedDown_;
 }
+
+void Invader::reset()
+{
+  setPosition(originalPosition_);
+}

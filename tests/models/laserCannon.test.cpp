@@ -220,6 +220,8 @@ TEST(LaserCannon, resetSetsPositionBackToStartingPoint)
   MockSound sound;
   LaserCannon cannon(sprite, laser, sound);
 
+  cannon.setPosition(sf::Vector2f(500, 120));
+
   cannon.reset();
   EXPECT_EQ(cannon.getPosition(), sf::Vector2f(120, 1224));
 }
@@ -230,6 +232,8 @@ TEST(LaserCannon, resetSetsSpritePositionBackToStartingPoint)
   NiceMock<MockLaser> laser;
   MockSound sound;
   LaserCannon cannon(sprite, laser, sound);
+
+  cannon.setPosition(sf::Vector2f(500, 120));
 
   EXPECT_CALL(sprite, setPosition(sf::Vector2f(120, 1224)))
       .Times(1);

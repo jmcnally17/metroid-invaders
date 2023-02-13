@@ -262,3 +262,26 @@ TEST(Octopus, moveUpdatesPositionOnSpriteMember)
   EXPECT_CALL(sprite, setPosition(sf::Vector2f(214.1, 320)));
   octopus.move();
 }
+
+TEST(Octopus, resetSetsPositionBackToOriginalPosition)
+{
+  NiceMock<MockSprite> sprite;
+  Octopus octopus(200, 320, sprite);
+
+  octopus.setPosition(sf::Vector2f(900, 1100));
+
+  octopus.reset();
+  EXPECT_EQ(octopus.getPosition(), sf::Vector2f(200, 320));
+}
+
+TEST(Octopus, resetSetsSpritePositionBackToOriginalPosition)
+{
+  NiceMock<MockSprite> sprite;
+  Octopus octopus(200, 320, sprite);
+
+  octopus.setPosition(sf::Vector2f(900, 1100));
+
+  EXPECT_CALL(sprite, setPosition(sf::Vector2f(200, 320)))
+      .Times(1);
+  octopus.reset();
+}
