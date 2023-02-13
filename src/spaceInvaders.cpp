@@ -1,4 +1,6 @@
 #include "../include/spaceInvaders.hpp"
+#include "../include/game.hpp"
+#include "../include/gameOver.hpp"
 #include "../include/wrappers/renderWindowWrapper.hpp"
 #include "../include/wrappers/spriteWrapper.hpp"
 #include "../include/wrappers/soundWrapper.hpp"
