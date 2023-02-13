@@ -35,6 +35,9 @@ int main()
   TextWrapper gameOverText = makeGameOverText(m56);
   TextWrapper playAgainText = makePlayAgainText(m56);
 
+  int level = 1;
+  int score = 0;
+
   bool isPlaying = true;
   bool gameOver = false;
 
@@ -77,7 +80,7 @@ int main()
       displayGameOverScreen(window, gameOverText, playAgainText);
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
       {
-        playAgain(isPlaying, gameOver, cannon, laser, invaders, interval, step, soundCounter, clock);
+        playAgain(isPlaying, gameOver, cannon, laser, invaders, interval, step, soundCounter, level, score, clock);
       }
     }
   }
