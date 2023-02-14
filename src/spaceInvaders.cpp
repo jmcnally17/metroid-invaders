@@ -140,22 +140,19 @@ std::vector<std::vector<IInvader *>> makeInvaders()
       if (i == 0)
       {
         SpriteWrapper *squidSpriteWrapper = new SpriteWrapper(squidTexture);
-        SpriteWrapper &rSpriteWrapper = *squidSpriteWrapper;
-        Squid *squid = new Squid(j * 90 + xOffset + extraSquidXOffset, i * 90 + yOffset, rSpriteWrapper);
+        Squid *squid = new Squid(j * 90 + xOffset + extraSquidXOffset, i * 90 + yOffset, squidSpriteWrapper);
         invaderRow[j] = squid;
       }
       else if (i < 3)
       {
         SpriteWrapper *crabSpriteWrapper = new SpriteWrapper(crabTexture);
-        SpriteWrapper &rSpriteWrapper = *crabSpriteWrapper;
-        Crab *crab = new Crab(j * 90 + xOffset, i * 90 + yOffset, rSpriteWrapper);
+        Crab *crab = new Crab(j * 90 + xOffset, i * 90 + yOffset, crabSpriteWrapper);
         invaderRow[j] = crab;
       }
       else
       {
         SpriteWrapper *octopusSpriteWrapper = new SpriteWrapper(octopusTexture);
-        SpriteWrapper &rSpriteWrapper = *octopusSpriteWrapper;
-        Octopus *octopus = new Octopus(j * 90 + xOffset, i * 90 + yOffset, rSpriteWrapper);
+        Octopus *octopus = new Octopus(j * 90 + xOffset, i * 90 + yOffset, octopusSpriteWrapper);
         invaderRow[j] = octopus;
       }
     }
