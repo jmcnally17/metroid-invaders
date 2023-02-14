@@ -9,7 +9,7 @@
 class LaserCannon : public ILaserCannon
 {
 public:
-  LaserCannon(ISprite &sprite, ILaser &laser, ISound &sound);
+  LaserCannon(ISprite *sprite, ILaser *laser, ISound *sound);
   float getWidth() const override;
   float getHeight() const override;
   void setPosition(const sf::Vector2f &vector);
@@ -23,9 +23,9 @@ private:
   float width_;
   float height_;
   sf::Vector2f position_;
-  ISprite &sprite_;
-  ILaser &laser_;
-  ISound &sound_;
+  ISprite *sprite_;
+  ILaser *laser_;
+  ISound *sound_;
 };
 
 #endif
