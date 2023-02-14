@@ -98,9 +98,8 @@ Laser makeLaser()
   sf::SoundBuffer deathBuffer;
   deathBuffer.loadFromFile("public/audio/invaderDeath.wav");
   SoundWrapper *deathSoundWrapper = new SoundWrapper(deathBuffer);
-  SoundWrapper &rSoundWrapper = *deathSoundWrapper;
 
-  Laser laser(laserSpriteWrapper, rSoundWrapper);
+  Laser laser(laserSpriteWrapper, deathSoundWrapper);
   return laser;
 }
 
