@@ -1,6 +1,6 @@
 #include "../../include/models/laser.hpp"
 
-Laser::Laser(ISprite *sprite, ISound &sound) : width_(6), height_(24), position_(sf::Vector2f(120, -24)), sprite_(sprite), sound_(sound)
+Laser::Laser(ISprite *sprite, ISound *sound) : width_(6), height_(24), position_(sf::Vector2f(120, -24)), sprite_(sprite), sound_(sound)
 {
   sprite_->setPosition(position_);
 }
@@ -51,5 +51,5 @@ void Laser::reset()
 
 void Laser::playInvaderDeath()
 {
-  sound_.play();
+  sound_->play();
 }
