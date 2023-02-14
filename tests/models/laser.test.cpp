@@ -7,10 +7,9 @@ using ::testing::NiceMock;
 
 TEST(Laser, hasAPositionUponInstantiation)
 {
-  NiceMock<MockSprite> sprite;
-  MockSprite *pSprite = &sprite;
+  MockSprite *sprite = new NiceMock<MockSprite>();
   MockSound sound;
-  Laser laser(pSprite, sound);
+  Laser laser(sprite, sound);
 
   EXPECT_EQ(laser.getPosition(), sf::Vector2f(120, -24));
 }
@@ -28,30 +27,27 @@ TEST(Laser, setsSpritePositionUponInstantiation)
 
 TEST(Laser, hasAWidthClassMemberOf6)
 {
-  NiceMock<MockSprite> sprite;
-  MockSprite *pSprite = &sprite;
+  MockSprite *sprite = new NiceMock<MockSprite>();
   MockSound sound;
-  Laser laser(pSprite, sound);
+  Laser laser(sprite, sound);
 
   EXPECT_EQ(laser.getWidth(), 6);
 }
 
 TEST(Laser, hasAHeightClassMemberOf24)
 {
-  NiceMock<MockSprite> sprite;
-  MockSprite *pSprite = &sprite;
+  MockSprite *sprite = new NiceMock<MockSprite>();
   MockSound sound;
-  Laser laser(pSprite, sound);
+  Laser laser(sprite, sound);
 
   EXPECT_EQ(laser.getHeight(), 24);
 }
 
 TEST(Laser, setPositionChangesPositionClassMember)
 {
-  NiceMock<MockSprite> sprite;
-  MockSprite *pSprite = &sprite;
+  MockSprite *sprite = new NiceMock<MockSprite>();
   MockSound sound;
-  Laser laser(pSprite, sound);
+  Laser laser(sprite, sound);
 
   laser.setPosition(sf::Vector2f(530, 890));
   EXPECT_EQ(laser.getPosition(), sf::Vector2f(530, 890));
@@ -71,10 +67,9 @@ TEST(Laser, setPositionChangesSpritePosition)
 
 TEST(Laser, drawCallsDrawOnWindowArgumentWhenLaserIsOnBoard)
 {
-  NiceMock<MockSprite> sprite;
-  MockSprite *pSprite = &sprite;
+  MockSprite *sprite = new NiceMock<MockSprite>();
   MockSound sound;
-  Laser laser(pSprite, sound);
+  Laser laser(sprite, sound);
   MockRenderWindow window;
   laser.setPosition(sf::Vector2f(600, 700));
 
@@ -86,10 +81,9 @@ TEST(Laser, drawCallsDrawOnWindowArgumentWhenLaserIsOnBoard)
 
 TEST(Laser, drawDoesNotCallDrawOnWindowArgumentWhenLaserIsAboveBoard)
 {
-  NiceMock<MockSprite> sprite;
-  MockSprite *pSprite = &sprite;
+  MockSprite *sprite = new NiceMock<MockSprite>();
   MockSound sound;
-  Laser laser(pSprite, sound);
+  Laser laser(sprite, sound);
   MockRenderWindow window;
 
   EXPECT_CALL(window, draw(testing::Truly([](const sf::Drawable &drawable)
@@ -100,10 +94,9 @@ TEST(Laser, drawDoesNotCallDrawOnWindowArgumentWhenLaserIsAboveBoard)
 
 TEST(Laser, moveDecreasesYPositionWhenLaserIsOnTheBoard)
 {
-  NiceMock<MockSprite> sprite;
-  MockSprite *pSprite = &sprite;
+  MockSprite *sprite = new NiceMock<MockSprite>();
   MockSound sound;
-  Laser laser(pSprite, sound);
+  Laser laser(sprite, sound);
   laser.setPosition(sf::Vector2f(500, 1000));
 
   laser.move();
@@ -125,10 +118,9 @@ TEST(Laser, moveUpdatesSpritePositionWhenLaserIsOnTheBoard)
 
 TEST(Laser, moveDoesNotDecreaseYPositionWhenLaserIsAboveTheBoard)
 {
-  NiceMock<MockSprite> sprite;
-  MockSprite *pSprite = &sprite;
+  MockSprite *sprite = new NiceMock<MockSprite>();
   MockSound sound;
-  Laser laser(pSprite, sound);
+  Laser laser(sprite, sound);
 
   laser.move();
   EXPECT_EQ(laser.getPosition(), sf::Vector2f(120, -24));
@@ -148,10 +140,9 @@ TEST(Laser, moveDoesNotUpdateSpritePositionWhenLaserIsAboveTheBoard)
 
 TEST(Laser, resetSetsPositionBackAboveTheBoard)
 {
-  NiceMock<MockSprite> sprite;
-  MockSprite *pSprite = &sprite;
+  MockSprite *sprite = new NiceMock<MockSprite>();
   MockSound sound;
-  Laser laser(pSprite, sound);
+  Laser laser(sprite, sound);
   laser.setPosition(sf::Vector2f(400, 900));
 
   laser.reset();
@@ -160,10 +151,9 @@ TEST(Laser, resetSetsPositionBackAboveTheBoard)
 
 TEST(Laser, playInvaderDeathCallsPlayOnTheSoundClassMember)
 {
-  NiceMock<MockSprite> sprite;
-  MockSprite *pSprite = &sprite;
+  MockSprite *sprite = new NiceMock<MockSprite>();
   MockSound sound;
-  Laser laser(pSprite, sound);
+  Laser laser(sprite, sound);
 
   EXPECT_CALL(sound, play())
       .Times(1);
