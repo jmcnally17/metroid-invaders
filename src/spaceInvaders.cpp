@@ -94,14 +94,13 @@ Laser makeLaser()
   sf::Texture laserTexture;
   laserTexture.loadFromFile("public/images/newSprites/laser.png");
   SpriteWrapper *laserSpriteWrapper = new SpriteWrapper(laserTexture);
-  SpriteWrapper &rSpriteWrapper = *laserSpriteWrapper;
 
   sf::SoundBuffer deathBuffer;
   deathBuffer.loadFromFile("public/audio/invaderDeath.wav");
   SoundWrapper *deathSoundWrapper = new SoundWrapper(deathBuffer);
   SoundWrapper &rSoundWrapper = *deathSoundWrapper;
 
-  Laser laser(rSpriteWrapper, rSoundWrapper);
+  Laser laser(laserSpriteWrapper, rSoundWrapper);
   return laser;
 }
 
