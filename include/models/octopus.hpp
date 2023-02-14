@@ -6,7 +6,7 @@
 class Octopus : public Invader
 {
 public:
-  Octopus(float x, float y, ISprite &sprite);
+  Octopus(float x, float y, ISprite *sprite);
   float getWidth() const override;
   float getHeight() const override;
   int getPoints() const override;

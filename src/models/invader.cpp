@@ -1,13 +1,13 @@
 #include "../../include/models/invader.hpp"
 
-Invader::Invader(float x, float y, ISprite &sprite) : originalPosition_(sf::Vector2f(x, y)),
+Invader::Invader(float x, float y, ISprite *sprite) : originalPosition_(sf::Vector2f(x, y)),
                                                       position_(sf::Vector2f(x, y)),
                                                       sprite_(sprite),
                                                       alive_(true),
                                                       direction_(1),
                                                       justMovedDown_(false)
 {
-  sprite_.setPosition(position_);
+  sprite_->setPosition(position_);
 }
 
 sf::Vector2f Invader::getOriginalPosition() const
@@ -23,12 +23,13 @@ sf::Vector2f Invader::getPosition() const
 void Invader::setPosition(const sf::Vector2f &position)
 {
   position_ = position;
-  sprite_.setPosition(position_);
+  sprite_->setPosition(position_);
 }
 
 void Invader::draw(IRenderWindow &window) const
 {
-  window.draw(sprite_);
+  ISprite &rSprite = *sprite_;
+  window.draw(rSprite);
 }
 
 bool Invader::isAlive() const
@@ -59,7 +60,7 @@ void Invader::move()
     position_.x += 14.1 * direction_;
     justMovedDown_ = false;
   }
-  sprite_.setPosition(position_);
+  sprite_->setPosition(position_);
 }
 
 void Invader::changeDirection()

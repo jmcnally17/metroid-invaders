@@ -6,7 +6,7 @@ using ::testing::NiceMock;
 
 TEST(Squid, hasAWidthClassMemberOf48)
 {
-  NiceMock<MockSprite> sprite;
+  MockSprite *sprite = new NiceMock<MockSprite>();
   Squid squid(200, 320, sprite);
 
   EXPECT_EQ(squid.getWidth(), 48);
@@ -14,7 +14,7 @@ TEST(Squid, hasAWidthClassMemberOf48)
 
 TEST(Squid, hasAHeightClassMemberOf48)
 {
-  NiceMock<MockSprite> sprite;
+  MockSprite *sprite = new NiceMock<MockSprite>();
   Squid squid(200, 320, sprite);
 
   EXPECT_EQ(squid.getHeight(), 48);
@@ -22,7 +22,7 @@ TEST(Squid, hasAHeightClassMemberOf48)
 
 TEST(Squid, hasAPointsClassMemberOf30)
 {
-  NiceMock<MockSprite> sprite;
+  MockSprite *sprite = new NiceMock<MockSprite>();
   Squid squid(200, 320, sprite);
 
   EXPECT_EQ(squid.getPoints(), 30);
@@ -30,7 +30,7 @@ TEST(Squid, hasAPointsClassMemberOf30)
 
 TEST(Squid, hasAnOriginalPositionMember)
 {
-  NiceMock<MockSprite> sprite;
+  MockSprite *sprite = new NiceMock<MockSprite>();
   Squid squid(200, 320, sprite);
 
   EXPECT_EQ(squid.getOriginalPosition(), sf::Vector2f(200, 320));
@@ -38,7 +38,7 @@ TEST(Squid, hasAnOriginalPositionMember)
 
 TEST(Squid, setsOwnPositionMember)
 {
-  NiceMock<MockSprite> sprite;
+  MockSprite *sprite = new NiceMock<MockSprite>();
   Squid squid(200, 320, sprite);
 
   EXPECT_EQ(squid.getPosition(), sf::Vector2f(200, 320));
@@ -46,7 +46,7 @@ TEST(Squid, setsOwnPositionMember)
 
 TEST(Squid, hasABoolClassMemberCalledAliveSetToTrue)
 {
-  NiceMock<MockSprite> sprite;
+  MockSprite *sprite = new NiceMock<MockSprite>();
   Squid squid(200, 320, sprite);
 
   EXPECT_EQ(squid.isAlive(), true);
@@ -54,7 +54,7 @@ TEST(Squid, hasABoolClassMemberCalledAliveSetToTrue)
 
 TEST(Squid, hasADirectionClassMemberInitiallySetTo1)
 {
-  NiceMock<MockSprite> sprite;
+  MockSprite *sprite = new NiceMock<MockSprite>();
   Squid squid(200, 320, sprite);
 
   EXPECT_EQ(squid.getDirection(), 1);
@@ -62,7 +62,7 @@ TEST(Squid, hasADirectionClassMemberInitiallySetTo1)
 
 TEST(Squid, hasAJustMovedDownMemberSetToFalse)
 {
-  NiceMock<MockSprite> sprite;
+  MockSprite *sprite = new NiceMock<MockSprite>();
   Squid squid(200, 320, sprite);
 
   EXPECT_EQ(squid.hasJustMovedDown(), false);
@@ -71,15 +71,16 @@ TEST(Squid, hasAJustMovedDownMemberSetToFalse)
 TEST(Squid, setsPositionOnSpriteClassMember)
 {
   MockSprite sprite;
+  MockSprite *pSprite = &sprite;
 
   EXPECT_CALL(sprite, setPosition(sf::Vector2f(200, 320)))
       .Times(1);
-  Squid squid(200, 320, sprite);
+  Squid squid(200, 320, pSprite);
 }
 
 TEST(Squid, setPositionChangesPosition)
 {
-  NiceMock<MockSprite> sprite;
+  MockSprite *sprite = new NiceMock<MockSprite>();
   Squid squid(200, 320, sprite);
 
   squid.setPosition(sf::Vector2f(500, 920));
@@ -89,7 +90,8 @@ TEST(Squid, setPositionChangesPosition)
 TEST(Squid, setPositionUpdatesSpritePosition)
 {
   NiceMock<MockSprite> sprite;
-  Squid squid(200, 320, sprite);
+  MockSprite *pSprite = &sprite;
+  Squid squid(200, 320, pSprite);
 
   EXPECT_CALL(sprite, setPosition(sf::Vector2f(500, 920)));
   squid.setPosition(sf::Vector2f(500, 920));
@@ -97,7 +99,7 @@ TEST(Squid, setPositionUpdatesSpritePosition)
 
 TEST(Squid, drawCallsDrawOnTheSpriteClassMember)
 {
-  NiceMock<MockSprite> sprite;
+  MockSprite *sprite = new NiceMock<MockSprite>();
   Squid squid(200, 320, sprite);
   MockRenderWindow window;
 
@@ -109,7 +111,7 @@ TEST(Squid, drawCallsDrawOnTheSpriteClassMember)
 
 TEST(Squid, dieChangesAliveClassMemberToFalse)
 {
-  NiceMock<MockSprite> sprite;
+  MockSprite *sprite = new NiceMock<MockSprite>();
   Squid squid(200, 320, sprite);
 
   squid.die();
@@ -118,7 +120,7 @@ TEST(Squid, dieChangesAliveClassMemberToFalse)
 
 TEST(Squid, changeDirectionMultipliesDirectionByMinus1)
 {
-  NiceMock<MockSprite> sprite;
+  MockSprite *sprite = new NiceMock<MockSprite>();
   Squid squid(200, 320, sprite);
 
   squid.changeDirection();
@@ -127,7 +129,7 @@ TEST(Squid, changeDirectionMultipliesDirectionByMinus1)
 
 TEST(Squid, moveAdds14Point1ToXPositionWhenDirectionIs1AndSquidIsNotAtSideBoundary)
 {
-  NiceMock<MockSprite> sprite;
+  MockSprite *sprite = new NiceMock<MockSprite>();
   Squid squid(200, 320, sprite);
 
   squid.move();
@@ -136,7 +138,7 @@ TEST(Squid, moveAdds14Point1ToXPositionWhenDirectionIs1AndSquidIsNotAtSideBounda
 
 TEST(Squid, moveTakesAway14Point1FromXPositionWhenDirectionIsMinus1AndSquidIsNotAtSideBoundary)
 {
-  NiceMock<MockSprite> sprite;
+  MockSprite *sprite = new NiceMock<MockSprite>();
   Squid squid(200, 320, sprite);
 
   squid.changeDirection();
@@ -146,7 +148,7 @@ TEST(Squid, moveTakesAway14Point1FromXPositionWhenDirectionIsMinus1AndSquidIsNot
 
 TEST(Squid, moveAdds14Point1ToXPositionWhenSquidIsAtLeftBoundaryAndJustMovedDownIsTrue)
 {
-  NiceMock<MockSprite> sprite;
+  MockSprite *sprite = new NiceMock<MockSprite>();
   Squid squid(300, 320, sprite);
 
   squid.setPosition(sf::Vector2f(18, 320)); // put squid at left boundary
@@ -159,7 +161,7 @@ TEST(Squid, moveAdds14Point1ToXPositionWhenSquidIsAtLeftBoundaryAndJustMovedDown
 
 TEST(Squid, moveTakesAway14Point1FromXPositionWhenSquidIsAtRightBoundaryAndJustMovedDownIsTrue)
 {
-  NiceMock<MockSprite> sprite;
+  MockSprite *sprite = new NiceMock<MockSprite>();
   Squid squid(200, 320, sprite);
 
   squid.setPosition(sf::Vector2f(482, 320)); // put squid at right boundary
@@ -171,7 +173,7 @@ TEST(Squid, moveTakesAway14Point1FromXPositionWhenSquidIsAtRightBoundaryAndJustM
 
 TEST(Squid, moveSetsJustMovedDownToFalseWhenSquidIsAtLeftBoundaryAndJustMovedDownIsTrue)
 {
-  NiceMock<MockSprite> sprite;
+  MockSprite *sprite = new NiceMock<MockSprite>();
   Squid squid(300, 320, sprite);
 
   squid.setPosition(sf::Vector2f(18, 320)); // put squid at left boundary
@@ -183,7 +185,7 @@ TEST(Squid, moveSetsJustMovedDownToFalseWhenSquidIsAtLeftBoundaryAndJustMovedDow
 
 TEST(Squid, moveSetsJustMovedDownToFalseWhenSquidIsAtRightBoundaryAndJustMovedDownIsTrue)
 {
-  NiceMock<MockSprite> sprite;
+  MockSprite *sprite = new NiceMock<MockSprite>();
   Squid squid(200, 320, sprite);
 
   squid.setPosition(sf::Vector2f(482, 320)); // put squid at right boundary
@@ -195,7 +197,7 @@ TEST(Squid, moveSetsJustMovedDownToFalseWhenSquidIsAtRightBoundaryAndJustMovedDo
 
 TEST(Squid, moveAdds42ToYPositionWhenSquidIsAtRightSideBoundaryAndHasNotJustMovedDown)
 {
-  NiceMock<MockSprite> sprite;
+  MockSprite *sprite = new NiceMock<MockSprite>();
   Squid squid(200, 320, sprite);
 
   squid.setPosition(sf::Vector2f(482, 320));
@@ -205,7 +207,7 @@ TEST(Squid, moveAdds42ToYPositionWhenSquidIsAtRightSideBoundaryAndHasNotJustMove
 
 TEST(Squid, moveChangesDirectionWhenSquidIsAtRightSideBoundaryAndHasNotJustMovedDown)
 {
-  NiceMock<MockSprite> sprite;
+  MockSprite *sprite = new NiceMock<MockSprite>();
   Squid squid(200, 320, sprite);
 
   squid.setPosition(sf::Vector2f(482, 320));
@@ -215,7 +217,7 @@ TEST(Squid, moveChangesDirectionWhenSquidIsAtRightSideBoundaryAndHasNotJustMoved
 
 TEST(Squid, moveSetsJustMovedDownToTrueWhenSquidIsAtRightSideBoundaryAndHasNotJustMovedDown)
 {
-  NiceMock<MockSprite> sprite;
+  MockSprite *sprite = new NiceMock<MockSprite>();
   Squid squid(200, 320, sprite);
 
   squid.setPosition(sf::Vector2f(482, 320));
@@ -225,7 +227,7 @@ TEST(Squid, moveSetsJustMovedDownToTrueWhenSquidIsAtRightSideBoundaryAndHasNotJu
 
 TEST(Squid, moveAdds42ToYPositionWhenSquidIsAtLeftSideBoundaryAndHasNotJustMovedDown)
 {
-  NiceMock<MockSprite> sprite;
+  MockSprite *sprite = new NiceMock<MockSprite>();
   Squid squid(300, 320, sprite);
 
   squid.setPosition(sf::Vector2f(18, 320));
@@ -235,7 +237,7 @@ TEST(Squid, moveAdds42ToYPositionWhenSquidIsAtLeftSideBoundaryAndHasNotJustMoved
 
 TEST(Squid, moveChangesDirectionWhenSquidIsAtLeftSideBoundaryAndHasNotJustMovedDown)
 {
-  NiceMock<MockSprite> sprite;
+  MockSprite *sprite = new NiceMock<MockSprite>();
   Squid squid(300, 320, sprite);
 
   squid.changeDirection();
@@ -246,7 +248,7 @@ TEST(Squid, moveChangesDirectionWhenSquidIsAtLeftSideBoundaryAndHasNotJustMovedD
 
 TEST(Squid, moveSetsJustMovedDownToTrueWhenSquidIsAtLeftSideBoundaryAndHasNotJustMovedDown)
 {
-  NiceMock<MockSprite> sprite;
+  MockSprite *sprite = new NiceMock<MockSprite>();
   Squid squid(300, 320, sprite);
 
   squid.setPosition(sf::Vector2f(18, 320));
@@ -257,7 +259,8 @@ TEST(Squid, moveSetsJustMovedDownToTrueWhenSquidIsAtLeftSideBoundaryAndHasNotJus
 TEST(Squid, moveUpdatesPositionOnSpriteMember)
 {
   NiceMock<MockSprite> sprite;
-  Squid squid(200, 320, sprite);
+  MockSprite *pSprite = &sprite;
+  Squid squid(200, 320, pSprite);
 
   EXPECT_CALL(sprite, setPosition(sf::Vector2f(214.1, 320)));
   squid.move();
@@ -265,7 +268,7 @@ TEST(Squid, moveUpdatesPositionOnSpriteMember)
 
 TEST(Squid, resetSetsPositionBackToOriginalPosition)
 {
-  NiceMock<MockSprite> sprite;
+  MockSprite *sprite = new NiceMock<MockSprite>();
   Squid squid(200, 320, sprite);
 
   squid.setPosition(sf::Vector2f(900, 1100));
@@ -277,7 +280,8 @@ TEST(Squid, resetSetsPositionBackToOriginalPosition)
 TEST(Squid, resetSetsSpritePositionBackToOriginalPosition)
 {
   NiceMock<MockSprite> sprite;
-  Squid squid(200, 320, sprite);
+  MockSprite *pSprite = &sprite;
+  Squid squid(200, 320, pSprite);
 
   squid.setPosition(sf::Vector2f(900, 1100));
 
@@ -288,7 +292,7 @@ TEST(Squid, resetSetsSpritePositionBackToOriginalPosition)
 
 TEST(Squid, resetSetsAliveBackToTrue)
 {
-  NiceMock<MockSprite> sprite;
+  MockSprite *sprite = new NiceMock<MockSprite>();
   Squid squid(200, 320, sprite);
 
   squid.die();

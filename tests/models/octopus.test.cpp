@@ -4,9 +4,9 @@
 
 using ::testing::NiceMock;
 
-TEST(Octopus, hasAWidthClassMemberOf48)
+TEST(Octopus, hasAWidthClassMemberOf72)
 {
-  NiceMock<MockSprite> sprite;
+  MockSprite *sprite = new NiceMock<MockSprite>();
   Octopus octopus(200, 320, sprite);
 
   EXPECT_EQ(octopus.getWidth(), 72);
@@ -14,15 +14,15 @@ TEST(Octopus, hasAWidthClassMemberOf48)
 
 TEST(Octopus, hasAHeightClassMemberOf48)
 {
-  NiceMock<MockSprite> sprite;
+  MockSprite *sprite = new NiceMock<MockSprite>();
   Octopus octopus(200, 320, sprite);
 
   EXPECT_EQ(octopus.getHeight(), 48);
 }
 
-TEST(Octopus, hasAPointsClassMemberOf30)
+TEST(Octopus, hasAPointsClassMemberOf10)
 {
-  NiceMock<MockSprite> sprite;
+  MockSprite *sprite = new NiceMock<MockSprite>();
   Octopus octopus(200, 320, sprite);
 
   EXPECT_EQ(octopus.getPoints(), 10);
@@ -30,7 +30,7 @@ TEST(Octopus, hasAPointsClassMemberOf30)
 
 TEST(Octopus, hasAnOriginalPositionMember)
 {
-  NiceMock<MockSprite> sprite;
+  MockSprite *sprite = new NiceMock<MockSprite>();
   Octopus octopus(200, 320, sprite);
 
   EXPECT_EQ(octopus.getOriginalPosition(), sf::Vector2f(200, 320));
@@ -38,7 +38,7 @@ TEST(Octopus, hasAnOriginalPositionMember)
 
 TEST(Octopus, setsOwnPositionMember)
 {
-  NiceMock<MockSprite> sprite;
+  MockSprite *sprite = new NiceMock<MockSprite>();
   Octopus octopus(200, 320, sprite);
 
   EXPECT_EQ(octopus.getPosition(), sf::Vector2f(200, 320));
@@ -46,7 +46,7 @@ TEST(Octopus, setsOwnPositionMember)
 
 TEST(Octopus, hasABoolClassMemberCalledAliveSetToTrue)
 {
-  NiceMock<MockSprite> sprite;
+  MockSprite *sprite = new NiceMock<MockSprite>();
   Octopus octopus(200, 320, sprite);
 
   EXPECT_EQ(octopus.isAlive(), true);
@@ -54,15 +54,15 @@ TEST(Octopus, hasABoolClassMemberCalledAliveSetToTrue)
 
 TEST(Octopus, hasADirectionClassMemberInitiallySetTo1)
 {
-  NiceMock<MockSprite> sprite;
-  Octopus Octopus(200, 320, sprite);
+  MockSprite *sprite = new NiceMock<MockSprite>();
+  Octopus octopus(200, 320, sprite);
 
-  EXPECT_EQ(Octopus.getDirection(), 1);
+  EXPECT_EQ(octopus.getDirection(), 1);
 }
 
 TEST(Octopus, hasAJustMovedDownMemberSetToFalse)
 {
-  NiceMock<MockSprite> sprite;
+  MockSprite *sprite = new NiceMock<MockSprite>();
   Octopus octopus(200, 320, sprite);
 
   EXPECT_EQ(octopus.hasJustMovedDown(), false);
@@ -71,15 +71,16 @@ TEST(Octopus, hasAJustMovedDownMemberSetToFalse)
 TEST(Octopus, setsPositionOnSpriteClassMember)
 {
   MockSprite sprite;
+  MockSprite *pSprite = &sprite;
 
   EXPECT_CALL(sprite, setPosition(sf::Vector2f(200, 320)))
       .Times(1);
-  Octopus octopus(200, 320, sprite);
+  Octopus octopus(200, 320, pSprite);
 }
 
 TEST(Octopus, setPositionChangesPosition)
 {
-  NiceMock<MockSprite> sprite;
+  MockSprite *sprite = new NiceMock<MockSprite>();
   Octopus octopus(200, 320, sprite);
 
   octopus.setPosition(sf::Vector2f(500, 920));
@@ -89,7 +90,8 @@ TEST(Octopus, setPositionChangesPosition)
 TEST(Octopus, setPositionUpdatesSpritePosition)
 {
   NiceMock<MockSprite> sprite;
-  Octopus octopus(200, 320, sprite);
+  MockSprite *pSprite = &sprite;
+  Octopus octopus(200, 320, pSprite);
 
   EXPECT_CALL(sprite, setPosition(sf::Vector2f(500, 920)));
   octopus.setPosition(sf::Vector2f(500, 920));
@@ -97,7 +99,7 @@ TEST(Octopus, setPositionUpdatesSpritePosition)
 
 TEST(Octopus, drawCallsDrawOnTheSpriteClassMember)
 {
-  NiceMock<MockSprite> sprite;
+  MockSprite *sprite = new NiceMock<MockSprite>();
   Octopus octopus(200, 320, sprite);
   MockRenderWindow window;
 
@@ -109,7 +111,7 @@ TEST(Octopus, drawCallsDrawOnTheSpriteClassMember)
 
 TEST(Octopus, dieChangesAliveClassMemberToFalse)
 {
-  NiceMock<MockSprite> sprite;
+  MockSprite *sprite = new NiceMock<MockSprite>();
   Octopus octopus(200, 320, sprite);
 
   octopus.die();
@@ -118,7 +120,7 @@ TEST(Octopus, dieChangesAliveClassMemberToFalse)
 
 TEST(Octopus, changeDirectionMultipliesDirectionByMinus1)
 {
-  NiceMock<MockSprite> sprite;
+  MockSprite *sprite = new NiceMock<MockSprite>();
   Octopus octopus(200, 320, sprite);
 
   octopus.changeDirection();
@@ -127,7 +129,7 @@ TEST(Octopus, changeDirectionMultipliesDirectionByMinus1)
 
 TEST(Octopus, moveAdds14Point1ToXPositionWhenDirectionIs1AndOctopusIsNotAtSideBoundary)
 {
-  NiceMock<MockSprite> sprite;
+  MockSprite *sprite = new NiceMock<MockSprite>();
   Octopus octopus(200, 320, sprite);
 
   octopus.move();
@@ -136,7 +138,7 @@ TEST(Octopus, moveAdds14Point1ToXPositionWhenDirectionIs1AndOctopusIsNotAtSideBo
 
 TEST(Octopus, moveTakesAway14Point1FromXPositionWhenDirectionIsMinus1AndOctopusIsNotAtSideBoundary)
 {
-  NiceMock<MockSprite> sprite;
+  MockSprite *sprite = new NiceMock<MockSprite>();
   Octopus octopus(200, 320, sprite);
 
   octopus.changeDirection();
@@ -146,7 +148,7 @@ TEST(Octopus, moveTakesAway14Point1FromXPositionWhenDirectionIsMinus1AndOctopusI
 
 TEST(Octopus, moveAdds14Point1ToXPositionWhenOctopusIsAtLeftBoundaryAndJustMovedDownIsTrue)
 {
-  NiceMock<MockSprite> sprite;
+  MockSprite *sprite = new NiceMock<MockSprite>();
   Octopus octopus(300, 320, sprite);
 
   octopus.setPosition(sf::Vector2f(18, 320)); // put octopus at left boundary
@@ -159,7 +161,7 @@ TEST(Octopus, moveAdds14Point1ToXPositionWhenOctopusIsAtLeftBoundaryAndJustMoved
 
 TEST(Octopus, moveTakesAway14Point1FromXPositionWhenOctopusIsAtRightBoundaryAndJustMovedDownIsTrue)
 {
-  NiceMock<MockSprite> sprite;
+  MockSprite *sprite = new NiceMock<MockSprite>();
   Octopus octopus(200, 320, sprite);
 
   octopus.setPosition(sf::Vector2f(482, 320)); // put octopus at right boundary
@@ -171,7 +173,7 @@ TEST(Octopus, moveTakesAway14Point1FromXPositionWhenOctopusIsAtRightBoundaryAndJ
 
 TEST(Octopus, moveSetsJustMovedDownToFalseWhenOctopusIsAtLeftBoundaryAndJustMovedDownIsTrue)
 {
-  NiceMock<MockSprite> sprite;
+  MockSprite *sprite = new NiceMock<MockSprite>();
   Octopus octopus(300, 320, sprite);
 
   octopus.setPosition(sf::Vector2f(18, 320)); // put octopus at left boundary
@@ -183,7 +185,7 @@ TEST(Octopus, moveSetsJustMovedDownToFalseWhenOctopusIsAtLeftBoundaryAndJustMove
 
 TEST(Octopus, moveSetsJustMovedDownToFalseWhenOctopusIsAtRightBoundaryAndJustMovedDownIsTrue)
 {
-  NiceMock<MockSprite> sprite;
+  MockSprite *sprite = new NiceMock<MockSprite>();
   Octopus octopus(200, 320, sprite);
 
   octopus.setPosition(sf::Vector2f(482, 320)); // put octopus at right boundary
@@ -195,7 +197,7 @@ TEST(Octopus, moveSetsJustMovedDownToFalseWhenOctopusIsAtRightBoundaryAndJustMov
 
 TEST(Octopus, moveAdds42ToYPositionWhenOctopusIsAtRightSideBoundaryAndHasNotJustMovedDown)
 {
-  NiceMock<MockSprite> sprite;
+  MockSprite *sprite = new NiceMock<MockSprite>();
   Octopus octopus(200, 320, sprite);
 
   octopus.setPosition(sf::Vector2f(482, 320));
@@ -205,7 +207,7 @@ TEST(Octopus, moveAdds42ToYPositionWhenOctopusIsAtRightSideBoundaryAndHasNotJust
 
 TEST(Octopus, moveChangesDirectionWhenOctopusIsAtRightSideBoundaryAndHasNotJustMovedDown)
 {
-  NiceMock<MockSprite> sprite;
+  MockSprite *sprite = new NiceMock<MockSprite>();
   Octopus octopus(200, 320, sprite);
 
   octopus.setPosition(sf::Vector2f(482, 320));
@@ -215,7 +217,7 @@ TEST(Octopus, moveChangesDirectionWhenOctopusIsAtRightSideBoundaryAndHasNotJustM
 
 TEST(Octopus, moveSetsJustMovedDownToTrueWhenOctopusIsAtRightSideBoundaryAndHasNotJustMovedDown)
 {
-  NiceMock<MockSprite> sprite;
+  MockSprite *sprite = new NiceMock<MockSprite>();
   Octopus octopus(200, 320, sprite);
 
   octopus.setPosition(sf::Vector2f(482, 320));
@@ -225,7 +227,7 @@ TEST(Octopus, moveSetsJustMovedDownToTrueWhenOctopusIsAtRightSideBoundaryAndHasN
 
 TEST(Octopus, moveAdds42ToYPositionWhenOctopusIsAtLeftSideBoundaryAndHasNotJustMovedDown)
 {
-  NiceMock<MockSprite> sprite;
+  MockSprite *sprite = new NiceMock<MockSprite>();
   Octopus octopus(300, 320, sprite);
 
   octopus.setPosition(sf::Vector2f(18, 320));
@@ -235,7 +237,7 @@ TEST(Octopus, moveAdds42ToYPositionWhenOctopusIsAtLeftSideBoundaryAndHasNotJustM
 
 TEST(Octopus, moveChangesDirectionWhenOctopusIsAtLeftSideBoundaryAndHasNotJustMovedDown)
 {
-  NiceMock<MockSprite> sprite;
+  MockSprite *sprite = new NiceMock<MockSprite>();
   Octopus octopus(300, 320, sprite);
 
   octopus.changeDirection();
@@ -246,7 +248,7 @@ TEST(Octopus, moveChangesDirectionWhenOctopusIsAtLeftSideBoundaryAndHasNotJustMo
 
 TEST(Octopus, moveSetsJustMovedDownToTrueWhenOctopusIsAtLeftSideBoundaryAndHasNotJustMovedDown)
 {
-  NiceMock<MockSprite> sprite;
+  MockSprite *sprite = new NiceMock<MockSprite>();
   Octopus octopus(300, 320, sprite);
 
   octopus.setPosition(sf::Vector2f(18, 320));
@@ -257,7 +259,8 @@ TEST(Octopus, moveSetsJustMovedDownToTrueWhenOctopusIsAtLeftSideBoundaryAndHasNo
 TEST(Octopus, moveUpdatesPositionOnSpriteMember)
 {
   NiceMock<MockSprite> sprite;
-  Octopus octopus(200, 320, sprite);
+  MockSprite *pSprite = &sprite;
+  Octopus octopus(200, 320, pSprite);
 
   EXPECT_CALL(sprite, setPosition(sf::Vector2f(214.1, 320)));
   octopus.move();
@@ -265,7 +268,7 @@ TEST(Octopus, moveUpdatesPositionOnSpriteMember)
 
 TEST(Octopus, resetSetsPositionBackToOriginalPosition)
 {
-  NiceMock<MockSprite> sprite;
+  MockSprite *sprite = new NiceMock<MockSprite>();
   Octopus octopus(200, 320, sprite);
 
   octopus.setPosition(sf::Vector2f(900, 1100));
@@ -277,7 +280,8 @@ TEST(Octopus, resetSetsPositionBackToOriginalPosition)
 TEST(Octopus, resetSetsSpritePositionBackToOriginalPosition)
 {
   NiceMock<MockSprite> sprite;
-  Octopus octopus(200, 320, sprite);
+  MockSprite *pSprite = &sprite;
+  Octopus octopus(200, 320, pSprite);
 
   octopus.setPosition(sf::Vector2f(900, 1100));
 
@@ -288,7 +292,7 @@ TEST(Octopus, resetSetsSpritePositionBackToOriginalPosition)
 
 TEST(Octopus, resetSetsAliveBackToTrue)
 {
-  NiceMock<MockSprite> sprite;
+  MockSprite *sprite = new NiceMock<MockSprite>();
   Octopus octopus(200, 320, sprite);
 
   octopus.die();

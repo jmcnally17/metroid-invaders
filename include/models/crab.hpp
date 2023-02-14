@@ -6,7 +6,7 @@
 class Crab : public Invader
 {
 public:
-  Crab(float x, float y, ISprite &sprite);
+  Crab(float x, float y, ISprite *sprite);
   float getWidth() const override;
   float getHeight() const override;
   int getPoints() const override;
