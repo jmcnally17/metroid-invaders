@@ -108,14 +108,13 @@ LaserCannon makeCannon(Laser &laser)
   sf::Texture cannonTexture;
   cannonTexture.loadFromFile("public/images/newSprites/laserCannon.png");
   SpriteWrapper *cannonSpriteWrapper = new SpriteWrapper(cannonTexture);
-  SpriteWrapper &rSpriteWrapper = *cannonSpriteWrapper;
 
   sf::SoundBuffer fireSoundBuffer;
   fireSoundBuffer.loadFromFile("public/audio/shoot.wav");
   SoundWrapper *fireSoundWrapper = new SoundWrapper(fireSoundBuffer);
-  SoundWrapper &rSoundWrapper = *fireSoundWrapper;
 
-  LaserCannon cannon(rSpriteWrapper, laser, rSoundWrapper);
+  Laser *pLaser = &laser;
+  LaserCannon cannon(cannonSpriteWrapper, pLaser, fireSoundWrapper);
   return cannon;
 }
 
