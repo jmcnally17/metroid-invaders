@@ -9,7 +9,7 @@
 class Laser : public ILaser
 {
 public:
-  Laser(ISprite &sprite, ISound &sound);
+  Laser(ISprite *sprite, ISound &sound);
   float getWidth() const override;
   float getHeight() const override;
   sf::Vector2f getPosition() const override;
@@ -23,7 +23,7 @@ private:
   float width_;
   float height_;
   sf::Vector2f position_;
-  ISprite &sprite_;
+  ISprite *sprite_;
   ISound &sound_;
 };
 

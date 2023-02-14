@@ -1,8 +1,8 @@
 #include "../../include/models/laser.hpp"
 
-Laser::Laser(ISprite &sprite, ISound &sound) : width_(6), height_(24), position_(sf::Vector2f(120, -24)), sprite_(sprite), sound_(sound)
+Laser::Laser(ISprite *sprite, ISound &sound) : width_(6), height_(24), position_(sf::Vector2f(120, -24)), sprite_(sprite), sound_(sound)
 {
-  sprite_.setPosition(position_);
+  sprite_->setPosition(position_);
 }
 
 float Laser::getWidth() const
@@ -23,14 +23,15 @@ sf::Vector2f Laser::getPosition() const
 void Laser::setPosition(const sf::Vector2f &vector)
 {
   position_ = vector;
-  sprite_.setPosition(position_);
+  sprite_->setPosition(position_);
 }
 
 void Laser::draw(IRenderWindow &window) const
 {
   if (position_.y > 0 - height_)
   {
-    window.draw(sprite_);
+    ISprite &rSprite = *sprite_;
+    window.draw(rSprite);
   }
 }
 
@@ -39,7 +40,7 @@ void Laser::move()
   if (position_.y > 0 - height_)
   {
     position_.y -= 0.5;
-    sprite_.setPosition(position_);
+    sprite_->setPosition(position_);
   }
 }
 
