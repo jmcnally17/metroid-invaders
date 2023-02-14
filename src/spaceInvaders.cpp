@@ -94,14 +94,12 @@ Laser makeLaser()
   sf::Texture laserTexture;
   laserTexture.loadFromFile("public/images/newSprites/laser.png");
   SpriteWrapper *laserSpriteWrapper = new SpriteWrapper(laserTexture);
-  SpriteWrapper &rSpriteWrapper = *laserSpriteWrapper;
 
   sf::SoundBuffer deathBuffer;
   deathBuffer.loadFromFile("public/audio/invaderDeath.wav");
   SoundWrapper *deathSoundWrapper = new SoundWrapper(deathBuffer);
-  SoundWrapper &rSoundWrapper = *deathSoundWrapper;
 
-  Laser laser(rSpriteWrapper, rSoundWrapper);
+  Laser laser(laserSpriteWrapper, deathSoundWrapper);
   return laser;
 }
 
@@ -110,14 +108,13 @@ LaserCannon makeCannon(Laser &laser)
   sf::Texture cannonTexture;
   cannonTexture.loadFromFile("public/images/newSprites/laserCannon.png");
   SpriteWrapper *cannonSpriteWrapper = new SpriteWrapper(cannonTexture);
-  SpriteWrapper &rSpriteWrapper = *cannonSpriteWrapper;
 
   sf::SoundBuffer fireSoundBuffer;
   fireSoundBuffer.loadFromFile("public/audio/shoot.wav");
   SoundWrapper *fireSoundWrapper = new SoundWrapper(fireSoundBuffer);
-  SoundWrapper &rSoundWrapper = *fireSoundWrapper;
 
-  LaserCannon cannon(rSpriteWrapper, laser, rSoundWrapper);
+  Laser *pLaser = &laser;
+  LaserCannon cannon(cannonSpriteWrapper, pLaser, fireSoundWrapper);
   return cannon;
 }
 
@@ -143,22 +140,19 @@ std::vector<std::vector<IInvader *>> makeInvaders()
       if (i == 0)
       {
         SpriteWrapper *squidSpriteWrapper = new SpriteWrapper(squidTexture);
-        SpriteWrapper &rSpriteWrapper = *squidSpriteWrapper;
-        Squid *squid = new Squid(j * 90 + xOffset + extraSquidXOffset, i * 90 + yOffset, rSpriteWrapper);
+        Squid *squid = new Squid(j * 90 + xOffset + extraSquidXOffset, i * 90 + yOffset, squidSpriteWrapper);
         invaderRow[j] = squid;
       }
       else if (i < 3)
       {
         SpriteWrapper *crabSpriteWrapper = new SpriteWrapper(crabTexture);
-        SpriteWrapper &rSpriteWrapper = *crabSpriteWrapper;
-        Crab *crab = new Crab(j * 90 + xOffset, i * 90 + yOffset, rSpriteWrapper);
+        Crab *crab = new Crab(j * 90 + xOffset, i * 90 + yOffset, crabSpriteWrapper);
         invaderRow[j] = crab;
       }
       else
       {
         SpriteWrapper *octopusSpriteWrapper = new SpriteWrapper(octopusTexture);
-        SpriteWrapper &rSpriteWrapper = *octopusSpriteWrapper;
-        Octopus *octopus = new Octopus(j * 90 + xOffset, i * 90 + yOffset, rSpriteWrapper);
+        Octopus *octopus = new Octopus(j * 90 + xOffset, i * 90 + yOffset, octopusSpriteWrapper);
         invaderRow[j] = octopus;
       }
     }
