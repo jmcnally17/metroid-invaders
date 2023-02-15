@@ -93,13 +93,13 @@ Laser makeLaser()
 {
   sf::Texture laserTexture;
   laserTexture.loadFromFile("public/images/newSprites/laser.png");
-  SpriteWrapper *laserSpriteWrapper = new SpriteWrapper(laserTexture);
+  SpriteWrapper *laserSprite = new SpriteWrapper(laserTexture);
 
   sf::SoundBuffer deathBuffer;
   deathBuffer.loadFromFile("public/audio/invaderDeath.wav");
-  SoundWrapper *deathSoundWrapper = new SoundWrapper(deathBuffer);
+  SoundWrapper *deathSound = new SoundWrapper(deathBuffer);
 
-  Laser laser(laserSpriteWrapper, deathSoundWrapper);
+  Laser laser(laserSprite, deathSound);
   return laser;
 }
 
@@ -107,14 +107,14 @@ LaserCannon makeCannon(Laser &laser)
 {
   sf::Texture cannonTexture;
   cannonTexture.loadFromFile("public/images/newSprites/laserCannon.png");
-  SpriteWrapper *cannonSpriteWrapper = new SpriteWrapper(cannonTexture);
+  SpriteWrapper *cannonSprite = new SpriteWrapper(cannonTexture);
 
   sf::SoundBuffer fireSoundBuffer;
   fireSoundBuffer.loadFromFile("public/audio/shoot.wav");
-  SoundWrapper *fireSoundWrapper = new SoundWrapper(fireSoundBuffer);
+  SoundWrapper *fireSound = new SoundWrapper(fireSoundBuffer);
 
   Laser *pLaser = &laser;
-  LaserCannon cannon(cannonSpriteWrapper, pLaser, fireSoundWrapper);
+  LaserCannon cannon(cannonSprite, pLaser, fireSound);
   return cannon;
 }
 
@@ -139,20 +139,20 @@ std::vector<std::vector<IInvader *>> makeInvaders()
     {
       if (i == 0)
       {
-        SpriteWrapper *squidSpriteWrapper = new SpriteWrapper(squidTexture);
-        Squid *squid = new Squid(j * 90 + xOffset + extraSquidXOffset, i * 90 + yOffset, squidSpriteWrapper);
+        SpriteWrapper *squidSprite = new SpriteWrapper(squidTexture);
+        Squid *squid = new Squid(j * 90 + xOffset + extraSquidXOffset, i * 90 + yOffset, squidSprite);
         invaderRow[j] = squid;
       }
       else if (i < 3)
       {
-        SpriteWrapper *crabSpriteWrapper = new SpriteWrapper(crabTexture);
-        Crab *crab = new Crab(j * 90 + xOffset, i * 90 + yOffset, crabSpriteWrapper);
+        SpriteWrapper *crabSprite = new SpriteWrapper(crabTexture);
+        Crab *crab = new Crab(j * 90 + xOffset, i * 90 + yOffset, crabSprite);
         invaderRow[j] = crab;
       }
       else
       {
-        SpriteWrapper *octopusSpriteWrapper = new SpriteWrapper(octopusTexture);
-        Octopus *octopus = new Octopus(j * 90 + xOffset, i * 90 + yOffset, octopusSpriteWrapper);
+        SpriteWrapper *octopusSprite = new SpriteWrapper(octopusTexture);
+        Octopus *octopus = new Octopus(j * 90 + xOffset, i * 90 + yOffset, octopusSprite);
         invaderRow[j] = octopus;
       }
     }
@@ -166,21 +166,21 @@ std::vector<ISound *> makeInvaderSounds()
 {
   sf::SoundBuffer sound0Buffer;
   sound0Buffer.loadFromFile("public/audio/invader0.wav");
-  SoundWrapper *sound0Wrapper = new SoundWrapper(sound0Buffer);
+  SoundWrapper *sound0 = new SoundWrapper(sound0Buffer);
 
   sf::SoundBuffer sound1Buffer;
   sound1Buffer.loadFromFile("public/audio/invader1.wav");
-  SoundWrapper *sound1Wrapper = new SoundWrapper(sound1Buffer);
+  SoundWrapper *sound1 = new SoundWrapper(sound1Buffer);
 
   sf::SoundBuffer sound2Buffer;
   sound2Buffer.loadFromFile("public/audio/invader2.wav");
-  SoundWrapper *sound2Wrapper = new SoundWrapper(sound2Buffer);
+  SoundWrapper *sound2 = new SoundWrapper(sound2Buffer);
 
   sf::SoundBuffer sound3Buffer;
   sound3Buffer.loadFromFile("public/audio/invader3.wav");
-  SoundWrapper *sound3Wrapper = new SoundWrapper(sound3Buffer);
+  SoundWrapper *sound3 = new SoundWrapper(sound3Buffer);
 
-  std::vector<ISound *> invaderSounds = {sound0Wrapper, sound1Wrapper, sound2Wrapper, sound3Wrapper};
+  std::vector<ISound *> invaderSounds = {sound0, sound1, sound2, sound3};
   return invaderSounds;
 }
 
