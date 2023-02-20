@@ -57,7 +57,7 @@ int main()
     {
       drawObjects(window, cannon, laser, invaders, scoreText);
       evaluateLaserInvaderCollision(collisionInterface, laser, invaders, score, scoreText);
-      if (invadersHaveInvaded(invaders))
+      if (haveInvadersInvaded(invaders))
       {
         endGame(isPlaying, gameOver, score, scoreText);
       }

@@ -13,9 +13,11 @@
 
 void drawObjects(IRenderWindow &window, const ILaserCannon &cannon, const ILaser &laser, const std::vector<std::vector<IInvader *>> &invaders, const IText &scoreText);
 
+bool areInvadersDead(const std::vector<std::vector<IInvader *>> &invaders);
+
 void evaluateLaserInvaderCollision(const CollisionInterface &collision, ILaser &laser, const std::vector<std::vector<IInvader *>> &invaders, int &score, IText &scoreText);
 
-bool invadersHaveInvaded(const std::vector<std::vector<IInvader *>> &invaders);
+bool haveInvadersInvaded(const std::vector<std::vector<IInvader *>> &invaders);
 
 void moveLaserCannon(ILaserCannon &cannon, float x);
 
