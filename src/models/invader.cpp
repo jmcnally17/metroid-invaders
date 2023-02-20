@@ -81,5 +81,5 @@ void Invader::resurrect()
 void Invader::reset()
 {
   setPosition(originalPosition_);
-  alive_ = true;
+  resurrect();
 }
