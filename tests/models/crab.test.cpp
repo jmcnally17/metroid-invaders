@@ -49,7 +49,7 @@ TEST(Crab, hasABoolClassMemberCalledAliveSetToTrue)
   MockSprite *sprite = new NiceMock<MockSprite>();
   Crab crab(200, 320, sprite);
 
-  EXPECT_EQ(crab.isAlive(), true);
+  EXPECT_TRUE(crab.isAlive());
 }
 
 TEST(Crab, hasADirectionClassMemberInitiallySetTo1)
@@ -65,7 +65,7 @@ TEST(Crab, hasAJustMovedDownMemberSetToFalse)
   MockSprite *sprite = new NiceMock<MockSprite>();
   Crab crab(200, 320, sprite);
 
-  EXPECT_EQ(crab.hasJustMovedDown(), false);
+  EXPECT_FALSE(crab.hasJustMovedDown());
 }
 
 TEST(Crab, setsPositionOnSpriteClassMember)
@@ -115,7 +115,7 @@ TEST(Crab, dieChangesAliveClassMemberToFalse)
   Crab crab(200, 320, sprite);
 
   crab.die();
-  EXPECT_EQ(crab.isAlive(), false);
+  EXPECT_FALSE(crab.isAlive());
 }
 
 TEST(Crab, changeDirectionMultipliesDirectionByMinus1)
@@ -180,7 +180,7 @@ TEST(Crab, moveSetsJustMovedDownToFalseWhenCrabIsAtLeftBoundaryAndJustMovedDownI
   crab.move();                             // call to move crab down which sets justMovedDownToTrue
 
   crab.move();
-  EXPECT_EQ(crab.hasJustMovedDown(), false);
+  EXPECT_FALSE(crab.hasJustMovedDown());
 }
 
 TEST(Crab, moveSetsJustMovedDownToFalseWhenCrabIsAtRightBoundaryAndJustMovedDownIsTrue)
@@ -192,7 +192,7 @@ TEST(Crab, moveSetsJustMovedDownToFalseWhenCrabIsAtRightBoundaryAndJustMovedDown
   crab.move();                              // call to move crab down which sets justMovedDownToTrue
 
   crab.move();
-  EXPECT_EQ(crab.hasJustMovedDown(), false);
+  EXPECT_FALSE(crab.hasJustMovedDown());
 }
 
 TEST(Crab, moveAdds42ToYPositionWhenCrabIsAtRightSideBoundaryAndHasNotJustMovedDown)
@@ -222,7 +222,7 @@ TEST(Crab, moveSetsJustMovedDownToTrueWhenCrabIsAtRightSideBoundaryAndHasNotJust
 
   crab.setPosition(sf::Vector2f(482, 320));
   crab.move();
-  EXPECT_EQ(crab.hasJustMovedDown(), true);
+  EXPECT_TRUE(crab.hasJustMovedDown());
 }
 
 TEST(Crab, moveAdds42ToYPositionWhenCrabIsAtLeftSideBoundaryAndHasNotJustMovedDown)
@@ -253,7 +253,7 @@ TEST(Crab, moveSetsJustMovedDownToTrueWhenCrabIsAtLeftSideBoundaryAndHasNotJustM
 
   crab.setPosition(sf::Vector2f(18, 320));
   crab.move();
-  EXPECT_EQ(crab.hasJustMovedDown(), true);
+  EXPECT_TRUE(crab.hasJustMovedDown());
 }
 
 TEST(Crab, moveUpdatesPositionOnSpriteMember)
@@ -298,5 +298,5 @@ TEST(Crab, resetSetsAliveBackToTrue)
   crab.die();
 
   crab.reset();
-  EXPECT_EQ(crab.isAlive(), true);
+  EXPECT_TRUE(crab.isAlive());
 }

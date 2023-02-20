@@ -24,7 +24,7 @@ TEST(playAgain, setsIsPlayingToTrue)
   NiceMock<MockClock> clock;
 
   playAgain(isPlaying, gameOver, cannon, laser, invaders, interval, step, soundCounter, level, score, scoreText, clock);
-  EXPECT_EQ(isPlaying, true);
+  EXPECT_TRUE(isPlaying);
 }
 
 TEST(playAgain, setsGameOverToFalse)
@@ -43,7 +43,7 @@ TEST(playAgain, setsGameOverToFalse)
   NiceMock<MockClock> clock;
 
   playAgain(isPlaying, gameOver, cannon, laser, invaders, interval, step, soundCounter, level, score, scoreText, clock);
-  EXPECT_EQ(gameOver, false);
+  EXPECT_FALSE(gameOver);
 }
 
 TEST(playAgain, resetsTheLaserCannon)

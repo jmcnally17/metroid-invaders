@@ -13,7 +13,7 @@ TEST(endGame, changesIsPlayingToFalse)
   NiceMock<MockText> scoreText;
 
   endGame(isPlaying, gameOver, score, scoreText);
-  EXPECT_EQ(isPlaying, false);
+  EXPECT_FALSE(isPlaying);
 }
 
 TEST(endGame, changesGameOverToTrue)
@@ -24,7 +24,7 @@ TEST(endGame, changesGameOverToTrue)
   NiceMock<MockText> scoreText;
 
   endGame(isPlaying, gameOver, score, scoreText);
-  EXPECT_EQ(gameOver, true);
+  EXPECT_TRUE(gameOver);
 }
 
 TEST(endGame, updatesScoreText)

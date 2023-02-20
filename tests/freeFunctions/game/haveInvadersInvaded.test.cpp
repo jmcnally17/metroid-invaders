@@ -31,7 +31,7 @@ TEST(haveInvadersInvaded, returnsTrueIfAnInvaderHasReachedTheBottomAndIsAlive)
   ON_CALL(invader2, isAlive)
       .WillByDefault(Return(false));
 
-  EXPECT_EQ(haveInvadersInvaded(invaders), true);
+  EXPECT_TRUE(haveInvadersInvaded(invaders));
 }
 
 TEST(haveInvadersInvaded, returnsfalseIfInvadersHaveNotReachedTheBottomAndAreAlive)
@@ -55,7 +55,7 @@ TEST(haveInvadersInvaded, returnsfalseIfInvadersHaveNotReachedTheBottomAndAreAli
   ON_CALL(invader, isAlive)
       .WillByDefault(Return(true));
 
-  EXPECT_EQ(haveInvadersInvaded(invaders), false);
+  EXPECT_FALSE(haveInvadersInvaded(invaders));
 }
 
 TEST(haveInvadersInvaded, returnsfalseIfInvadersHaveReachedTheBottomButAreDead)
@@ -79,5 +79,5 @@ TEST(haveInvadersInvaded, returnsfalseIfInvadersHaveReachedTheBottomButAreDead)
   ON_CALL(invader, isAlive)
       .WillByDefault(Return(false));
 
-  EXPECT_EQ(haveInvadersInvaded(invaders), false);
+  EXPECT_FALSE(haveInvadersInvaded(invaders));
 }
