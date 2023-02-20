@@ -15,7 +15,7 @@ void drawObjects(IRenderWindow &window, const ILaserCannon &cannon, const ILaser
 
 bool areInvadersDead(const std::vector<std::vector<IInvader *>> &invaders);
 
-void levelUp(int &level, int &interval);
+void levelUp(int &level, int &interval, int &step);
 
 void evaluateLaserInvaderCollision(const CollisionInterface &collision, ILaser &laser, const std::vector<std::vector<IInvader *>> &invaders, int &score, IText &scoreText);
 
