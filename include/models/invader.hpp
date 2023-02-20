@@ -18,7 +18,7 @@ public:
   void move() override;
   void changeDirection();
   bool hasJustMovedDown() const override;
-  void resurrect();
+  void resurrect() override;
   void reset() override;
 
 private:

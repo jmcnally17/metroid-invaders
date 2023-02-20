@@ -10,6 +10,7 @@ public:
   virtual void die() = 0;
   virtual void move() = 0;
   virtual bool hasJustMovedDown() const = 0;
+  virtual void resurrect() = 0;
   virtual void reset() = 0;
   virtual int getPoints() const = 0;
 };
