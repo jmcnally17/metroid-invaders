@@ -266,6 +266,17 @@ TEST(Octopus, moveUpdatesPositionOnSpriteMember)
   octopus.move();
 }
 
+TEST(Octopus, resurrectSetsAliveBackToTrue)
+{
+  MockSprite *sprite = new NiceMock<MockSprite>();
+  Octopus octopus(200, 320, sprite);
+
+  octopus.die();
+
+  octopus.resurrect();
+  EXPECT_TRUE(octopus.isAlive());
+}
+
 TEST(Octopus, resetSetsPositionBackToOriginalPosition)
 {
   MockSprite *sprite = new NiceMock<MockSprite>();

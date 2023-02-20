@@ -266,6 +266,17 @@ TEST(Squid, moveUpdatesPositionOnSpriteMember)
   squid.move();
 }
 
+TEST(Squid, resurrectSetsAliveBackToTrue)
+{
+  MockSprite *sprite = new NiceMock<MockSprite>();
+  Squid squid(200, 320, sprite);
+
+  squid.die();
+
+  squid.resurrect();
+  EXPECT_TRUE(squid.isAlive());
+}
+
 TEST(Squid, resetSetsPositionBackToOriginalPosition)
 {
   MockSprite *sprite = new NiceMock<MockSprite>();

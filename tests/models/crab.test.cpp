@@ -266,6 +266,17 @@ TEST(Crab, moveUpdatesPositionOnSpriteMember)
   crab.move();
 }
 
+TEST(Crab, resurrectSetsAliveBackToTrue)
+{
+  MockSprite *sprite = new NiceMock<MockSprite>();
+  Crab crab(200, 320, sprite);
+
+  crab.die();
+
+  crab.resurrect();
+  EXPECT_TRUE(crab.isAlive());
+}
+
 TEST(Crab, resetSetsPositionBackToOriginalPosition)
 {
   MockSprite *sprite = new NiceMock<MockSprite>();
