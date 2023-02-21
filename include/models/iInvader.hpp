@@ -15,6 +15,8 @@ public:
   virtual void resurrect() = 0;
   virtual void reset() = 0;
   virtual int getPoints() const = 0;
+  virtual int getDirection() const = 0;
+  virtual void changeDirection() = 0;
 };
 
 #endif
