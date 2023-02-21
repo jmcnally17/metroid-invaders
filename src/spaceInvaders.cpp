@@ -6,7 +6,7 @@
 #include "../include/wrappers/soundWrapper.hpp"
 #include "../include/wrappers/clockWrapper.hpp"
 #include "../include/wrappers/textWrapper.hpp"
-#include "../include/models/laser.hpp"
+#include "../include/models/cannonLaser.hpp"
 #include "../include/models/laserCannon.hpp"
 #include "../include/models/squid.hpp"
 #include "../include/models/crab.hpp"
@@ -17,8 +17,8 @@ int main()
 {
   RenderWindowWrapper window(sf::VideoMode(1536, 1344), "Space Invaders");
 
-  Laser laser = makeLaser();
-  LaserCannon cannon = makeCannon(laser);
+  CannonLaser cannonLaser = makeLaser();
+  LaserCannon cannon = makeCannon(cannonLaser);
   std::vector<std::vector<IInvader *>> invaders = makeInvaders();
 
   ClockWrapper clock;
@@ -55,12 +55,12 @@ int main()
 
     if (isPlaying)
     {
-      drawObjects(window, cannon, laser, invaders, scoreText);
+      drawObjects(window, cannon, cannonLaser, invaders, scoreText);
       if (areInvadersDead(invaders))
       {
         levelUp(level, interval, step, soundCounter, invaders, clock);
       }
-      evaluateLaserInvaderCollision(collisionInterface, laser, invaders, score, scoreText);
+      evaluateLaserInvaderCollision(collisionInterface, cannonLaser, invaders, score, scoreText);
       if (haveInvadersInvaded(invaders))
       {
         endGame(isPlaying, gameOver, score, scoreText);
@@ -73,7 +73,7 @@ int main()
       {
         moveLaserCannon(cannon, -0.25);
       }
-      moveLaser(laser);
+      moveLaser(cannonLaser);
       moveInvaders(invaders, clock, interval, step, invaderSounds, soundCounter);
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
       {
@@ -85,7 +85,7 @@ int main()
       displayGameOverScreen(window, gameOverText, scoreText, playAgainText);
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
       {
-        playAgain(isPlaying, gameOver, cannon, laser, invaders, interval, step, soundCounter, level, score, scoreText, clock);
+        playAgain(isPlaying, gameOver, cannon, cannonLaser, invaders, interval, step, soundCounter, level, score, scoreText, clock);
       }
     }
   }
@@ -93,7 +93,7 @@ int main()
   return 0;
 }
 
-Laser makeLaser()
+CannonLaser makeLaser()
 {
   sf::Texture laserTexture;
   laserTexture.loadFromFile("public/images/newSprites/laser.png");
@@ -103,11 +103,11 @@ Laser makeLaser()
   deathBuffer.loadFromFile("public/audio/invaderDeath.wav");
   SoundWrapper *deathSound = new SoundWrapper(deathBuffer);
 
-  Laser laser(laserSprite, deathSound);
-  return laser;
+  CannonLaser cannonLaser(laserSprite, deathSound);
+  return cannonLaser;
 }
 
-LaserCannon makeCannon(Laser &laser)
+LaserCannon makeCannon(CannonLaser &cannonLaser)
 {
   sf::Texture cannonTexture;
   cannonTexture.loadFromFile("public/images/newSprites/laserCannon.png");
@@ -117,7 +117,7 @@ LaserCannon makeCannon(Laser &laser)
   fireSoundBuffer.loadFromFile("public/audio/shoot.wav");
   SoundWrapper *fireSound = new SoundWrapper(fireSoundBuffer);
 
-  Laser *pLaser = &laser;
+  CannonLaser *pLaser = &cannonLaser;
   LaserCannon cannon(cannonSprite, pLaser, fireSound);
   return cannon;
 }
