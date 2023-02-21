@@ -10,6 +10,21 @@ Invader::Invader(float x, float y, ISprite *sprite) : originalPosition_(sf::Vect
   sprite_->setPosition(position_);
 }
 
+float Invader::getWidth() const
+{
+  return width_;
+}
+
+float Invader::getHeight() const
+{
+  return height_;
+}
+
+int Invader::getPoints() const
+{
+  return points_;
+}
+
 sf::Vector2f Invader::getOriginalPosition() const
 {
   return originalPosition_;
