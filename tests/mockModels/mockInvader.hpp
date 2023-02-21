@@ -20,6 +20,8 @@ public:
   MOCK_METHOD(void, resurrect, ());
   MOCK_METHOD(void, reset, ());
   MOCK_METHOD(int, getPoints, (), (const));
+  MOCK_METHOD(int, getDirection, (), (const));
+  MOCK_METHOD(void, changeDirection, ());
 };
 
 #endif

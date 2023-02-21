@@ -14,9 +14,9 @@ public:
   void draw(IRenderWindow &window) const override;
   bool isAlive() const override;
   void die() override;
-  int getDirection() const;
+  int getDirection() const override;
   void move() override;
-  void changeDirection();
+  void changeDirection() override;
   bool hasJustMovedDown() const override;
   void resurrect() override;
   void reset() override;

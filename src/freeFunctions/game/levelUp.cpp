@@ -13,6 +13,7 @@ void levelUp(int &level, int &interval, int &step, int &soundCounter, const std:
     for (auto invader : row)
     {
       invader->resurrect();
+      invader->changeDirection();
       sf::Vector2f originalPosition = invader->getOriginalPosition();
       float originalXPosition = originalPosition.x;
       float originalYPosition = originalPosition.y;
