@@ -49,7 +49,7 @@ TEST(Squid, hasABoolClassMemberCalledAliveSetToTrue)
   MockSprite *sprite = new NiceMock<MockSprite>();
   Squid squid(200, 320, sprite);
 
-  EXPECT_EQ(squid.isAlive(), true);
+  EXPECT_TRUE(squid.isAlive());
 }
 
 TEST(Squid, hasADirectionClassMemberInitiallySetTo1)
@@ -65,7 +65,7 @@ TEST(Squid, hasAJustMovedDownMemberSetToFalse)
   MockSprite *sprite = new NiceMock<MockSprite>();
   Squid squid(200, 320, sprite);
 
-  EXPECT_EQ(squid.hasJustMovedDown(), false);
+  EXPECT_FALSE(squid.hasJustMovedDown());
 }
 
 TEST(Squid, setsPositionOnSpriteClassMember)
@@ -115,7 +115,7 @@ TEST(Squid, dieChangesAliveClassMemberToFalse)
   Squid squid(200, 320, sprite);
 
   squid.die();
-  EXPECT_EQ(squid.isAlive(), false);
+  EXPECT_FALSE(squid.isAlive());
 }
 
 TEST(Squid, changeDirectionMultipliesDirectionByMinus1)
@@ -180,7 +180,7 @@ TEST(Squid, moveSetsJustMovedDownToFalseWhenSquidIsAtLeftBoundaryAndJustMovedDow
   squid.move();                             // call to move squid down which sets justMovedDownToTrue
 
   squid.move();
-  EXPECT_EQ(squid.hasJustMovedDown(), false);
+  EXPECT_FALSE(squid.hasJustMovedDown());
 }
 
 TEST(Squid, moveSetsJustMovedDownToFalseWhenSquidIsAtRightBoundaryAndJustMovedDownIsTrue)
@@ -192,7 +192,7 @@ TEST(Squid, moveSetsJustMovedDownToFalseWhenSquidIsAtRightBoundaryAndJustMovedDo
   squid.move();                              // call to move squid down which sets justMovedDownToTrue
 
   squid.move();
-  EXPECT_EQ(squid.hasJustMovedDown(), false);
+  EXPECT_FALSE(squid.hasJustMovedDown());
 }
 
 TEST(Squid, moveAdds42ToYPositionWhenSquidIsAtRightSideBoundaryAndHasNotJustMovedDown)
@@ -222,7 +222,7 @@ TEST(Squid, moveSetsJustMovedDownToTrueWhenSquidIsAtRightSideBoundaryAndHasNotJu
 
   squid.setPosition(sf::Vector2f(482, 320));
   squid.move();
-  EXPECT_EQ(squid.hasJustMovedDown(), true);
+  EXPECT_TRUE(squid.hasJustMovedDown());
 }
 
 TEST(Squid, moveAdds42ToYPositionWhenSquidIsAtLeftSideBoundaryAndHasNotJustMovedDown)
@@ -253,7 +253,7 @@ TEST(Squid, moveSetsJustMovedDownToTrueWhenSquidIsAtLeftSideBoundaryAndHasNotJus
 
   squid.setPosition(sf::Vector2f(18, 320));
   squid.move();
-  EXPECT_EQ(squid.hasJustMovedDown(), true);
+  EXPECT_TRUE(squid.hasJustMovedDown());
 }
 
 TEST(Squid, moveUpdatesPositionOnSpriteMember)
@@ -264,6 +264,17 @@ TEST(Squid, moveUpdatesPositionOnSpriteMember)
 
   EXPECT_CALL(sprite, setPosition(sf::Vector2f(214.1, 320)));
   squid.move();
+}
+
+TEST(Squid, resurrectSetsAliveBackToTrue)
+{
+  MockSprite *sprite = new NiceMock<MockSprite>();
+  Squid squid(200, 320, sprite);
+
+  squid.die();
+
+  squid.resurrect();
+  EXPECT_TRUE(squid.isAlive());
 }
 
 TEST(Squid, resetSetsPositionBackToOriginalPosition)
@@ -298,5 +309,5 @@ TEST(Squid, resetSetsAliveBackToTrue)
   squid.die();
 
   squid.reset();
-  EXPECT_EQ(squid.isAlive(), true);
+  EXPECT_TRUE(squid.isAlive());
 }

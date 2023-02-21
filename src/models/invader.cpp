@@ -73,8 +73,13 @@ bool Invader::hasJustMovedDown() const
   return justMovedDown_;
 }
 
+void Invader::resurrect()
+{
+  alive_ = true;
+}
+
 void Invader::reset()
 {
   setPosition(originalPosition_);
-  alive_ = true;
+  resurrect();
 }

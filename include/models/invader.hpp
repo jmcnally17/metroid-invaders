@@ -8,9 +8,9 @@ class Invader : public IInvader
 {
 public:
   Invader(float x, float y, ISprite *sprite);
-  sf::Vector2f getOriginalPosition() const;
+  sf::Vector2f getOriginalPosition() const override;
   sf::Vector2f getPosition() const override;
-  void setPosition(const sf::Vector2f &position);
+  void setPosition(const sf::Vector2f &position) override;
   void draw(IRenderWindow &window) const override;
   bool isAlive() const override;
   void die() override;
@@ -18,6 +18,7 @@ public:
   void move() override;
   void changeDirection();
   bool hasJustMovedDown() const override;
+  void resurrect() override;
   void reset() override;
 
 private:

@@ -49,7 +49,7 @@ TEST(Octopus, hasABoolClassMemberCalledAliveSetToTrue)
   MockSprite *sprite = new NiceMock<MockSprite>();
   Octopus octopus(200, 320, sprite);
 
-  EXPECT_EQ(octopus.isAlive(), true);
+  EXPECT_TRUE(octopus.isAlive());
 }
 
 TEST(Octopus, hasADirectionClassMemberInitiallySetTo1)
@@ -65,7 +65,7 @@ TEST(Octopus, hasAJustMovedDownMemberSetToFalse)
   MockSprite *sprite = new NiceMock<MockSprite>();
   Octopus octopus(200, 320, sprite);
 
-  EXPECT_EQ(octopus.hasJustMovedDown(), false);
+  EXPECT_FALSE(octopus.hasJustMovedDown());
 }
 
 TEST(Octopus, setsPositionOnSpriteClassMember)
@@ -115,7 +115,7 @@ TEST(Octopus, dieChangesAliveClassMemberToFalse)
   Octopus octopus(200, 320, sprite);
 
   octopus.die();
-  EXPECT_EQ(octopus.isAlive(), false);
+  EXPECT_FALSE(octopus.isAlive());
 }
 
 TEST(Octopus, changeDirectionMultipliesDirectionByMinus1)
@@ -180,7 +180,7 @@ TEST(Octopus, moveSetsJustMovedDownToFalseWhenOctopusIsAtLeftBoundaryAndJustMove
   octopus.move();                             // call to move octopus down which sets justMovedDownToTrue
 
   octopus.move();
-  EXPECT_EQ(octopus.hasJustMovedDown(), false);
+  EXPECT_FALSE(octopus.hasJustMovedDown());
 }
 
 TEST(Octopus, moveSetsJustMovedDownToFalseWhenOctopusIsAtRightBoundaryAndJustMovedDownIsTrue)
@@ -192,7 +192,7 @@ TEST(Octopus, moveSetsJustMovedDownToFalseWhenOctopusIsAtRightBoundaryAndJustMov
   octopus.move();                              // call to move octopus down which sets justMovedDownToTrue
 
   octopus.move();
-  EXPECT_EQ(octopus.hasJustMovedDown(), false);
+  EXPECT_FALSE(octopus.hasJustMovedDown());
 }
 
 TEST(Octopus, moveAdds42ToYPositionWhenOctopusIsAtRightSideBoundaryAndHasNotJustMovedDown)
@@ -222,7 +222,7 @@ TEST(Octopus, moveSetsJustMovedDownToTrueWhenOctopusIsAtRightSideBoundaryAndHasN
 
   octopus.setPosition(sf::Vector2f(482, 320));
   octopus.move();
-  EXPECT_EQ(octopus.hasJustMovedDown(), true);
+  EXPECT_TRUE(octopus.hasJustMovedDown());
 }
 
 TEST(Octopus, moveAdds42ToYPositionWhenOctopusIsAtLeftSideBoundaryAndHasNotJustMovedDown)
@@ -253,7 +253,7 @@ TEST(Octopus, moveSetsJustMovedDownToTrueWhenOctopusIsAtLeftSideBoundaryAndHasNo
 
   octopus.setPosition(sf::Vector2f(18, 320));
   octopus.move();
-  EXPECT_EQ(octopus.hasJustMovedDown(), true);
+  EXPECT_TRUE(octopus.hasJustMovedDown());
 }
 
 TEST(Octopus, moveUpdatesPositionOnSpriteMember)
@@ -264,6 +264,17 @@ TEST(Octopus, moveUpdatesPositionOnSpriteMember)
 
   EXPECT_CALL(sprite, setPosition(sf::Vector2f(214.1, 320)));
   octopus.move();
+}
+
+TEST(Octopus, resurrectSetsAliveBackToTrue)
+{
+  MockSprite *sprite = new NiceMock<MockSprite>();
+  Octopus octopus(200, 320, sprite);
+
+  octopus.die();
+
+  octopus.resurrect();
+  EXPECT_TRUE(octopus.isAlive());
 }
 
 TEST(Octopus, resetSetsPositionBackToOriginalPosition)
@@ -298,5 +309,5 @@ TEST(Octopus, resetSetsAliveBackToTrue)
   octopus.die();
 
   octopus.reset();
-  EXPECT_EQ(octopus.isAlive(), true);
+  EXPECT_TRUE(octopus.isAlive());
 }
