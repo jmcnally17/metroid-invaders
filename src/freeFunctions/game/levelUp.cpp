@@ -1,7 +1,8 @@
 #include <vector>
 #include "../../../include/models/iInvader.hpp"
+#include "../../../include/wrappers/iClock.hpp"
 
-void levelUp(int &level, int &interval, int &step, int &soundCounter, const std::vector<std::vector<IInvader *>> &invaders)
+void levelUp(int &level, int &interval, int &step, int &soundCounter, const std::vector<std::vector<IInvader *>> &invaders, IClock &clock)
 {
   level++;
   interval = 665;
@@ -20,4 +21,5 @@ void levelUp(int &level, int &interval, int &step, int &soundCounter, const std:
       invader->setPosition(levelUpPosition);
     }
   }
+  clock.restart();
 }
