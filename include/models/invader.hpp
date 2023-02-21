@@ -7,7 +7,7 @@
 class Invader : public IInvader
 {
 public:
-  Invader(float x, float y, ISprite *sprite);
+  Invader(float width, float height, float x, float y, ISprite *sprite, int points);
   float getWidth() const override;
   float getHeight() const override;
   int getPoints() const override;
@@ -26,16 +26,10 @@ public:
 
 private:
   sf::Vector2f originalPosition_;
-  sf::Vector2f position_;
-  ISprite *sprite_;
+  int points_;
   bool alive_;
   int direction_;
   bool justMovedDown_;
-
-protected:
-  float width_;
-  float height_;
-  int points_;
 };
 
 #endif

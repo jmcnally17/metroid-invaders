@@ -1,9 +1,6 @@
 #include "../../include/models/cannonLaser.hpp"
 
-CannonLaser::CannonLaser(ISprite *sprite, ISound *sound) : width_(6), height_(24), position_(sf::Vector2f(120, -24)), sprite_(sprite), sound_(sound)
-{
-  sprite_->setPosition(position_);
-}
+CannonLaser::CannonLaser(ISprite *sprite, ISound *sound) : ILaser(6, 24, 120, -24, sprite), sound_(sound) {}
 
 float CannonLaser::getWidth() const
 {

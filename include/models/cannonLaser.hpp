@@ -20,10 +20,6 @@ public:
   void playInvaderDeath() override;
 
 private:
-  float width_;
-  float height_;
-  sf::Vector2f position_;
-  ISprite *sprite_;
   ISound *sound_;
 };
 

@@ -1,4 +1,4 @@
-#include "../../include/models/crab.hpp"
+#include "../../include/models/invaders.hpp"
 #include "../mockModels/mockSprite.hpp"
 #include "../mockModels/mockRenderWindow.hpp"
 

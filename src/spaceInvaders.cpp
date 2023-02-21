@@ -8,9 +8,7 @@
 #include "../include/wrappers/textWrapper.hpp"
 #include "../include/models/cannonLaser.hpp"
 #include "../include/models/laserCannon.hpp"
-#include "../include/models/squid.hpp"
-#include "../include/models/crab.hpp"
-#include "../include/models/octopus.hpp"
+#include "../include/models/invaders.hpp"
 #include "../include/interfaces/collisionInterface.hpp"
 
 int main()

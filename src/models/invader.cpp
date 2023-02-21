@@ -1,14 +1,11 @@
 #include "../../include/models/invader.hpp"
 
-Invader::Invader(float x, float y, ISprite *sprite) : originalPosition_(sf::Vector2f(x, y)),
-                                                      position_(sf::Vector2f(x, y)),
-                                                      sprite_(sprite),
-                                                      alive_(true),
-                                                      direction_(1),
-                                                      justMovedDown_(false)
-{
-  sprite_->setPosition(position_);
-}
+Invader::Invader(float width, float height, float x, float y, ISprite *sprite, int points) : IInvader(width, height, x, y, sprite),
+                                                                                             originalPosition_(sf::Vector2f(x, y)),
+                                                                                             points_(points),
+                                                                                             alive_(true),
+                                                                                             direction_(1),
+                                                                                             justMovedDown_(false) {}
 
 float Invader::getWidth() const
 {
