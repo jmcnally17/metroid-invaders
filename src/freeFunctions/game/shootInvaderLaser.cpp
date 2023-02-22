@@ -8,7 +8,10 @@ void shootInvaderLaser(const std::vector<std::vector<IInvader *>> &invaders, con
   {
     for (auto invader : row)
     {
-      invader->shoot(lasers);
+      if (invader->isAlive())
+      {
+        invader->shoot(lasers);
+      }
     }
   }
 }
