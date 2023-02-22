@@ -94,7 +94,7 @@ int main()
 CannonLaser makeLaser()
 {
   sf::Texture laserTexture;
-  laserTexture.loadFromFile("public/images/newSprites/laser.png");
+  laserTexture.loadFromFile("public/images/newSprites/cannonLaser.png");
   SpriteWrapper *laserSprite = new SpriteWrapper(laserTexture);
 
   sf::SoundBuffer deathBuffer;
