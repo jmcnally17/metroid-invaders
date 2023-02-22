@@ -101,16 +101,12 @@ void Invader::shoot(const std::vector<ILaser *> &lasers) const
   float xPosition = position_.x + (width_ / 2) - 9;
   float yPosition = position_.y + height_;
   sf::Vector2f newPosition(xPosition, yPosition);
-  if (lasers[0]->getPosition().y >= 1344)
+  for (auto laser : lasers)
   {
-    lasers[0]->setPosition(newPosition);
-  }
-  else if (lasers[1]->getPosition().y >= 1344)
-  {
-    lasers[1]->setPosition(newPosition);
-  }
-  else if (lasers[2]->getPosition().y >= 1344)
-  {
-    lasers[2]->setPosition(newPosition);
+    if (laser->getPosition().y >= 1344)
+    {
+      laser->setPosition(newPosition);
+      return;
+    }
   }
 }
