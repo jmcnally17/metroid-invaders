@@ -5,7 +5,7 @@
 using ::testing::NiceMock;
 using ::testing::Return;
 
-TEST(shootInvaderLaser, callsShootOnInvadersIfTheyAreAliveAndRandomNumberIs0)
+TEST(shootInvaderLaser, callsShootOnInvadersIfTheyAreAlive)
 {
   NiceMock<MockInvader> invader;
   MockInvader *pInvader = &invader;
