@@ -40,6 +40,8 @@ void moveInvaders(const std::vector<std::vector<IInvader *>> &invaders,
                   std::vector<ISound *> &sounds,
                   int &soundCounter);
 
+void moveInvaderLasers(const std::vector<ILaser *> &invaderLasers);
+
 void fireLaser(ILaserCannon &cannon);
 
 void shootInvaderLaser(const std::vector<std::vector<IInvader *>> &invaders, const std::vector<ILaser *> &lasers);
