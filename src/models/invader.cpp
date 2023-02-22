@@ -95,3 +95,10 @@ void Invader::reset()
   setPosition(originalPosition_);
   resurrect();
 }
+
+void Invader::shoot(const std::vector<ILaser *> &lasers) const
+{
+  float xPosition = position_.x + (width_ / 2) - 9;
+  float yPosition = position_.y + height_;
+  lasers[0]->setPosition(sf::Vector2f(xPosition, yPosition));
+}

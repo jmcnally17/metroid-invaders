@@ -1,8 +1,10 @@
 #include "../../include/models/invaders.hpp"
 #include "../mockModels/mockSprite.hpp"
 #include "../mockModels/mockRenderWindow.hpp"
+#include "../mockModels/mockLaser.hpp"
 
 using ::testing::NiceMock;
+using ::testing::Return;
 
 TEST(Octopus, hasAWidthClassMemberOf72)
 {
@@ -310,4 +312,27 @@ TEST(Octopus, resetSetsAliveBackToTrue)
 
   octopus.reset();
   EXPECT_TRUE(octopus.isAlive());
+}
+
+TEST(octopus, shootSetsPositionOfFirstLaserIfBelowBoardAndOctopusIsAlive)
+{
+  MockSprite *sprite = new NiceMock<MockSprite>();
+  Octopus octopus(200, 320, sprite);
+  std::vector<ILaser *> invaderLasers(3);
+  MockLaser laser1;
+  MockLaser *pLaser1 = &laser1;
+  MockLaser laser2;
+  MockLaser *pLaser2 = &laser2;
+  MockLaser laser3;
+  MockLaser *pLaser3 = &laser3;
+  invaderLasers[0] = pLaser1;
+  invaderLasers[1] = pLaser2;
+  invaderLasers[2] = pLaser3;
+
+  ON_CALL(laser1, getPosition())
+      .WillByDefault(Return(sf::Vector2f(120, 1344)));
+
+  EXPECT_CALL(laser1, setPosition(sf::Vector2f(227, 368)))
+      .Times(1);
+  octopus.shoot(invaderLasers);
 }

@@ -1,7 +1,9 @@
 #ifndef INVADER_HPP
 #define INVADER_HPP
 
+#include <vector>
 #include "./iInvader.hpp"
+#include "./iLaser.hpp"
 
 class Invader : public IInvader
 {
@@ -22,6 +24,7 @@ public:
   bool hasJustMovedDown() const override;
   void resurrect() override;
   void reset() override;
+  void shoot(const std::vector<ILaser *> &lasers) const;
 
 private:
   sf::Vector2f originalPosition_;
