@@ -13,6 +13,8 @@ LaserCannon makeCannon(CannonLaser &cannonLaser);
 
 std::vector<std::vector<IInvader *>> makeInvaders();
 
+std::vector<ILaser *> makeInvaderLasers();
+
 std::vector<ISound *> makeInvaderSounds();
 
 TextWrapper makeScoreText(const sf::Font &font);

@@ -9,6 +9,7 @@
 #include "../include/models/cannonLaser.hpp"
 #include "../include/models/laserCannon.hpp"
 #include "../include/models/invaders.hpp"
+#include "../include/models/invaderLaser.hpp"
 #include "../include/interfaces/collisionInterface.hpp"
 
 int main()
@@ -18,6 +19,7 @@ int main()
   CannonLaser cannonLaser = makeLaser();
   LaserCannon cannon = makeCannon(cannonLaser);
   std::vector<std::vector<IInvader *>> invaders = makeInvaders();
+  std::vector<ILaser *> invaderLasers = makeInvaderLasers();
 
   ClockWrapper clock;
   int interval = 665;
@@ -53,7 +55,7 @@ int main()
 
     if (isPlaying)
     {
-      drawObjects(window, cannon, cannonLaser, invaders, scoreText);
+      drawObjects(window, cannon, cannonLaser, invaders, invaderLasers, scoreText);
       if (areInvadersDead(invaders))
       {
         levelUp(level, interval, step, soundCounter, invaders, clock);
@@ -77,6 +79,7 @@ int main()
       {
         fireLaser(cannon);
       }
+      shootInvaderLaser(invaders, invaderLasers);
     }
     else if (gameOver)
     {
@@ -162,6 +165,22 @@ std::vector<std::vector<IInvader *>> makeInvaders()
   }
 
   return invaders;
+}
+
+std::vector<ILaser *> makeInvaderLasers()
+{
+  sf::Texture laserTexture;
+  laserTexture.loadFromFile("public/images/newSprites/invaderLaser.png");
+  std::vector<ILaser *> invaderLasers(3);
+
+  for (int i = 0; i < 3; i++)
+  {
+    SpriteWrapper *laserSprite = new SpriteWrapper(laserTexture);
+    InvaderLaser *laser = new InvaderLaser(laserSprite);
+    invaderLasers[i] = laser;
+  }
+
+  return invaderLasers;
 }
 
 std::vector<ISound *> makeInvaderSounds()
