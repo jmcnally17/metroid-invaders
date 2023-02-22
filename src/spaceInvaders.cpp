@@ -58,7 +58,7 @@ int main()
       drawObjects(window, cannon, cannonLaser, invaders, invaderLasers, scoreText);
       if (areInvadersDead(invaders))
       {
-        levelUp(level, interval, step, soundCounter, invaders, clock);
+        levelUp(level, interval, step, soundCounter, invaders, invaderLasers, clock);
       }
       evaluateLaserInvaderCollision(collisionInterface, cannonLaser, invaders, score, scoreText);
       if (haveInvadersInvaded(invaders))

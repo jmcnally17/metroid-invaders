@@ -20,7 +20,13 @@ void drawObjects(IRenderWindow &window,
 
 bool areInvadersDead(const std::vector<std::vector<IInvader *>> &invaders);
 
-void levelUp(int &level, int &interval, int &step, int &soundCounter, const std::vector<std::vector<IInvader *>> &invaders, IClock &clock);
+void levelUp(int &level,
+             int &interval,
+             int &step,
+             int &soundCounter,
+             const std::vector<std::vector<IInvader *>> &invaders,
+             const std::vector<ILaser *> &invaderLasers,
+             IClock &clock);
 
 void evaluateLaserInvaderCollision(const CollisionInterface &collision,
                                    ILaser &laser,
