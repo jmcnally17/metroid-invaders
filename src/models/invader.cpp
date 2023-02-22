@@ -109,7 +109,7 @@ void Invader::shoot(const std::vector<ILaser *> &lasers) const
   {
     lasers[1]->setPosition(newPosition);
   }
-  else
+  else if (lasers[2]->getPosition().y >= 1344)
   {
     lasers[2]->setPosition(newPosition);
   }

@@ -371,7 +371,7 @@ TEST(Crab, shootSetsPositionOfThirdLaserIfBelowBoardAndFirstAndSecondLasersAreOn
   MockLaser *pLaser1 = &laser1;
   NiceMock<MockLaser> laser2;
   MockLaser *pLaser2 = &laser2;
-  MockLaser laser3;
+  NiceMock<MockLaser> laser3;
   MockLaser *pLaser3 = &laser3;
   invaderLasers[0] = pLaser1;
   invaderLasers[1] = pLaser2;
@@ -386,5 +386,36 @@ TEST(Crab, shootSetsPositionOfThirdLaserIfBelowBoardAndFirstAndSecondLasersAreOn
 
   EXPECT_CALL(laser3, setPosition(sf::Vector2f(224, 368)))
       .Times(1);
+  crab.shoot(invaderLasers);
+}
+
+TEST(Crab, shootDoesNotSetPositionOfAnyLaserIfTheyAreAllOnBoardAndCrabIsAlive)
+{
+  MockSprite *sprite = new NiceMock<MockSprite>();
+  Crab crab(200, 320, sprite);
+  std::vector<ILaser *> invaderLasers(3);
+  NiceMock<MockLaser> laser1;
+  MockLaser *pLaser1 = &laser1;
+  NiceMock<MockLaser> laser2;
+  MockLaser *pLaser2 = &laser2;
+  NiceMock<MockLaser> laser3;
+  MockLaser *pLaser3 = &laser3;
+  invaderLasers[0] = pLaser1;
+  invaderLasers[1] = pLaser2;
+  invaderLasers[2] = pLaser3;
+
+  ON_CALL(laser1, getPosition())
+      .WillByDefault(Return(sf::Vector2f(120, 900)));
+  ON_CALL(laser2, getPosition())
+      .WillByDefault(Return(sf::Vector2f(120, 600)));
+  ON_CALL(laser3, getPosition())
+      .WillByDefault(Return(sf::Vector2f(120, 300)));
+
+  EXPECT_CALL(laser1, setPosition)
+      .Times(0);
+  EXPECT_CALL(laser2, setPosition)
+      .Times(0);
+  EXPECT_CALL(laser3, setPosition)
+      .Times(0);
   crab.shoot(invaderLasers);
 }
