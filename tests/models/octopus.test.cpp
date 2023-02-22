@@ -314,12 +314,12 @@ TEST(Octopus, resetSetsAliveBackToTrue)
   EXPECT_TRUE(octopus.isAlive());
 }
 
-TEST(octopus, shootSetsPositionOfFirstLaserIfBelowBoardAndOctopusIsAlive)
+TEST(Octopus, shootSetsPositionOfFirstLaserIfBelowBoardAndOctopusIsAlive)
 {
   MockSprite *sprite = new NiceMock<MockSprite>();
   Octopus octopus(200, 320, sprite);
   std::vector<ILaser *> invaderLasers(3);
-  MockLaser laser1;
+  NiceMock<MockLaser> laser1;
   MockLaser *pLaser1 = &laser1;
   MockLaser laser2;
   MockLaser *pLaser2 = &laser2;
@@ -333,6 +333,31 @@ TEST(octopus, shootSetsPositionOfFirstLaserIfBelowBoardAndOctopusIsAlive)
       .WillByDefault(Return(sf::Vector2f(120, 1344)));
 
   EXPECT_CALL(laser1, setPosition(sf::Vector2f(227, 368)))
+      .Times(1);
+  octopus.shoot(invaderLasers);
+}
+
+TEST(Octopus, shootSetsPositionOfFirstLaserIfBelowBoardAndFirstLaserIsOnBoardAndOctopusIsAlive)
+{
+  MockSprite *sprite = new NiceMock<MockSprite>();
+  Octopus octopus(200, 320, sprite);
+  std::vector<ILaser *> invaderLasers(3);
+  NiceMock<MockLaser> laser1;
+  MockLaser *pLaser1 = &laser1;
+  MockLaser laser2;
+  MockLaser *pLaser2 = &laser2;
+  MockLaser laser3;
+  MockLaser *pLaser3 = &laser3;
+  invaderLasers[0] = pLaser1;
+  invaderLasers[1] = pLaser2;
+  invaderLasers[2] = pLaser3;
+
+  ON_CALL(laser1, getPosition())
+      .WillByDefault(Return(sf::Vector2f(120, 900)));
+  ON_CALL(laser2, getPosition())
+      .WillByDefault(Return(sf::Vector2f(120, 1344)));
+
+  EXPECT_CALL(laser2, setPosition(sf::Vector2f(227, 368)))
       .Times(1);
   octopus.shoot(invaderLasers);
 }
