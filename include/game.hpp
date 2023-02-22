@@ -11,13 +11,21 @@
 #include "./models/iInvader.hpp"
 #include "./interfaces/collisionInterface.hpp"
 
-void drawObjects(IRenderWindow &window, const ILaserCannon &cannon, const ILaser &laser, const std::vector<std::vector<IInvader *>> &invaders, const IText &scoreText);
+void drawObjects(IRenderWindow &window,
+                 const ILaserCannon &cannon,
+                 const ILaser &laser,
+                 const std::vector<std::vector<IInvader *>> &invaders,
+                 const std::vector<ILaser *> &invaderLasers,
+                 const IText &scoreText);
 
 bool areInvadersDead(const std::vector<std::vector<IInvader *>> &invaders);
 
 void levelUp(int &level, int &interval, int &step, int &soundCounter, const std::vector<std::vector<IInvader *>> &invaders, IClock &clock);
 
-void evaluateLaserInvaderCollision(const CollisionInterface &collision, ILaser &laser, const std::vector<std::vector<IInvader *>> &invaders, int &score, IText &scoreText);
+void evaluateLaserInvaderCollision(const CollisionInterface &collision,
+                                   ILaser &laser,
+                                   const std::vector<std::vector<IInvader *>> &invaders,
+                                   int &score, IText &scoreText);
 
 bool haveInvadersInvaded(const std::vector<std::vector<IInvader *>> &invaders);
 
@@ -25,7 +33,12 @@ void moveLaserCannon(ILaserCannon &cannon, float x);
 
 void moveLaser(ILaser &laser);
 
-void moveInvaders(const std::vector<std::vector<IInvader *>> &invaders, IClock &clock, int &interval, int &step, std::vector<ISound *> &sounds, int &soundCounter);
+void moveInvaders(const std::vector<std::vector<IInvader *>> &invaders,
+                  IClock &clock,
+                  int &interval,
+                  int &step,
+                  std::vector<ISound *> &sounds,
+                  int &soundCounter);
 
 void fireLaser(ILaserCannon &cannon);
 

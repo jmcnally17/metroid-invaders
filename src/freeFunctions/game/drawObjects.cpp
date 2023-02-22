@@ -5,7 +5,12 @@
 #include "../../../include/models/iLaser.hpp"
 #include "../../../include/models/iInvader.hpp"
 
-void drawObjects(IRenderWindow &window, const ILaserCannon &cannon, const ILaser &laser, const std::vector<std::vector<IInvader *>> &invaders, const IText &scoreText)
+void drawObjects(IRenderWindow &window,
+                 const ILaserCannon &cannon,
+                 const ILaser &laser,
+                 const std::vector<std::vector<IInvader *>> &invaders,
+                 const std::vector<ILaser *> &invaderLasers,
+                 const IText &scoreText)
 {
   window.clear();
   cannon.draw(window);
@@ -19,6 +24,10 @@ void drawObjects(IRenderWindow &window, const ILaserCannon &cannon, const ILaser
         IInvader->draw(window);
       }
     }
+  }
+  for (auto laser : invaderLasers)
+  {
+    laser->draw(window);
   }
   window.draw(scoreText);
   window.display();
