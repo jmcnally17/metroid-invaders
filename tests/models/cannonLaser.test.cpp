@@ -8,7 +8,7 @@ using ::testing::NiceMock;
 TEST(CannonLaser, hasAPositionUponInstantiation)
 {
   MockSprite *sprite = new NiceMock<MockSprite>();
-  MockSound *sound = new MockSound();
+  MockSound *sound;
   CannonLaser cannonLaser(sprite, sound);
 
   EXPECT_EQ(cannonLaser.getPosition(), sf::Vector2f(120, -24));
@@ -18,7 +18,7 @@ TEST(CannonLaser, setsSpritePositionUponInstantiation)
 {
   MockSprite sprite;
   MockSprite *pSprite = &sprite;
-  MockSound *sound = new MockSound();
+  MockSound *sound;
 
   EXPECT_CALL(sprite, setPosition(sf::Vector2f(120, -24)))
       .Times(1);
@@ -28,7 +28,7 @@ TEST(CannonLaser, setsSpritePositionUponInstantiation)
 TEST(CannonLaser, hasAWidthClassMemberOf6)
 {
   MockSprite *sprite = new NiceMock<MockSprite>();
-  MockSound *sound = new MockSound();
+  MockSound *sound;
   CannonLaser cannonLaser(sprite, sound);
 
   EXPECT_EQ(cannonLaser.getWidth(), 6);
@@ -37,7 +37,7 @@ TEST(CannonLaser, hasAWidthClassMemberOf6)
 TEST(CannonLaser, hasAHeightClassMemberOf24)
 {
   MockSprite *sprite = new NiceMock<MockSprite>();
-  MockSound *sound = new MockSound();
+  MockSound *sound;
   CannonLaser cannonLaser(sprite, sound);
 
   EXPECT_EQ(cannonLaser.getHeight(), 24);
@@ -46,7 +46,7 @@ TEST(CannonLaser, hasAHeightClassMemberOf24)
 TEST(CannonLaser, setPositionChangesPositionClassMember)
 {
   MockSprite *sprite = new NiceMock<MockSprite>();
-  MockSound *sound = new MockSound();
+  MockSound *sound;
   CannonLaser cannonLaser(sprite, sound);
 
   cannonLaser.setPosition(sf::Vector2f(530, 890));
@@ -57,7 +57,7 @@ TEST(CannonLaser, setPositionChangesSpritePosition)
 {
   NiceMock<MockSprite> sprite;
   MockSprite *pSprite = &sprite;
-  MockSound *sound = new MockSound();
+  MockSound *sound;
   CannonLaser cannonLaser(pSprite, sound);
 
   EXPECT_CALL(sprite, setPosition(sf::Vector2f(530, 890)))
@@ -68,7 +68,7 @@ TEST(CannonLaser, setPositionChangesSpritePosition)
 TEST(CannonLaser, drawCallsDrawOnWindowArgumentWhenCannonLaserIsOnBoard)
 {
   MockSprite *sprite = new NiceMock<MockSprite>();
-  MockSound *sound = new MockSound();
+  MockSound *sound;
   CannonLaser cannonLaser(sprite, sound);
   MockRenderWindow window;
   cannonLaser.setPosition(sf::Vector2f(600, 700));
@@ -82,7 +82,7 @@ TEST(CannonLaser, drawCallsDrawOnWindowArgumentWhenCannonLaserIsOnBoard)
 TEST(CannonLaser, drawDoesNotCallDrawOnWindowArgumentWhenCannonLaserIsAboveBoard)
 {
   MockSprite *sprite = new NiceMock<MockSprite>();
-  MockSound *sound = new MockSound();
+  MockSound *sound;
   CannonLaser cannonLaser(sprite, sound);
   MockRenderWindow window;
 
@@ -95,7 +95,7 @@ TEST(CannonLaser, drawDoesNotCallDrawOnWindowArgumentWhenCannonLaserIsAboveBoard
 TEST(CannonLaser, moveDecreasesYPositionWhenCannonLaserIsOnTheBoard)
 {
   MockSprite *sprite = new NiceMock<MockSprite>();
-  MockSound *sound = new MockSound();
+  MockSound *sound;
   CannonLaser cannonLaser(sprite, sound);
   cannonLaser.setPosition(sf::Vector2f(500, 1000));
 
@@ -107,7 +107,7 @@ TEST(CannonLaser, moveUpdatesSpritePositionWhenCannonLaserIsOnTheBoard)
 {
   NiceMock<MockSprite> sprite;
   MockSprite *pSprite = &sprite;
-  MockSound *sound = new MockSound();
+  MockSound *sound;
   CannonLaser cannonLaser(pSprite, sound);
   cannonLaser.setPosition(sf::Vector2f(500, 1000));
 
@@ -119,7 +119,7 @@ TEST(CannonLaser, moveUpdatesSpritePositionWhenCannonLaserIsOnTheBoard)
 TEST(CannonLaser, moveDoesNotDecreaseYPositionWhenCannonLaserIsAboveTheBoard)
 {
   MockSprite *sprite = new NiceMock<MockSprite>();
-  MockSound *sound = new MockSound();
+  MockSound *sound;
   CannonLaser cannonLaser(sprite, sound);
 
   cannonLaser.move();
@@ -130,7 +130,7 @@ TEST(CannonLaser, moveDoesNotUpdateSpritePositionWhenCannonLaserIsAboveTheBoard)
 {
   NiceMock<MockSprite> sprite;
   MockSprite *pSprite = &sprite;
-  MockSound *sound = new MockSound();
+  MockSound *sound;
   CannonLaser cannonLaser(pSprite, sound);
 
   EXPECT_CALL(sprite, setPosition)
@@ -141,7 +141,7 @@ TEST(CannonLaser, moveDoesNotUpdateSpritePositionWhenCannonLaserIsAboveTheBoard)
 TEST(CannonLaser, resetSetsPositionBackAboveTheBoard)
 {
   MockSprite *sprite = new NiceMock<MockSprite>();
-  MockSound *sound = new MockSound();
+  MockSound *sound;
   CannonLaser cannonLaser(sprite, sound);
   cannonLaser.setPosition(sf::Vector2f(400, 900));
 

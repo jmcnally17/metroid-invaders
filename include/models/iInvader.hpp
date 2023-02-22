@@ -1,7 +1,9 @@
 #ifndef I_INVADER_HPP
 #define I_INVADER_HPP
 
+#include <vector>
 #include "./objectInterface.hpp"
+#include "./iLaser.hpp"
 
 class IInvader : public ObjectInterface
 {
@@ -17,6 +19,7 @@ public:
   virtual int getPoints() const = 0;
   virtual int getDirection() const = 0;
   virtual void changeDirection() = 0;
+  virtual void shoot(const std::vector<ILaser *> &lasers) const = 0;
 };
 
 #endif
