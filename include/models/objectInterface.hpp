@@ -13,7 +13,9 @@ public:
   virtual float getWidth() const = 0;
   virtual float getHeight() const = 0;
   virtual sf::Vector2f getPosition() const = 0;
+  virtual void setPosition(const sf::Vector2f &position) = 0;
   virtual void draw(IRenderWindow &window) const = 0;
+  virtual void reset() = 0;
 
 protected:
   float width_;

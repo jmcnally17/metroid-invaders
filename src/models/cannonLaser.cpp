@@ -17,9 +17,9 @@ sf::Vector2f CannonLaser::getPosition() const
   return position_;
 }
 
-void CannonLaser::setPosition(const sf::Vector2f &vector)
+void CannonLaser::setPosition(const sf::Vector2f &position)
 {
-  position_ = vector;
+  position_ = position;
   sprite_->setPosition(position_);
 }
 

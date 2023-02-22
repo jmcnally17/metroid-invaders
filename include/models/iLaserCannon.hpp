@@ -10,7 +10,6 @@ public:
   ILaserCannon(float width, float height, float x, float y, ISprite *sprite);
   virtual void move(float x) = 0;
   virtual void fire() = 0;
-  virtual void reset() = 0;
 };
 
 #endif
