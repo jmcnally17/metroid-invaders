@@ -75,6 +75,7 @@ int main()
       }
       moveLaser(cannonLaser);
       moveInvaders(invaders, clock, interval, step, invaderSounds, soundCounter);
+      moveInvaderLasers(invaderLasers);
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
       {
         fireLaser(cannon);
