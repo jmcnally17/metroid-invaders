@@ -2,9 +2,7 @@
 #define CANNON_LASER_HPP
 
 #include "./iLaser.hpp"
-#include "../wrappers/iSprite.hpp"
 #include "../wrappers/iSound.hpp"
-#include "../wrappers/iRenderWindow.hpp"
 
 class CannonLaser : public ILaser
 {

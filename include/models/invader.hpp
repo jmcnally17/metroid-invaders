@@ -2,7 +2,6 @@
 #define INVADER_HPP
 
 #include "./iInvader.hpp"
-#include "../wrappers/iSprite.hpp"
 
 class Invader : public IInvader
 {

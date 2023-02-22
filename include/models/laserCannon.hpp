@@ -3,7 +3,6 @@
 
 #include "./iLaserCannon.hpp"
 #include "./iLaser.hpp"
-#include "../wrappers/iSprite.hpp"
 #include "../wrappers/iSound.hpp"
 
 class LaserCannon : public ILaserCannon
