@@ -29,7 +29,7 @@ TEST(shootInvaderLaser, callsShootOnInvadersIfTheyAreAlive)
   ON_CALL(invader, isAlive())
       .WillByDefault(Return(true));
 
-  EXPECT_CALL(invader, shoot(lasers))
+  EXPECT_CALL(invader, shoot)
       .Times(6);
   shootInvaderLaser(invaders, lasers);
 }
@@ -58,7 +58,7 @@ TEST(shootInvaderLaser, doesNotCallShootOnInvadersIfTheyAreDead)
   ON_CALL(invader, isAlive())
       .WillByDefault(Return(false));
 
-  EXPECT_CALL(invader, shoot(lasers))
+  EXPECT_CALL(invader, shoot)
       .Times(0);
   shootInvaderLaser(invaders, lasers);
 }

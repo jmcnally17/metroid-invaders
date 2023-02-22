@@ -334,7 +334,7 @@ TEST(Crab, shootSetsPositionOfFirstLaserIfBelowBoardAndCrabIsAlive)
 
   EXPECT_CALL(laser1, setPosition(sf::Vector2f(224, 368)))
       .Times(1);
-  crab.shoot(invaderLasers);
+  crab.shoot(invaderLasers, 0);
 }
 
 TEST(Crab, shootSetsPositionOfSecondLaserIfBelowBoardAndFirstLaserIsOnBoardAndCrabIsAlive)
@@ -359,7 +359,7 @@ TEST(Crab, shootSetsPositionOfSecondLaserIfBelowBoardAndFirstLaserIsOnBoardAndCr
 
   EXPECT_CALL(laser2, setPosition(sf::Vector2f(224, 368)))
       .Times(1);
-  crab.shoot(invaderLasers);
+  crab.shoot(invaderLasers, 0);
 }
 
 TEST(Crab, shootSetsPositionOfThirdLaserIfBelowBoardAndFirstAndSecondLasersAreOnBoardAndCrabIsAlive)
@@ -386,7 +386,7 @@ TEST(Crab, shootSetsPositionOfThirdLaserIfBelowBoardAndFirstAndSecondLasersAreOn
 
   EXPECT_CALL(laser3, setPosition(sf::Vector2f(224, 368)))
       .Times(1);
-  crab.shoot(invaderLasers);
+  crab.shoot(invaderLasers, 0);
 }
 
 TEST(Crab, shootDoesNotSetPositionOfAnyLaserIfTheyAreAllOnBoardAndCrabIsAlive)
@@ -417,5 +417,36 @@ TEST(Crab, shootDoesNotSetPositionOfAnyLaserIfTheyAreAllOnBoardAndCrabIsAlive)
       .Times(0);
   EXPECT_CALL(laser3, setPosition)
       .Times(0);
-  crab.shoot(invaderLasers);
+  crab.shoot(invaderLasers, 0);
+}
+
+TEST(Crab, shootDoesNotSetPositionOfAnyLaserIfRandomNumberIsNot0)
+{
+  MockSprite *sprite = new NiceMock<MockSprite>();
+  Crab crab(200, 320, sprite);
+  std::vector<ILaser *> invaderLasers(3);
+  MockLaser laser1;
+  MockLaser *pLaser1 = &laser1;
+  MockLaser laser2;
+  MockLaser *pLaser2 = &laser2;
+  MockLaser laser3;
+  MockLaser *pLaser3 = &laser3;
+  invaderLasers[0] = pLaser1;
+  invaderLasers[1] = pLaser2;
+  invaderLasers[2] = pLaser3;
+
+  ON_CALL(laser1, getPosition())
+      .WillByDefault(Return(sf::Vector2f(120, 1344)));
+  ON_CALL(laser2, getPosition())
+      .WillByDefault(Return(sf::Vector2f(120, 1344)));
+  ON_CALL(laser3, getPosition())
+      .WillByDefault(Return(sf::Vector2f(120, 1344)));
+
+  EXPECT_CALL(laser1, setPosition)
+      .Times(0);
+  EXPECT_CALL(laser2, setPosition)
+      .Times(0);
+  EXPECT_CALL(laser3, setPosition)
+      .Times(0);
+  crab.shoot(invaderLasers, 50);
 }

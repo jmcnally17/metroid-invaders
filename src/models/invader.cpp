@@ -96,17 +96,20 @@ void Invader::reset()
   resurrect();
 }
 
-void Invader::shoot(const std::vector<ILaser *> &lasers) const
+void Invader::shoot(const std::vector<ILaser *> &lasers, int randomNumber) const
 {
-  float xPosition = position_.x + (width_ / 2) - 9;
-  float yPosition = position_.y + height_;
-  sf::Vector2f newPosition(xPosition, yPosition);
-  for (auto laser : lasers)
+  if (randomNumber == 0)
   {
-    if (laser->getPosition().y >= 1344)
+    float xPosition = position_.x + (width_ / 2) - 9;
+    float yPosition = position_.y + height_;
+    sf::Vector2f newPosition(xPosition, yPosition);
+    for (auto laser : lasers)
     {
-      laser->setPosition(newPosition);
-      return;
+      if (laser->getPosition().y >= 1344)
+      {
+        laser->setPosition(newPosition);
+        return;
+      }
     }
   }
 }

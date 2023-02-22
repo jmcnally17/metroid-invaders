@@ -19,7 +19,7 @@ public:
   virtual int getPoints() const = 0;
   virtual int getDirection() const = 0;
   virtual void changeDirection() = 0;
-  virtual void shoot(const std::vector<ILaser *> &lasers) const = 0;
+  virtual void shoot(const std::vector<ILaser *> &lasers, int randomNumber = rand() % 100) const = 0;
 };
 
 #endif
