@@ -1,13 +1,25 @@
 #include "../../include/models/invader.hpp"
 
-Invader::Invader(float x, float y, ISprite *sprite) : originalPosition_(sf::Vector2f(x, y)),
-                                                      position_(sf::Vector2f(x, y)),
-                                                      sprite_(sprite),
-                                                      alive_(true),
-                                                      direction_(1),
-                                                      justMovedDown_(false)
+Invader::Invader(float width, float height, float x, float y, ISprite *sprite, int points) : IInvader(width, height, x, y, sprite),
+                                                                                             originalPosition_(sf::Vector2f(x, y)),
+                                                                                             points_(points),
+                                                                                             alive_(true),
+                                                                                             direction_(1),
+                                                                                             justMovedDown_(false) {}
+
+float Invader::getWidth() const
 {
-  sprite_->setPosition(position_);
+  return width_;
+}
+
+float Invader::getHeight() const
+{
+  return height_;
+}
+
+int Invader::getPoints() const
+{
+  return points_;
 }
 
 sf::Vector2f Invader::getOriginalPosition() const
@@ -82,4 +94,22 @@ void Invader::reset()
 {
   setPosition(originalPosition_);
   resurrect();
+}
+
+void Invader::shoot(const std::vector<ILaser *> &lasers, int randomNumber) const
+{
+  if (randomNumber == 0)
+  {
+    float xPosition = position_.x + (width_ / 2) - 9;
+    float yPosition = position_.y + height_;
+    sf::Vector2f newPosition(xPosition, yPosition);
+    for (auto laser : lasers)
+    {
+      if (laser->getPosition().y >= 1344)
+      {
+        laser->setPosition(newPosition);
+        return;
+      }
+    }
+  }
 }

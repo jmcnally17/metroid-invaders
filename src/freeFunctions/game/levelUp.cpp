@@ -2,7 +2,13 @@
 #include "../../../include/models/iInvader.hpp"
 #include "../../../include/wrappers/iClock.hpp"
 
-void levelUp(int &level, int &interval, int &step, int &soundCounter, const std::vector<std::vector<IInvader *>> &invaders, IClock &clock)
+void levelUp(int &level,
+             int &interval,
+             int &step,
+             int &soundCounter,
+             const std::vector<std::vector<IInvader *>> &invaders,
+             const std::vector<ILaser *> &invaderLasers,
+             IClock &clock)
 {
   level++;
   interval = 665;
@@ -24,6 +30,10 @@ void levelUp(int &level, int &interval, int &step, int &soundCounter, const std:
       sf::Vector2f levelUpPosition(originalXPosition, originalYPosition + levelUpShift);
       invader->setPosition(levelUpPosition);
     }
+  }
+  for (auto laser : invaderLasers)
+  {
+    laser->reset();
   }
   clock.restart();
 }

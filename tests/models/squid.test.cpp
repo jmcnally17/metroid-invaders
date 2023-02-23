@@ -1,8 +1,10 @@
-#include "../../include/models/squid.hpp"
+#include "../../include/models/invaders.hpp"
 #include "../mockModels/mockSprite.hpp"
 #include "../mockModels/mockRenderWindow.hpp"
+#include "../mockModels/mockLaser.hpp"
 
 using ::testing::NiceMock;
+using ::testing::Return;
 
 TEST(Squid, hasAWidthClassMemberOf48)
 {
@@ -310,4 +312,141 @@ TEST(Squid, resetSetsAliveBackToTrue)
 
   squid.reset();
   EXPECT_TRUE(squid.isAlive());
+}
+
+TEST(Squid, shootSetsPositionOfFirstLaserIfBelowBoardAndSquidIsAlive)
+{
+  MockSprite *sprite = new NiceMock<MockSprite>();
+  Squid squid(200, 320, sprite);
+  std::vector<ILaser *> invaderLasers(3);
+  NiceMock<MockLaser> laser1;
+  MockLaser *pLaser1 = &laser1;
+  MockLaser laser2;
+  MockLaser *pLaser2 = &laser2;
+  MockLaser laser3;
+  MockLaser *pLaser3 = &laser3;
+  invaderLasers[0] = pLaser1;
+  invaderLasers[1] = pLaser2;
+  invaderLasers[2] = pLaser3;
+
+  ON_CALL(laser1, getPosition())
+      .WillByDefault(Return(sf::Vector2f(120, 1344)));
+
+  EXPECT_CALL(laser1, setPosition(sf::Vector2f(215, 368)))
+      .Times(1);
+  squid.shoot(invaderLasers, 0);
+}
+
+TEST(Squid, shootSetsPositionOfSecondLaserIfBelowBoardAndFirstLaserIsOnBoardAndSquidIsAlive)
+{
+  MockSprite *sprite = new NiceMock<MockSprite>();
+  Squid squid(200, 320, sprite);
+  std::vector<ILaser *> invaderLasers(3);
+  NiceMock<MockLaser> laser1;
+  MockLaser *pLaser1 = &laser1;
+  NiceMock<MockLaser> laser2;
+  MockLaser *pLaser2 = &laser2;
+  MockLaser laser3;
+  MockLaser *pLaser3 = &laser3;
+  invaderLasers[0] = pLaser1;
+  invaderLasers[1] = pLaser2;
+  invaderLasers[2] = pLaser3;
+
+  ON_CALL(laser1, getPosition())
+      .WillByDefault(Return(sf::Vector2f(120, 900)));
+  ON_CALL(laser2, getPosition())
+      .WillByDefault(Return(sf::Vector2f(120, 1344)));
+
+  EXPECT_CALL(laser2, setPosition(sf::Vector2f(215, 368)))
+      .Times(1);
+  squid.shoot(invaderLasers, 0);
+}
+
+TEST(Squid, shootSetsPositionOfThirdLaserIfBelowBoardAndFirstAndSecondLasersAreOnBoardAndSquidIsAlive)
+{
+  MockSprite *sprite = new NiceMock<MockSprite>();
+  Squid squid(200, 320, sprite);
+  std::vector<ILaser *> invaderLasers(3);
+  NiceMock<MockLaser> laser1;
+  MockLaser *pLaser1 = &laser1;
+  NiceMock<MockLaser> laser2;
+  MockLaser *pLaser2 = &laser2;
+  NiceMock<MockLaser> laser3;
+  MockLaser *pLaser3 = &laser3;
+  invaderLasers[0] = pLaser1;
+  invaderLasers[1] = pLaser2;
+  invaderLasers[2] = pLaser3;
+
+  ON_CALL(laser1, getPosition())
+      .WillByDefault(Return(sf::Vector2f(120, 900)));
+  ON_CALL(laser2, getPosition())
+      .WillByDefault(Return(sf::Vector2f(120, 600)));
+  ON_CALL(laser3, getPosition())
+      .WillByDefault(Return(sf::Vector2f(120, 1344)));
+
+  EXPECT_CALL(laser3, setPosition(sf::Vector2f(215, 368)))
+      .Times(1);
+  squid.shoot(invaderLasers, 0);
+}
+
+TEST(Squid, shootDoesNotSetPositionOfAnyLaserIfTheyAreAllOnBoardAndSquidIsAlive)
+{
+  MockSprite *sprite = new NiceMock<MockSprite>();
+  Squid squid(200, 320, sprite);
+  std::vector<ILaser *> invaderLasers(3);
+  NiceMock<MockLaser> laser1;
+  MockLaser *pLaser1 = &laser1;
+  NiceMock<MockLaser> laser2;
+  MockLaser *pLaser2 = &laser2;
+  NiceMock<MockLaser> laser3;
+  MockLaser *pLaser3 = &laser3;
+  invaderLasers[0] = pLaser1;
+  invaderLasers[1] = pLaser2;
+  invaderLasers[2] = pLaser3;
+
+  ON_CALL(laser1, getPosition())
+      .WillByDefault(Return(sf::Vector2f(120, 900)));
+  ON_CALL(laser2, getPosition())
+      .WillByDefault(Return(sf::Vector2f(120, 600)));
+  ON_CALL(laser3, getPosition())
+      .WillByDefault(Return(sf::Vector2f(120, 300)));
+
+  EXPECT_CALL(laser1, setPosition)
+      .Times(0);
+  EXPECT_CALL(laser2, setPosition)
+      .Times(0);
+  EXPECT_CALL(laser3, setPosition)
+      .Times(0);
+  squid.shoot(invaderLasers, 0);
+}
+
+TEST(Squid, shootDoesNotSetPositionOfAnyLaserIfRandomNumberIsNot0)
+{
+  MockSprite *sprite = new NiceMock<MockSprite>();
+  Squid squid(200, 320, sprite);
+  std::vector<ILaser *> invaderLasers(3);
+  MockLaser laser1;
+  MockLaser *pLaser1 = &laser1;
+  MockLaser laser2;
+  MockLaser *pLaser2 = &laser2;
+  MockLaser laser3;
+  MockLaser *pLaser3 = &laser3;
+  invaderLasers[0] = pLaser1;
+  invaderLasers[1] = pLaser2;
+  invaderLasers[2] = pLaser3;
+
+  ON_CALL(laser1, getPosition())
+      .WillByDefault(Return(sf::Vector2f(120, 1344)));
+  ON_CALL(laser2, getPosition())
+      .WillByDefault(Return(sf::Vector2f(120, 1344)));
+  ON_CALL(laser3, getPosition())
+      .WillByDefault(Return(sf::Vector2f(120, 1344)));
+
+  EXPECT_CALL(laser1, setPosition)
+      .Times(0);
+  EXPECT_CALL(laser2, setPosition)
+      .Times(0);
+  EXPECT_CALL(laser3, setPosition)
+      .Times(0);
+  squid.shoot(invaderLasers, 50);
 }

@@ -2,12 +2,14 @@
 #define INVADER_HPP
 
 #include "./iInvader.hpp"
-#include "../wrappers/iSprite.hpp"
 
 class Invader : public IInvader
 {
 public:
-  Invader(float x, float y, ISprite *sprite);
+  Invader(float width, float height, float x, float y, ISprite *sprite, int points);
+  float getWidth() const override;
+  float getHeight() const override;
+  int getPoints() const override;
   sf::Vector2f getOriginalPosition() const override;
   sf::Vector2f getPosition() const override;
   void setPosition(const sf::Vector2f &position) override;
@@ -20,11 +22,11 @@ public:
   bool hasJustMovedDown() const override;
   void resurrect() override;
   void reset() override;
+  void shoot(const std::vector<ILaser *> &lasers, int randomNumber = rand() % 100000) const override;
 
 private:
   sf::Vector2f originalPosition_;
-  sf::Vector2f position_;
-  ISprite *sprite_;
+  int points_;
   bool alive_;
   int direction_;
   bool justMovedDown_;

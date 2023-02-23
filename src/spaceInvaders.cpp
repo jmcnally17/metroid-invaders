@@ -6,20 +6,20 @@
 #include "../include/wrappers/soundWrapper.hpp"
 #include "../include/wrappers/clockWrapper.hpp"
 #include "../include/wrappers/textWrapper.hpp"
-#include "../include/models/laser.hpp"
+#include "../include/models/cannonLaser.hpp"
 #include "../include/models/laserCannon.hpp"
-#include "../include/models/squid.hpp"
-#include "../include/models/crab.hpp"
-#include "../include/models/octopus.hpp"
+#include "../include/models/invaders.hpp"
+#include "../include/models/invaderLaser.hpp"
 #include "../include/interfaces/collisionInterface.hpp"
 
 int main()
 {
   RenderWindowWrapper window(sf::VideoMode(1536, 1344), "Space Invaders");
 
-  Laser laser = makeLaser();
-  LaserCannon cannon = makeCannon(laser);
+  CannonLaser cannonLaser = makeLaser();
+  LaserCannon cannon = makeCannon(cannonLaser);
   std::vector<std::vector<IInvader *>> invaders = makeInvaders();
+  std::vector<ILaser *> invaderLasers = makeInvaderLasers();
 
   ClockWrapper clock;
   int interval = 665;
@@ -55,12 +55,12 @@ int main()
 
     if (isPlaying)
     {
-      drawObjects(window, cannon, laser, invaders, scoreText);
+      drawObjects(window, cannon, cannonLaser, invaders, invaderLasers, scoreText);
       if (areInvadersDead(invaders))
       {
-        levelUp(level, interval, step, soundCounter, invaders, clock);
+        levelUp(level, interval, step, soundCounter, invaders, invaderLasers, clock);
       }
-      evaluateLaserInvaderCollision(collisionInterface, laser, invaders, score, scoreText);
+      evaluateLaserInvaderCollision(collisionInterface, cannonLaser, invaders, score, scoreText);
       if (haveInvadersInvaded(invaders))
       {
         endGame(isPlaying, gameOver, score, scoreText);
@@ -73,19 +73,21 @@ int main()
       {
         moveLaserCannon(cannon, -0.25);
       }
-      moveLaser(laser);
+      moveLaser(cannonLaser);
       moveInvaders(invaders, clock, interval, step, invaderSounds, soundCounter);
+      moveInvaderLasers(invaderLasers);
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
       {
         fireLaser(cannon);
       }
+      shootInvaderLaser(invaders, invaderLasers);
     }
     else if (gameOver)
     {
       displayGameOverScreen(window, gameOverText, scoreText, playAgainText);
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
       {
-        playAgain(isPlaying, gameOver, cannon, laser, invaders, interval, step, soundCounter, level, score, scoreText, clock);
+        playAgain(isPlaying, gameOver, cannon, cannonLaser, invaders, invaderLasers, interval, step, soundCounter, level, score, scoreText, clock);
       }
     }
   }
@@ -93,21 +95,21 @@ int main()
   return 0;
 }
 
-Laser makeLaser()
+CannonLaser makeLaser()
 {
   sf::Texture laserTexture;
-  laserTexture.loadFromFile("public/images/newSprites/laser.png");
+  laserTexture.loadFromFile("public/images/newSprites/cannonLaser.png");
   SpriteWrapper *laserSprite = new SpriteWrapper(laserTexture);
 
   sf::SoundBuffer deathBuffer;
   deathBuffer.loadFromFile("public/audio/invaderDeath.wav");
   SoundWrapper *deathSound = new SoundWrapper(deathBuffer);
 
-  Laser laser(laserSprite, deathSound);
-  return laser;
+  CannonLaser cannonLaser(laserSprite, deathSound);
+  return cannonLaser;
 }
 
-LaserCannon makeCannon(Laser &laser)
+LaserCannon makeCannon(CannonLaser &cannonLaser)
 {
   sf::Texture cannonTexture;
   cannonTexture.loadFromFile("public/images/newSprites/laserCannon.png");
@@ -117,7 +119,7 @@ LaserCannon makeCannon(Laser &laser)
   fireSoundBuffer.loadFromFile("public/audio/shoot.wav");
   SoundWrapper *fireSound = new SoundWrapper(fireSoundBuffer);
 
-  Laser *pLaser = &laser;
+  CannonLaser *pLaser = &cannonLaser;
   LaserCannon cannon(cannonSprite, pLaser, fireSound);
   return cannon;
 }
@@ -164,6 +166,22 @@ std::vector<std::vector<IInvader *>> makeInvaders()
   }
 
   return invaders;
+}
+
+std::vector<ILaser *> makeInvaderLasers()
+{
+  sf::Texture laserTexture;
+  laserTexture.loadFromFile("public/images/newSprites/invaderLaser.png");
+  std::vector<ILaser *> invaderLasers(3);
+
+  for (int i = 0; i < 3; i++)
+  {
+    SpriteWrapper *laserSprite = new SpriteWrapper(laserTexture);
+    InvaderLaser *laser = new InvaderLaser(laserSprite);
+    invaderLasers[i] = laser;
+  }
+
+  return invaderLasers;
 }
 
 std::vector<ISound *> makeInvaderSounds()

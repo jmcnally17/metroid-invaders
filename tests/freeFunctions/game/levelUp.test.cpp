@@ -1,5 +1,6 @@
 #include "../../../include/game.hpp"
 #include "../../mockModels/mockInvader.hpp"
+#include "../../mockModels/mockLaser.hpp"
 #include "../../mockModels/mockClock.hpp"
 
 using ::testing::NiceMock;
@@ -11,21 +12,26 @@ TEST(levelUp, adds1ToTheLevelVariable)
   int interval = 105;
   int step = 15;
   int soundCounter = 3;
-  NiceMock<MockInvader> invader;
-  MockInvader *pInvader = &invader;
+  MockInvader *invader = new NiceMock<MockInvader>();
   std::vector<std::vector<IInvader *>> invaders(2);
   for (int i = 0; i < 2; i++)
   {
     std::vector<IInvader *> invaderRow(4);
     for (int j = 0; j < 4; j++)
     {
-      invaderRow[j] = pInvader;
+      invaderRow[j] = invader;
     }
     invaders[i] = invaderRow;
   }
+  MockLaser *laser = new NiceMock<MockLaser>();
+  std::vector<ILaser *> invaderLasers(3);
+  for (int i = 0; i < 3; i++)
+  {
+    invaderLasers[i] = laser;
+  }
   NiceMock<MockClock> clock;
 
-  levelUp(level, interval, step, soundCounter, invaders, clock);
+  levelUp(level, interval, step, soundCounter, invaders, invaderLasers, clock);
   EXPECT_EQ(level, 6);
 }
 
@@ -35,21 +41,26 @@ TEST(levelUp, resetsTheInterval)
   int interval = 105;
   int step = 15;
   int soundCounter = 3;
-  NiceMock<MockInvader> invader;
-  MockInvader *pInvader = &invader;
+  MockInvader *invader = new NiceMock<MockInvader>();
   std::vector<std::vector<IInvader *>> invaders(2);
   for (int i = 0; i < 2; i++)
   {
     std::vector<IInvader *> invaderRow(4);
     for (int j = 0; j < 4; j++)
     {
-      invaderRow[j] = pInvader;
+      invaderRow[j] = invader;
     }
     invaders[i] = invaderRow;
   }
+  MockLaser *laser = new NiceMock<MockLaser>();
+  std::vector<ILaser *> invaderLasers(3);
+  for (int i = 0; i < 3; i++)
+  {
+    invaderLasers[i] = laser;
+  }
   NiceMock<MockClock> clock;
 
-  levelUp(level, interval, step, soundCounter, invaders, clock);
+  levelUp(level, interval, step, soundCounter, invaders, invaderLasers, clock);
   EXPECT_EQ(interval, 665);
 }
 
@@ -59,21 +70,26 @@ TEST(levelUp, resetsTheStepCounter)
   int interval = 105;
   int step = 15;
   int soundCounter = 3;
-  NiceMock<MockInvader> invader;
-  MockInvader *pInvader = &invader;
+  MockInvader *invader = new NiceMock<MockInvader>();
   std::vector<std::vector<IInvader *>> invaders(2);
   for (int i = 0; i < 2; i++)
   {
     std::vector<IInvader *> invaderRow(4);
     for (int j = 0; j < 4; j++)
     {
-      invaderRow[j] = pInvader;
+      invaderRow[j] = invader;
     }
     invaders[i] = invaderRow;
   }
+  MockLaser *laser = new NiceMock<MockLaser>();
+  std::vector<ILaser *> invaderLasers(3);
+  for (int i = 0; i < 3; i++)
+  {
+    invaderLasers[i] = laser;
+  }
   NiceMock<MockClock> clock;
 
-  levelUp(level, interval, step, soundCounter, invaders, clock);
+  levelUp(level, interval, step, soundCounter, invaders, invaderLasers, clock);
   EXPECT_EQ(step, 1);
 }
 
@@ -83,21 +99,26 @@ TEST(levelUp, resetsTheSoundCounter)
   int interval = 105;
   int step = 15;
   int soundCounter = 3;
-  NiceMock<MockInvader> invader;
-  MockInvader *pInvader = &invader;
+  MockInvader *invader = new NiceMock<MockInvader>();
   std::vector<std::vector<IInvader *>> invaders(2);
   for (int i = 0; i < 2; i++)
   {
     std::vector<IInvader *> invaderRow(4);
     for (int j = 0; j < 4; j++)
     {
-      invaderRow[j] = pInvader;
+      invaderRow[j] = invader;
     }
     invaders[i] = invaderRow;
   }
+  MockLaser *laser = new NiceMock<MockLaser>();
+  std::vector<ILaser *> invaderLasers(3);
+  for (int i = 0; i < 3; i++)
+  {
+    invaderLasers[i] = laser;
+  }
   NiceMock<MockClock> clock;
 
-  levelUp(level, interval, step, soundCounter, invaders, clock);
+  levelUp(level, interval, step, soundCounter, invaders, invaderLasers, clock);
   EXPECT_EQ(soundCounter, 0);
 }
 
@@ -119,11 +140,17 @@ TEST(levelUp, callsResurrectOnEachInvader)
     }
     invaders[i] = invaderRow;
   }
+  MockLaser *laser = new NiceMock<MockLaser>();
+  std::vector<ILaser *> invaderLasers(3);
+  for (int i = 0; i < 3; i++)
+  {
+    invaderLasers[i] = laser;
+  }
   NiceMock<MockClock> clock;
 
   EXPECT_CALL(invader, resurrect())
       .Times(8);
-  levelUp(level, interval, step, soundCounter, invaders, clock);
+  levelUp(level, interval, step, soundCounter, invaders, invaderLasers, clock);
 }
 
 TEST(levelUp, changesDirectionOnInvadersIfTheyAreMovingLeft)
@@ -144,6 +171,12 @@ TEST(levelUp, changesDirectionOnInvadersIfTheyAreMovingLeft)
     }
     invaders[i] = invaderRow;
   }
+  MockLaser *laser = new NiceMock<MockLaser>();
+  std::vector<ILaser *> invaderLasers(3);
+  for (int i = 0; i < 3; i++)
+  {
+    invaderLasers[i] = laser;
+  }
   NiceMock<MockClock> clock;
 
   ON_CALL(invader, getDirection())
@@ -151,7 +184,7 @@ TEST(levelUp, changesDirectionOnInvadersIfTheyAreMovingLeft)
 
   EXPECT_CALL(invader, changeDirection())
       .Times(8);
-  levelUp(level, interval, step, soundCounter, invaders, clock);
+  levelUp(level, interval, step, soundCounter, invaders, invaderLasers, clock);
 }
 
 TEST(levelUp, doesNotChangeDirectionOnInvadersIfTheyAreMovingRight)
@@ -172,6 +205,12 @@ TEST(levelUp, doesNotChangeDirectionOnInvadersIfTheyAreMovingRight)
     }
     invaders[i] = invaderRow;
   }
+  MockLaser *laser = new NiceMock<MockLaser>();
+  std::vector<ILaser *> invaderLasers(3);
+  for (int i = 0; i < 3; i++)
+  {
+    invaderLasers[i] = laser;
+  }
   NiceMock<MockClock> clock;
 
   ON_CALL(invader, getDirection())
@@ -179,7 +218,7 @@ TEST(levelUp, doesNotChangeDirectionOnInvadersIfTheyAreMovingRight)
 
   EXPECT_CALL(invader, changeDirection())
       .Times(0);
-  levelUp(level, interval, step, soundCounter, invaders, clock);
+  levelUp(level, interval, step, soundCounter, invaders, invaderLasers, clock);
 }
 
 TEST(levelUp, setsNextLevelPositionOnInvaders)
@@ -200,6 +239,12 @@ TEST(levelUp, setsNextLevelPositionOnInvaders)
     }
     invaders[i] = invaderRow;
   }
+  MockLaser *laser = new NiceMock<MockLaser>();
+  std::vector<ILaser *> invaderLasers(3);
+  for (int i = 0; i < 3; i++)
+  {
+    invaderLasers[i] = laser;
+  }
   NiceMock<MockClock> clock;
 
   ON_CALL(invader, getOriginalPosition())
@@ -207,7 +252,38 @@ TEST(levelUp, setsNextLevelPositionOnInvaders)
 
   EXPECT_CALL(invader, setPosition(sf::Vector2f(400, 1170)))
       .Times(8);
-  levelUp(level, interval, step, soundCounter, invaders, clock);
+  levelUp(level, interval, step, soundCounter, invaders, invaderLasers, clock);
+}
+
+TEST(levelUp, resetsTheInvaderLasers)
+{
+  int level = 5;
+  int interval = 105;
+  int step = 15;
+  int soundCounter = 3;
+  MockInvader *invader = new NiceMock<MockInvader>();
+  std::vector<std::vector<IInvader *>> invaders(2);
+  for (int i = 0; i < 2; i++)
+  {
+    std::vector<IInvader *> invaderRow(4);
+    for (int j = 0; j < 4; j++)
+    {
+      invaderRow[j] = invader;
+    }
+    invaders[i] = invaderRow;
+  }
+  MockLaser laser;
+  MockLaser *pLaser = &laser;
+  std::vector<ILaser *> invaderLasers(3);
+  for (int i = 0; i < 3; i++)
+  {
+    invaderLasers[i] = pLaser;
+  }
+  NiceMock<MockClock> clock;
+
+  EXPECT_CALL(laser, reset())
+      .Times(3);
+  levelUp(level, interval, step, soundCounter, invaders, invaderLasers, clock);
 }
 
 TEST(levelUp, restartsTheClock)
@@ -216,21 +292,26 @@ TEST(levelUp, restartsTheClock)
   int interval = 105;
   int step = 15;
   int soundCounter = 3;
-  NiceMock<MockInvader> invader;
-  MockInvader *pInvader = &invader;
+  MockInvader *invader = new NiceMock<MockInvader>();
   std::vector<std::vector<IInvader *>> invaders(2);
   for (int i = 0; i < 2; i++)
   {
     std::vector<IInvader *> invaderRow(4);
     for (int j = 0; j < 4; j++)
     {
-      invaderRow[j] = pInvader;
+      invaderRow[j] = invader;
     }
     invaders[i] = invaderRow;
+  }
+  MockLaser *laser = new NiceMock<MockLaser>();
+  std::vector<ILaser *> invaderLasers(3);
+  for (int i = 0; i < 3; i++)
+  {
+    invaderLasers[i] = laser;
   }
   MockClock clock;
 
   EXPECT_CALL(clock, restart())
       .Times(1);
-  levelUp(level, interval, step, soundCounter, invaders, clock);
+  levelUp(level, interval, step, soundCounter, invaders, invaderLasers, clock);
 }

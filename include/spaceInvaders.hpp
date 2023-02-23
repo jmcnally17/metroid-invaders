@@ -3,15 +3,17 @@
 
 #include <vector>
 #include "./wrappers/textWrapper.hpp"
-#include "./models/laser.hpp"
+#include "./models/cannonLaser.hpp"
 #include "./models/laserCannon.hpp"
 #include "./models/iInvader.hpp"
 
-Laser makeLaser();
+CannonLaser makeLaser();
 
-LaserCannon makeCannon(Laser &laser);
+LaserCannon makeCannon(CannonLaser &cannonLaser);
 
 std::vector<std::vector<IInvader *>> makeInvaders();
+
+std::vector<ILaser *> makeInvaderLasers();
 
 std::vector<ISound *> makeInvaderSounds();
 

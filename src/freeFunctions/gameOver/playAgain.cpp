@@ -10,6 +10,7 @@ void playAgain(bool &isPlaying,
                ILaserCannon &cannon,
                ILaser &laser,
                const std::vector<std::vector<IInvader *>> &invaders,
+               const std::vector<ILaser *> &invaderLasers,
                int &interval,
                int &step,
                int &soundCounter,
@@ -28,6 +29,10 @@ void playAgain(bool &isPlaying,
     {
       invader->reset();
     }
+  }
+  for (auto invaderLaser : invaderLasers)
+  {
+    invaderLaser->reset();
   }
   interval = 665;
   step = 1;

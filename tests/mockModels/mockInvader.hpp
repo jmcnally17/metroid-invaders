@@ -22,6 +22,7 @@ public:
   MOCK_METHOD(int, getPoints, (), (const));
   MOCK_METHOD(int, getDirection, (), (const));
   MOCK_METHOD(void, changeDirection, ());
+  MOCK_METHOD(void, shoot, (const std::vector<ILaser *> &lasers, int randomNumber), (const));
 };
 
 #endif
