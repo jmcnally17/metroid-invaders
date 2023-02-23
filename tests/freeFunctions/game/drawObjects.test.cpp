@@ -13,25 +13,8 @@ TEST(drawObjects, callsClearOnTheWindow)
   NiceMock<MockRenderWindow> window;
   NiceMock<MockLaserCannon> cannon;
   NiceMock<MockLaser> laser;
-  NiceMock<MockInvader> invader;
-  MockInvader *pInvader = &invader;
-  std::vector<std::vector<IInvader *>> invaders(5);
-  for (int i = 0; i < 5; i++)
-  {
-    std::vector<IInvader *> invaderRow(11);
-    for (int j = 0; j < 11; j++)
-    {
-      invaderRow[j] = pInvader;
-    }
-    invaders[i] = invaderRow;
-  }
-  NiceMock<MockLaser> invaderLaser;
-  MockLaser *pInvaderLaser = &invaderLaser;
-  std::vector<ILaser *> invaderLasers(3);
-  for (int i = 0; i < 3; i++)
-  {
-    invaderLasers[i] = pInvaderLaser;
-  }
+  std::vector<std::vector<IInvader *>> invaders;
+  std::vector<ILaser *> invaderLasers;
   MockText scoreText;
 
   EXPECT_CALL(window, clear())
@@ -44,25 +27,8 @@ TEST(drawObjects, callsDrawOnTheLaserCannon)
   NiceMock<MockRenderWindow> window;
   MockLaserCannon cannon;
   NiceMock<MockLaser> laser;
-  NiceMock<MockInvader> invader;
-  MockInvader *pInvader = &invader;
-  std::vector<std::vector<IInvader *>> invaders(5);
-  for (int i = 0; i < 5; i++)
-  {
-    std::vector<IInvader *> invaderRow(11);
-    for (int j = 0; j < 11; j++)
-    {
-      invaderRow[j] = pInvader;
-    }
-    invaders[i] = invaderRow;
-  }
-  NiceMock<MockLaser> invaderLaser;
-  MockLaser *pInvaderLaser = &invaderLaser;
-  std::vector<ILaser *> invaderLasers(3);
-  for (int i = 0; i < 3; i++)
-  {
-    invaderLasers[i] = pInvaderLaser;
-  }
+  std::vector<std::vector<IInvader *>> invaders;
+  std::vector<ILaser *> invaderLasers;
   MockText scoreText;
 
   EXPECT_CALL(cannon, draw)
@@ -75,25 +41,8 @@ TEST(drawObjects, callsDrawOnTheLaser)
   NiceMock<MockRenderWindow> window;
   NiceMock<MockLaserCannon> cannon;
   MockLaser laser;
-  NiceMock<MockInvader> invader;
-  MockInvader *pInvader = &invader;
-  std::vector<std::vector<IInvader *>> invaders(5);
-  for (int i = 0; i < 5; i++)
-  {
-    std::vector<IInvader *> invaderRow(11);
-    for (int j = 0; j < 11; j++)
-    {
-      invaderRow[j] = pInvader;
-    }
-    invaders[i] = invaderRow;
-  }
-  NiceMock<MockLaser> invaderLaser;
-  MockLaser *pInvaderLaser = &invaderLaser;
-  std::vector<ILaser *> invaderLasers(3);
-  for (int i = 0; i < 3; i++)
-  {
-    invaderLasers[i] = pInvaderLaser;
-  }
+  std::vector<std::vector<IInvader *>> invaders;
+  std::vector<ILaser *> invaderLasers;
   MockText scoreText;
 
   EXPECT_CALL(laser, draw)
@@ -118,13 +67,7 @@ TEST(drawObjects, callsDrawOnAllTheInvadersIfTheyAreAlive)
     }
     invaders[i] = invaderRow;
   }
-  NiceMock<MockLaser> invaderLaser;
-  MockLaser *pInvaderLaser = &invaderLaser;
-  std::vector<ILaser *> invaderLasers(3);
-  for (int i = 0; i < 3; i++)
-  {
-    invaderLasers[i] = pInvaderLaser;
-  }
+  std::vector<ILaser *> invaderLasers;
   MockText scoreText;
 
   ON_CALL(invader, isAlive())
@@ -152,13 +95,7 @@ TEST(drawObjects, doesNotCallDrawOnAllTheInvadersIfTheyAreDead)
     }
     invaders[i] = invaderRow;
   }
-  NiceMock<MockLaser> invaderLaser;
-  MockLaser *pInvaderLaser = &invaderLaser;
-  std::vector<ILaser *> invaderLasers(3);
-  for (int i = 0; i < 3; i++)
-  {
-    invaderLasers[i] = pInvaderLaser;
-  }
+  std::vector<ILaser *> invaderLasers;
   MockText scoreText;
 
   ON_CALL(invader, isAlive())
@@ -174,18 +111,7 @@ TEST(drawObjects, drawsTheInvaderLasers)
   NiceMock<MockRenderWindow> window;
   NiceMock<MockLaserCannon> cannon;
   NiceMock<MockLaser> laser;
-  NiceMock<MockInvader> invader;
-  MockInvader *pInvader = &invader;
-  std::vector<std::vector<IInvader *>> invaders(5);
-  for (int i = 0; i < 5; i++)
-  {
-    std::vector<IInvader *> invaderRow(11);
-    for (int j = 0; j < 11; j++)
-    {
-      invaderRow[j] = pInvader;
-    }
-    invaders[i] = invaderRow;
-  }
+  std::vector<std::vector<IInvader *>> invaders;
   MockLaser invaderLaser;
   MockLaser *pInvaderLaser = &invaderLaser;
   std::vector<ILaser *> invaderLasers(3);
@@ -205,25 +131,8 @@ TEST(drawObjects, drawsTheScoreText)
   NiceMock<MockRenderWindow> window;
   NiceMock<MockLaserCannon> cannon;
   NiceMock<MockLaser> laser;
-  NiceMock<MockInvader> invader;
-  MockInvader *pInvader = &invader;
-  std::vector<std::vector<IInvader *>> invaders(5);
-  for (int i = 0; i < 5; i++)
-  {
-    std::vector<IInvader *> invaderRow(11);
-    for (int j = 0; j < 11; j++)
-    {
-      invaderRow[j] = pInvader;
-    }
-    invaders[i] = invaderRow;
-  }
-  NiceMock<MockLaser> invaderLaser;
-  MockLaser *pInvaderLaser = &invaderLaser;
-  std::vector<ILaser *> invaderLasers(3);
-  for (int i = 0; i < 3; i++)
-  {
-    invaderLasers[i] = pInvaderLaser;
-  }
+  std::vector<std::vector<IInvader *>> invaders;
+  std::vector<ILaser *> invaderLasers;
   MockText scoreText;
 
   EXPECT_CALL(window, draw(testing::Truly([](const sf::Drawable &drawable)
@@ -237,25 +146,8 @@ TEST(drawObjects, callsDisplayOnTheWindow)
   NiceMock<MockRenderWindow> window;
   NiceMock<MockLaserCannon> cannon;
   NiceMock<MockLaser> laser;
-  NiceMock<MockInvader> invader;
-  MockInvader *pInvader = &invader;
-  std::vector<std::vector<IInvader *>> invaders(5);
-  for (int i = 0; i < 5; i++)
-  {
-    std::vector<IInvader *> invaderRow(11);
-    for (int j = 0; j < 11; j++)
-    {
-      invaderRow[j] = pInvader;
-    }
-    invaders[i] = invaderRow;
-  }
-  NiceMock<MockLaser> invaderLaser;
-  MockLaser *pInvaderLaser = &invaderLaser;
-  std::vector<ILaser *> invaderLasers(3);
-  for (int i = 0; i < 3; i++)
-  {
-    invaderLasers[i] = pInvaderLaser;
-  }
+  std::vector<std::vector<IInvader *>> invaders;
+  std::vector<ILaser *> invaderLasers;
   MockText scoreText;
 
   EXPECT_CALL(window, display())

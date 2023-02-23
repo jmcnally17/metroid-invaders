@@ -264,8 +264,6 @@ TEST(moveInvaders, playsSound0WhenTimeElapsedIsPastIntervalMultipliedByStepAndSo
 
   ON_CALL(clock, getElapsedTime())
       .WillByDefault(Return(time));
-  ON_CALL(invader, hasJustMovedDown())
-      .WillByDefault(Return(true));
 
   EXPECT_CALL(sound0, play())
       .Times(1);
@@ -303,8 +301,6 @@ TEST(moveInvaders, playsSound1WhenTimeElapsedIsPastIntervalMultipliedByStepAndSo
 
   ON_CALL(clock, getElapsedTime())
       .WillByDefault(Return(time));
-  ON_CALL(invader, hasJustMovedDown())
-      .WillByDefault(Return(true));
 
   EXPECT_CALL(sound1, play())
       .Times(1);
@@ -342,8 +338,6 @@ TEST(moveInvaders, playsSound2WhenTimeElapsedIsPastIntervalMultipliedByStepAndSo
 
   ON_CALL(clock, getElapsedTime())
       .WillByDefault(Return(time));
-  ON_CALL(invader, hasJustMovedDown())
-      .WillByDefault(Return(true));
 
   EXPECT_CALL(sound2, play())
       .Times(1);
@@ -381,8 +375,6 @@ TEST(moveInvaders, playsSound3WhenTimeElapsedIsPastIntervalMultipliedByStepAndSo
 
   ON_CALL(clock, getElapsedTime())
       .WillByDefault(Return(time));
-  ON_CALL(invader, hasJustMovedDown())
-      .WillByDefault(Return(true));
 
   EXPECT_CALL(sound3, play())
       .Times(1);
@@ -420,8 +412,6 @@ TEST(moveInvaders, increasesSoundCounterBy1WhenTimeElapsedIsPastInterval)
 
   ON_CALL(clock, getElapsedTime())
       .WillByDefault(Return(time));
-  ON_CALL(invader, hasJustMovedDown())
-      .WillByDefault(Return(true));
 
   moveInvaders(invaders, clock, interval, step, sounds, soundCounter);
   EXPECT_EQ(soundCounter, 27);
