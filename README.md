@@ -5,7 +5,6 @@ This solo project is an imitation of the classic 1978 Taito game, Space Invaders
 ## Features Pending
 
 - Random spawning of UFO Invader at the top of the window
-- Invaders randomly shooting lasers down
 - Collision detection between Invader lasers and Laser Cannon
 - Collisions between Invader lasers and Laser Cannon laser
 - Lives for the player
