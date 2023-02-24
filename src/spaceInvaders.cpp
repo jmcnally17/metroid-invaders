@@ -36,6 +36,7 @@ int main()
   sf::Font m56;
   m56.loadFromFile("public/fonts/MicroN56.ttf");
   TextWrapper scoreText = makeScoreText(m56);
+  TextWrapper livesText = makeLivesText(cannon, m56);
   TextWrapper gameOverText = makeGameOverText(m56);
   TextWrapper playAgainText = makePlayAgainText(m56);
 
@@ -213,6 +214,15 @@ TextWrapper makeScoreText(const sf::Font &font)
   scoreText.setPosition(sf::Vector2f(20, 0));
   scoreText.setCharacterSize(50);
   return scoreText;
+}
+
+TextWrapper makeLivesText(const LaserCannon &cannon, const sf::Font &font)
+{
+  std::string livesString = "Lives: " + std::to_string(cannon.getLives());
+  TextWrapper livesText(livesString, font);
+  livesText.setPosition(sf::Vector2f(1000, 0));
+  livesText.setCharacterSize(50);
+  return livesText;
 }
 
 TextWrapper makeGameOverText(const sf::Font &font)
