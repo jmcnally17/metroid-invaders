@@ -120,8 +120,12 @@ LaserCannon makeCannon(CannonLaser &cannonLaser)
   fireSoundBuffer.loadFromFile("public/audio/shoot.wav");
   SoundWrapper *fireSound = new SoundWrapper(fireSoundBuffer);
 
+  sf::SoundBuffer deathSoundBuffer;
+  deathSoundBuffer.loadFromFile("public/audio/cannonDeath.wav");
+  SoundWrapper *deathSound = new SoundWrapper(deathSoundBuffer);
+
   CannonLaser *pLaser = &cannonLaser;
-  LaserCannon cannon(cannonSprite, pLaser, fireSound);
+  LaserCannon cannon(cannonSprite, pLaser, fireSound, deathSound);
   return cannon;
 }
 
