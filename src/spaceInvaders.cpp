@@ -36,6 +36,7 @@ int main()
   sf::Font m56;
   m56.loadFromFile("public/fonts/MicroN56.ttf");
   TextWrapper scoreText = makeScoreText(m56);
+  TextWrapper livesText = makeLivesText(cannon, m56);
   TextWrapper gameOverText = makeGameOverText(m56);
   TextWrapper playAgainText = makePlayAgainText(m56);
 
@@ -55,13 +56,17 @@ int main()
 
     if (isPlaying)
     {
-      drawObjects(window, cannon, cannonLaser, invaders, invaderLasers, scoreText);
+      drawObjects(window, cannon, cannonLaser, invaders, invaderLasers, scoreText, livesText);
       if (areInvadersDead(invaders))
       {
         levelUp(level, interval, step, soundCounter, invaders, invaderLasers, clock);
       }
       evaluateLaserInvaderCollision(collisionInterface, cannonLaser, invaders, score, scoreText);
-      if (haveInvadersInvaded(invaders))
+      if (hasCannonBeenHit(collisionInterface, cannon, invaderLasers))
+      {
+        decreaseCannonLives(cannon, cannonLaser, invaderLasers, livesText);
+      }
+      if (haveInvadersInvaded(invaders) || cannon.getLives() == 0)
       {
         endGame(isPlaying, gameOver, score, scoreText);
       }
@@ -87,7 +92,7 @@ int main()
       displayGameOverScreen(window, gameOverText, scoreText, playAgainText);
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
       {
-        playAgain(isPlaying, gameOver, cannon, cannonLaser, invaders, invaderLasers, interval, step, soundCounter, level, score, scoreText, clock);
+        playAgain(isPlaying, gameOver, cannon, cannonLaser, invaders, invaderLasers, interval, step, soundCounter, level, score, scoreText, livesText, clock);
       }
     }
   }
@@ -119,8 +124,12 @@ LaserCannon makeCannon(CannonLaser &cannonLaser)
   fireSoundBuffer.loadFromFile("public/audio/shoot.wav");
   SoundWrapper *fireSound = new SoundWrapper(fireSoundBuffer);
 
+  sf::SoundBuffer deathSoundBuffer;
+  deathSoundBuffer.loadFromFile("public/audio/cannonDeath.wav");
+  SoundWrapper *deathSound = new SoundWrapper(deathSoundBuffer);
+
   CannonLaser *pLaser = &cannonLaser;
-  LaserCannon cannon(cannonSprite, pLaser, fireSound);
+  LaserCannon cannon(cannonSprite, pLaser, fireSound, deathSound);
   return cannon;
 }
 
@@ -213,6 +222,15 @@ TextWrapper makeScoreText(const sf::Font &font)
   scoreText.setPosition(sf::Vector2f(20, 0));
   scoreText.setCharacterSize(50);
   return scoreText;
+}
+
+TextWrapper makeLivesText(const LaserCannon &cannon, const sf::Font &font)
+{
+  std::string livesString = "Lives: " + std::to_string(cannon.getLives());
+  TextWrapper livesText(livesString, font);
+  livesText.setPosition(sf::Vector2f(1250, 0));
+  livesText.setCharacterSize(50);
+  return livesText;
 }
 
 TextWrapper makeGameOverText(const sf::Font &font)

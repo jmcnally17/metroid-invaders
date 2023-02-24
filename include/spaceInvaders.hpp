@@ -19,6 +19,8 @@ std::vector<ISound *> makeInvaderSounds();
 
 TextWrapper makeScoreText(const sf::Font &font);
 
+TextWrapper makeLivesText(const LaserCannon &cannon, const sf::Font &font);
+
 TextWrapper makeGameOverText(const sf::Font &font);
 
 TextWrapper makePlayAgainText(const sf::Font &font);
