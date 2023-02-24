@@ -16,7 +16,8 @@ void drawObjects(IRenderWindow &window,
                  const ILaser &laser,
                  const std::vector<std::vector<IInvader *>> &invaders,
                  const std::vector<ILaser *> &invaderLasers,
-                 const IText &scoreText);
+                 const IText &scoreText,
+                 const IText &livesText);
 
 bool areInvadersDead(const std::vector<std::vector<IInvader *>> &invaders);
 

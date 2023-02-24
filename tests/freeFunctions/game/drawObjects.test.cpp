@@ -16,10 +16,11 @@ TEST(drawObjects, callsClearOnTheWindow)
   std::vector<std::vector<IInvader *>> invaders;
   std::vector<ILaser *> invaderLasers;
   MockText scoreText;
+  MockText livesText;
 
   EXPECT_CALL(window, clear())
       .Times(1);
-  drawObjects(window, cannon, laser, invaders, invaderLasers, scoreText);
+  drawObjects(window, cannon, laser, invaders, invaderLasers, scoreText, livesText);
 }
 
 TEST(drawObjects, callsDrawOnTheLaserCannon)
@@ -30,10 +31,11 @@ TEST(drawObjects, callsDrawOnTheLaserCannon)
   std::vector<std::vector<IInvader *>> invaders;
   std::vector<ILaser *> invaderLasers;
   MockText scoreText;
+  MockText livesText;
 
   EXPECT_CALL(cannon, draw)
       .Times(1);
-  drawObjects(window, cannon, laser, invaders, invaderLasers, scoreText);
+  drawObjects(window, cannon, laser, invaders, invaderLasers, scoreText, livesText);
 }
 
 TEST(drawObjects, callsDrawOnTheLaser)
@@ -44,10 +46,11 @@ TEST(drawObjects, callsDrawOnTheLaser)
   std::vector<std::vector<IInvader *>> invaders;
   std::vector<ILaser *> invaderLasers;
   MockText scoreText;
+  MockText livesText;
 
   EXPECT_CALL(laser, draw)
       .Times(1);
-  drawObjects(window, cannon, laser, invaders, invaderLasers, scoreText);
+  drawObjects(window, cannon, laser, invaders, invaderLasers, scoreText, livesText);
 }
 
 TEST(drawObjects, callsDrawOnAllTheInvadersIfTheyAreAlive)
@@ -69,13 +72,14 @@ TEST(drawObjects, callsDrawOnAllTheInvadersIfTheyAreAlive)
   }
   std::vector<ILaser *> invaderLasers;
   MockText scoreText;
+  MockText livesText;
 
   ON_CALL(invader, isAlive())
       .WillByDefault(Return(true));
 
   EXPECT_CALL(invader, draw)
       .Times(55);
-  drawObjects(window, cannon, laser, invaders, invaderLasers, scoreText);
+  drawObjects(window, cannon, laser, invaders, invaderLasers, scoreText, livesText);
 }
 
 TEST(drawObjects, doesNotCallDrawOnAllTheInvadersIfTheyAreDead)
@@ -97,13 +101,14 @@ TEST(drawObjects, doesNotCallDrawOnAllTheInvadersIfTheyAreDead)
   }
   std::vector<ILaser *> invaderLasers;
   MockText scoreText;
+  MockText livesText;
 
   ON_CALL(invader, isAlive())
       .WillByDefault(Return(false));
 
   EXPECT_CALL(invader, draw)
       .Times(0);
-  drawObjects(window, cannon, laser, invaders, invaderLasers, scoreText);
+  drawObjects(window, cannon, laser, invaders, invaderLasers, scoreText, livesText);
 }
 
 TEST(drawObjects, drawsTheInvaderLasers)
@@ -120,13 +125,14 @@ TEST(drawObjects, drawsTheInvaderLasers)
     invaderLasers[i] = pInvaderLaser;
   }
   MockText scoreText;
+  MockText livesText;
 
   EXPECT_CALL(invaderLaser, draw)
       .Times(3);
-  drawObjects(window, cannon, laser, invaders, invaderLasers, scoreText);
+  drawObjects(window, cannon, laser, invaders, invaderLasers, scoreText, livesText);
 }
 
-TEST(drawObjects, drawsTheScoreText)
+TEST(drawObjects, drawsTheScoreAndLivesText)
 {
   NiceMock<MockRenderWindow> window;
   NiceMock<MockLaserCannon> cannon;
@@ -134,11 +140,12 @@ TEST(drawObjects, drawsTheScoreText)
   std::vector<std::vector<IInvader *>> invaders;
   std::vector<ILaser *> invaderLasers;
   MockText scoreText;
+  MockText livesText;
 
   EXPECT_CALL(window, draw(testing::Truly([](const sf::Drawable &drawable)
                                           { return true; })))
-      .Times(1);
-  drawObjects(window, cannon, laser, invaders, invaderLasers, scoreText);
+      .Times(2);
+  drawObjects(window, cannon, laser, invaders, invaderLasers, scoreText, livesText);
 }
 
 TEST(drawObjects, callsDisplayOnTheWindow)
@@ -149,8 +156,9 @@ TEST(drawObjects, callsDisplayOnTheWindow)
   std::vector<std::vector<IInvader *>> invaders;
   std::vector<ILaser *> invaderLasers;
   MockText scoreText;
+  MockText livesText;
 
   EXPECT_CALL(window, display())
       .Times(1);
-  drawObjects(window, cannon, laser, invaders, invaderLasers, scoreText);
+  drawObjects(window, cannon, laser, invaders, invaderLasers, scoreText, livesText);
 }

@@ -10,7 +10,8 @@ void drawObjects(IRenderWindow &window,
                  const ILaser &laser,
                  const std::vector<std::vector<IInvader *>> &invaders,
                  const std::vector<ILaser *> &invaderLasers,
-                 const IText &scoreText)
+                 const IText &scoreText,
+                 const IText &livesText)
 {
   window.clear();
   cannon.draw(window);
@@ -30,5 +31,6 @@ void drawObjects(IRenderWindow &window,
     laser->draw(window);
   }
   window.draw(scoreText);
+  window.draw(livesText);
   window.display();
 }
