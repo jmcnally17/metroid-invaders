@@ -17,7 +17,7 @@ public:
   void draw(IRenderWindow &window) const override;
   void move(float x) override;
   void fire() override;
-  void resetPosition();
+  void resetPosition() override;
   void reset() override;
   void loseLife() override;
 

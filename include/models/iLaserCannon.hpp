@@ -11,6 +11,7 @@ public:
   virtual void move(float x) = 0;
   virtual void fire() = 0;
   virtual void loseLife() = 0;
+  virtual void resetPosition() = 0;
 };
 
 #endif

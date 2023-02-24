@@ -3,4 +3,5 @@
 void decreaseCannonLives(ILaserCannon &cannon)
 {
   cannon.loseLife();
+  cannon.resetPosition();
 }
