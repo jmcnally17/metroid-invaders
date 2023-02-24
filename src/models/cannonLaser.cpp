@@ -46,7 +46,7 @@ void CannonLaser::reset()
   setPosition(sf::Vector2f(120, -24));
 }
 
-void CannonLaser::playInvaderDeath() const
+void CannonLaser::playMetroidDeath() const
 {
   sound_->play();
 }

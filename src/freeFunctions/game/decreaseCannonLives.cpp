@@ -2,14 +2,14 @@
 #include "../../../include/models/iLaser.hpp"
 #include "../../../include/wrappers/iText.hpp"
 
-void decreaseCannonLives(ILaserCannon &cannon, ILaser &cannonLaser, const std::vector<ILaser *> &invaderLasers, IText &livesText)
+void decreaseCannonLives(ILaserCannon &cannon, ILaser &cannonLaser, const std::vector<ILaser *> &metroidLasers, IText &livesText)
 {
   cannon.loseLife();
   cannon.resetPosition();
   cannonLaser.reset();
-  for (auto invaderLaser : invaderLasers)
+  for (auto metroidLaser : metroidLasers)
   {
-    invaderLaser->reset();
+    metroidLaser->reset();
   }
   livesText.setString("Lives: " + std::to_string(cannon.getLives()));
 }

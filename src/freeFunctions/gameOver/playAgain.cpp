@@ -3,14 +3,14 @@
 #include "../../../include/wrappers/iClock.hpp"
 #include "../../../include/models/iLaserCannon.hpp"
 #include "../../../include/models/iLaser.hpp"
-#include "../../../include/models/iInvader.hpp"
+#include "../../../include/models/iMetroid.hpp"
 
 void playAgain(bool &isPlaying,
                bool &gameOver,
                ILaserCannon &cannon,
                ILaser &laser,
-               const std::vector<std::vector<IInvader *>> &invaders,
-               const std::vector<ILaser *> &invaderLasers,
+               const std::vector<std::vector<IMetroid *>> &metroids,
+               const std::vector<ILaser *> &metroidLasers,
                int &interval,
                int &step,
                int &soundCounter,
@@ -24,16 +24,16 @@ void playAgain(bool &isPlaying,
   gameOver = false;
   cannon.reset();
   laser.reset();
-  for (auto invaderRow : invaders)
+  for (auto metroidRow : metroids)
   {
-    for (auto invader : invaderRow)
+    for (auto metroid : metroidRow)
     {
-      invader->reset();
+      metroid->reset();
     }
   }
-  for (auto invaderLaser : invaderLasers)
+  for (auto metroidLaser : metroidLasers)
   {
-    invaderLaser->reset();
+    metroidLaser->reset();
   }
   interval = 665;
   step = 1;

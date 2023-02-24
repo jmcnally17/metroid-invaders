@@ -7,7 +7,7 @@
 #include "./wrappers/iClock.hpp"
 #include "./models/iLaserCannon.hpp"
 #include "./models/iLaser.hpp"
-#include "./models/iInvader.hpp"
+#include "./models/iMetroid.hpp"
 
 void displayGameOverScreen(IRenderWindow &window, const IText &gameOverText, const IText &scoreText, const IText &playAgainText);
 
@@ -15,8 +15,8 @@ void playAgain(bool &isPlaying,
                bool &gameOver,
                ILaserCannon &cannon,
                ILaser &laser,
-               const std::vector<std::vector<IInvader *>> &invaders,
-               const std::vector<ILaser *> &invaderLasers,
+               const std::vector<std::vector<IMetroid *>> &metroids,
+               const std::vector<ILaser *> &metroidLasers,
                int &interval,
                int &step,
                int &soundCounter,

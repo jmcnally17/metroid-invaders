@@ -9,7 +9,7 @@ public:
   ILaser();
   ILaser(float width, float height, float x, float y, ISprite *sprite);
   virtual void move() = 0;
-  virtual void playInvaderDeath() const = 0;
+  virtual void playMetroidDeath() const = 0;
 };
 
 #endif

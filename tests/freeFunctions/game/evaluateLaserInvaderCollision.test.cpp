@@ -2,172 +2,172 @@
 #include "../../../include/game.hpp"
 #include "../../mockInterfaces/mockCollision.hpp"
 #include "../../mockModels/mockLaser.hpp"
-#include "../../mockModels/mockInvader.hpp"
+#include "../../mockModels/mockMetroid.hpp"
 #include "../../mockModels/mockText.hpp"
 
 using ::testing::NiceMock;
 using ::testing::Return;
 
-TEST(evaluateLaserInvaderCollision, killsInvaderThatIsAliveAndLaserIsCollidingWith)
+TEST(evaluateLaserMetroidCollision, killsMetroidThatIsAliveAndLaserIsCollidingWith)
 {
   NiceMock<MockCollision> collision;
   NiceMock<MockLaser> laser;
-  NiceMock<MockInvader> invader;
-  MockInvader *pInvader = &invader;
-  std::vector<std::vector<IInvader *>> invaders(2);
+  NiceMock<MockMetroid> metroid;
+  MockMetroid *pMetroid = &metroid;
+  std::vector<std::vector<IMetroid *>> metroids(2);
   for (int i = 0; i < 2; i++)
   {
-    std::vector<IInvader *> invaderRow(10);
+    std::vector<IMetroid *> metroidRow(10);
     for (int j = 0; j < 10; j++)
     {
-      invaderRow[j] = pInvader;
+      metroidRow[j] = pMetroid;
     }
-    invaders[i] = invaderRow;
+    metroids[i] = metroidRow;
   }
   int score = 0;
   NiceMock<MockText> scoreText;
 
-  ON_CALL(invader, isAlive())
+  ON_CALL(metroid, isAlive())
       .WillByDefault(Return(true));
   ON_CALL(collision, haveCollided)
       .WillByDefault(Return(true));
 
-  EXPECT_CALL(invader, die())
+  EXPECT_CALL(metroid, die())
       .Times(1);
   EXPECT_CALL(laser, reset())
       .Times(1);
-  EXPECT_CALL(laser, playInvaderDeath())
+  EXPECT_CALL(laser, playMetroidDeath())
       .Times(1);
-  evaluateLaserInvaderCollision(collision, laser, invaders, score, scoreText);
+  evaluateLaserMetroidCollision(collision, laser, metroids, score, scoreText);
 }
 
-TEST(evaluateLaserInvaderCollision, addsTheInvaderPointsToTheScore)
+TEST(evaluateLaserMetroidCollision, addsTheMetroidPointsToTheScore)
 {
   NiceMock<MockCollision> collision;
   NiceMock<MockLaser> laser;
-  NiceMock<MockInvader> invader;
-  MockInvader *pInvader = &invader;
-  std::vector<std::vector<IInvader *>> invaders(2);
+  NiceMock<MockMetroid> metroid;
+  MockMetroid *pMetroid = &metroid;
+  std::vector<std::vector<IMetroid *>> metroids(2);
   for (int i = 0; i < 2; i++)
   {
-    std::vector<IInvader *> invaderRow(10);
+    std::vector<IMetroid *> metroidRow(10);
     for (int j = 0; j < 10; j++)
     {
-      invaderRow[j] = pInvader;
+      metroidRow[j] = pMetroid;
     }
-    invaders[i] = invaderRow;
+    metroids[i] = metroidRow;
   }
   int score = 0;
   MockText scoreText;
 
-  ON_CALL(invader, isAlive())
+  ON_CALL(metroid, isAlive())
       .WillByDefault(Return(true));
   ON_CALL(collision, haveCollided)
       .WillByDefault(Return(true));
-  ON_CALL(invader, getPoints())
+  ON_CALL(metroid, getPoints())
       .WillByDefault(Return(30));
 
   EXPECT_CALL(scoreText, setString("Score: 30"))
       .Times(1);
-  evaluateLaserInvaderCollision(collision, laser, invaders, score, scoreText);
+  evaluateLaserMetroidCollision(collision, laser, metroids, score, scoreText);
   EXPECT_EQ(score, 30);
 }
 
-TEST(evaluateLaserInvaderCollision, doesNotKillInvadersThatAreAliveAndLaserIsNotCollidingWith)
+TEST(evaluateLaserMetroidCollision, doesNotKillMetroidsThatAreAliveAndLaserIsNotCollidingWith)
 {
   NiceMock<MockCollision> collision;
   MockLaser laser;
-  NiceMock<MockInvader> invader;
-  MockInvader *pInvader = &invader;
-  std::vector<std::vector<IInvader *>> invaders(2);
+  NiceMock<MockMetroid> metroid;
+  MockMetroid *pMetroid = &metroid;
+  std::vector<std::vector<IMetroid *>> metroids(2);
   for (int i = 0; i < 2; i++)
   {
-    std::vector<IInvader *> invaderRow(10);
+    std::vector<IMetroid *> metroidRow(10);
     for (int j = 0; j < 10; j++)
     {
-      invaderRow[j] = pInvader;
+      metroidRow[j] = pMetroid;
     }
-    invaders[i] = invaderRow;
+    metroids[i] = metroidRow;
   }
   int score = 0;
   NiceMock<MockText> scoreText;
 
-  ON_CALL(invader, isAlive())
+  ON_CALL(metroid, isAlive())
       .WillByDefault(Return(true));
   ON_CALL(collision, haveCollided)
       .WillByDefault(Return(false));
 
-  EXPECT_CALL(invader, die())
+  EXPECT_CALL(metroid, die())
       .Times(0);
   EXPECT_CALL(laser, reset())
       .Times(0);
-  EXPECT_CALL(laser, playInvaderDeath())
+  EXPECT_CALL(laser, playMetroidDeath())
       .Times(0);
-  evaluateLaserInvaderCollision(collision, laser, invaders, score, scoreText);
+  evaluateLaserMetroidCollision(collision, laser, metroids, score, scoreText);
 }
 
-TEST(evaluateLaserInvaderCollision, doesNotKillInvadersThatAreDeadAndLaserIsCollidingWith)
+TEST(evaluateLaserMetroidCollision, doesNotKillMetroidsThatAreDeadAndLaserIsCollidingWith)
 {
   NiceMock<MockCollision> collision;
   MockLaser laser;
-  NiceMock<MockInvader> invader;
-  MockInvader *pInvader = &invader;
-  std::vector<std::vector<IInvader *>> invaders(2);
+  NiceMock<MockMetroid> metroid;
+  MockMetroid *pMetroid = &metroid;
+  std::vector<std::vector<IMetroid *>> metroids(2);
   for (int i = 0; i < 2; i++)
   {
-    std::vector<IInvader *> invaderRow(10);
+    std::vector<IMetroid *> metroidRow(10);
     for (int j = 0; j < 10; j++)
     {
-      invaderRow[j] = pInvader;
+      metroidRow[j] = pMetroid;
     }
-    invaders[i] = invaderRow;
+    metroids[i] = metroidRow;
   }
   int score = 0;
   NiceMock<MockText> scoreText;
 
-  ON_CALL(invader, isAlive())
+  ON_CALL(metroid, isAlive())
       .WillByDefault(Return(false));
   ON_CALL(collision, haveCollided)
       .WillByDefault(Return(true));
 
-  EXPECT_CALL(invader, die())
+  EXPECT_CALL(metroid, die())
       .Times(0);
   EXPECT_CALL(laser, reset())
       .Times(0);
-  EXPECT_CALL(laser, playInvaderDeath())
+  EXPECT_CALL(laser, playMetroidDeath())
       .Times(0);
-  evaluateLaserInvaderCollision(collision, laser, invaders, score, scoreText);
+  evaluateLaserMetroidCollision(collision, laser, metroids, score, scoreText);
 }
 
-TEST(evaluateLaserInvaderCollision, doesNotKillInvadersThatAreDeadAndLaserIsNotCollidingWith)
+TEST(evaluateLaserMetroidCollision, doesNotKillMetroidsThatAreDeadAndLaserIsNotCollidingWith)
 {
   NiceMock<MockCollision> collision;
   MockLaser laser;
-  NiceMock<MockInvader> invader;
-  MockInvader *pInvader = &invader;
-  std::vector<std::vector<IInvader *>> invaders(2);
+  NiceMock<MockMetroid> metroid;
+  MockMetroid *pMetroid = &metroid;
+  std::vector<std::vector<IMetroid *>> metroids(2);
   for (int i = 0; i < 2; i++)
   {
-    std::vector<IInvader *> invaderRow(10);
+    std::vector<IMetroid *> metroidRow(10);
     for (int j = 0; j < 10; j++)
     {
-      invaderRow[j] = pInvader;
+      metroidRow[j] = pMetroid;
     }
-    invaders[i] = invaderRow;
+    metroids[i] = metroidRow;
   }
   int score = 0;
   NiceMock<MockText> scoreText;
 
-  ON_CALL(invader, isAlive())
+  ON_CALL(metroid, isAlive())
       .WillByDefault(Return(false));
   ON_CALL(collision, haveCollided)
       .WillByDefault(Return(false));
 
-  EXPECT_CALL(invader, die())
+  EXPECT_CALL(metroid, die())
       .Times(0);
   EXPECT_CALL(laser, reset())
       .Times(0);
-  EXPECT_CALL(laser, playInvaderDeath())
+  EXPECT_CALL(laser, playMetroidDeath())
       .Times(0);
-  evaluateLaserInvaderCollision(collision, laser, invaders, score, scoreText);
+  evaluateLaserMetroidCollision(collision, laser, metroids, score, scoreText);
 }

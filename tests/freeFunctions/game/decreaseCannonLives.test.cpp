@@ -10,61 +10,61 @@ TEST(decreaseCannonLives, callsLoseLifeOnCannon)
 {
   NiceMock<MockLaserCannon> cannon;
   NiceMock<MockLaser> cannonLaser;
-  std::vector<ILaser *> invaderLasers;
+  std::vector<ILaser *> metroidLasers;
   NiceMock<MockText> livesText;
 
   EXPECT_CALL(cannon, loseLife())
       .Times(1);
-  decreaseCannonLives(cannon, cannonLaser, invaderLasers, livesText);
+  decreaseCannonLives(cannon, cannonLaser, metroidLasers, livesText);
 }
 
 TEST(decreaseCannonLives, callsResetPositionOnCannon)
 {
   NiceMock<MockLaserCannon> cannon;
   NiceMock<MockLaser> cannonLaser;
-  std::vector<ILaser *> invaderLasers;
+  std::vector<ILaser *> metroidLasers;
   NiceMock<MockText> livesText;
 
   EXPECT_CALL(cannon, resetPosition())
       .Times(1);
-  decreaseCannonLives(cannon, cannonLaser, invaderLasers, livesText);
+  decreaseCannonLives(cannon, cannonLaser, metroidLasers, livesText);
 }
 
 TEST(decreaseCannonLives, callsResetOnCannonLaser)
 {
   NiceMock<MockLaserCannon> cannon;
   MockLaser cannonLaser;
-  std::vector<ILaser *> invaderLasers;
+  std::vector<ILaser *> metroidLasers;
   NiceMock<MockText> livesText;
 
   EXPECT_CALL(cannonLaser, reset())
       .Times(1);
-  decreaseCannonLives(cannon, cannonLaser, invaderLasers, livesText);
+  decreaseCannonLives(cannon, cannonLaser, metroidLasers, livesText);
 }
 
-TEST(decreaseCannonLives, callsResetOnInvaderLasers)
+TEST(decreaseCannonLives, callsResetOnMetroidLasers)
 {
   NiceMock<MockLaserCannon> cannon;
   NiceMock<MockLaser> cannonLaser;
-  MockLaser invaderLaser;
-  MockLaser *pInvaderLaser = &invaderLaser;
-  std::vector<ILaser *> invaderLasers(3);
+  MockLaser metroidLaser;
+  MockLaser *pMetroidLaser = &metroidLaser;
+  std::vector<ILaser *> metroidLasers(3);
   for (int i = 0; i < 3; i++)
   {
-    invaderLasers[i] = pInvaderLaser;
+    metroidLasers[i] = pMetroidLaser;
   }
   NiceMock<MockText> livesText;
 
-  EXPECT_CALL(invaderLaser, reset())
+  EXPECT_CALL(metroidLaser, reset())
       .Times(3);
-  decreaseCannonLives(cannon, cannonLaser, invaderLasers, livesText);
+  decreaseCannonLives(cannon, cannonLaser, metroidLasers, livesText);
 }
 
 TEST(decreaseCannonLives, updatesTheLivesText)
 {
   NiceMock<MockLaserCannon> cannon;
   NiceMock<MockLaser> cannonLaser;
-  std::vector<ILaser *> invaderLasers;
+  std::vector<ILaser *> metroidLasers;
   MockText livesText;
 
   ON_CALL(cannon, getLives())
@@ -72,5 +72,5 @@ TEST(decreaseCannonLives, updatesTheLivesText)
 
   EXPECT_CALL(livesText, setString("Lives: 1"))
       .Times(1);
-  decreaseCannonLives(cannon, cannonLaser, invaderLasers, livesText);
+  decreaseCannonLives(cannon, cannonLaser, metroidLasers, livesText);
 }
