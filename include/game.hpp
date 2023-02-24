@@ -34,7 +34,7 @@ void evaluateLaserInvaderCollision(const CollisionInterface &collision,
                                    const std::vector<std::vector<IInvader *>> &invaders,
                                    int &score, IText &scoreText);
 
-void decreaseCannonLives(ILaserCannon &cannon);
+void decreaseCannonLives(ILaserCannon &cannon, ILaser &cannonLaser);
 
 bool haveInvadersInvaded(const std::vector<std::vector<IInvader *>> &invaders);
 
