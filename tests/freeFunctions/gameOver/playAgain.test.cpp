@@ -307,7 +307,7 @@ TEST(playAgain, updatesLivesText)
   ON_CALL(cannon, getLives())
       .WillByDefault(Return(3));
 
-  EXPECT_CALL(livesText, setString("Score: 3"))
+  EXPECT_CALL(livesText, setString("Lives: 3"))
       .Times(1);
   playAgain(isPlaying, gameOver, cannon, laser, invaders, invaderLasers, interval, step, soundCounter, level, score, scoreText, livesText, clock);
 }

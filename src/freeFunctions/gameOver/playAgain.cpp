@@ -43,6 +43,6 @@ void playAgain(bool &isPlaying,
   scoreText.setString("Score: 0");
   scoreText.setPosition(sf::Vector2f(20, 0));
   scoreText.setOrigin(0, 0);
-  livesText.setString("Score: " + std::to_string(cannon.getLives()));
+  livesText.setString("Lives: " + std::to_string(cannon.getLives()));
   clock.restart();
 }
