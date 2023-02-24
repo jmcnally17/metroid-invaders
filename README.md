@@ -7,7 +7,6 @@ This solo project is an imitation of the classic 1978 Taito game, Space Invaders
 - Random spawning of UFO Invader at the top of the window
 - Collision detection between Invader lasers and Laser Cannon
 - Collisions between Invader lasers and Laser Cannon laser
-- Lives for the player
 - Bunkers protecting the Laser Cannon at the bottom
 - Title screen
 - **_(Under consideration)_** Submit the player score into a database with their name at game over and display the leaderboard either at game over or on a live website
@@ -18,10 +17,11 @@ The player controls a Laser Cannon at the bottom of the window which can be move
 
 ### Rules
 
-- The player may only have 1 Laser on the screen at any given time, meaning once the player fires the Laser, they must wait for the Laser to reach the top of the window or collide with an Invader for them to be able to fire again.
-- The Invaders move horizontally until they reach the side of the window, at which point they move down a level. Then, they move horizontally back in the other direction before moving down again and continuing this cycle.
-- Once the player has eliminated all the Invaders, the game moves onto the next level where the Invaders start their movement pattern one vertical level below their starting position of the previous level.
-- The game is over when at least one of the Invaders that are alive reaches the bottom of the window. This position that the bottom of the Invader needs to reach is 48 pixels above the top of the Laser Cannon.
+- The player begins the game with 3 lives
+- The player may only have 1 Laser on the screen at any given time, meaning once the player fires the Laser, they must wait for the Laser to reach the top of the window or collide with an Invader for them to be able to fire again
+- The Invaders move horizontally until they reach the side of the window, at which point they move down a level. Then, they move horizontally back in the other direction before moving down again and continuing this cycle
+- Once the player has eliminated all the Invaders, the game moves onto the next level where the Invaders start their movement pattern one vertical level below their starting position of the previous level
+- The game is over when at least one of the Invaders that are alive reaches the bottom of the window. This position that the bottom of the Invader needs to reach is 48 pixels above the top of the Laser Cannon
 
 <p align="center">
   <img src="./public/images/gameplay.png" width="70%">
