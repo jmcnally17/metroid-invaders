@@ -239,6 +239,34 @@ TEST(LaserCannon, fireDoesNotCallPlayOnSoundClassMemberWhenOnBoard)
   cannon.fire();
 }
 
+TEST(LaserCannon, resetPositionSetsPositionBackToStartingPoint)
+{
+  MockSprite *sprite = new NiceMock<MockSprite>();
+  MockLaser *laser;
+  MockSound *sound;
+  LaserCannon cannon(sprite, laser, sound);
+
+  cannon.setPosition(sf::Vector2f(500, 120));
+
+  cannon.resetPosition();
+  EXPECT_EQ(cannon.getPosition(), sf::Vector2f(120, 1224));
+}
+
+TEST(LaserCannon, resetPositionSetsSpritePositionBackToStartingPoint)
+{
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  MockLaser *laser;
+  MockSound *sound;
+  LaserCannon cannon(pSprite, laser, sound);
+
+  cannon.setPosition(sf::Vector2f(500, 120));
+
+  EXPECT_CALL(sprite, setPosition(sf::Vector2f(120, 1224)))
+      .Times(1);
+  cannon.resetPosition();
+}
+
 TEST(LaserCannon, resetSetsPositionBackToStartingPoint)
 {
   MockSprite *sprite = new NiceMock<MockSprite>();
