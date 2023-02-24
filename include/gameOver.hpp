@@ -23,6 +23,7 @@ void playAgain(bool &isPlaying,
                int &level,
                int &score,
                IText &scoretext,
+               IText &livesText,
                IClock &clock);
 
 #endif

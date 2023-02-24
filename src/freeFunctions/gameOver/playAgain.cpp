@@ -17,6 +17,7 @@ void playAgain(bool &isPlaying,
                int &level,
                int &score,
                IText &scoreText,
+               IText &livesText,
                IClock &clock)
 {
   isPlaying = true;
@@ -42,5 +43,6 @@ void playAgain(bool &isPlaying,
   scoreText.setString("Score: 0");
   scoreText.setPosition(sf::Vector2f(20, 0));
   scoreText.setOrigin(0, 0);
+  livesText.setString("Score: " + std::to_string(cannon.getLives()));
   clock.restart();
 }
