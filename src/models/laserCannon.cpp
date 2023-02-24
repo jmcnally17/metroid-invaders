@@ -63,5 +63,5 @@ void LaserCannon::resetPosition()
 
 void LaserCannon::reset()
 {
-  setPosition(sf::Vector2f(120, 1224));
+  resetPosition();
 }
