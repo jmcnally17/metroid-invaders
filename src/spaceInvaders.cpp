@@ -56,7 +56,7 @@ int main()
 
     if (isPlaying)
     {
-      drawObjects(window, cannon, cannonLaser, invaders, invaderLasers, scoreText);
+      drawObjects(window, cannon, cannonLaser, invaders, invaderLasers, scoreText, livesText);
       if (areInvadersDead(invaders))
       {
         levelUp(level, interval, step, soundCounter, invaders, invaderLasers, clock);
