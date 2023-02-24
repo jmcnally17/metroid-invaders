@@ -28,7 +28,7 @@ The player controls a Laser Cannon at the bottom of the window which can be move
 </p>
 
 <p align="center">
-  <b>Fig.1 -</b> A screenshot of the game window with the Laser Cannon at the bottom of the board, firing the Laser at the grid of Invaders above while dodging 2 of the Invader lasers. The player's score can be seen in the top left hand corner
+  <b>Fig.1 -</b> A screenshot of the game window with the Laser Cannon at the bottom of the board, firing the Laser at the grid of Invaders above while dodging 2 of the Invader lasers. The player's score can be seen in the top left hand corner with the number of lives left in the top right hand corner
 </p>
 
 <p align="center">
