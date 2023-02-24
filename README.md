@@ -44,7 +44,7 @@ The player controls a Laser Cannon at the bottom of the window which can be move
 Start by opening up a terminal and cloning this repository by entering
 
 ```
-git clone https://github.com/jmcnally17/space-invaders.git
+git clone https://github.com/jmcnally17/metroid-invaders.git
 ```
 
 Then run the game by entering
@@ -53,7 +53,7 @@ Then run the game by entering
 bin/MetroidInvaders
 ```
 
-into your terminal while in the [main](https://github.com/jmcnally17/space-invaders) directory. However, if you would like to have a go at compiling the code yourself, see the instructions below for macOS to get started.
+into your terminal while in the [main](https://github.com/jmcnally17/metroid-invaders) directory. However, if you would like to have a go at compiling the code yourself, see the instructions below for macOS to get started.
 
 ## Getting Started
 
@@ -73,7 +73,7 @@ xcode-select --install
 
 ## Compiling
 
-As mentioned earlier, this code has to be compiled into an executable file that your computer can run. This can be done by entering the following command into your terminal while in the [main](https://github.com/jmcnally17/space-invaders) directory:
+As mentioned earlier, this code has to be compiled into an executable file that your computer can run. This can be done by entering the following command into your terminal while in the [main](https://github.com/jmcnally17/metroid-invaders) directory:
 
 ```
 g++ -o bin/MetroidInvaders $(find src -name "*.cpp") -I /opt/homebrew/Cellar/sfml/2.5.1_2/include -L /opt/homebrew/Cellar/sfml/2.5.1_2/lib -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio  -std=c++20
@@ -91,7 +91,7 @@ Tests have been written using the [GoogleTest](http://google.github.io/googletes
 bin/tests
 ```
 
-while in the [main](https://github.com/jmcnally17/space-invaders) directory. If you want to compile the tests yourself, you can start by installing GoogleTest with Homebrew by entering
+while in the [main](https://github.com/jmcnally17/metroid-invaders) directory. If you want to compile the tests yourself, you can start by installing GoogleTest with Homebrew by entering
 
 ```
 brew install googletest
@@ -103,4 +103,4 @@ Then, using the g++ command mentioned in the previous section, compile the tests
 g++ -o bin/tests $(find tests -name "*.cpp") $(find src -name "*.cpp" ! -name "metroidInvaders.cpp")  -I /opt/homebrew/Cellar/googletest/1.13.0/include -I /opt/homebrew/Cellar/sfml/2.5.1_2/include -L /opt/homebrew/Cellar/googletest/1.13.0/lib -lgtest -lgtest_main -lgmock -lgmock_main -pthread -L /opt/homebrew/Cellar/sfml/2.5.1_2/lib -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -std=c++20
 ```
 
-Then the executable file should be in the [bin](https://github.com/jmcnally17/space-invaders/tree/main/bin) folder.
+Then the executable file should be in the [bin](https://github.com/jmcnally17/metroid-invaders/tree/main/bin) folder.
