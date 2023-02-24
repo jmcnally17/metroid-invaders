@@ -62,7 +62,7 @@ int main()
         levelUp(level, interval, step, soundCounter, invaders, invaderLasers, clock);
       }
       evaluateLaserInvaderCollision(collisionInterface, cannonLaser, invaders, score, scoreText);
-      if (haveInvadersInvaded(invaders))
+      if (haveInvadersInvaded(invaders) || cannon.getLives() == 0)
       {
         endGame(isPlaying, gameOver, score, scoreText);
       }
