@@ -65,6 +65,7 @@ void LaserCannon::resetPosition()
 void LaserCannon::reset()
 {
   resetPosition();
+  lives_ = 3;
 }
 
 void LaserCannon::loseLife()

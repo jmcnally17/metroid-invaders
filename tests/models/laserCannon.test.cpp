@@ -316,6 +316,21 @@ TEST(LaserCannon, resetSetsSpritePositionBackToStartingPoint)
   cannon.reset();
 }
 
+TEST(LaserCannon, resetSetsLivesBackTo3)
+{
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  MockLaser *laser;
+  MockSound *fireSound;
+  MockSound *deathSound = new NiceMock<MockSound>();
+  LaserCannon cannon(pSprite, laser, fireSound, deathSound);
+
+  cannon.loseLife();
+
+  cannon.reset();
+  EXPECT_EQ(cannon.getLives(), 3);
+}
+
 TEST(LaserCannon, loseLifeDecreasesLivesBy1)
 {
   MockSprite *sprite = new NiceMock<MockSprite>();
