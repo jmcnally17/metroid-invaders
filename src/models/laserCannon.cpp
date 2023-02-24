@@ -65,3 +65,8 @@ void LaserCannon::reset()
 {
   resetPosition();
 }
+
+void LaserCannon::loseLife()
+{
+  lives_--;
+}

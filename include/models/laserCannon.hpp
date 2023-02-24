@@ -19,6 +19,7 @@ public:
   void fire() override;
   void resetPosition();
   void reset() override;
+  void loseLife();
 
 private:
   int lives_;

@@ -294,3 +294,14 @@ TEST(LaserCannon, resetSetsSpritePositionBackToStartingPoint)
       .Times(1);
   cannon.reset();
 }
+
+TEST(LaserCannon, loseLifeDecreasesLivesBy1)
+{
+  MockSprite *sprite = new NiceMock<MockSprite>();
+  MockLaser *laser;
+  MockSound *sound;
+  LaserCannon cannon(sprite, laser, sound);
+
+  cannon.loseLife();
+  EXPECT_EQ(cannon.getLives(), 2);
+}
