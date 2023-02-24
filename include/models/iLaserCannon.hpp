@@ -12,6 +12,7 @@ public:
   virtual void fire() = 0;
   virtual void loseLife() = 0;
   virtual void resetPosition() = 0;
+  virtual int getLives() const = 0;
 };
 
 #endif

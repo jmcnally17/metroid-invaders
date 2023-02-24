@@ -17,6 +17,7 @@ public:
   MOCK_METHOD(void, reset, ());
   MOCK_METHOD(void, loseLife, ());
   MOCK_METHOD(void, resetPosition, ());
+  MOCK_METHOD(int, getLives, (), (const));
 };
 
 #endif
