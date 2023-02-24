@@ -220,7 +220,7 @@ TextWrapper makeLivesText(const LaserCannon &cannon, const sf::Font &font)
 {
   std::string livesString = "Lives: " + std::to_string(cannon.getLives());
   TextWrapper livesText(livesString, font);
-  livesText.setPosition(sf::Vector2f(1000, 0));
+  livesText.setPosition(sf::Vector2f(1250, 0));
   livesText.setCharacterSize(50);
   return livesText;
 }
