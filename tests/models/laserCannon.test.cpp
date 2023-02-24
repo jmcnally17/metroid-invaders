@@ -17,18 +17,6 @@ TEST(LaserCannon, setsOwnPositionMember)
   EXPECT_EQ(cannon.getPosition(), sf::Vector2f(120, 1224));
 }
 
-TEST(LaserCannon, setsSpritePositionUponInstantiation)
-{
-  MockSprite sprite;
-  MockSprite *pSprite = &sprite;
-  MockLaser *laser;
-  MockSound *sound;
-
-  EXPECT_CALL(sprite, setPosition(sf::Vector2f(120, 1224)))
-      .Times(1);
-  LaserCannon cannon(pSprite, laser, sound);
-}
-
 TEST(LaserCannon, hasAWidthClassMemberOf78)
 {
   MockSprite *sprite = new NiceMock<MockSprite>();
@@ -47,6 +35,28 @@ TEST(LaserCannon, hasAHeightClassMemberOf48)
   LaserCannon cannon(sprite, laser, sound);
 
   EXPECT_EQ(cannon.getHeight(), 48);
+}
+
+TEST(LaserCannon, hasALivesClassMemberInitiallySetTo3)
+{
+  MockSprite *sprite = new NiceMock<MockSprite>();
+  MockLaser *laser;
+  MockSound *sound;
+  LaserCannon cannon(sprite, laser, sound);
+
+  EXPECT_EQ(cannon.getLives(), 3);
+}
+
+TEST(LaserCannon, setsSpritePositionUponInstantiation)
+{
+  MockSprite sprite;
+  MockSprite *pSprite = &sprite;
+  MockLaser *laser;
+  MockSound *sound;
+
+  EXPECT_CALL(sprite, setPosition(sf::Vector2f(120, 1224)))
+      .Times(1);
+  LaserCannon cannon(pSprite, laser, sound);
 }
 
 TEST(LaserCannon, setPositionChangesPositionClassMember)

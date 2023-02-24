@@ -11,6 +11,7 @@ public:
   LaserCannon(ISprite *sprite, ILaser *laser, ISound *sound);
   float getWidth() const override;
   float getHeight() const override;
+  int getLives() const;
   void setPosition(const sf::Vector2f &position) override;
   sf::Vector2f getPosition() const override;
   void draw(IRenderWindow &window) const override;
@@ -19,6 +20,7 @@ public:
   void reset() override;
 
 private:
+  int lives_;
   ILaser *laser_;
   ISound *sound_;
 };

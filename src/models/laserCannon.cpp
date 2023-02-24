@@ -1,6 +1,7 @@
 #include "../../include/models/laserCannon.hpp"
 
 LaserCannon::LaserCannon(ISprite *sprite, ILaser *laser, ISound *sound) : ILaserCannon(78, 48, 120, 1224, sprite),
+                                                                          lives_(3),
                                                                           laser_(laser),
                                                                           sound_(sound) {}
 
@@ -12,6 +13,11 @@ float LaserCannon::getWidth() const
 float LaserCannon::getHeight() const
 {
   return height_;
+}
+
+int LaserCannon::getLives() const
+{
+  return lives_;
 }
 
 void LaserCannon::setPosition(const sf::Vector2f &position)
