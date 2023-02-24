@@ -5,5 +5,13 @@
 
 bool hasCannonBeenHit(const CollisionInterface &collision, const ILaserCannon &cannon, const std::vector<ILaser *> &invaderLasers)
 {
-  return true;
+  for (auto invaderLaser : invaderLasers)
+  {
+    ILaser &rLaser = *invaderLaser;
+    if (collision.haveCollided(cannon, rLaser))
+    {
+      return true;
+    }
+  }
+  return false;
 }
