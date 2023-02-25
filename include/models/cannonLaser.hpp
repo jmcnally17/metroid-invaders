@@ -15,7 +15,7 @@ public:
   void draw(IRenderWindow &window) const override;
   void move() override;
   void reset() override;
-  void playInvaderDeath() const override;
+  void playMetroidDeath() const override;
 
 private:
   ISound *sound_;

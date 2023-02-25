@@ -1,37 +1,37 @@
 #include <vector>
-#include "../../../include/models/iInvader.hpp"
+#include "../../../include/models/iMetroid.hpp"
 #include "../../../include/wrappers/iClock.hpp"
 
 void levelUp(int &level,
              int &interval,
              int &step,
              int &soundCounter,
-             const std::vector<std::vector<IInvader *>> &invaders,
-             const std::vector<ILaser *> &invaderLasers,
+             const std::vector<std::vector<IMetroid *>> &metroids,
+             const std::vector<ILaser *> &metroidLasers,
              IClock &clock)
 {
   level++;
   interval = 665;
   step = 1;
   soundCounter = 0;
-  for (auto row : invaders)
+  for (auto row : metroids)
   {
-    for (auto invader : row)
+    for (auto metroid : row)
     {
-      invader->resurrect();
-      if (invader->getDirection() == -1)
+      metroid->resurrect();
+      if (metroid->getDirection() == -1)
       {
-        invader->changeDirection();
+        metroid->changeDirection();
       }
-      sf::Vector2f originalPosition = invader->getOriginalPosition();
+      sf::Vector2f originalPosition = metroid->getOriginalPosition();
       float originalXPosition = originalPosition.x;
       float originalYPosition = originalPosition.y;
       float levelUpShift = (level - 1) * 42;
       sf::Vector2f levelUpPosition(originalXPosition, originalYPosition + levelUpShift);
-      invader->setPosition(levelUpPosition);
+      metroid->setPosition(levelUpPosition);
     }
   }
-  for (auto laser : invaderLasers)
+  for (auto laser : metroidLasers)
   {
     laser->reset();
   }

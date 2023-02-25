@@ -8,54 +8,54 @@
 #include "./wrappers/iText.hpp"
 #include "./models/iLaserCannon.hpp"
 #include "./models/iLaser.hpp"
-#include "./models/iInvader.hpp"
+#include "./models/iMetroid.hpp"
 #include "./interfaces/collisionInterface.hpp"
 
 void drawObjects(IRenderWindow &window,
                  const ILaserCannon &cannon,
                  const ILaser &laser,
-                 const std::vector<std::vector<IInvader *>> &invaders,
-                 const std::vector<ILaser *> &invaderLasers,
+                 const std::vector<std::vector<IMetroid *>> &metroids,
+                 const std::vector<ILaser *> &metroidLasers,
                  const IText &scoreText,
                  const IText &livesText);
 
-bool areInvadersDead(const std::vector<std::vector<IInvader *>> &invaders);
+bool areMetroidsDead(const std::vector<std::vector<IMetroid *>> &metroids);
 
 void levelUp(int &level,
              int &interval,
              int &step,
              int &soundCounter,
-             const std::vector<std::vector<IInvader *>> &invaders,
-             const std::vector<ILaser *> &invaderLasers,
+             const std::vector<std::vector<IMetroid *>> &metroids,
+             const std::vector<ILaser *> &metroidLasers,
              IClock &clock);
 
-void evaluateLaserInvaderCollision(const CollisionInterface &collision,
+void evaluateLaserMetroidCollision(const CollisionInterface &collision,
                                    ILaser &laser,
-                                   const std::vector<std::vector<IInvader *>> &invaders,
+                                   const std::vector<std::vector<IMetroid *>> &metroids,
                                    int &score, IText &scoreText);
 
-bool hasCannonBeenHit(const CollisionInterface &collision, const ILaserCannon &cannon, const std::vector<ILaser *> &invaderLasers);
+bool hasCannonBeenHit(const CollisionInterface &collision, const ILaserCannon &cannon, const std::vector<ILaser *> &metroidLasers);
 
-void decreaseCannonLives(ILaserCannon &cannon, ILaser &cannonLaser, const std::vector<ILaser *> &invaderLasers, IText &livesText);
+void decreaseCannonLives(ILaserCannon &cannon, ILaser &cannonLaser, const std::vector<ILaser *> &metroidLasers, IText &livesText);
 
-bool haveInvadersInvaded(const std::vector<std::vector<IInvader *>> &invaders);
+bool haveMetroidsInvaded(const std::vector<std::vector<IMetroid *>> &metroids);
 
 void moveLaserCannon(ILaserCannon &cannon, float x);
 
 void moveLaser(ILaser &laser);
 
-void moveInvaders(const std::vector<std::vector<IInvader *>> &invaders,
+void moveMetroids(const std::vector<std::vector<IMetroid *>> &metroids,
                   IClock &clock,
                   int &interval,
                   int &step,
                   std::vector<ISound *> &sounds,
                   int &soundCounter);
 
-void moveInvaderLasers(const std::vector<ILaser *> &invaderLasers);
+void moveMetroidLasers(const std::vector<ILaser *> &metroidLasers);
 
 void fireLaser(ILaserCannon &cannon);
 
-void shootInvaderLaser(const std::vector<std::vector<IInvader *>> &invaders, const std::vector<ILaser *> &lasers);
+void shootMetroidLaser(const std::vector<std::vector<IMetroid *>> &metroids, const std::vector<ILaser *> &lasers);
 
 void endGame(bool &isPlaying, bool &gameOver, int score, IText &scoreText);
 

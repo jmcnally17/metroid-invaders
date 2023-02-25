@@ -1,5 +1,5 @@
 #include "../../../include/game.hpp"
-#include "../../mockModels/mockInvader.hpp"
+#include "../../mockModels/mockMetroid.hpp"
 #include "../../mockModels/mockLaser.hpp"
 #include "../../mockModels/mockClock.hpp"
 
@@ -12,11 +12,11 @@ TEST(levelUp, adds1ToTheLevelVariable)
   int interval = 105;
   int step = 15;
   int soundCounter = 3;
-  std::vector<std::vector<IInvader *>> invaders;
-  std::vector<ILaser *> invaderLasers;
+  std::vector<std::vector<IMetroid *>> metroids;
+  std::vector<ILaser *> metroidLasers;
   NiceMock<MockClock> clock;
 
-  levelUp(level, interval, step, soundCounter, invaders, invaderLasers, clock);
+  levelUp(level, interval, step, soundCounter, metroids, metroidLasers, clock);
   EXPECT_EQ(level, 6);
 }
 
@@ -26,11 +26,11 @@ TEST(levelUp, resetsTheInterval)
   int interval = 105;
   int step = 15;
   int soundCounter = 3;
-  std::vector<std::vector<IInvader *>> invaders;
-  std::vector<ILaser *> invaderLasers;
+  std::vector<std::vector<IMetroid *>> metroids;
+  std::vector<ILaser *> metroidLasers;
   NiceMock<MockClock> clock;
 
-  levelUp(level, interval, step, soundCounter, invaders, invaderLasers, clock);
+  levelUp(level, interval, step, soundCounter, metroids, metroidLasers, clock);
   EXPECT_EQ(interval, 665);
 }
 
@@ -40,11 +40,11 @@ TEST(levelUp, resetsTheStepCounter)
   int interval = 105;
   int step = 15;
   int soundCounter = 3;
-  std::vector<std::vector<IInvader *>> invaders;
-  std::vector<ILaser *> invaderLasers;
+  std::vector<std::vector<IMetroid *>> metroids;
+  std::vector<ILaser *> metroidLasers;
   NiceMock<MockClock> clock;
 
-  levelUp(level, interval, step, soundCounter, invaders, invaderLasers, clock);
+  levelUp(level, interval, step, soundCounter, metroids, metroidLasers, clock);
   EXPECT_EQ(step, 1);
 }
 
@@ -54,146 +54,146 @@ TEST(levelUp, resetsTheSoundCounter)
   int interval = 105;
   int step = 15;
   int soundCounter = 3;
-  std::vector<std::vector<IInvader *>> invaders;
-  std::vector<ILaser *> invaderLasers;
+  std::vector<std::vector<IMetroid *>> metroids;
+  std::vector<ILaser *> metroidLasers;
   NiceMock<MockClock> clock;
 
-  levelUp(level, interval, step, soundCounter, invaders, invaderLasers, clock);
+  levelUp(level, interval, step, soundCounter, metroids, metroidLasers, clock);
   EXPECT_EQ(soundCounter, 0);
 }
 
-TEST(levelUp, callsResurrectOnEachInvader)
+TEST(levelUp, callsResurrectOnEachMetroid)
 {
   int level = 5;
   int interval = 105;
   int step = 15;
   int soundCounter = 3;
-  NiceMock<MockInvader> invader;
-  MockInvader *pInvader = &invader;
-  std::vector<std::vector<IInvader *>> invaders(2);
+  NiceMock<MockMetroid> metroid;
+  MockMetroid *pMetroid = &metroid;
+  std::vector<std::vector<IMetroid *>> metroids(2);
   for (int i = 0; i < 2; i++)
   {
-    std::vector<IInvader *> invaderRow(4);
+    std::vector<IMetroid *> metroidRow(4);
     for (int j = 0; j < 4; j++)
     {
-      invaderRow[j] = pInvader;
+      metroidRow[j] = pMetroid;
     }
-    invaders[i] = invaderRow;
+    metroids[i] = metroidRow;
   }
-  std::vector<ILaser *> invaderLasers;
+  std::vector<ILaser *> metroidLasers;
   NiceMock<MockClock> clock;
 
-  EXPECT_CALL(invader, resurrect())
+  EXPECT_CALL(metroid, resurrect())
       .Times(8);
-  levelUp(level, interval, step, soundCounter, invaders, invaderLasers, clock);
+  levelUp(level, interval, step, soundCounter, metroids, metroidLasers, clock);
 }
 
-TEST(levelUp, changesDirectionOnInvadersIfTheyAreMovingLeft)
+TEST(levelUp, changesDirectionOnMetroidsIfTheyAreMovingLeft)
 {
   int level = 5;
   int interval = 105;
   int step = 15;
   int soundCounter = 3;
-  NiceMock<MockInvader> invader;
-  MockInvader *pInvader = &invader;
-  std::vector<std::vector<IInvader *>> invaders(2);
+  NiceMock<MockMetroid> metroid;
+  MockMetroid *pMetroid = &metroid;
+  std::vector<std::vector<IMetroid *>> metroids(2);
   for (int i = 0; i < 2; i++)
   {
-    std::vector<IInvader *> invaderRow(4);
+    std::vector<IMetroid *> metroidRow(4);
     for (int j = 0; j < 4; j++)
     {
-      invaderRow[j] = pInvader;
+      metroidRow[j] = pMetroid;
     }
-    invaders[i] = invaderRow;
+    metroids[i] = metroidRow;
   }
-  std::vector<ILaser *> invaderLasers;
+  std::vector<ILaser *> metroidLasers;
   NiceMock<MockClock> clock;
 
-  ON_CALL(invader, getDirection())
+  ON_CALL(metroid, getDirection())
       .WillByDefault(Return(-1));
 
-  EXPECT_CALL(invader, changeDirection())
+  EXPECT_CALL(metroid, changeDirection())
       .Times(8);
-  levelUp(level, interval, step, soundCounter, invaders, invaderLasers, clock);
+  levelUp(level, interval, step, soundCounter, metroids, metroidLasers, clock);
 }
 
-TEST(levelUp, doesNotChangeDirectionOnInvadersIfTheyAreMovingRight)
+TEST(levelUp, doesNotChangeDirectionOnMetroidsIfTheyAreMovingRight)
 {
   int level = 5;
   int interval = 105;
   int step = 15;
   int soundCounter = 3;
-  NiceMock<MockInvader> invader;
-  MockInvader *pInvader = &invader;
-  std::vector<std::vector<IInvader *>> invaders(2);
+  NiceMock<MockMetroid> metroid;
+  MockMetroid *pMetroid = &metroid;
+  std::vector<std::vector<IMetroid *>> metroids(2);
   for (int i = 0; i < 2; i++)
   {
-    std::vector<IInvader *> invaderRow(4);
+    std::vector<IMetroid *> metroidRow(4);
     for (int j = 0; j < 4; j++)
     {
-      invaderRow[j] = pInvader;
+      metroidRow[j] = pMetroid;
     }
-    invaders[i] = invaderRow;
+    metroids[i] = metroidRow;
   }
-  std::vector<ILaser *> invaderLasers;
+  std::vector<ILaser *> metroidLasers;
   NiceMock<MockClock> clock;
 
-  ON_CALL(invader, getDirection())
+  ON_CALL(metroid, getDirection())
       .WillByDefault(Return(1));
 
-  EXPECT_CALL(invader, changeDirection())
+  EXPECT_CALL(metroid, changeDirection())
       .Times(0);
-  levelUp(level, interval, step, soundCounter, invaders, invaderLasers, clock);
+  levelUp(level, interval, step, soundCounter, metroids, metroidLasers, clock);
 }
 
-TEST(levelUp, setsNextLevelPositionOnInvaders)
+TEST(levelUp, setsNextLevelPositionOnMetroids)
 {
   int level = 5;
   int interval = 105;
   int step = 15;
   int soundCounter = 3;
-  NiceMock<MockInvader> invader;
-  MockInvader *pInvader = &invader;
-  std::vector<std::vector<IInvader *>> invaders(2);
+  NiceMock<MockMetroid> metroid;
+  MockMetroid *pMetroid = &metroid;
+  std::vector<std::vector<IMetroid *>> metroids(2);
   for (int i = 0; i < 2; i++)
   {
-    std::vector<IInvader *> invaderRow(4);
+    std::vector<IMetroid *> metroidRow(4);
     for (int j = 0; j < 4; j++)
     {
-      invaderRow[j] = pInvader;
+      metroidRow[j] = pMetroid;
     }
-    invaders[i] = invaderRow;
+    metroids[i] = metroidRow;
   }
-  std::vector<ILaser *> invaderLasers;
+  std::vector<ILaser *> metroidLasers;
   NiceMock<MockClock> clock;
 
-  ON_CALL(invader, getOriginalPosition())
+  ON_CALL(metroid, getOriginalPosition())
       .WillByDefault(Return(sf::Vector2f(400, 960)));
 
-  EXPECT_CALL(invader, setPosition(sf::Vector2f(400, 1170)))
+  EXPECT_CALL(metroid, setPosition(sf::Vector2f(400, 1170)))
       .Times(8);
-  levelUp(level, interval, step, soundCounter, invaders, invaderLasers, clock);
+  levelUp(level, interval, step, soundCounter, metroids, metroidLasers, clock);
 }
 
-TEST(levelUp, resetsTheInvaderLasers)
+TEST(levelUp, resetsTheMetroidLasers)
 {
   int level = 5;
   int interval = 105;
   int step = 15;
   int soundCounter = 3;
-  std::vector<std::vector<IInvader *>> invaders;
+  std::vector<std::vector<IMetroid *>> metroids;
   MockLaser laser;
   MockLaser *pLaser = &laser;
-  std::vector<ILaser *> invaderLasers(3);
+  std::vector<ILaser *> metroidLasers(3);
   for (int i = 0; i < 3; i++)
   {
-    invaderLasers[i] = pLaser;
+    metroidLasers[i] = pLaser;
   }
   NiceMock<MockClock> clock;
 
   EXPECT_CALL(laser, reset())
       .Times(3);
-  levelUp(level, interval, step, soundCounter, invaders, invaderLasers, clock);
+  levelUp(level, interval, step, soundCounter, metroids, metroidLasers, clock);
 }
 
 TEST(levelUp, restartsTheClock)
@@ -202,11 +202,11 @@ TEST(levelUp, restartsTheClock)
   int interval = 105;
   int step = 15;
   int soundCounter = 3;
-  std::vector<std::vector<IInvader *>> invaders;
-  std::vector<ILaser *> invaderLasers;
+  std::vector<std::vector<IMetroid *>> metroids;
+  std::vector<ILaser *> metroidLasers;
   MockClock clock;
 
   EXPECT_CALL(clock, restart())
       .Times(1);
-  levelUp(level, interval, step, soundCounter, invaders, invaderLasers, clock);
+  levelUp(level, interval, step, soundCounter, metroids, metroidLasers, clock);
 }

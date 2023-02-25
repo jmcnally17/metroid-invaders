@@ -3,30 +3,30 @@
 #include "../../../include/wrappers/iText.hpp"
 #include "../../../include/models/iLaserCannon.hpp"
 #include "../../../include/models/iLaser.hpp"
-#include "../../../include/models/iInvader.hpp"
+#include "../../../include/models/iMetroid.hpp"
 
 void drawObjects(IRenderWindow &window,
                  const ILaserCannon &cannon,
                  const ILaser &laser,
-                 const std::vector<std::vector<IInvader *>> &invaders,
-                 const std::vector<ILaser *> &invaderLasers,
+                 const std::vector<std::vector<IMetroid *>> &metroids,
+                 const std::vector<ILaser *> &metroidLasers,
                  const IText &scoreText,
                  const IText &livesText)
 {
   window.clear();
   cannon.draw(window);
   laser.draw(window);
-  for (auto vec : invaders)
+  for (auto vec : metroids)
   {
-    for (auto IInvader : vec)
+    for (auto metroid : vec)
     {
-      if (IInvader->isAlive())
+      if (metroid->isAlive())
       {
-        IInvader->draw(window);
+        metroid->draw(window);
       }
     }
   }
-  for (auto laser : invaderLasers)
+  for (auto laser : metroidLasers)
   {
     laser->draw(window);
   }

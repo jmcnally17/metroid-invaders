@@ -149,7 +149,7 @@ TEST(CannonLaser, resetSetsPositionBackAboveTheBoard)
   EXPECT_EQ(cannonLaser.getPosition(), sf::Vector2f(120, -24));
 }
 
-TEST(CannonLaser, playInvaderDeathCallsPlayOnTheSoundClassMember)
+TEST(CannonLaser, playMetroidDeathCallsPlayOnTheSoundClassMember)
 {
   MockSprite *sprite = new NiceMock<MockSprite>();
   MockSound sound;
@@ -158,5 +158,5 @@ TEST(CannonLaser, playInvaderDeathCallsPlayOnTheSoundClassMember)
 
   EXPECT_CALL(sound, play())
       .Times(1);
-  cannonLaser.playInvaderDeath();
+  cannonLaser.playMetroidDeath();
 }
