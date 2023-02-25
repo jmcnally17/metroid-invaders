@@ -5,7 +5,6 @@ This solo project is an imitation of the classic 1978 Taito game, Space Invaders
 ## Features Pending
 
 - Random spawning of UFO Invader at the top of the window
-- Collisions between Metroid lasers and Laser Cannon laser
 - Bunkers protecting the Laser Cannon at the bottom
 - Title screen
 - **_(Under consideration)_** Submit the player score into a database with their name at game over and display the leaderboard either at game over or on a live website
