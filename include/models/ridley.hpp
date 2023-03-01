@@ -11,12 +11,14 @@ public:
   float getHeight() const override;
   sf::Vector2f getPosition() const override;
   int getPoints() const;
+  int getDirection() const;
   void setPosition(const sf::Vector2f &position) override;
   void draw(IRenderWindow &window) const override;
   void reset() override;
 
 private:
   int points_;
+  int direction_;
 };
 
 #endif

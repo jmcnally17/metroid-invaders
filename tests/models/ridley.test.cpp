@@ -46,6 +46,14 @@ TEST(Ridley, hasAPointsMemberOf150)
   EXPECT_EQ(ridley.getPoints(), 150);
 }
 
+TEST(Ridley, hasADirectionMemberInitiallySetTo1)
+{
+  MockSprite *sprite = new NiceMock<MockSprite>();
+  Ridley ridley(sprite);
+
+  EXPECT_EQ(ridley.getDirection(), 1);
+}
+
 TEST(Ridley, setPositionChangesPosition)
 {
   MockSprite *sprite = new NiceMock<MockSprite>();

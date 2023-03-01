@@ -22,6 +22,11 @@ int Ridley::getPoints() const
   return points_;
 }
 
+int Ridley::getDirection() const
+{
+  return direction_;
+}
+
 void Ridley::setPosition(const sf::Vector2f &position)
 {
   position_ = position;
