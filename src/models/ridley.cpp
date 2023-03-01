@@ -1,6 +1,6 @@
 #include "../../include/models/ridley.hpp"
 
-Ridley::Ridley(ISprite *sprite) : ObjectInterface(96, 42, -96, 200, sprite) {}
+Ridley::Ridley(ISprite *sprite) : ObjectInterface(96, 42, -96, 200, sprite), points_(150) {}
 
 float Ridley::getWidth() const
 {
@@ -15,6 +15,11 @@ float Ridley::getHeight() const
 sf::Vector2f Ridley::getPosition() const
 {
   return position_;
+}
+
+int Ridley::getPoints() const
+{
+  return points_;
 }
 
 void Ridley::setPosition(const sf::Vector2f &position)

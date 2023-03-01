@@ -38,6 +38,14 @@ TEST(Ridley, setsPositionOnSpriteClassMember)
   Ridley ridley(pSprite);
 }
 
+TEST(Ridley, hasAPointsMemberOf150)
+{
+  MockSprite *sprite = new NiceMock<MockSprite>();
+  Ridley ridley(sprite);
+
+  EXPECT_EQ(ridley.getPoints(), 150);
+}
+
 TEST(Ridley, setPositionChangesPosition)
 {
   MockSprite *sprite = new NiceMock<MockSprite>();
