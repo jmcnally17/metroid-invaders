@@ -5,7 +5,7 @@ TEST(spawnRidley, callsSpawnOnRidley)
 {
   MockRidley ridley;
 
-  EXPECT_CALL(ridley, spawn())
+  EXPECT_CALL(ridley, spawn)
       .Times(1);
   spawnRidley(ridley);
 }
