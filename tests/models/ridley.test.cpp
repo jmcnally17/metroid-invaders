@@ -210,3 +210,13 @@ TEST(Ridley, moveUpdatesSpritePositionWhenOnTheBoard)
       .Times(1);
   ridley.move();
 }
+
+TEST(Ridley, spawnAdds0Point25ToPositionWhenDirectionIs1AndRidleyIsLeftOffBoardAndRandomNumberIs0)
+{
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Ridley ridley(pSprite);
+
+  ridley.spawn(0);
+  EXPECT_EQ(ridley.getPosition(), sf::Vector2f(-95.75, 200));
+}

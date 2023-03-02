@@ -17,6 +17,7 @@ public:
   void changeDirection();
   void reset() override;
   void move();
+  void spawn(int randomNumber = rand() % 1000);
 
 private:
   int points_;

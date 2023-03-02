@@ -58,3 +58,8 @@ void Ridley::move()
     sprite_->setPosition(position_);
   }
 }
+
+void Ridley::spawn(int randomNumber)
+{
+  position_.x += 0.25;
+}
