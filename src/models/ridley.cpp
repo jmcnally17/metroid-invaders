@@ -35,7 +35,7 @@ void Ridley::setPosition(const sf::Vector2f &position)
 
 void Ridley::draw(IRenderWindow &window) const
 {
-  if (position_.x > -96)
+  if (position_.x > -96 && position_.x < 1344)
   {
     ISprite &rSprite = *sprite_;
     window.draw(rSprite);

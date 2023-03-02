@@ -106,6 +106,20 @@ TEST(Ridley, drawDoesNotCallDrawOnTheSpriteClassMemberWhenLeftOfTheBoard)
   ridley.draw(window);
 }
 
+TEST(Ridley, drawDoesNotCallDrawOnTheSpriteClassMemberWhenRightOfTheBoard)
+{
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Ridley ridley(pSprite);
+  MockRenderWindow window;
+
+  ridley.setPosition(sf::Vector2f(1344, 200));
+
+  EXPECT_CALL(window, draw)
+      .Times(0);
+  ridley.draw(window);
+}
+
 TEST(Ridley, changeDirectionSwitchesDirectionTo1)
 {
   NiceMock<MockSprite> sprite;
