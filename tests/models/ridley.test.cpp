@@ -220,3 +220,15 @@ TEST(Ridley, spawnChangesDirectionTo1)
   ridley.spawn(0);
   EXPECT_EQ(ridley.getDirection(), 1);
 }
+
+TEST(Ridley, spawnChangesDirectionToMinus1)
+{
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Ridley ridley(pSprite);
+
+  ridley.changeDirection(); // Set direction to 1
+
+  ridley.spawn(0);
+  EXPECT_EQ(ridley.getDirection(), -1);
+}

@@ -61,5 +61,5 @@ void Ridley::move()
 
 void Ridley::spawn(int randomNumber)
 {
-  direction_ = 1;
+  changeDirection();
 }
