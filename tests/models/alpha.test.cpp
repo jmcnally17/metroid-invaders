@@ -264,7 +264,8 @@ TEST(Alpha, moveUpdatesPositionOnSpriteMember)
   MockSprite *pSprite = &sprite;
   Alpha alpha(200, 320, pSprite);
 
-  EXPECT_CALL(sprite, setPosition(sf::Vector2f(214.1, 320)));
+  EXPECT_CALL(sprite, setPosition(sf::Vector2f(214.1, 320)))
+      .Times(1);
   alpha.move();
 }
 

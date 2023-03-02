@@ -1,6 +1,6 @@
 #include "../../include/models/ridley.hpp"
 
-Ridley::Ridley(ISprite *sprite) : ObjectInterface(96, 42, -96, 200, sprite), points_(150) {}
+Ridley::Ridley(ISprite *sprite) : ObjectInterface(96, 42, -96, 200, sprite), points_(150), direction_(1) {}
 
 float Ridley::getWidth() const
 {
@@ -55,5 +55,6 @@ void Ridley::move()
   if (position_.x > -96 && position_.x < 1344)
   {
     position_.x += 0.25 * direction_;
+    sprite_->setPosition(position_);
   }
 }
