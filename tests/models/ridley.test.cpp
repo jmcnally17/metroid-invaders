@@ -232,3 +232,13 @@ TEST(Ridley, spawnChangesDirectionToMinus1)
   ridley.spawn(0);
   EXPECT_EQ(ridley.getDirection(), -1);
 }
+
+TEST(Ridley, spawnAdds0Point25ToXPositionWhenRidleyIsLeftOfBoard)
+{
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Ridley ridley(pSprite);
+
+  ridley.spawn(0);
+  EXPECT_EQ(ridley.getPosition(), sf::Vector2f(-95.75, 200));
+}
