@@ -3,6 +3,7 @@
 #include "../../mockModels/mockLaserCannon.hpp"
 #include "../../mockModels/mockLaser.hpp"
 #include "../../mockModels/mockMetroid.hpp"
+#include "../../mockModels/mockRidley.hpp"
 #include "../../mockModels/mockText.hpp"
 
 using ::testing::NiceMock;
@@ -15,12 +16,13 @@ TEST(drawObjects, callsClearOnTheWindow)
   NiceMock<MockLaser> laser;
   std::vector<std::vector<IMetroid *>> metroids;
   std::vector<ILaser *> metroidLasers;
+  NiceMock<MockRidley> ridley;
   MockText scoreText;
   MockText livesText;
 
   EXPECT_CALL(window, clear())
       .Times(1);
-  drawObjects(window, cannon, laser, metroids, metroidLasers, scoreText, livesText);
+  drawObjects(window, cannon, laser, metroids, metroidLasers, ridley, scoreText, livesText);
 }
 
 TEST(drawObjects, callsDrawOnTheLaserCannon)
@@ -30,12 +32,13 @@ TEST(drawObjects, callsDrawOnTheLaserCannon)
   NiceMock<MockLaser> laser;
   std::vector<std::vector<IMetroid *>> metroids;
   std::vector<ILaser *> metroidLasers;
+  NiceMock<MockRidley> ridley;
   MockText scoreText;
   MockText livesText;
 
   EXPECT_CALL(cannon, draw)
       .Times(1);
-  drawObjects(window, cannon, laser, metroids, metroidLasers, scoreText, livesText);
+  drawObjects(window, cannon, laser, metroids, metroidLasers, ridley, scoreText, livesText);
 }
 
 TEST(drawObjects, callsDrawOnTheLaser)
@@ -45,12 +48,13 @@ TEST(drawObjects, callsDrawOnTheLaser)
   MockLaser laser;
   std::vector<std::vector<IMetroid *>> metroids;
   std::vector<ILaser *> metroidLasers;
+  NiceMock<MockRidley> ridley;
   MockText scoreText;
   MockText livesText;
 
   EXPECT_CALL(laser, draw)
       .Times(1);
-  drawObjects(window, cannon, laser, metroids, metroidLasers, scoreText, livesText);
+  drawObjects(window, cannon, laser, metroids, metroidLasers, ridley, scoreText, livesText);
 }
 
 TEST(drawObjects, callsDrawOnAllTheMetroidsIfTheyAreAlive)
@@ -71,6 +75,7 @@ TEST(drawObjects, callsDrawOnAllTheMetroidsIfTheyAreAlive)
     metroids[i] = metroidRow;
   }
   std::vector<ILaser *> metroidLasers;
+  NiceMock<MockRidley> ridley;
   MockText scoreText;
   MockText livesText;
 
@@ -79,7 +84,7 @@ TEST(drawObjects, callsDrawOnAllTheMetroidsIfTheyAreAlive)
 
   EXPECT_CALL(metroid, draw)
       .Times(55);
-  drawObjects(window, cannon, laser, metroids, metroidLasers, scoreText, livesText);
+  drawObjects(window, cannon, laser, metroids, metroidLasers, ridley, scoreText, livesText);
 }
 
 TEST(drawObjects, doesNotCallDrawOnAllTheMetroidsIfTheyAreDead)
@@ -100,6 +105,7 @@ TEST(drawObjects, doesNotCallDrawOnAllTheMetroidsIfTheyAreDead)
     metroids[i] = metroidRow;
   }
   std::vector<ILaser *> metroidLasers;
+  NiceMock<MockRidley> ridley;
   MockText scoreText;
   MockText livesText;
 
@@ -108,7 +114,7 @@ TEST(drawObjects, doesNotCallDrawOnAllTheMetroidsIfTheyAreDead)
 
   EXPECT_CALL(metroid, draw)
       .Times(0);
-  drawObjects(window, cannon, laser, metroids, metroidLasers, scoreText, livesText);
+  drawObjects(window, cannon, laser, metroids, metroidLasers, ridley, scoreText, livesText);
 }
 
 TEST(drawObjects, drawsTheMetroidLasers)
@@ -124,12 +130,29 @@ TEST(drawObjects, drawsTheMetroidLasers)
   {
     metroidLasers[i] = pMetroidLaser;
   }
+  NiceMock<MockRidley> ridley;
   MockText scoreText;
   MockText livesText;
 
   EXPECT_CALL(metroidLaser, draw)
       .Times(3);
-  drawObjects(window, cannon, laser, metroids, metroidLasers, scoreText, livesText);
+  drawObjects(window, cannon, laser, metroids, metroidLasers, ridley, scoreText, livesText);
+}
+
+TEST(drawObjects, drawsRidley)
+{
+  NiceMock<MockRenderWindow> window;
+  NiceMock<MockLaserCannon> cannon;
+  NiceMock<MockLaser> laser;
+  std::vector<std::vector<IMetroid *>> metroids;
+  std::vector<ILaser *> metroidLasers;
+  MockRidley ridley;
+  MockText scoreText;
+  MockText livesText;
+
+  EXPECT_CALL(ridley, draw)
+      .Times(1);
+  drawObjects(window, cannon, laser, metroids, metroidLasers, ridley, scoreText, livesText);
 }
 
 TEST(drawObjects, drawsTheScoreAndLivesText)
@@ -139,13 +162,14 @@ TEST(drawObjects, drawsTheScoreAndLivesText)
   NiceMock<MockLaser> laser;
   std::vector<std::vector<IMetroid *>> metroids;
   std::vector<ILaser *> metroidLasers;
+  NiceMock<MockRidley> ridley;
   MockText scoreText;
   MockText livesText;
 
   EXPECT_CALL(window, draw(testing::Truly([](const sf::Drawable &drawable)
                                           { return true; })))
       .Times(2);
-  drawObjects(window, cannon, laser, metroids, metroidLasers, scoreText, livesText);
+  drawObjects(window, cannon, laser, metroids, metroidLasers, ridley, scoreText, livesText);
 }
 
 TEST(drawObjects, callsDisplayOnTheWindow)
@@ -155,10 +179,11 @@ TEST(drawObjects, callsDisplayOnTheWindow)
   NiceMock<MockLaser> laser;
   std::vector<std::vector<IMetroid *>> metroids;
   std::vector<ILaser *> metroidLasers;
+  NiceMock<MockRidley> ridley;
   MockText scoreText;
   MockText livesText;
 
   EXPECT_CALL(window, display())
       .Times(1);
-  drawObjects(window, cannon, laser, metroids, metroidLasers, scoreText, livesText);
+  drawObjects(window, cannon, laser, metroids, metroidLasers, ridley, scoreText, livesText);
 }

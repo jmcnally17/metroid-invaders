@@ -1,9 +1,9 @@
 #ifndef RIDLEY_HPP
 #define RIDLEY_HPP
 
-#include "./objectInterface.hpp"
+#include "./iRidley.hpp"
 
-class Ridley : ObjectInterface
+class Ridley : public IRidley
 {
 public:
   Ridley(ISprite *sprite);

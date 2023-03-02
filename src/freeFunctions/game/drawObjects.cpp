@@ -4,12 +4,14 @@
 #include "../../../include/models/iLaserCannon.hpp"
 #include "../../../include/models/iLaser.hpp"
 #include "../../../include/models/iMetroid.hpp"
+#include "../../../include/models/iRidley.hpp"
 
 void drawObjects(IRenderWindow &window,
                  const ILaserCannon &cannon,
                  const ILaser &laser,
                  const std::vector<std::vector<IMetroid *>> &metroids,
                  const std::vector<ILaser *> &metroidLasers,
+                 const IRidley &ridley,
                  const IText &scoreText,
                  const IText &livesText)
 {
@@ -30,6 +32,7 @@ void drawObjects(IRenderWindow &window,
   {
     laser->draw(window);
   }
+  ridley.draw(window);
   window.draw(scoreText);
   window.draw(livesText);
   window.display();

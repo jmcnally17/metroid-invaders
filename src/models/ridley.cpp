@@ -1,6 +1,6 @@
 #include "../../include/models/ridley.hpp"
 
-Ridley::Ridley(ISprite *sprite) : ObjectInterface(96, 42, -96, 200, sprite), points_(150), direction_(-1) {}
+Ridley::Ridley(ISprite *sprite) : IRidley(96, 42, -96, 200, sprite), points_(150), direction_(-1) {}
 
 float Ridley::getWidth() const
 {

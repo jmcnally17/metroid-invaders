@@ -9,6 +9,7 @@
 #include "./models/iLaserCannon.hpp"
 #include "./models/iLaser.hpp"
 #include "./models/iMetroid.hpp"
+#include "./models/iRidley.hpp"
 #include "./interfaces/collisionInterface.hpp"
 
 void drawObjects(IRenderWindow &window,
@@ -16,6 +17,7 @@ void drawObjects(IRenderWindow &window,
                  const ILaser &laser,
                  const std::vector<std::vector<IMetroid *>> &metroids,
                  const std::vector<ILaser *> &metroidLasers,
+                 const IRidley &ridley,
                  const IText &scoreText,
                  const IText &livesText);
 
