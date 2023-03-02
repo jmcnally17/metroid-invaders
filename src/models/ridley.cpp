@@ -39,6 +39,11 @@ void Ridley::draw(IRenderWindow &window) const
   window.draw(rSprite);
 }
 
+void Ridley::changeDirection()
+{
+  direction_ = -1;
+}
+
 void Ridley::reset()
 {
   setPosition(sf::Vector2f(-96, 200));

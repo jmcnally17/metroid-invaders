@@ -85,6 +85,15 @@ TEST(Ridley, drawCallsDrawOnTheSpriteClassMember)
   ridley.draw(window);
 }
 
+TEST(Ridley, changeDirectionSwitchesDirectionToMinus1)
+{
+  MockSprite *sprite = new NiceMock<MockSprite>();
+  Ridley ridley(sprite);
+
+  ridley.changeDirection();
+  EXPECT_EQ(ridley.getDirection(), -1);
+}
+
 TEST(Ridley, resetSetsPositionBackToOriginalPosition)
 {
   MockSprite *sprite = new NiceMock<MockSprite>();

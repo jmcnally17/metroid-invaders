@@ -14,6 +14,7 @@ public:
   int getDirection() const;
   void setPosition(const sf::Vector2f &position) override;
   void draw(IRenderWindow &window) const override;
+  void changeDirection();
   void reset() override;
 
 private:
