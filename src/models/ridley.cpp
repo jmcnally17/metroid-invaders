@@ -1,6 +1,6 @@
 #include "../../include/models/ridley.hpp"
 
-Ridley::Ridley(ISprite *sprite) : ObjectInterface(96, 42, -96, 200, sprite), points_(150), direction_(1) {}
+Ridley::Ridley(ISprite *sprite) : ObjectInterface(96, 42, -96, 200, sprite), points_(150), direction_(-1) {}
 
 float Ridley::getWidth() const
 {
@@ -47,7 +47,7 @@ void Ridley::changeDirection()
 void Ridley::reset()
 {
   setPosition(sf::Vector2f(-96, 200));
-  direction_ = 1;
+  direction_ = -1;
 }
 
 void Ridley::move()
@@ -61,5 +61,5 @@ void Ridley::move()
 
 void Ridley::spawn(int randomNumber)
 {
-  position_.x += 0.25;
+  direction_ = 1;
 }

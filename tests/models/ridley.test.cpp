@@ -50,13 +50,13 @@ TEST(Ridley, hasAPointsMemberOf150)
   EXPECT_EQ(ridley.getPoints(), 150);
 }
 
-TEST(Ridley, hasADirectionMemberInitiallySetTo1)
+TEST(Ridley, hasADirectionMemberInitiallySetToMinus1)
 {
   NiceMock<MockSprite> sprite;
   MockSprite *pSprite = &sprite;
   Ridley ridley(pSprite);
 
-  EXPECT_EQ(ridley.getDirection(), 1);
+  EXPECT_EQ(ridley.getDirection(), -1);
 }
 
 TEST(Ridley, setPositionChangesPosition)
@@ -92,26 +92,26 @@ TEST(Ridley, drawCallsDrawOnTheSpriteClassMember)
   ridley.draw(window);
 }
 
-TEST(Ridley, changeDirectionSwitchesDirectionToMinus1)
+TEST(Ridley, changeDirectionSwitchesDirectionTo1)
 {
   NiceMock<MockSprite> sprite;
   MockSprite *pSprite = &sprite;
   Ridley ridley(pSprite);
-
-  ridley.changeDirection();
-  EXPECT_EQ(ridley.getDirection(), -1);
-}
-
-TEST(Ridley, changeDirectionSwitchesDirectionBackTo1)
-{
-  NiceMock<MockSprite> sprite;
-  MockSprite *pSprite = &sprite;
-  Ridley ridley(pSprite);
-
-  ridley.changeDirection(); // Set direction to -1
 
   ridley.changeDirection();
   EXPECT_EQ(ridley.getDirection(), 1);
+}
+
+TEST(Ridley, changeDirectionSwitchesDirectionBackToMinus1)
+{
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Ridley ridley(pSprite);
+
+  ridley.changeDirection(); // Set direction to 1
+
+  ridley.changeDirection();
+  EXPECT_EQ(ridley.getDirection(), -1);
 }
 
 TEST(Ridley, resetSetsPositionBackToOriginalPosition)
@@ -139,16 +139,16 @@ TEST(Ridley, resetSetsSpritePositionBackToOriginalPosition)
   ridley.reset();
 }
 
-TEST(Ridley, resetSetsDirectionBackTo1)
+TEST(Ridley, resetSetsDirectionBackToMinus1)
 {
   NiceMock<MockSprite> sprite;
   MockSprite *pSprite = &sprite;
   Ridley ridley(pSprite);
 
-  ridley.changeDirection(); // Set direction to -1
+  ridley.changeDirection(); // Set direction to 1
 
   ridley.reset();
-  EXPECT_EQ(ridley.getDirection(), 1);
+  EXPECT_EQ(ridley.getDirection(), -1);
 }
 
 TEST(Ridley, moveAdds0Point25ToXPositionWhenDirectionIs1AndIsOnTheBoard)
@@ -158,6 +158,7 @@ TEST(Ridley, moveAdds0Point25ToXPositionWhenDirectionIs1AndIsOnTheBoard)
   Ridley ridley(pSprite);
 
   ridley.setPosition(sf::Vector2f(500, 200)); // Put Ridley on the board
+  ridley.changeDirection();                   // Set direction to 1
 
   ridley.move();
   EXPECT_EQ(ridley.getPosition(), sf::Vector2f(500.25, 200));
@@ -170,7 +171,6 @@ TEST(Ridley, moveTakesAway0Point25ToXPositionWhenDirectionIsMinus1AndIsOnTheBoar
   Ridley ridley(pSprite);
 
   ridley.setPosition(sf::Vector2f(500, 200)); // Put Ridley on the board
-  ridley.changeDirection();                   // Set direction to -1
 
   ridley.move();
   EXPECT_EQ(ridley.getPosition(), sf::Vector2f(499.75, 200));
@@ -206,17 +206,17 @@ TEST(Ridley, moveUpdatesSpritePositionWhenOnTheBoard)
 
   ridley.setPosition(sf::Vector2f(500, 200)); // Put Ridley on the board
 
-  EXPECT_CALL(sprite, setPosition(sf::Vector2f(500.25, 200)))
+  EXPECT_CALL(sprite, setPosition(sf::Vector2f(499.75, 200)))
       .Times(1);
   ridley.move();
 }
 
-TEST(Ridley, spawnAdds0Point25ToPositionWhenDirectionIs1AndRidleyIsLeftOffBoardAndRandomNumberIs0)
+TEST(Ridley, spawnChangesDirectionTo1)
 {
   NiceMock<MockSprite> sprite;
   MockSprite *pSprite = &sprite;
   Ridley ridley(pSprite);
 
   ridley.spawn(0);
-  EXPECT_EQ(ridley.getPosition(), sf::Vector2f(-95.75, 200));
+  EXPECT_EQ(ridley.getDirection(), 1);
 }
