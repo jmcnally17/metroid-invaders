@@ -8,64 +8,72 @@ using ::testing::Return;
 
 TEST(Gamma, hasAWidthClassMemberOf72)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
-  Gamma gamma(200, 320, sprite);
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Gamma gamma(200, 320, pSprite);
 
   EXPECT_EQ(gamma.getWidth(), 72);
 }
 
 TEST(Gamma, hasAHeightClassMemberOf48)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
-  Gamma gamma(200, 320, sprite);
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Gamma gamma(200, 320, pSprite);
 
   EXPECT_EQ(gamma.getHeight(), 48);
 }
 
 TEST(Gamma, hasAPointsClassMemberOf10)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
-  Gamma gamma(200, 320, sprite);
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Gamma gamma(200, 320, pSprite);
 
   EXPECT_EQ(gamma.getPoints(), 10);
 }
 
 TEST(Gamma, hasAnOriginalPositionMember)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
-  Gamma gamma(200, 320, sprite);
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Gamma gamma(200, 320, pSprite);
 
   EXPECT_EQ(gamma.getOriginalPosition(), sf::Vector2f(200, 320));
 }
 
 TEST(Gamma, setsOwnPositionMember)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
-  Gamma gamma(200, 320, sprite);
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Gamma gamma(200, 320, pSprite);
 
   EXPECT_EQ(gamma.getPosition(), sf::Vector2f(200, 320));
 }
 
 TEST(Gamma, hasABoolClassMemberCalledAliveSetToTrue)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
-  Gamma gamma(200, 320, sprite);
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Gamma gamma(200, 320, pSprite);
 
   EXPECT_TRUE(gamma.isAlive());
 }
 
 TEST(Gamma, hasADirectionClassMemberInitiallySetTo1)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
-  Gamma gamma(200, 320, sprite);
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Gamma gamma(200, 320, pSprite);
 
   EXPECT_EQ(gamma.getDirection(), 1);
 }
 
 TEST(Gamma, hasAJustMovedDownMemberSetToFalse)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
-  Gamma gamma(200, 320, sprite);
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Gamma gamma(200, 320, pSprite);
 
   EXPECT_FALSE(gamma.hasJustMovedDown());
 }
@@ -82,8 +90,9 @@ TEST(Gamma, setsPositionOnSpriteClassMember)
 
 TEST(Gamma, setPositionChangesPosition)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
-  Gamma gamma(200, 320, sprite);
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Gamma gamma(200, 320, pSprite);
 
   gamma.setPosition(sf::Vector2f(500, 920));
   EXPECT_EQ(gamma.getPosition(), sf::Vector2f(500, 920));
@@ -101,8 +110,9 @@ TEST(Gamma, setPositionUpdatesSpritePosition)
 
 TEST(Gamma, drawCallsDrawOnTheSpriteClassMember)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
-  Gamma gamma(200, 320, sprite);
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Gamma gamma(200, 320, pSprite);
   MockRenderWindow window;
 
   EXPECT_CALL(window, draw(testing::Truly([](const sf::Drawable &drawable)
@@ -113,8 +123,9 @@ TEST(Gamma, drawCallsDrawOnTheSpriteClassMember)
 
 TEST(Gamma, dieChangesAliveClassMemberToFalse)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
-  Gamma gamma(200, 320, sprite);
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Gamma gamma(200, 320, pSprite);
 
   gamma.die();
   EXPECT_FALSE(gamma.isAlive());
@@ -122,8 +133,9 @@ TEST(Gamma, dieChangesAliveClassMemberToFalse)
 
 TEST(Gamma, changeDirectionMultipliesDirectionByMinus1)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
-  Gamma gamma(200, 320, sprite);
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Gamma gamma(200, 320, pSprite);
 
   gamma.changeDirection();
   EXPECT_EQ(gamma.getDirection(), -1);
@@ -131,8 +143,9 @@ TEST(Gamma, changeDirectionMultipliesDirectionByMinus1)
 
 TEST(Gamma, moveAdds14Point1ToXPositionWhenDirectionIs1AndGammaIsNotAtSideBoundary)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
-  Gamma gamma(200, 320, sprite);
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Gamma gamma(200, 320, pSprite);
 
   gamma.move();
   EXPECT_EQ(gamma.getPosition(), sf::Vector2f(214.1, 320));
@@ -140,8 +153,9 @@ TEST(Gamma, moveAdds14Point1ToXPositionWhenDirectionIs1AndGammaIsNotAtSideBounda
 
 TEST(Gamma, moveTakesAway14Point1FromXPositionWhenDirectionIsMinus1AndGammaIsNotAtSideBoundary)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
-  Gamma gamma(200, 320, sprite);
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Gamma gamma(200, 320, pSprite);
 
   gamma.changeDirection();
   gamma.move();
@@ -150,8 +164,9 @@ TEST(Gamma, moveTakesAway14Point1FromXPositionWhenDirectionIsMinus1AndGammaIsNot
 
 TEST(Gamma, moveAdds14Point1ToXPositionWhenGammaIsAtLeftBoundaryAndJustMovedDownIsTrue)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
-  Gamma gamma(300, 320, sprite);
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Gamma gamma(300, 320, pSprite);
 
   gamma.setPosition(sf::Vector2f(18, 320)); // put gamma at left boundary
   gamma.changeDirection();                  // gamma would be moving left so need to mimic that direction
@@ -163,8 +178,9 @@ TEST(Gamma, moveAdds14Point1ToXPositionWhenGammaIsAtLeftBoundaryAndJustMovedDown
 
 TEST(Gamma, moveTakesAway14Point1FromXPositionWhenGammaIsAtRightBoundaryAndJustMovedDownIsTrue)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
-  Gamma gamma(200, 320, sprite);
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Gamma gamma(200, 320, pSprite);
 
   gamma.setPosition(sf::Vector2f(482, 320)); // put gamma at right boundary
   gamma.move();                              // call to move gamma down which sets justMovedDownToTrue
@@ -175,8 +191,9 @@ TEST(Gamma, moveTakesAway14Point1FromXPositionWhenGammaIsAtRightBoundaryAndJustM
 
 TEST(Gamma, moveSetsJustMovedDownToFalseWhenGammaIsAtLeftBoundaryAndJustMovedDownIsTrue)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
-  Gamma gamma(300, 320, sprite);
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Gamma gamma(300, 320, pSprite);
 
   gamma.setPosition(sf::Vector2f(18, 320)); // put gamma at left boundary
   gamma.move();                             // call to move gamma down which sets justMovedDownToTrue
@@ -187,8 +204,9 @@ TEST(Gamma, moveSetsJustMovedDownToFalseWhenGammaIsAtLeftBoundaryAndJustMovedDow
 
 TEST(Gamma, moveSetsJustMovedDownToFalseWhenGammaIsAtRightBoundaryAndJustMovedDownIsTrue)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
-  Gamma gamma(200, 320, sprite);
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Gamma gamma(200, 320, pSprite);
 
   gamma.setPosition(sf::Vector2f(482, 320)); // put gamma at right boundary
   gamma.move();                              // call to move gamma down which sets justMovedDownToTrue
@@ -199,8 +217,9 @@ TEST(Gamma, moveSetsJustMovedDownToFalseWhenGammaIsAtRightBoundaryAndJustMovedDo
 
 TEST(Gamma, moveAdds42ToYPositionWhenGammaIsAtRightSideBoundaryAndHasNotJustMovedDown)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
-  Gamma gamma(200, 320, sprite);
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Gamma gamma(200, 320, pSprite);
 
   gamma.setPosition(sf::Vector2f(482, 320));
   gamma.move();
@@ -209,8 +228,9 @@ TEST(Gamma, moveAdds42ToYPositionWhenGammaIsAtRightSideBoundaryAndHasNotJustMove
 
 TEST(Gamma, moveChangesDirectionWhenGammaIsAtRightSideBoundaryAndHasNotJustMovedDown)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
-  Gamma gamma(200, 320, sprite);
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Gamma gamma(200, 320, pSprite);
 
   gamma.setPosition(sf::Vector2f(482, 320));
   gamma.move();
@@ -219,8 +239,9 @@ TEST(Gamma, moveChangesDirectionWhenGammaIsAtRightSideBoundaryAndHasNotJustMoved
 
 TEST(Gamma, moveSetsJustMovedDownToTrueWhenGammaIsAtRightSideBoundaryAndHasNotJustMovedDown)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
-  Gamma gamma(200, 320, sprite);
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Gamma gamma(200, 320, pSprite);
 
   gamma.setPosition(sf::Vector2f(482, 320));
   gamma.move();
@@ -229,8 +250,9 @@ TEST(Gamma, moveSetsJustMovedDownToTrueWhenGammaIsAtRightSideBoundaryAndHasNotJu
 
 TEST(Gamma, moveAdds42ToYPositionWhenGammaIsAtLeftSideBoundaryAndHasNotJustMovedDown)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
-  Gamma gamma(300, 320, sprite);
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Gamma gamma(300, 320, pSprite);
 
   gamma.setPosition(sf::Vector2f(18, 320));
   gamma.move();
@@ -239,8 +261,9 @@ TEST(Gamma, moveAdds42ToYPositionWhenGammaIsAtLeftSideBoundaryAndHasNotJustMoved
 
 TEST(Gamma, moveChangesDirectionWhenGammaIsAtLeftSideBoundaryAndHasNotJustMovedDown)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
-  Gamma gamma(300, 320, sprite);
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Gamma gamma(300, 320, pSprite);
 
   gamma.changeDirection();
   gamma.setPosition(sf::Vector2f(18, 320));
@@ -250,8 +273,9 @@ TEST(Gamma, moveChangesDirectionWhenGammaIsAtLeftSideBoundaryAndHasNotJustMovedD
 
 TEST(Gamma, moveSetsJustMovedDownToTrueWhenGammaIsAtLeftSideBoundaryAndHasNotJustMovedDown)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
-  Gamma gamma(300, 320, sprite);
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Gamma gamma(300, 320, pSprite);
 
   gamma.setPosition(sf::Vector2f(18, 320));
   gamma.move();
@@ -270,8 +294,9 @@ TEST(Gamma, moveUpdatesPositionOnSpriteMember)
 
 TEST(Gamma, resurrectSetsAliveBackToTrue)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
-  Gamma gamma(200, 320, sprite);
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Gamma gamma(200, 320, pSprite);
 
   gamma.die();
 
@@ -281,8 +306,9 @@ TEST(Gamma, resurrectSetsAliveBackToTrue)
 
 TEST(Gamma, resetSetsPositionBackToOriginalPosition)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
-  Gamma gamma(200, 320, sprite);
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Gamma gamma(200, 320, pSprite);
 
   gamma.setPosition(sf::Vector2f(900, 1100));
 
@@ -305,8 +331,9 @@ TEST(Gamma, resetSetsSpritePositionBackToOriginalPosition)
 
 TEST(Gamma, resetSetsAliveBackToTrue)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
-  Gamma gamma(200, 320, sprite);
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Gamma gamma(200, 320, pSprite);
 
   gamma.die();
 
@@ -316,8 +343,9 @@ TEST(Gamma, resetSetsAliveBackToTrue)
 
 TEST(Gamma, shootSetsPositionOfFirstLaserIfBelowBoardAndGammaIsAlive)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
-  Gamma gamma(200, 320, sprite);
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Gamma gamma(200, 320, pSprite);
   std::vector<ILaser *> metroidLasers(3);
   NiceMock<MockLaser> laser1;
   MockLaser *pLaser1 = &laser1;
@@ -339,8 +367,9 @@ TEST(Gamma, shootSetsPositionOfFirstLaserIfBelowBoardAndGammaIsAlive)
 
 TEST(Gamma, shootSetsPositionOfSecondLaserIfBelowBoardAndFirstLaserIsOnBoardAndGammaIsAlive)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
-  Gamma gamma(200, 320, sprite);
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Gamma gamma(200, 320, pSprite);
   std::vector<ILaser *> metroidLasers(3);
   NiceMock<MockLaser> laser1;
   MockLaser *pLaser1 = &laser1;
@@ -364,8 +393,9 @@ TEST(Gamma, shootSetsPositionOfSecondLaserIfBelowBoardAndFirstLaserIsOnBoardAndG
 
 TEST(Gamma, shootSetsPositionOfThirdLaserIfBelowBoardAndFirstAndSecondLasersAreOnBoardAndGammaIsAlive)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
-  Gamma gamma(200, 320, sprite);
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Gamma gamma(200, 320, pSprite);
   std::vector<ILaser *> metroidLasers(3);
   NiceMock<MockLaser> laser1;
   MockLaser *pLaser1 = &laser1;
@@ -391,8 +421,9 @@ TEST(Gamma, shootSetsPositionOfThirdLaserIfBelowBoardAndFirstAndSecondLasersAreO
 
 TEST(Gamma, shootDoesNotSetPositionOfAnyLaserIfTheyAreAllOnBoardAndGammaIsAlive)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
-  Gamma gamma(200, 320, sprite);
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Gamma gamma(200, 320, pSprite);
   std::vector<ILaser *> metroidLasers(3);
   NiceMock<MockLaser> laser1;
   MockLaser *pLaser1 = &laser1;
@@ -422,8 +453,9 @@ TEST(Gamma, shootDoesNotSetPositionOfAnyLaserIfTheyAreAllOnBoardAndGammaIsAlive)
 
 TEST(Gamma, shootDoesNotSetPositionOfAnyLaserIfRandomNumberIsNot0)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
-  Gamma gamma(200, 320, sprite);
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Gamma gamma(200, 320, pSprite);
   std::vector<ILaser *> metroidLasers(3);
   MockLaser laser1;
   MockLaser *pLaser1 = &laser1;

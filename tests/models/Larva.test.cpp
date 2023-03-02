@@ -8,64 +8,72 @@ using ::testing::Return;
 
 TEST(Larva, hasAWidthClassMemberOf48)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
-  Larva larva(200, 320, sprite);
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Larva larva(200, 320, pSprite);
 
   EXPECT_EQ(larva.getWidth(), 48);
 }
 
 TEST(Larva, hasAHeightClassMemberOf48)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
-  Larva larva(200, 320, sprite);
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Larva larva(200, 320, pSprite);
 
   EXPECT_EQ(larva.getHeight(), 48);
 }
 
 TEST(Larva, hasAPointsClassMemberOf30)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
-  Larva larva(200, 320, sprite);
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Larva larva(200, 320, pSprite);
 
   EXPECT_EQ(larva.getPoints(), 30);
 }
 
 TEST(Larva, hasAnOriginalPositionMember)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
-  Larva larva(200, 320, sprite);
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Larva larva(200, 320, pSprite);
 
   EXPECT_EQ(larva.getOriginalPosition(), sf::Vector2f(200, 320));
 }
 
 TEST(Larva, setsOwnPositionMember)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
-  Larva larva(200, 320, sprite);
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Larva larva(200, 320, pSprite);
 
   EXPECT_EQ(larva.getPosition(), sf::Vector2f(200, 320));
 }
 
 TEST(Larva, hasABoolClassMemberCalledAliveSetToTrue)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
-  Larva larva(200, 320, sprite);
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Larva larva(200, 320, pSprite);
 
   EXPECT_TRUE(larva.isAlive());
 }
 
 TEST(Larva, hasADirectionClassMemberInitiallySetTo1)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
-  Larva larva(200, 320, sprite);
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Larva larva(200, 320, pSprite);
 
   EXPECT_EQ(larva.getDirection(), 1);
 }
 
 TEST(Larva, hasAJustMovedDownMemberSetToFalse)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
-  Larva larva(200, 320, sprite);
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Larva larva(200, 320, pSprite);
 
   EXPECT_FALSE(larva.hasJustMovedDown());
 }
@@ -82,8 +90,9 @@ TEST(Larva, setsPositionOnSpriteClassMember)
 
 TEST(Larva, setPositionChangesPosition)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
-  Larva larva(200, 320, sprite);
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Larva larva(200, 320, pSprite);
 
   larva.setPosition(sf::Vector2f(500, 920));
   EXPECT_EQ(larva.getPosition(), sf::Vector2f(500, 920));
@@ -101,8 +110,9 @@ TEST(Larva, setPositionUpdatesSpritePosition)
 
 TEST(Larva, drawCallsDrawOnTheSpriteClassMember)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
-  Larva larva(200, 320, sprite);
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Larva larva(200, 320, pSprite);
   MockRenderWindow window;
 
   EXPECT_CALL(window, draw(testing::Truly([](const sf::Drawable &drawable)
@@ -113,8 +123,9 @@ TEST(Larva, drawCallsDrawOnTheSpriteClassMember)
 
 TEST(Larva, dieChangesAliveClassMemberToFalse)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
-  Larva larva(200, 320, sprite);
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Larva larva(200, 320, pSprite);
 
   larva.die();
   EXPECT_FALSE(larva.isAlive());
@@ -122,8 +133,9 @@ TEST(Larva, dieChangesAliveClassMemberToFalse)
 
 TEST(Larva, changeDirectionMultipliesDirectionByMinus1)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
-  Larva larva(200, 320, sprite);
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Larva larva(200, 320, pSprite);
 
   larva.changeDirection();
   EXPECT_EQ(larva.getDirection(), -1);
@@ -131,8 +143,9 @@ TEST(Larva, changeDirectionMultipliesDirectionByMinus1)
 
 TEST(Larva, moveAdds14Point1ToXPositionWhenDirectionIs1AndLarvaIsNotAtSideBoundary)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
-  Larva larva(200, 320, sprite);
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Larva larva(200, 320, pSprite);
 
   larva.move();
   EXPECT_EQ(larva.getPosition(), sf::Vector2f(214.1, 320));
@@ -140,8 +153,9 @@ TEST(Larva, moveAdds14Point1ToXPositionWhenDirectionIs1AndLarvaIsNotAtSideBounda
 
 TEST(Larva, moveTakesAway14Point1FromXPositionWhenDirectionIsMinus1AndLarvaIsNotAtSideBoundary)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
-  Larva larva(200, 320, sprite);
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Larva larva(200, 320, pSprite);
 
   larva.changeDirection();
   larva.move();
@@ -150,8 +164,9 @@ TEST(Larva, moveTakesAway14Point1FromXPositionWhenDirectionIsMinus1AndLarvaIsNot
 
 TEST(Larva, moveAdds14Point1ToXPositionWhenLarvaIsAtLeftBoundaryAndJustMovedDownIsTrue)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
-  Larva larva(300, 320, sprite);
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Larva larva(300, 320, pSprite);
 
   larva.setPosition(sf::Vector2f(18, 320)); // put larva at left boundary
   larva.changeDirection();                  // larva would be moving left so need to mimic that direction
@@ -163,8 +178,9 @@ TEST(Larva, moveAdds14Point1ToXPositionWhenLarvaIsAtLeftBoundaryAndJustMovedDown
 
 TEST(Larva, moveTakesAway14Point1FromXPositionWhenLarvaIsAtRightBoundaryAndJustMovedDownIsTrue)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
-  Larva larva(200, 320, sprite);
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Larva larva(200, 320, pSprite);
 
   larva.setPosition(sf::Vector2f(482, 320)); // put larva at right boundary
   larva.move();                              // call to move larva down which sets justMovedDownToTrue
@@ -175,8 +191,9 @@ TEST(Larva, moveTakesAway14Point1FromXPositionWhenLarvaIsAtRightBoundaryAndJustM
 
 TEST(Larva, moveSetsJustMovedDownToFalseWhenLarvaIsAtLeftBoundaryAndJustMovedDownIsTrue)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
-  Larva larva(300, 320, sprite);
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Larva larva(300, 320, pSprite);
 
   larva.setPosition(sf::Vector2f(18, 320)); // put larva at left boundary
   larva.move();                             // call to move larva down which sets justMovedDownToTrue
@@ -187,8 +204,9 @@ TEST(Larva, moveSetsJustMovedDownToFalseWhenLarvaIsAtLeftBoundaryAndJustMovedDow
 
 TEST(Larva, moveSetsJustMovedDownToFalseWhenLarvaIsAtRightBoundaryAndJustMovedDownIsTrue)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
-  Larva larva(200, 320, sprite);
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Larva larva(200, 320, pSprite);
 
   larva.setPosition(sf::Vector2f(482, 320)); // put larva at right boundary
   larva.move();                              // call to move larva down which sets justMovedDownToTrue
@@ -199,8 +217,9 @@ TEST(Larva, moveSetsJustMovedDownToFalseWhenLarvaIsAtRightBoundaryAndJustMovedDo
 
 TEST(Larva, moveAdds42ToYPositionWhenLarvaIsAtRightSideBoundaryAndHasNotJustMovedDown)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
-  Larva larva(200, 320, sprite);
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Larva larva(200, 320, pSprite);
 
   larva.setPosition(sf::Vector2f(482, 320));
   larva.move();
@@ -209,8 +228,9 @@ TEST(Larva, moveAdds42ToYPositionWhenLarvaIsAtRightSideBoundaryAndHasNotJustMove
 
 TEST(Larva, moveChangesDirectionWhenLarvaIsAtRightSideBoundaryAndHasNotJustMovedDown)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
-  Larva larva(200, 320, sprite);
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Larva larva(200, 320, pSprite);
 
   larva.setPosition(sf::Vector2f(482, 320));
   larva.move();
@@ -219,8 +239,9 @@ TEST(Larva, moveChangesDirectionWhenLarvaIsAtRightSideBoundaryAndHasNotJustMoved
 
 TEST(Larva, moveSetsJustMovedDownToTrueWhenLarvaIsAtRightSideBoundaryAndHasNotJustMovedDown)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
-  Larva larva(200, 320, sprite);
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Larva larva(200, 320, pSprite);
 
   larva.setPosition(sf::Vector2f(482, 320));
   larva.move();
@@ -229,8 +250,9 @@ TEST(Larva, moveSetsJustMovedDownToTrueWhenLarvaIsAtRightSideBoundaryAndHasNotJu
 
 TEST(Larva, moveAdds42ToYPositionWhenLarvaIsAtLeftSideBoundaryAndHasNotJustMovedDown)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
-  Larva larva(300, 320, sprite);
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Larva larva(300, 320, pSprite);
 
   larva.setPosition(sf::Vector2f(18, 320));
   larva.move();
@@ -239,8 +261,9 @@ TEST(Larva, moveAdds42ToYPositionWhenLarvaIsAtLeftSideBoundaryAndHasNotJustMoved
 
 TEST(Larva, moveChangesDirectionWhenLarvaIsAtLeftSideBoundaryAndHasNotJustMovedDown)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
-  Larva larva(300, 320, sprite);
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Larva larva(300, 320, pSprite);
 
   larva.changeDirection();
   larva.setPosition(sf::Vector2f(18, 320));
@@ -250,8 +273,9 @@ TEST(Larva, moveChangesDirectionWhenLarvaIsAtLeftSideBoundaryAndHasNotJustMovedD
 
 TEST(Larva, moveSetsJustMovedDownToTrueWhenLarvaIsAtLeftSideBoundaryAndHasNotJustMovedDown)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
-  Larva larva(300, 320, sprite);
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Larva larva(300, 320, pSprite);
 
   larva.setPosition(sf::Vector2f(18, 320));
   larva.move();
@@ -270,8 +294,9 @@ TEST(Larva, moveUpdatesPositionOnSpriteMember)
 
 TEST(Larva, resurrectSetsAliveBackToTrue)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
-  Larva larva(200, 320, sprite);
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Larva larva(200, 320, pSprite);
 
   larva.die();
 
@@ -281,8 +306,9 @@ TEST(Larva, resurrectSetsAliveBackToTrue)
 
 TEST(Larva, resetSetsPositionBackToOriginalPosition)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
-  Larva larva(200, 320, sprite);
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Larva larva(200, 320, pSprite);
 
   larva.setPosition(sf::Vector2f(900, 1100));
 
@@ -305,8 +331,9 @@ TEST(Larva, resetSetsSpritePositionBackToOriginalPosition)
 
 TEST(Larva, resetSetsAliveBackToTrue)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
-  Larva larva(200, 320, sprite);
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Larva larva(200, 320, pSprite);
 
   larva.die();
 
@@ -316,8 +343,9 @@ TEST(Larva, resetSetsAliveBackToTrue)
 
 TEST(Larva, shootSetsPositionOfFirstLaserIfBelowBoardAndLarvaIsAlive)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
-  Larva larva(200, 320, sprite);
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Larva larva(200, 320, pSprite);
   std::vector<ILaser *> metroidLasers(3);
   NiceMock<MockLaser> laser1;
   MockLaser *pLaser1 = &laser1;
@@ -339,8 +367,9 @@ TEST(Larva, shootSetsPositionOfFirstLaserIfBelowBoardAndLarvaIsAlive)
 
 TEST(Larva, shootSetsPositionOfSecondLaserIfBelowBoardAndFirstLaserIsOnBoardAndLarvaIsAlive)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
-  Larva larva(200, 320, sprite);
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Larva larva(200, 320, pSprite);
   std::vector<ILaser *> metroidLasers(3);
   NiceMock<MockLaser> laser1;
   MockLaser *pLaser1 = &laser1;
@@ -364,8 +393,9 @@ TEST(Larva, shootSetsPositionOfSecondLaserIfBelowBoardAndFirstLaserIsOnBoardAndL
 
 TEST(Larva, shootSetsPositionOfThirdLaserIfBelowBoardAndFirstAndSecondLasersAreOnBoardAndLarvaIsAlive)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
-  Larva larva(200, 320, sprite);
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Larva larva(200, 320, pSprite);
   std::vector<ILaser *> metroidLasers(3);
   NiceMock<MockLaser> laser1;
   MockLaser *pLaser1 = &laser1;
@@ -391,8 +421,9 @@ TEST(Larva, shootSetsPositionOfThirdLaserIfBelowBoardAndFirstAndSecondLasersAreO
 
 TEST(Larva, shootDoesNotSetPositionOfAnyLaserIfTheyAreAllOnBoardAndLarvaIsAlive)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
-  Larva larva(200, 320, sprite);
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Larva larva(200, 320, pSprite);
   std::vector<ILaser *> metroidLasers(3);
   NiceMock<MockLaser> laser1;
   MockLaser *pLaser1 = &laser1;
@@ -422,8 +453,9 @@ TEST(Larva, shootDoesNotSetPositionOfAnyLaserIfTheyAreAllOnBoardAndLarvaIsAlive)
 
 TEST(Larva, shootDoesNotSetPositionOfAnyLaserIfRandomNumberIsNot0)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
-  Larva larva(200, 320, sprite);
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Larva larva(200, 320, pSprite);
   std::vector<ILaser *> metroidLasers(3);
   MockLaser laser1;
   MockLaser *pLaser1 = &laser1;
