@@ -49,3 +49,8 @@ void Ridley::reset()
   setPosition(sf::Vector2f(-96, 200));
   direction_ = 1;
 }
+
+void Ridley::move()
+{
+  position_.x += 0.25;
+}

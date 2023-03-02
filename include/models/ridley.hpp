@@ -16,6 +16,7 @@ public:
   void draw(IRenderWindow &window) const override;
   void changeDirection();
   void reset() override;
+  void move();
 
 private:
   int points_;
