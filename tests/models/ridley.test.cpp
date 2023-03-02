@@ -150,3 +150,15 @@ TEST(Ridley, moveAdds0Point25ToXPositionWhenDirectionIs1AndIsOnTheBoard)
   ridley.move();
   EXPECT_EQ(ridley.getPosition(), sf::Vector2f(500.25, 200));
 }
+
+TEST(Ridley, moveTakesAway0Point25ToXPositionWhenDirectionIsMinus1AndIsOnTheBoard)
+{
+  MockSprite *sprite = new NiceMock<MockSprite>();
+  Ridley ridley(sprite);
+
+  ridley.setPosition(sf::Vector2f(500, 200)); // Put Ridley on the board
+  ridley.changeDirection();                   // Set direction to -1
+
+  ridley.move();
+  EXPECT_EQ(ridley.getPosition(), sf::Vector2f(499.75, 200));
+}

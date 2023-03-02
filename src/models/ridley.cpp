@@ -52,5 +52,5 @@ void Ridley::reset()
 
 void Ridley::move()
 {
-  position_.x += 0.25;
+  position_.x += 0.25 * direction_;
 }
