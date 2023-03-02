@@ -171,3 +171,14 @@ TEST(Ridley, moveDoesNotChangePositionWhenRidleyIsLeftOfTheBoard)
   ridley.move();
   EXPECT_EQ(ridley.getPosition(), sf::Vector2f(-96, 200));
 }
+
+TEST(Ridley, moveDoesNotChangePositionWhenRidleyIsRightOfTheBoard)
+{
+  MockSprite *sprite = new NiceMock<MockSprite>();
+  Ridley ridley(sprite);
+
+  ridley.setPosition(sf::Vector2f(1344, 200)); // Put Ridley off the window to the right
+
+  ridley.move();
+  EXPECT_EQ(ridley.getPosition(), sf::Vector2f(1344, 200));
+}

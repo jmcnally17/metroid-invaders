@@ -52,7 +52,7 @@ void Ridley::reset()
 
 void Ridley::move()
 {
-  if (position_.x > -96)
+  if (position_.x > -96 && position_.x < 1344)
   {
     position_.x += 0.25 * direction_;
   }
