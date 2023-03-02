@@ -113,7 +113,7 @@ TEST(Ridley, drawDoesNotCallDrawOnTheSpriteClassMemberWhenRightOfTheBoard)
   Ridley ridley(pSprite);
   MockRenderWindow window;
 
-  ridley.setPosition(sf::Vector2f(1344, 200));
+  ridley.setPosition(sf::Vector2f(1536, 200));
 
   EXPECT_CALL(window, draw)
       .Times(0);
@@ -220,10 +220,10 @@ TEST(Ridley, moveDoesNotChangePositionWhenRidleyIsRightOfTheBoard)
   MockSprite *pSprite = &sprite;
   Ridley ridley(pSprite);
 
-  ridley.setPosition(sf::Vector2f(1344, 200)); // Put Ridley off the window to the right
+  ridley.setPosition(sf::Vector2f(1536, 200)); // Put Ridley off the window to the right
 
   ridley.move();
-  EXPECT_EQ(ridley.getPosition(), sf::Vector2f(1344, 200));
+  EXPECT_EQ(ridley.getPosition(), sf::Vector2f(1536, 200));
 }
 
 TEST(Ridley, moveUpdatesSpritePositionWhenOnTheBoard)
@@ -277,11 +277,11 @@ TEST(Ridley, spawnTakesAway0Point25FromXPositionWhenRidleyIsRightOfBoard)
   MockSprite *pSprite = &sprite;
   Ridley ridley(pSprite);
 
-  ridley.setPosition(sf::Vector2f(1344, 200)); // Put Ridley off the window to the right
+  ridley.setPosition(sf::Vector2f(1536, 200)); // Put Ridley off the window to the right
   ridley.changeDirection();                    // Set direction to 1
 
   ridley.spawn(0);
-  EXPECT_EQ(ridley.getPosition(), sf::Vector2f(1343.75, 200));
+  EXPECT_EQ(ridley.getPosition(), sf::Vector2f(1535.75, 200));
 }
 
 TEST(Ridley, spawnDoesNotChangeDirectionOrPositionWhenNotAtLeftOrRightEdgeOfBoard)

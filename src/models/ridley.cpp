@@ -35,7 +35,7 @@ void Ridley::setPosition(const sf::Vector2f &position)
 
 void Ridley::draw(IRenderWindow &window) const
 {
-  if (position_.x > -96 && position_.x < 1344)
+  if (position_.x > -96 && position_.x < 1536)
   {
     ISprite &rSprite = *sprite_;
     window.draw(rSprite);
@@ -55,7 +55,7 @@ void Ridley::reset()
 
 void Ridley::move()
 {
-  if (position_.x > -96 && position_.x < 1344)
+  if (position_.x > -96 && position_.x < 1536)
   {
     position_.x += 0.25 * direction_;
     sprite_->setPosition(position_);
@@ -64,7 +64,7 @@ void Ridley::move()
 
 void Ridley::spawn(int randomNumber)
 {
-  if (randomNumber == 0 && (position_.x == -96 || position_.x == 1344))
+  if (randomNumber == 0 && (position_.x == -96 || position_.x == 1536))
   {
     changeDirection();
     position_.x += 0.25 * direction_;

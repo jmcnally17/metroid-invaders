@@ -10,6 +10,7 @@
 #include "../include/models/laserCannon.hpp"
 #include "../include/models/metroids.hpp"
 #include "../include/models/metroidLaser.hpp"
+#include "../include/models/ridley.hpp"
 #include "../include/interfaces/collisionInterface.hpp"
 
 int main()
@@ -20,6 +21,7 @@ int main()
   LaserCannon cannon = makeCannon(cannonLaser);
   std::vector<std::vector<IMetroid *>> metroids = makeMetroids();
   std::vector<ILaser *> metroidLasers = makeMetroidLasers();
+  Ridley ridley = makeRidley();
 
   ClockWrapper clock;
   int interval = 665;
@@ -56,7 +58,7 @@ int main()
 
     if (isPlaying)
     {
-      drawObjects(window, cannon, cannonLaser, metroids, metroidLasers, scoreText, livesText);
+      drawObjects(window, cannon, cannonLaser, metroids, metroidLasers, ridley, scoreText, livesText);
       if (areMetroidsDead(metroids))
       {
         levelUp(level, interval, step, soundCounter, metroids, metroidLasers, clock);
@@ -81,11 +83,13 @@ int main()
       moveLaser(cannonLaser);
       moveMetroids(metroids, clock, interval, step, metroidSounds, soundCounter);
       moveMetroidLasers(metroidLasers);
+      moveRidley(ridley);
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
       {
         fireLaser(cannon);
       }
       shootMetroidLaser(metroids, metroidLasers);
+      spawnRidley(ridley);
     }
     else if (gameOver)
     {
@@ -191,6 +195,16 @@ std::vector<ILaser *> makeMetroidLasers()
   }
 
   return metroidLasers;
+}
+
+Ridley makeRidley()
+{
+  sf::Texture ridleyTexture;
+  ridleyTexture.loadFromFile("public/images/sprites/ridley.png");
+  SpriteWrapper *ridleySprite = new SpriteWrapper(ridleyTexture);
+
+  Ridley ridley(ridleySprite);
+  return ridley;
 }
 
 std::vector<ISound *> makeMetroidSounds()

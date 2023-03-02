@@ -6,6 +6,7 @@
 #include "./models/cannonLaser.hpp"
 #include "./models/laserCannon.hpp"
 #include "./models/iMetroid.hpp"
+#include "./models/ridley.hpp"
 
 CannonLaser makeLaser();
 
@@ -14,6 +15,8 @@ LaserCannon makeCannon(CannonLaser &cannonLaser);
 std::vector<std::vector<IMetroid *>> makeMetroids();
 
 std::vector<ILaser *> makeMetroidLasers();
+
+Ridley makeRidley();
 
 std::vector<ISound *> makeMetroidSounds();
 
