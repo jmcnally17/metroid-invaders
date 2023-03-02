@@ -79,12 +79,14 @@ TEST(Ridley, setPositionUpdatesSpritePosition)
   ridley.setPosition(sf::Vector2f(500, 920));
 }
 
-TEST(Ridley, drawCallsDrawOnTheSpriteClassMember)
+TEST(Ridley, drawCallsDrawOnTheSpriteClassMemberWhenOnTheBoard)
 {
   NiceMock<MockSprite> sprite;
   MockSprite *pSprite = &sprite;
   Ridley ridley(pSprite);
   MockRenderWindow window;
+
+  ridley.setPosition(sf::Vector2f(500, 200));
 
   EXPECT_CALL(window, draw(testing::Truly([](const sf::Drawable &drawable)
                                           { return true; })))
