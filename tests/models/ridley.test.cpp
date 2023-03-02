@@ -296,3 +296,14 @@ TEST(Ridley, spawnDoesNotChangeDirectionOrPositionWhenNotAtLeftOrRightEdgeOfBoar
   EXPECT_EQ(ridley.getDirection(), -1);
   EXPECT_EQ(ridley.getPosition(), sf::Vector2f(500, 200));
 }
+
+TEST(Ridley, spawnDoesNotChangeDirectionOrPositionWhenRandomNumberIsNot0)
+{
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Ridley ridley(pSprite);
+
+  ridley.spawn(50);
+  EXPECT_EQ(ridley.getDirection(), -1);
+  EXPECT_EQ(ridley.getPosition(), sf::Vector2f(-96, 200));
+}
