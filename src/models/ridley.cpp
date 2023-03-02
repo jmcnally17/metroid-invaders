@@ -41,7 +41,7 @@ void Ridley::draw(IRenderWindow &window) const
 
 void Ridley::changeDirection()
 {
-  direction_ = -1;
+  direction_ *= -1;
 }
 
 void Ridley::reset()
