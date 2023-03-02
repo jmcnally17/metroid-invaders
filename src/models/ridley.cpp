@@ -64,6 +64,9 @@ void Ridley::move()
 
 void Ridley::spawn(int randomNumber)
 {
-  changeDirection();
-  position_.x += 0.25 * direction_;
+  if (position_.x == -96 || position_.x == 1344)
+  {
+    changeDirection();
+    position_.x += 0.25 * direction_;
+  }
 }

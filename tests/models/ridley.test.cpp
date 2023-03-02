@@ -283,3 +283,16 @@ TEST(Ridley, spawnTakesAway0Point25FromXPositionWhenRidleyIsRightOfBoard)
   ridley.spawn(0);
   EXPECT_EQ(ridley.getPosition(), sf::Vector2f(1343.75, 200));
 }
+
+TEST(Ridley, spawnDoesNotChangeDirectionOrPositionWhenNotAtLeftOrRightEdgeOfBoard)
+{
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Ridley ridley(pSprite);
+
+  ridley.setPosition(sf::Vector2f(500, 200));
+
+  ridley.spawn(0);
+  EXPECT_EQ(ridley.getDirection(), -1);
+  EXPECT_EQ(ridley.getPosition(), sf::Vector2f(500, 200));
+}
