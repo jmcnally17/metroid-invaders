@@ -128,3 +128,14 @@ TEST(Ridley, resetSetsSpritePositionBackToOriginalPosition)
       .Times(1);
   ridley.reset();
 }
+
+TEST(Ridley, resetSetsDirectionBackTo1)
+{
+  MockSprite *sprite = new NiceMock<MockSprite>();
+  Ridley ridley(sprite);
+
+  ridley.changeDirection(); // Set direction to -1
+
+  ridley.reset();
+  EXPECT_EQ(ridley.getDirection(), 1);
+}

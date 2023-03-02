@@ -47,4 +47,5 @@ void Ridley::changeDirection()
 void Ridley::reset()
 {
   setPosition(sf::Vector2f(-96, 200));
+  direction_ = 1;
 }
