@@ -16,7 +16,7 @@ public:
   void draw(IRenderWindow &window) const override;
   void changeDirection();
   void reset() override;
-  void move();
+  void move() override;
   void spawn(int randomNumber = rand() % 1000);
 
 private:

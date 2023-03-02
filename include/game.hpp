@@ -55,6 +55,8 @@ void moveMetroids(const std::vector<std::vector<IMetroid *>> &metroids,
 
 void moveMetroidLasers(const std::vector<ILaser *> &metroidLasers);
 
+void moveRidley(IRidley &ridley);
+
 void fireLaser(ILaserCannon &cannon);
 
 void shootMetroidLaser(const std::vector<std::vector<IMetroid *>> &metroids, const std::vector<ILaser *> &lasers);

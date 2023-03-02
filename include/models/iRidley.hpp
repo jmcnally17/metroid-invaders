@@ -8,6 +8,7 @@ class IRidley : public ObjectInterface
 public:
   IRidley();
   IRidley(float width, float height, float x, float y, ISprite *sprite);
+  virtual void move() = 0;
 };
 
 #endif

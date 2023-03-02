@@ -13,6 +13,7 @@ public:
   MOCK_METHOD(void, setPosition, (const sf::Vector2f &position));
   MOCK_METHOD(void, draw, (IRenderWindow & window), (const));
   MOCK_METHOD(void, reset, ());
+  MOCK_METHOD(void, move, ());
 };
 
 #endif
