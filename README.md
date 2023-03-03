@@ -4,9 +4,8 @@ This solo project is an imitation of the classic 1978 Taito game, Space Invaders
 
 ## Features Pending
 
-- Collision detection between Ridley and Cannon Laser
-- Bunkers protecting the Laser Cannon at the bottom
 - Title screen
+- Bunkers protecting the Laser Cannon at the bottom
 - **_(Under consideration)_** Submit the player score into a database with their name at game over and display the leaderboard either at game over or on a live website
 
 ## Gameplay

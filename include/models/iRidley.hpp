@@ -12,7 +12,8 @@ public:
   virtual void spawn(int randomNumber = rand() % 10000) = 0;
   virtual void stopMovementSoundIfPlaying() = 0;
   virtual void stopMovementSoundIfAtSideOfWindow() = 0;
-  ;
+  virtual void die() = 0;
+  virtual int getPoints() const = 0;
 };
 
 #endif

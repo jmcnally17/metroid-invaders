@@ -7,11 +7,11 @@
 class Ridley : public IRidley
 {
 public:
-  Ridley(ISprite *sprite, ISound *movementSound);
+  Ridley(ISprite *sprite, ISound *movementSound, ISound *deathSound);
   float getWidth() const override;
   float getHeight() const override;
   sf::Vector2f getPosition() const override;
-  int getPoints() const;
+  int getPoints() const override;
   int getDirection() const;
   void setPosition(const sf::Vector2f &position) override;
   void draw(IRenderWindow &window) const override;
@@ -21,11 +21,13 @@ public:
   void spawn(int randomNumber = rand() % 10000) override;
   void stopMovementSoundIfPlaying() override;
   void stopMovementSoundIfAtSideOfWindow() override;
+  void die() override;
 
 private:
   int points_;
   int direction_;
   ISound *movementSound_;
+  ISound *deathSound_;
 };
 
 #endif

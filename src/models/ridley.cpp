@@ -1,6 +1,10 @@
 #include "../../include/models/ridley.hpp"
 
-Ridley::Ridley(ISprite *sprite, ISound *movementSound) : IRidley(96, 42, -96, 200, sprite), points_(150), direction_(-1), movementSound_(movementSound)
+Ridley::Ridley(ISprite *sprite, ISound *movementSound, ISound *deathSound) : IRidley(96, 42, -96, 200, sprite),
+                                                                             points_(150),
+                                                                             direction_(-1),
+                                                                             movementSound_(movementSound),
+                                                                             deathSound_(deathSound)
 {
   movementSound_->setLoop(true);
 }
@@ -40,8 +44,7 @@ void Ridley::draw(IRenderWindow &window) const
 {
   if (position_.x > -96 && position_.x < 1536)
   {
-    ISprite &rSprite = *sprite_;
-    window.draw(rSprite);
+    window.draw(*sprite_);
   }
 }
 
@@ -89,4 +92,12 @@ void Ridley::stopMovementSoundIfAtSideOfWindow()
   {
     stopMovementSoundIfPlaying();
   }
+}
+
+void Ridley::die()
+{
+  float newXPosition = direction_ == 1 ? 1536 : -96;
+  setPosition(sf::Vector2f(newXPosition, 200));
+  movementSound_->stop();
+  deathSound_->play();
 }

@@ -40,8 +40,7 @@ void Metroid::setPosition(const sf::Vector2f &position)
 
 void Metroid::draw(IRenderWindow &window) const
 {
-  ISprite &rSprite = *sprite_;
-  window.draw(rSprite);
+  window.draw(*sprite_);
 }
 
 bool Metroid::isAlive() const

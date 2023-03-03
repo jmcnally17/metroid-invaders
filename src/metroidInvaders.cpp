@@ -65,6 +65,7 @@ int main()
         levelUp(level, interval, step, soundCounter, metroids, metroidLasers, ridley, clock);
       }
       evaluateLaserMetroidCollision(collisionInterface, cannonLaser, metroids, score, scoreText);
+      evaluateLaserRidleyCollision(collisionInterface, cannonLaser, ridley, score, scoreText);
       if (hasCannonBeenHit(collisionInterface, cannon, metroidLasers))
       {
         decreaseCannonLives(cannon, cannonLaser, metroidLasers, livesText);
@@ -208,7 +209,11 @@ Ridley makeRidley()
   movementBuffer.loadFromFile("public/audio/ridley.wav");
   SoundWrapper *movementSound = new SoundWrapper(movementBuffer);
 
-  Ridley ridley(ridleySprite, movementSound);
+  sf::SoundBuffer deathBuffer;
+  deathBuffer.loadFromFile("public/audio/ridleyDeath.wav");
+  SoundWrapper *deathSound = new SoundWrapper(deathBuffer);
+
+  Ridley ridley(ridleySprite, movementSound, deathSound);
   return ridley;
 }
 

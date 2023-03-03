@@ -10,8 +10,7 @@ void evaluateLaserMetroidCollision(const CollisionInterface &collision, ILaser &
   {
     for (auto metroid : vec)
     {
-      IMetroid &rMetroid = *metroid;
-      if (rMetroid.isAlive() && collision.haveCollided(laser, rMetroid))
+      if (metroid->isAlive() && collision.haveCollided(laser, *metroid))
       {
         metroid->die();
         score += metroid->getPoints();

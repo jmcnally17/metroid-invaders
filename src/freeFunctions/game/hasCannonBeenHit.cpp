@@ -7,8 +7,7 @@ bool hasCannonBeenHit(const CollisionInterface &collision, const ILaserCannon &c
 {
   for (auto metroidLaser : metroidLasers)
   {
-    ILaser &rLaser = *metroidLaser;
-    if (collision.haveCollided(cannon, rLaser))
+    if (collision.haveCollided(cannon, *metroidLaser))
     {
       return true;
     }
