@@ -66,10 +66,7 @@ int main()
       }
       evaluateLaserMetroidCollision(collisionInterface, cannonLaser, metroids, score, scoreText);
       evaluateLaserRidleyCollision(collisionInterface, cannonLaser, ridley, score, scoreText);
-      if (hasCannonBeenHit(collisionInterface, cannon, metroidLasers))
-      {
-        decreaseCannonLives(cannon, cannonLaser, metroidLasers, livesText);
-      }
+      evaluateCannonMetroidLaserCollision(collisionInterface, cannon, metroidLasers, cannonLaser, livesText);
       if (haveMetroidsInvaded(metroids) || cannon.getLives() == 0)
       {
         endGame(isPlaying, gameOver, ridley, score, scoreText);
