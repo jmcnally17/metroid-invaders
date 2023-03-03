@@ -214,10 +214,26 @@ TEST(levelUp, resetsRidley)
   int soundCounter = 3;
   std::vector<std::vector<IMetroid *>> metroids;
   std::vector<ILaser *> metroidLasers;
-  MockRidley ridley;
+  NiceMock<MockRidley> ridley;
   NiceMock<MockClock> clock;
 
   EXPECT_CALL(ridley, reset())
+      .Times(1);
+  levelUp(level, interval, step, soundCounter, metroids, metroidLasers, ridley, clock);
+}
+
+TEST(levelUp, stopsRidleyMovementSoundIfPlaying)
+{
+  int level = 5;
+  int interval = 105;
+  int step = 15;
+  int soundCounter = 3;
+  std::vector<std::vector<IMetroid *>> metroids;
+  std::vector<ILaser *> metroidLasers;
+  NiceMock<MockRidley> ridley;
+  NiceMock<MockClock> clock;
+
+  EXPECT_CALL(ridley, stopMovementSoundIfPlaying())
       .Times(1);
   levelUp(level, interval, step, soundCounter, metroids, metroidLasers, ridley, clock);
 }

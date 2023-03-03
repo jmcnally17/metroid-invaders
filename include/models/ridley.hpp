@@ -19,7 +19,7 @@ public:
   void reset() override;
   void move() override;
   void spawn(int randomNumber = rand() % 10000) override;
-  void stopMovementSoundIfPlaying();
+  void stopMovementSoundIfPlaying() override;
 
 private:
   int points_;

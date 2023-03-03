@@ -38,5 +38,6 @@ void levelUp(int &level,
     laser->reset();
   }
   ridley.reset();
+  ridley.stopMovementSoundIfPlaying();
   clock.restart();
 }

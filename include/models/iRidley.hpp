@@ -10,6 +10,7 @@ public:
   IRidley(float width, float height, float x, float y, ISprite *sprite);
   virtual void move() = 0;
   virtual void spawn(int randomNumber = rand() % 10000) = 0;
+  virtual void stopMovementSoundIfPlaying() = 0;
 };
 
 #endif
