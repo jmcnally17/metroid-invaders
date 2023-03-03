@@ -90,3 +90,8 @@ void Ridley::stopMovementSoundIfAtSideOfWindow()
     stopMovementSoundIfPlaying();
   }
 }
+
+void Ridley::die()
+{
+  position_.x = 1536;
+}

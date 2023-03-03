@@ -490,3 +490,18 @@ TEST(Ridley, stopMovementSoundIfAtSideOfWindowDoesNotStopMovementSoundIfNotPlayi
       .Times(0);
   ridley.stopMovementSoundIfAtSideOfWindow();
 }
+
+TEST(Ridley, dieSetsPositionToRightOfWindowWhenDirectionIs1)
+{
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  NiceMock<MockSound> movementSound;
+  MockSound *pMovementSound = &movementSound;
+  Ridley ridley(pSprite, pMovementSound);
+
+  ridley.setPosition(sf::Vector2f(500, 200));
+  ridley.changeDirection(); // Set direction to 1
+
+  ridley.die();
+  EXPECT_EQ(ridley.getPosition(), sf::Vector2f(1536, 200));
+}
