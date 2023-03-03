@@ -474,3 +474,19 @@ TEST(Ridley, stopMovementSoundIfAtSideOfWindowDoesNotStopMovementSoundIfInTheWin
       .Times(0);
   ridley.stopMovementSoundIfAtSideOfWindow();
 }
+
+TEST(Ridley, stopMovementSoundIfAtSideOfWindowDoesNotStopMovementSoundIfNotPlaying)
+{
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  NiceMock<MockSound> movementSound;
+  MockSound *pMovementSound = &movementSound;
+  Ridley ridley(pSprite, pMovementSound);
+
+  ON_CALL(movementSound, getStatus())
+      .WillByDefault(Return(sf::Sound::Stopped));
+
+  EXPECT_CALL(movementSound, stop())
+      .Times(0);
+  ridley.stopMovementSoundIfAtSideOfWindow();
+}
