@@ -10,6 +10,7 @@ public:
   MOCK_METHOD(void, play, ());
   MOCK_METHOD(void, setLoop, (bool loop));
   MOCK_METHOD(void, stop, ());
+  MOCK_METHOD(sf::Sound::Status, getStatus, (), (const));
 };
 
 #endif

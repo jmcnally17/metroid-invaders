@@ -4,6 +4,7 @@
 #include "../mockModels/mockRenderWindow.hpp"
 
 using ::testing::NiceMock;
+using ::testing::Return;
 
 TEST(Ridley, hasAWidthClassMemberOf96)
 {
@@ -390,4 +391,20 @@ TEST(Ridley, spawnDoesNotSpawnRidleyWhenRandomNumberIsNot0)
   ridley.spawn(50);
   EXPECT_EQ(ridley.getDirection(), -1);
   EXPECT_EQ(ridley.getPosition(), sf::Vector2f(-96, 200));
+}
+
+TEST(Ridley, stopMovementSoundIfPlayingStopsMovementSoundIfItIsPlaying)
+{
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  NiceMock<MockSound> movementSound;
+  MockSound *pMovementSound = &movementSound;
+  Ridley ridley(pSprite, pMovementSound);
+
+  ON_CALL(movementSound, getStatus())
+      .WillByDefault(Return(sf::Sound::Playing));
+
+  EXPECT_CALL(movementSound, stop())
+      .Times(1);
+  ridley.stopMovementSoundIfPlaying();
 }

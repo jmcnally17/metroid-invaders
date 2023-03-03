@@ -74,3 +74,8 @@ void Ridley::spawn(int randomNumber)
     movementSound_->play();
   }
 }
+
+void Ridley::stopMovementSoundIfPlaying()
+{
+  movementSound_->stop();
+}
