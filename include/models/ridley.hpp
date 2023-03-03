@@ -21,7 +21,7 @@ public:
   void spawn(int randomNumber = rand() % 10000) override;
   void stopMovementSoundIfPlaying() override;
   void stopMovementSoundIfAtSideOfWindow() override;
-  void die();
+  void die() override;
 
 private:
   int points_;
