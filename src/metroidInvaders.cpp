@@ -61,7 +61,7 @@ int main()
       drawObjects(window, cannon, cannonLaser, metroids, metroidLasers, ridley, scoreText, livesText);
       if (areMetroidsDead(metroids))
       {
-        levelUp(level, interval, step, soundCounter, metroids, metroidLasers, clock);
+        levelUp(level, interval, step, soundCounter, metroids, metroidLasers, ridley, clock);
       }
       evaluateLaserMetroidCollision(collisionInterface, cannonLaser, metroids, score, scoreText);
       if (hasCannonBeenHit(collisionInterface, cannon, metroidLasers))
@@ -96,7 +96,7 @@ int main()
       displayGameOverScreen(window, gameOverText, scoreText, playAgainText);
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
       {
-        playAgain(isPlaying, gameOver, cannon, cannonLaser, metroids, metroidLasers, interval, step, soundCounter, level, score, scoreText, livesText, clock);
+        playAgain(isPlaying, gameOver, cannon, cannonLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, clock);
       }
     }
   }
