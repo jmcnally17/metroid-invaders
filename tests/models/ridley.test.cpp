@@ -534,3 +534,16 @@ TEST(Ridley, dieUpdatesTheSpritePosition)
       .Times(1);
   ridley.die();
 }
+
+TEST(Ridley, dieStopsTheMovementSound)
+{
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  NiceMock<MockSound> movementSound;
+  MockSound *pMovementSound = &movementSound;
+  Ridley ridley(pSprite, pMovementSound);
+
+  EXPECT_CALL(movementSound, stop())
+      .Times(1);
+  ridley.die();
+}

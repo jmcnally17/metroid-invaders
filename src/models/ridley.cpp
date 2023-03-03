@@ -95,4 +95,5 @@ void Ridley::die()
 {
   float newXPosition = direction_ == 1 ? 1536 : -96;
   setPosition(sf::Vector2f(newXPosition, 200));
+  movementSound_->stop();
 }
