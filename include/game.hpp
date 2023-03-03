@@ -39,7 +39,7 @@ void evaluateLaserMetroidCollision(const CollisionInterface &collision,
                                    const std::vector<std::vector<IMetroid *>> &metroids,
                                    int &score, IText &scoreText);
 
-void evaluateLaserRidleyCollision(IRidley &ridley, int &score);
+void evaluateLaserRidleyCollision(IRidley &ridley, int &score, IText &scoreText);
 
 bool hasCannonBeenHit(const CollisionInterface &collision, const ILaserCannon &cannon, const std::vector<ILaser *> &metroidLasers);
 
