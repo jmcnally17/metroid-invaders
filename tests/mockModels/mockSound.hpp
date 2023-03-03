@@ -9,6 +9,7 @@ class MockSound : public ISound
 public:
   MOCK_METHOD(void, play, ());
   MOCK_METHOD(void, setLoop, (bool loop));
+  MOCK_METHOD(void, stop, ());
 };
 
 #endif

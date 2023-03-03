@@ -9,6 +9,7 @@ public:
   SoundWrapper(const sf::SoundBuffer &buffer);
   void play() override;
   void setLoop(bool loop) override;
+  void stop() override;
 
 private:
   sf::SoundBuffer buffer_;

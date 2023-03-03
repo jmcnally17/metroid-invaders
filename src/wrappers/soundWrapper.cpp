@@ -14,3 +14,8 @@ void SoundWrapper::setLoop(bool loop)
 {
   sound_.setLoop(loop);
 }
+
+void SoundWrapper::stop()
+{
+  sound_.stop();
+}
