@@ -1,10 +1,10 @@
 #include "../../include/models/laserCannon.hpp"
 
-LaserCannon::LaserCannon(ISprite *sprite, ILaser *laser, ISound *fireSound, ISound *deathSound) : ILaserCannon(78, 48, 120, 1224, sprite),
-                                                                                                  lives_(3),
-                                                                                                  laser_(laser),
-                                                                                                  fireSound_(fireSound),
-                                                                                                  deathSound_(deathSound) {}
+LaserCannon::LaserCannon(ISprite *sprite, ILaser *cannonLaser, ISound *fireSound, ISound *deathSound) : ILaserCannon(78, 48, 120, 1224, sprite),
+                                                                                                        lives_(3),
+                                                                                                        cannonLaser_(cannonLaser),
+                                                                                                        fireSound_(fireSound),
+                                                                                                        deathSound_(deathSound) {}
 
 float LaserCannon::getWidth() const
 {
@@ -48,10 +48,10 @@ void LaserCannon::move(float x)
 
 void LaserCannon::fire()
 {
-  if (laser_->getPosition().y <= -laser_->getHeight())
+  if (cannonLaser_->getPosition().y <= -cannonLaser_->getHeight())
   {
-    float startingXPosition = position_.x + (width_ - laser_->getWidth()) / 2;
-    laser_->setPosition(sf::Vector2f(startingXPosition, position_.y));
+    float startingXPosition = position_.x + (width_ - cannonLaser_->getWidth()) / 2;
+    cannonLaser_->setPosition(sf::Vector2f(startingXPosition, position_.y));
     fireSound_->play();
   }
 }

@@ -8,7 +8,7 @@
 
 void drawObjects(IRenderWindow &window,
                  const ILaserCannon &cannon,
-                 const ILaser &laser,
+                 const ILaser &cannonLaser,
                  const std::vector<std::vector<IMetroid *>> &metroids,
                  const std::vector<ILaser *> &metroidLasers,
                  const IRidley &ridley,
@@ -17,7 +17,7 @@ void drawObjects(IRenderWindow &window,
 {
   window.clear();
   cannon.draw(window);
-  laser.draw(window);
+  cannonLaser.draw(window);
   for (auto vec : metroids)
   {
     for (auto metroid : vec)
@@ -28,9 +28,9 @@ void drawObjects(IRenderWindow &window,
       }
     }
   }
-  for (auto laser : metroidLasers)
+  for (auto metroidLaser : metroidLasers)
   {
-    laser->draw(window);
+    metroidLaser->draw(window);
   }
   ridley.draw(window);
   window.draw(scoreText);

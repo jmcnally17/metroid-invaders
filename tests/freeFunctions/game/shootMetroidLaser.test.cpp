@@ -19,11 +19,11 @@ TEST(shootMetroidLaser, callsShootOnMetroidsIfTheyAreAlive)
     }
     metroids[i] = metroidRow;
   }
-  MockLaser *laser;
-  std::vector<ILaser *> lasers(3);
+  MockLaser *metroidLaser;
+  std::vector<ILaser *> metroidLasers(3);
   for (int i = 0; i < 3; i++)
   {
-    lasers[i] = laser;
+    metroidLasers[i] = metroidLaser;
   }
 
   ON_CALL(metroid, isAlive())
@@ -31,7 +31,7 @@ TEST(shootMetroidLaser, callsShootOnMetroidsIfTheyAreAlive)
 
   EXPECT_CALL(metroid, shoot)
       .Times(6);
-  shootMetroidLaser(metroids, lasers);
+  shootMetroidLaser(metroids, metroidLasers);
 }
 
 TEST(shootMetroidLaser, doesNotCallShootOnMetroidsIfTheyAreDead)
@@ -48,11 +48,11 @@ TEST(shootMetroidLaser, doesNotCallShootOnMetroidsIfTheyAreDead)
     }
     metroids[i] = metroidRow;
   }
-  MockLaser *laser;
-  std::vector<ILaser *> lasers(3);
+  MockLaser *metroidLaser;
+  std::vector<ILaser *> metroidLasers(3);
   for (int i = 0; i < 3; i++)
   {
-    lasers[i] = laser;
+    metroidLasers[i] = metroidLaser;
   }
 
   ON_CALL(metroid, isAlive())
@@ -60,5 +60,5 @@ TEST(shootMetroidLaser, doesNotCallShootOnMetroidsIfTheyAreDead)
 
   EXPECT_CALL(metroid, shoot)
       .Times(0);
-  shootMetroidLaser(metroids, lasers);
+  shootMetroidLaser(metroids, metroidLasers);
 }

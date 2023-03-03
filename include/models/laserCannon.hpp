@@ -8,7 +8,7 @@
 class LaserCannon : public ILaserCannon
 {
 public:
-  LaserCannon(ISprite *sprite, ILaser *laser, ISound *fireSound, ISound *deathSound);
+  LaserCannon(ISprite *sprite, ILaser *cannonLaser, ISound *fireSound, ISound *deathSound);
   float getWidth() const override;
   float getHeight() const override;
   int getLives() const override;
@@ -23,7 +23,7 @@ public:
 
 private:
   int lives_;
-  ILaser *laser_;
+  ILaser *cannonLaser_;
   ISound *fireSound_;
   ISound *deathSound_;
 };

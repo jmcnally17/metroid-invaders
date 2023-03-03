@@ -15,7 +15,7 @@ void displayGameOverScreen(IRenderWindow &window, const IText &gameOverText, con
 void playAgain(bool &isPlaying,
                bool &gameOver,
                ILaserCannon &cannon,
-               ILaser &laser,
+               ILaser &cannonLaser,
                const std::vector<std::vector<IMetroid *>> &metroids,
                const std::vector<ILaser *> &metroidLasers,
                IRidley &ridley,

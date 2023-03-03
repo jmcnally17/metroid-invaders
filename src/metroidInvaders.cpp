@@ -17,7 +17,7 @@ int main()
 {
   RenderWindowWrapper window(sf::VideoMode(1536, 1344), "Metroid Invaders");
 
-  CannonLaser cannonLaser = makeLaser();
+  CannonLaser cannonLaser = makeCannonLaser();
   LaserCannon cannon = makeCannon(cannonLaser);
   std::vector<std::vector<IMetroid *>> metroids = makeMetroids();
   std::vector<ILaser *> metroidLasers = makeMetroidLasers();
@@ -64,8 +64,8 @@ int main()
       {
         levelUp(level, interval, step, soundCounter, metroids, metroidLasers, ridley, clock);
       }
-      evaluateLaserMetroidCollision(collisionInterface, cannonLaser, metroids, score, scoreText);
-      evaluateLaserRidleyCollision(collisionInterface, cannonLaser, ridley, score, scoreText);
+      evaluateCannonLaserMetroidCollision(collisionInterface, cannonLaser, metroids, score, scoreText);
+      evaluateCannonLaserRidleyCollision(collisionInterface, cannonLaser, ridley, score, scoreText);
       evaluateCannonMetroidLaserCollision(collisionInterface, cannon, metroidLasers, cannonLaser, livesText);
       if (haveMetroidsInvaded(metroids) || cannon.getLives() == 0)
       {
@@ -79,13 +79,13 @@ int main()
       {
         moveLaserCannon(cannon, -0.25);
       }
-      moveLaser(cannonLaser);
+      moveCannonLaser(cannonLaser);
       moveMetroids(metroids, clock, interval, step, metroidSounds, soundCounter);
       moveMetroidLasers(metroidLasers);
       moveRidley(ridley);
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
       {
-        fireLaser(cannon);
+        fireCannonLaser(cannon);
       }
       shootMetroidLaser(metroids, metroidLasers);
       spawnRidley(ridley);
@@ -103,17 +103,17 @@ int main()
   return 0;
 }
 
-CannonLaser makeLaser()
+CannonLaser makeCannonLaser()
 {
-  sf::Texture laserTexture;
-  laserTexture.loadFromFile("public/images/sprites/cannonLaser.png");
-  SpriteWrapper *laserSprite = new SpriteWrapper(laserTexture);
+  sf::Texture cannonLaserTexture;
+  cannonLaserTexture.loadFromFile("public/images/sprites/cannonLaser.png");
+  SpriteWrapper *cannonLaserSprite = new SpriteWrapper(cannonLaserTexture);
 
   sf::SoundBuffer deathBuffer;
   deathBuffer.loadFromFile("public/audio/metroidDeath.wav");
   SoundWrapper *deathSound = new SoundWrapper(deathBuffer);
 
-  CannonLaser cannonLaser(laserSprite, deathSound);
+  CannonLaser cannonLaser(cannonLaserSprite, deathSound);
   return cannonLaser;
 }
 
@@ -131,8 +131,8 @@ LaserCannon makeCannon(CannonLaser &cannonLaser)
   deathSoundBuffer.loadFromFile("public/audio/cannonDeath.wav");
   SoundWrapper *deathSound = new SoundWrapper(deathSoundBuffer);
 
-  CannonLaser *pLaser = &cannonLaser;
-  LaserCannon cannon(cannonSprite, pLaser, fireSound, deathSound);
+  CannonLaser *pCannonLaser = &cannonLaser;
+  LaserCannon cannon(cannonSprite, pCannonLaser, fireSound, deathSound);
   return cannon;
 }
 
@@ -182,15 +182,15 @@ std::vector<std::vector<IMetroid *>> makeMetroids()
 
 std::vector<ILaser *> makeMetroidLasers()
 {
-  sf::Texture laserTexture;
-  laserTexture.loadFromFile("public/images/sprites/metroidLaser.png");
+  sf::Texture metroidLaserTexture;
+  metroidLaserTexture.loadFromFile("public/images/sprites/metroidLaser.png");
   std::vector<ILaser *> metroidLasers(3);
 
   for (int i = 0; i < 3; i++)
   {
-    SpriteWrapper *laserSprite = new SpriteWrapper(laserTexture);
-    MetroidLaser *laser = new MetroidLaser(laserSprite);
-    metroidLasers[i] = laser;
+    SpriteWrapper *metroidLaserSprite = new SpriteWrapper(metroidLaserTexture);
+    MetroidLaser *metroidLaser = new MetroidLaser(metroidLaserSprite);
+    metroidLasers[i] = metroidLaser;
   }
 
   return metroidLasers;

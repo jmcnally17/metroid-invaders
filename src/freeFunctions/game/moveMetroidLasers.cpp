@@ -3,8 +3,8 @@
 
 void moveMetroidLasers(const std::vector<ILaser *> &metroidLasers)
 {
-  for (auto laser : metroidLasers)
+  for (auto metroidLaser : metroidLasers)
   {
-    laser->move();
+    metroidLaser->move();
   }
 }

@@ -9,7 +9,7 @@
 void playAgain(bool &isPlaying,
                bool &gameOver,
                ILaserCannon &cannon,
-               ILaser &laser,
+               ILaser &cannonLaser,
                const std::vector<std::vector<IMetroid *>> &metroids,
                const std::vector<ILaser *> &metroidLasers,
                IRidley &ridley,
@@ -25,7 +25,7 @@ void playAgain(bool &isPlaying,
   isPlaying = true;
   gameOver = false;
   cannon.reset();
-  laser.reset();
+  cannonLaser.reset();
   for (auto metroidRow : metroids)
   {
     for (auto metroid : metroidRow)

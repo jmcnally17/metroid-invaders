@@ -8,7 +8,7 @@
 #include "./models/iMetroid.hpp"
 #include "./models/ridley.hpp"
 
-CannonLaser makeLaser();
+CannonLaser makeCannonLaser();
 
 LaserCannon makeCannon(CannonLaser &cannonLaser);
 

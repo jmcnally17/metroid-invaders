@@ -14,7 +14,7 @@
 
 void drawObjects(IRenderWindow &window,
                  const ILaserCannon &cannon,
-                 const ILaser &laser,
+                 const ILaser &cannonLaser,
                  const std::vector<std::vector<IMetroid *>> &metroids,
                  const std::vector<ILaser *> &metroidLasers,
                  const IRidley &ridley,
@@ -34,12 +34,12 @@ void levelUp(int &level,
              IRidley &ridley,
              IClock &clock);
 
-void evaluateLaserMetroidCollision(const CollisionInterface &collision,
-                                   ILaser &laser,
-                                   const std::vector<std::vector<IMetroid *>> &metroids,
-                                   int &score, IText &scoreText);
+void evaluateCannonLaserMetroidCollision(const CollisionInterface &collision,
+                                         ILaser &cannonLaser,
+                                         const std::vector<std::vector<IMetroid *>> &metroids,
+                                         int &score, IText &scoreText);
 
-void evaluateLaserRidleyCollision(const CollisionInterface &collision, ILaser &cannonLaser, IRidley &ridley, int &score, IText &scoreText);
+void evaluateCannonLaserRidleyCollision(const CollisionInterface &collision, ILaser &cannonLaser, IRidley &ridley, int &score, IText &scoreText);
 
 void evaluateCannonMetroidLaserCollision(const CollisionInterface &collision,
                                          ILaserCannon &cannon,
@@ -51,7 +51,7 @@ bool haveMetroidsInvaded(const std::vector<std::vector<IMetroid *>> &metroids);
 
 void moveLaserCannon(ILaserCannon &cannon, float x);
 
-void moveLaser(ILaser &laser);
+void moveCannonLaser(ILaser &cannonLaser);
 
 void moveMetroids(const std::vector<std::vector<IMetroid *>> &metroids,
                   IClock &clock,
@@ -64,9 +64,9 @@ void moveMetroidLasers(const std::vector<ILaser *> &metroidLasers);
 
 void moveRidley(IRidley &ridley);
 
-void fireLaser(ILaserCannon &cannon);
+void fireCannonLaser(ILaserCannon &cannon);
 
-void shootMetroidLaser(const std::vector<std::vector<IMetroid *>> &metroids, const std::vector<ILaser *> &lasers);
+void shootMetroidLaser(const std::vector<std::vector<IMetroid *>> &metroids, const std::vector<ILaser *> &metroidLasers);
 
 void spawnRidley(IRidley &ridley);
 

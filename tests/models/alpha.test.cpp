@@ -342,144 +342,144 @@ TEST(Alpha, resetSetsAliveBackToTrue)
   EXPECT_TRUE(alpha.isAlive());
 }
 
-TEST(Alpha, shootSetsPositionOfFirstLaserIfBelowBoardAndAlphaIsAlive)
+TEST(Alpha, shootSetsPositionOfFirstMetroidLaserIfBelowBoardAndAlphaIsAlive)
 {
   NiceMock<MockSprite> sprite;
   MockSprite *pSprite = &sprite;
   Alpha alpha(200, 320, pSprite);
   std::vector<ILaser *> metroidLasers(3);
-  NiceMock<MockLaser> laser1;
-  MockLaser *pLaser1 = &laser1;
-  MockLaser laser2;
-  MockLaser *pLaser2 = &laser2;
-  MockLaser laser3;
-  MockLaser *pLaser3 = &laser3;
-  metroidLasers[0] = pLaser1;
-  metroidLasers[1] = pLaser2;
-  metroidLasers[2] = pLaser3;
+  NiceMock<MockLaser> metroidLaser1;
+  MockLaser *pMetroidLaser1 = &metroidLaser1;
+  MockLaser metroidLaser2;
+  MockLaser *pMetroidLaser2 = &metroidLaser2;
+  MockLaser metroidLaser3;
+  MockLaser *pMetroidLaser3 = &metroidLaser3;
+  metroidLasers[0] = pMetroidLaser1;
+  metroidLasers[1] = pMetroidLaser2;
+  metroidLasers[2] = pMetroidLaser3;
 
-  ON_CALL(laser1, getPosition())
+  ON_CALL(metroidLaser1, getPosition())
       .WillByDefault(Return(sf::Vector2f(120, 1344)));
 
-  EXPECT_CALL(laser1, setPosition(sf::Vector2f(224, 368)))
+  EXPECT_CALL(metroidLaser1, setPosition(sf::Vector2f(224, 368)))
       .Times(1);
   alpha.shoot(metroidLasers, 0);
 }
 
-TEST(Alpha, shootSetsPositionOfSecondLaserIfBelowBoardAndFirstLaserIsOnBoardAndAlphaIsAlive)
+TEST(Alpha, shootSetsPositionOfSecondMetroidLaserIfBelowBoardAndFirstMetroidLaserIsOnBoardAndAlphaIsAlive)
 {
   NiceMock<MockSprite> sprite;
   MockSprite *pSprite = &sprite;
   Alpha alpha(200, 320, pSprite);
   std::vector<ILaser *> metroidLasers(3);
-  NiceMock<MockLaser> laser1;
-  MockLaser *pLaser1 = &laser1;
-  NiceMock<MockLaser> laser2;
-  MockLaser *pLaser2 = &laser2;
-  MockLaser laser3;
-  MockLaser *pLaser3 = &laser3;
-  metroidLasers[0] = pLaser1;
-  metroidLasers[1] = pLaser2;
-  metroidLasers[2] = pLaser3;
+  NiceMock<MockLaser> metroidLaser1;
+  MockLaser *pMetroidLaser1 = &metroidLaser1;
+  NiceMock<MockLaser> metroidLaser2;
+  MockLaser *pMetroidLaser2 = &metroidLaser2;
+  MockLaser metroidLaser3;
+  MockLaser *pMetroidLaser3 = &metroidLaser3;
+  metroidLasers[0] = pMetroidLaser1;
+  metroidLasers[1] = pMetroidLaser2;
+  metroidLasers[2] = pMetroidLaser3;
 
-  ON_CALL(laser1, getPosition())
+  ON_CALL(metroidLaser1, getPosition())
       .WillByDefault(Return(sf::Vector2f(120, 900)));
-  ON_CALL(laser2, getPosition())
+  ON_CALL(metroidLaser2, getPosition())
       .WillByDefault(Return(sf::Vector2f(120, 1344)));
 
-  EXPECT_CALL(laser2, setPosition(sf::Vector2f(224, 368)))
+  EXPECT_CALL(metroidLaser2, setPosition(sf::Vector2f(224, 368)))
       .Times(1);
   alpha.shoot(metroidLasers, 0);
 }
 
-TEST(Alpha, shootSetsPositionOfThirdLaserIfBelowBoardAndFirstAndSecondLasersAreOnBoardAndAlphaIsAlive)
+TEST(Alpha, shootSetsPositionOfThirdMetroidLaserIfBelowBoardAndFirstAndSecondMetroidLasersAreOnBoardAndAlphaIsAlive)
 {
   NiceMock<MockSprite> sprite;
   MockSprite *pSprite = &sprite;
   Alpha alpha(200, 320, pSprite);
   std::vector<ILaser *> metroidLasers(3);
-  NiceMock<MockLaser> laser1;
-  MockLaser *pLaser1 = &laser1;
-  NiceMock<MockLaser> laser2;
-  MockLaser *pLaser2 = &laser2;
-  NiceMock<MockLaser> laser3;
-  MockLaser *pLaser3 = &laser3;
-  metroidLasers[0] = pLaser1;
-  metroidLasers[1] = pLaser2;
-  metroidLasers[2] = pLaser3;
+  NiceMock<MockLaser> metroidLaser1;
+  MockLaser *pMetroidLaser1 = &metroidLaser1;
+  NiceMock<MockLaser> metroidLaser2;
+  MockLaser *pMetroidLaser2 = &metroidLaser2;
+  NiceMock<MockLaser> metroidLaser3;
+  MockLaser *pMetroidLaser3 = &metroidLaser3;
+  metroidLasers[0] = pMetroidLaser1;
+  metroidLasers[1] = pMetroidLaser2;
+  metroidLasers[2] = pMetroidLaser3;
 
-  ON_CALL(laser1, getPosition())
+  ON_CALL(metroidLaser1, getPosition())
       .WillByDefault(Return(sf::Vector2f(120, 900)));
-  ON_CALL(laser2, getPosition())
+  ON_CALL(metroidLaser2, getPosition())
       .WillByDefault(Return(sf::Vector2f(120, 600)));
-  ON_CALL(laser3, getPosition())
+  ON_CALL(metroidLaser3, getPosition())
       .WillByDefault(Return(sf::Vector2f(120, 1344)));
 
-  EXPECT_CALL(laser3, setPosition(sf::Vector2f(224, 368)))
+  EXPECT_CALL(metroidLaser3, setPosition(sf::Vector2f(224, 368)))
       .Times(1);
   alpha.shoot(metroidLasers, 0);
 }
 
-TEST(Alpha, shootDoesNotSetPositionOfAnyLaserIfTheyAreAllOnBoardAndAlphaIsAlive)
+TEST(Alpha, shootDoesNotSetPositionOfAnyMetroidLaserIfTheyAreAllOnBoardAndAlphaIsAlive)
 {
   NiceMock<MockSprite> sprite;
   MockSprite *pSprite = &sprite;
   Alpha alpha(200, 320, pSprite);
   std::vector<ILaser *> metroidLasers(3);
-  NiceMock<MockLaser> laser1;
-  MockLaser *pLaser1 = &laser1;
-  NiceMock<MockLaser> laser2;
-  MockLaser *pLaser2 = &laser2;
-  NiceMock<MockLaser> laser3;
-  MockLaser *pLaser3 = &laser3;
-  metroidLasers[0] = pLaser1;
-  metroidLasers[1] = pLaser2;
-  metroidLasers[2] = pLaser3;
+  NiceMock<MockLaser> metroidLaser1;
+  MockLaser *pMetroidLaser1 = &metroidLaser1;
+  NiceMock<MockLaser> metroidLaser2;
+  MockLaser *pMetroidLaser2 = &metroidLaser2;
+  NiceMock<MockLaser> metroidLaser3;
+  MockLaser *pMetroidLaser3 = &metroidLaser3;
+  metroidLasers[0] = pMetroidLaser1;
+  metroidLasers[1] = pMetroidLaser2;
+  metroidLasers[2] = pMetroidLaser3;
 
-  ON_CALL(laser1, getPosition())
+  ON_CALL(metroidLaser1, getPosition())
       .WillByDefault(Return(sf::Vector2f(120, 900)));
-  ON_CALL(laser2, getPosition())
+  ON_CALL(metroidLaser2, getPosition())
       .WillByDefault(Return(sf::Vector2f(120, 600)));
-  ON_CALL(laser3, getPosition())
+  ON_CALL(metroidLaser3, getPosition())
       .WillByDefault(Return(sf::Vector2f(120, 300)));
 
-  EXPECT_CALL(laser1, setPosition)
+  EXPECT_CALL(metroidLaser1, setPosition)
       .Times(0);
-  EXPECT_CALL(laser2, setPosition)
+  EXPECT_CALL(metroidLaser2, setPosition)
       .Times(0);
-  EXPECT_CALL(laser3, setPosition)
+  EXPECT_CALL(metroidLaser3, setPosition)
       .Times(0);
   alpha.shoot(metroidLasers, 0);
 }
 
-TEST(Alpha, shootDoesNotSetPositionOfAnyLaserIfRandomNumberIsNot0)
+TEST(Alpha, shootDoesNotSetPositionOfAnyMetroidLaserIfRandomNumberIsNot0)
 {
   NiceMock<MockSprite> sprite;
   MockSprite *pSprite = &sprite;
   Alpha alpha(200, 320, pSprite);
   std::vector<ILaser *> metroidLasers(3);
-  MockLaser laser1;
-  MockLaser *pLaser1 = &laser1;
-  MockLaser laser2;
-  MockLaser *pLaser2 = &laser2;
-  MockLaser laser3;
-  MockLaser *pLaser3 = &laser3;
-  metroidLasers[0] = pLaser1;
-  metroidLasers[1] = pLaser2;
-  metroidLasers[2] = pLaser3;
+  MockLaser metroidLaser1;
+  MockLaser *pMetroidLaser1 = &metroidLaser1;
+  MockLaser metroidLaser2;
+  MockLaser *pMetroidLaser2 = &metroidLaser2;
+  MockLaser metroidLaser3;
+  MockLaser *pMetroidLaser3 = &metroidLaser3;
+  metroidLasers[0] = pMetroidLaser1;
+  metroidLasers[1] = pMetroidLaser2;
+  metroidLasers[2] = pMetroidLaser3;
 
-  ON_CALL(laser1, getPosition())
+  ON_CALL(metroidLaser1, getPosition())
       .WillByDefault(Return(sf::Vector2f(120, 1344)));
-  ON_CALL(laser2, getPosition())
+  ON_CALL(metroidLaser2, getPosition())
       .WillByDefault(Return(sf::Vector2f(120, 1344)));
-  ON_CALL(laser3, getPosition())
+  ON_CALL(metroidLaser3, getPosition())
       .WillByDefault(Return(sf::Vector2f(120, 1344)));
 
-  EXPECT_CALL(laser1, setPosition)
+  EXPECT_CALL(metroidLaser1, setPosition)
       .Times(0);
-  EXPECT_CALL(laser2, setPosition)
+  EXPECT_CALL(metroidLaser2, setPosition)
       .Times(0);
-  EXPECT_CALL(laser3, setPosition)
+  EXPECT_CALL(metroidLaser3, setPosition)
       .Times(0);
   alpha.shoot(metroidLasers, 50);
 }
