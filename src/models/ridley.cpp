@@ -57,7 +57,7 @@ void Ridley::move()
 {
   if (position_.x > -96 && position_.x < 1536)
   {
-    position_.x += 0.25 * direction_;
+    position_.x += 0.125 * direction_;
     sprite_->setPosition(position_);
   }
 }
@@ -67,6 +67,6 @@ void Ridley::spawn(int randomNumber)
   if (randomNumber == 0 && (position_.x == -96 || position_.x == 1536))
   {
     changeDirection();
-    position_.x += 0.25 * direction_;
+    position_.x += 0.125 * direction_;
   }
 }

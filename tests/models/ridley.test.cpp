@@ -179,7 +179,7 @@ TEST(Ridley, resetSetsDirectionBackToMinus1)
   EXPECT_EQ(ridley.getDirection(), -1);
 }
 
-TEST(Ridley, moveAdds0Point25ToXPositionWhenDirectionIs1AndIsOnTheBoard)
+TEST(Ridley, moveAdds0Point125ToXPositionWhenDirectionIs1AndIsOnTheBoard)
 {
   NiceMock<MockSprite> sprite;
   MockSprite *pSprite = &sprite;
@@ -189,10 +189,10 @@ TEST(Ridley, moveAdds0Point25ToXPositionWhenDirectionIs1AndIsOnTheBoard)
   ridley.changeDirection();                   // Set direction to 1
 
   ridley.move();
-  EXPECT_EQ(ridley.getPosition(), sf::Vector2f(500.25, 200));
+  EXPECT_EQ(ridley.getPosition(), sf::Vector2f(500.125, 200));
 }
 
-TEST(Ridley, moveTakesAway0Point25ToXPositionWhenDirectionIsMinus1AndIsOnTheBoard)
+TEST(Ridley, moveTakesAway0Point125ToXPositionWhenDirectionIsMinus1AndIsOnTheBoard)
 {
   NiceMock<MockSprite> sprite;
   MockSprite *pSprite = &sprite;
@@ -201,7 +201,7 @@ TEST(Ridley, moveTakesAway0Point25ToXPositionWhenDirectionIsMinus1AndIsOnTheBoar
   ridley.setPosition(sf::Vector2f(500, 200)); // Put Ridley on the board
 
   ridley.move();
-  EXPECT_EQ(ridley.getPosition(), sf::Vector2f(499.75, 200));
+  EXPECT_EQ(ridley.getPosition(), sf::Vector2f(499.875, 200));
 }
 
 TEST(Ridley, moveDoesNotChangePositionWhenRidleyIsLeftOfTheBoard)
@@ -234,7 +234,7 @@ TEST(Ridley, moveUpdatesSpritePositionWhenOnTheBoard)
 
   ridley.setPosition(sf::Vector2f(500, 200)); // Put Ridley on the board
 
-  EXPECT_CALL(sprite, setPosition(sf::Vector2f(499.75, 200)))
+  EXPECT_CALL(sprite, setPosition(sf::Vector2f(499.875, 200)))
       .Times(1);
   ridley.move();
 }
@@ -261,17 +261,17 @@ TEST(Ridley, spawnChangesDirectionToMinus1)
   EXPECT_EQ(ridley.getDirection(), -1);
 }
 
-TEST(Ridley, spawnAdds0Point25ToXPositionWhenRidleyIsLeftOfBoard)
+TEST(Ridley, spawnAdds0Point125ToXPositionWhenRidleyIsLeftOfBoard)
 {
   NiceMock<MockSprite> sprite;
   MockSprite *pSprite = &sprite;
   Ridley ridley(pSprite);
 
   ridley.spawn(0);
-  EXPECT_EQ(ridley.getPosition(), sf::Vector2f(-95.75, 200));
+  EXPECT_EQ(ridley.getPosition(), sf::Vector2f(-95.875, 200));
 }
 
-TEST(Ridley, spawnTakesAway0Point25FromXPositionWhenRidleyIsRightOfBoard)
+TEST(Ridley, spawnTakesAway0Point125FromXPositionWhenRidleyIsRightOfBoard)
 {
   NiceMock<MockSprite> sprite;
   MockSprite *pSprite = &sprite;
@@ -281,7 +281,7 @@ TEST(Ridley, spawnTakesAway0Point25FromXPositionWhenRidleyIsRightOfBoard)
   ridley.changeDirection();                    // Set direction to 1
 
   ridley.spawn(0);
-  EXPECT_EQ(ridley.getPosition(), sf::Vector2f(1535.75, 200));
+  EXPECT_EQ(ridley.getPosition(), sf::Vector2f(1535.875, 200));
 }
 
 TEST(Ridley, spawnDoesNotChangeDirectionOrPositionWhenNotAtLeftOrRightEdgeOfBoard)
