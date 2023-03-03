@@ -70,7 +70,7 @@ int main()
       }
       if (haveMetroidsInvaded(metroids) || cannon.getLives() == 0)
       {
-        endGame(isPlaying, gameOver, score, scoreText);
+        endGame(isPlaying, gameOver, ridley, score, scoreText);
       }
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
       {
