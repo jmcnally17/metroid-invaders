@@ -93,5 +93,6 @@ void Ridley::stopMovementSoundIfAtSideOfWindow()
 
 void Ridley::die()
 {
-  position_.x = direction_ == 1 ? 1536 : -96;
+  float newXPosition = direction_ == 1 ? 1536 : -96;
+  setPosition(sf::Vector2f(newXPosition, 200));
 }
