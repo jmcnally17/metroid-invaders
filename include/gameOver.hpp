@@ -8,6 +8,7 @@
 #include "./models/iLaserCannon.hpp"
 #include "./models/iLaser.hpp"
 #include "./models/iMetroid.hpp"
+#include "./models/iRidley.hpp"
 
 void displayGameOverScreen(IRenderWindow &window, const IText &gameOverText, const IText &scoreText, const IText &playAgainText);
 
@@ -17,6 +18,7 @@ void playAgain(bool &isPlaying,
                ILaser &laser,
                const std::vector<std::vector<IMetroid *>> &metroids,
                const std::vector<ILaser *> &metroidLasers,
+               IRidley &ridley,
                int &interval,
                int &step,
                int &soundCounter,

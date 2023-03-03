@@ -4,6 +4,7 @@
 #include "../../../include/models/iLaserCannon.hpp"
 #include "../../../include/models/iLaser.hpp"
 #include "../../../include/models/iMetroid.hpp"
+#include "../../../include/models/iRidley.hpp"
 
 void playAgain(bool &isPlaying,
                bool &gameOver,
@@ -11,6 +12,7 @@ void playAgain(bool &isPlaying,
                ILaser &laser,
                const std::vector<std::vector<IMetroid *>> &metroids,
                const std::vector<ILaser *> &metroidLasers,
+               IRidley &ridley,
                int &interval,
                int &step,
                int &soundCounter,
@@ -35,6 +37,7 @@ void playAgain(bool &isPlaying,
   {
     metroidLaser->reset();
   }
+  ridley.reset();
   interval = 665;
   step = 1;
   soundCounter = 0;
