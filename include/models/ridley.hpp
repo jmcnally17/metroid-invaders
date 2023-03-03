@@ -20,6 +20,7 @@ public:
   void move() override;
   void spawn(int randomNumber = rand() % 10000) override;
   void stopMovementSoundIfPlaying() override;
+  void stopMovementSoundIfAtSideOfWindow();
 
 private:
   int points_;

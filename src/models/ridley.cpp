@@ -82,3 +82,8 @@ void Ridley::stopMovementSoundIfPlaying()
     movementSound_->stop();
   }
 }
+
+void Ridley::stopMovementSoundIfAtSideOfWindow()
+{
+  movementSound_->stop();
+}
