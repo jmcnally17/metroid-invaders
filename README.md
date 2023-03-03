@@ -4,7 +4,7 @@ This solo project is an imitation of the classic 1978 Taito game, Space Invaders
 
 ## Features Pending
 
-- Random spawning of UFO Invader at the top of the window
+- Collision detection between Ridley and Cannon Laser
 - Bunkers protecting the Laser Cannon at the bottom
 - Title screen
 - **_(Under consideration)_** Submit the player score into a database with their name at game over and display the leaderboard either at game over or on a live website
@@ -27,7 +27,7 @@ The player controls a Laser Cannon at the bottom of the window which can be move
 </p>
 
 <p align="center">
-  <b>Fig.1 -</b> A screenshot of the game window with the Laser Cannon at the bottom of the board, firing the Laser at the grid of Metroids above while dodging the Metroid lasers. The player's score can be seen in the top left hand corner with the number of lives left in the top right hand corner
+  <b>Fig.1 -</b> A screenshot of the game window with the Laser Cannon at the bottom of the board, firing the Laser at the grid of Metroids above while dodging the Metroid lasers. Ridley (sprite yet to be updated) can also be seen hovering above the grid of Invaders. The player's score can be seen in the top left hand corner with the number of lives left in the top right hand corner
 </p>
 
 <p align="center">

@@ -9,6 +9,7 @@
 #include "./models/iLaserCannon.hpp"
 #include "./models/iLaser.hpp"
 #include "./models/iMetroid.hpp"
+#include "./models/iRidley.hpp"
 #include "./interfaces/collisionInterface.hpp"
 
 void drawObjects(IRenderWindow &window,
@@ -16,6 +17,7 @@ void drawObjects(IRenderWindow &window,
                  const ILaser &laser,
                  const std::vector<std::vector<IMetroid *>> &metroids,
                  const std::vector<ILaser *> &metroidLasers,
+                 const IRidley &ridley,
                  const IText &scoreText,
                  const IText &livesText);
 
@@ -53,9 +55,13 @@ void moveMetroids(const std::vector<std::vector<IMetroid *>> &metroids,
 
 void moveMetroidLasers(const std::vector<ILaser *> &metroidLasers);
 
+void moveRidley(IRidley &ridley);
+
 void fireLaser(ILaserCannon &cannon);
 
 void shootMetroidLaser(const std::vector<std::vector<IMetroid *>> &metroids, const std::vector<ILaser *> &lasers);
+
+void spawnRidley(IRidley &ridley);
 
 void endGame(bool &isPlaying, bool &gameOver, int score, IText &scoreText);
 

@@ -9,44 +9,48 @@ using ::testing::Return;
 
 TEST(LaserCannon, setsOwnPositionMember)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
   MockLaser *laser;
   MockSound *fireSound;
   MockSound *deathSound;
-  LaserCannon cannon(sprite, laser, fireSound, deathSound);
+  LaserCannon cannon(pSprite, laser, fireSound, deathSound);
 
   EXPECT_EQ(cannon.getPosition(), sf::Vector2f(120, 1224));
 }
 
 TEST(LaserCannon, hasAWidthClassMemberOf78)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
   MockLaser *laser;
   MockSound *fireSound;
   MockSound *deathSound;
-  LaserCannon cannon(sprite, laser, fireSound, deathSound);
+  LaserCannon cannon(pSprite, laser, fireSound, deathSound);
 
   EXPECT_EQ(cannon.getWidth(), 78);
 }
 
 TEST(LaserCannon, hasAHeightClassMemberOf48)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
   MockLaser *laser;
   MockSound *fireSound;
   MockSound *deathSound;
-  LaserCannon cannon(sprite, laser, fireSound, deathSound);
+  LaserCannon cannon(pSprite, laser, fireSound, deathSound);
 
   EXPECT_EQ(cannon.getHeight(), 48);
 }
 
 TEST(LaserCannon, hasALivesClassMemberInitiallySetTo3)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
   MockLaser *laser;
   MockSound *fireSound;
   MockSound *deathSound;
-  LaserCannon cannon(sprite, laser, fireSound, deathSound);
+  LaserCannon cannon(pSprite, laser, fireSound, deathSound);
 
   EXPECT_EQ(cannon.getLives(), 3);
 }
@@ -66,11 +70,12 @@ TEST(LaserCannon, setsSpritePositionUponInstantiation)
 
 TEST(LaserCannon, setPositionChangesPositionClassMember)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
   MockLaser *laser;
   MockSound *fireSound;
   MockSound *deathSound;
-  LaserCannon cannon(sprite, laser, fireSound, deathSound);
+  LaserCannon cannon(pSprite, laser, fireSound, deathSound);
 
   cannon.setPosition(sf::Vector2f(205, 920));
   EXPECT_EQ(cannon.getPosition(), sf::Vector2f(205, 920));
@@ -92,11 +97,12 @@ TEST(LaserCannon, setPositionChangesSpritePosition)
 
 TEST(LaserCannon, drawCallsDrawOnTheWindowWithSpriteArgument)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
   MockLaser *laser;
   MockSound *fireSound;
   MockSound *deathSound;
-  LaserCannon cannon(sprite, laser, fireSound, deathSound);
+  LaserCannon cannon(pSprite, laser, fireSound, deathSound);
   MockRenderWindow window;
 
   EXPECT_CALL(window, draw(testing::Truly([](const sf::Drawable &drawable)
@@ -107,11 +113,12 @@ TEST(LaserCannon, drawCallsDrawOnTheWindowWithSpriteArgument)
 
 TEST(LaserCannon, moveChangesXOfPositionClassMember)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
   MockLaser *laser;
   MockSound *fireSound;
   MockSound *deathSound;
-  LaserCannon cannon(sprite, laser, fireSound, deathSound);
+  LaserCannon cannon(pSprite, laser, fireSound, deathSound);
 
   cannon.move(75);
   EXPECT_EQ(cannon.getPosition(), sf::Vector2f(195, 1224));
@@ -165,12 +172,14 @@ TEST(LaserCannon, moveDoesNotMovePositionRightIfPositionIsOffScreenRight)
 
 TEST(LaserCannon, fireChecksPositionOfLaserClassMember)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
   NiceMock<MockLaser> laser;
   MockLaser *pLaser = &laser;
-  MockSound *fireSound = new NiceMock<MockSound>();
+  NiceMock<MockSound> fireSound;
+  MockSound *pFireSound = &fireSound;
   MockSound *deathSound;
-  LaserCannon cannon(sprite, pLaser, fireSound, deathSound);
+  LaserCannon cannon(pSprite, pLaser, pFireSound, deathSound);
 
   EXPECT_CALL(laser, getPosition())
       .Times(1);
@@ -181,12 +190,14 @@ TEST(LaserCannon, fireChecksPositionOfLaserClassMember)
 
 TEST(LaserCannon, fireSetsPositionDownOnLaserClassMemberWhenAboveBoard)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
   NiceMock<MockLaser> laser;
   MockLaser *pLaser = &laser;
-  MockSound *fireSound = new NiceMock<MockSound>();
+  NiceMock<MockSound> fireSound;
+  MockSound *pFireSound = &fireSound;
   MockSound *deathSound;
-  LaserCannon cannon(sprite, pLaser, fireSound, deathSound);
+  LaserCannon cannon(pSprite, pLaser, pFireSound, deathSound);
 
   ON_CALL(laser, getPosition)
       .WillByDefault(Return(sf::Vector2f(500, -26)));
@@ -201,13 +212,14 @@ TEST(LaserCannon, fireSetsPositionDownOnLaserClassMemberWhenAboveBoard)
 
 TEST(LaserCannon, fireCallsPlayOnSoundClassMemberWhenAboveBoard)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
   NiceMock<MockLaser> laser;
   MockLaser *pLaser = &laser;
   MockSound fireSound;
   MockSound *pFireSound = &fireSound;
   MockSound *deathSound;
-  LaserCannon cannon(sprite, pLaser, pFireSound, deathSound);
+  LaserCannon cannon(pSprite, pLaser, pFireSound, deathSound);
 
   ON_CALL(laser, getPosition)
       .WillByDefault(Return(sf::Vector2f(500, -26)));
@@ -221,12 +233,13 @@ TEST(LaserCannon, fireCallsPlayOnSoundClassMemberWhenAboveBoard)
 
 TEST(LaserCannon, fireDoesNotSetPositionDownOnLaserClassMemberWhenOnBoard)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
   NiceMock<MockLaser> laser;
   MockLaser *pLaser = &laser;
   MockSound *fireSound;
   MockSound *deathSound;
-  LaserCannon cannon(sprite, pLaser, fireSound, deathSound);
+  LaserCannon cannon(pSprite, pLaser, fireSound, deathSound);
 
   ON_CALL(laser, getPosition)
       .WillByDefault(Return(sf::Vector2f(500, 500)));
@@ -240,13 +253,14 @@ TEST(LaserCannon, fireDoesNotSetPositionDownOnLaserClassMemberWhenOnBoard)
 
 TEST(LaserCannon, fireDoesNotCallPlayOnSoundClassMemberWhenOnBoard)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
   NiceMock<MockLaser> laser;
   MockLaser *pLaser = &laser;
   MockSound fireSound;
   MockSound *pFireSound = &fireSound;
   MockSound *deathSound;
-  LaserCannon cannon(sprite, pLaser, pFireSound, deathSound);
+  LaserCannon cannon(pSprite, pLaser, pFireSound, deathSound);
 
   ON_CALL(laser, getPosition)
       .WillByDefault(Return(sf::Vector2f(500, 500)));
@@ -258,11 +272,12 @@ TEST(LaserCannon, fireDoesNotCallPlayOnSoundClassMemberWhenOnBoard)
 
 TEST(LaserCannon, resetPositionSetsPositionBackToStartingPoint)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
   MockLaser *laser;
   MockSound *fireSound;
   MockSound *deathSound;
-  LaserCannon cannon(sprite, laser, fireSound, deathSound);
+  LaserCannon cannon(pSprite, laser, fireSound, deathSound);
 
   cannon.setPosition(sf::Vector2f(500, 120));
 
@@ -288,11 +303,12 @@ TEST(LaserCannon, resetPositionSetsSpritePositionBackToStartingPoint)
 
 TEST(LaserCannon, resetSetsPositionBackToStartingPoint)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
   MockLaser *laser;
   MockSound *fireSound;
   MockSound *deathSound;
-  LaserCannon cannon(sprite, laser, fireSound, deathSound);
+  LaserCannon cannon(pSprite, laser, fireSound, deathSound);
 
   cannon.setPosition(sf::Vector2f(500, 120));
 
@@ -322,8 +338,9 @@ TEST(LaserCannon, resetSetsLivesBackTo3)
   MockSprite *pSprite = &sprite;
   MockLaser *laser;
   MockSound *fireSound;
-  MockSound *deathSound = new NiceMock<MockSound>();
-  LaserCannon cannon(pSprite, laser, fireSound, deathSound);
+  NiceMock<MockSound> deathSound;
+  MockSound *pDeathSound = &deathSound;
+  LaserCannon cannon(pSprite, laser, fireSound, pDeathSound);
 
   cannon.loseLife();
 
@@ -333,11 +350,13 @@ TEST(LaserCannon, resetSetsLivesBackTo3)
 
 TEST(LaserCannon, loseLifeDecreasesLivesBy1)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
   MockLaser *laser;
   MockSound *fireSound;
-  MockSound *deathSound = new NiceMock<MockSound>();
-  LaserCannon cannon(sprite, laser, fireSound, deathSound);
+  NiceMock<MockSound> deathSound;
+  MockSound *pDeathSound = &deathSound;
+  LaserCannon cannon(pSprite, laser, fireSound, pDeathSound);
 
   cannon.loseLife();
   EXPECT_EQ(cannon.getLives(), 2);
@@ -345,12 +364,13 @@ TEST(LaserCannon, loseLifeDecreasesLivesBy1)
 
 TEST(LaserCannon, loseLifePlaysDeathSoundClassMember)
 {
-  MockSprite *sprite = new NiceMock<MockSprite>();
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
   MockLaser *laser;
   MockSound *fireSound;
   MockSound deathSound;
   MockSound *pDeathSound = &deathSound;
-  LaserCannon cannon(sprite, laser, fireSound, pDeathSound);
+  LaserCannon cannon(pSprite, laser, fireSound, pDeathSound);
 
   EXPECT_CALL(deathSound, play())
       .Times(1);
