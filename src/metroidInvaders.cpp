@@ -208,7 +208,11 @@ Ridley makeRidley()
   movementBuffer.loadFromFile("public/audio/ridley.wav");
   SoundWrapper *movementSound = new SoundWrapper(movementBuffer);
 
-  Ridley ridley(ridleySprite, movementSound);
+  sf::SoundBuffer deathBuffer;
+  deathBuffer.loadFromFile("public/audio/ridleyDeath.wav");
+  SoundWrapper *deathSound = new SoundWrapper(deathBuffer);
+
+  Ridley ridley(ridleySprite, movementSound, deathSound);
   return ridley;
 }
 
