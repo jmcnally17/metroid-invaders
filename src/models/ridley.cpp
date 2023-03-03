@@ -93,5 +93,5 @@ void Ridley::stopMovementSoundIfAtSideOfWindow()
 
 void Ridley::die()
 {
-  position_.x = 1536;
+  position_.x = direction_ == 1 ? 1536 : -96;
 }

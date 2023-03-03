@@ -505,3 +505,17 @@ TEST(Ridley, dieSetsPositionToRightOfWindowWhenDirectionIs1)
   ridley.die();
   EXPECT_EQ(ridley.getPosition(), sf::Vector2f(1536, 200));
 }
+
+TEST(Ridley, dieSetsPositionToLeftOfWindowWhenDirectionIsMinus1)
+{
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  NiceMock<MockSound> movementSound;
+  MockSound *pMovementSound = &movementSound;
+  Ridley ridley(pSprite, pMovementSound);
+
+  ridley.setPosition(sf::Vector2f(500, 200));
+
+  ridley.die();
+  EXPECT_EQ(ridley.getPosition(), sf::Vector2f(-96, 200));
+}
