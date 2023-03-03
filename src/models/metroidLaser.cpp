@@ -27,8 +27,7 @@ void MetroidLaser::draw(IRenderWindow &window) const
 {
   if (position_.y < 1344)
   {
-    ISprite &rSprite = *sprite_;
-    window.draw(rSprite);
+    window.draw(*sprite_);
   }
 }
 

@@ -34,8 +34,7 @@ sf::Vector2f LaserCannon::getPosition() const
 
 void LaserCannon::draw(IRenderWindow &window) const
 {
-  ISprite &rSprite = *sprite_;
-  window.draw(rSprite);
+  window.draw(*sprite_);
 }
 
 void LaserCannon::move(float x)

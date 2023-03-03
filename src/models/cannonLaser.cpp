@@ -27,8 +27,7 @@ void CannonLaser::draw(IRenderWindow &window) const
 {
   if (position_.y > 0 - height_)
   {
-    ISprite &rSprite = *sprite_;
-    window.draw(rSprite);
+    window.draw(*sprite_);
   }
 }
 

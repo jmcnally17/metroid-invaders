@@ -44,8 +44,7 @@ void Ridley::draw(IRenderWindow &window) const
 {
   if (position_.x > -96 && position_.x < 1536)
   {
-    ISprite &rSprite = *sprite_;
-    window.draw(rSprite);
+    window.draw(*sprite_);
   }
 }
 
