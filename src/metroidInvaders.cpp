@@ -65,6 +65,7 @@ int main()
         levelUp(level, interval, step, soundCounter, metroids, metroidLasers, ridley, clock);
       }
       evaluateLaserMetroidCollision(collisionInterface, cannonLaser, metroids, score, scoreText);
+      evaluateLaserRidleyCollision(collisionInterface, cannonLaser, ridley, score, scoreText);
       if (hasCannonBeenHit(collisionInterface, cannon, metroidLasers))
       {
         decreaseCannonLives(cannon, cannonLaser, metroidLasers, livesText);
