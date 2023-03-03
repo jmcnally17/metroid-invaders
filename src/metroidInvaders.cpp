@@ -59,6 +59,7 @@ int main()
     if (isPlaying)
     {
       drawObjects(window, cannon, cannonLaser, metroids, metroidLasers, ridley, scoreText, livesText);
+      monitorRidleyMovementSound(ridley);
       if (areMetroidsDead(metroids))
       {
         levelUp(level, interval, step, soundCounter, metroids, metroidLasers, ridley, clock);
