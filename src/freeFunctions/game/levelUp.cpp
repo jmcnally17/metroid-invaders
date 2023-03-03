@@ -1,5 +1,6 @@
 #include <vector>
 #include "../../../include/models/iMetroid.hpp"
+#include "../../../include/models/iRidley.hpp"
 #include "../../../include/wrappers/iClock.hpp"
 
 void levelUp(int &level,
@@ -8,6 +9,7 @@ void levelUp(int &level,
              int &soundCounter,
              const std::vector<std::vector<IMetroid *>> &metroids,
              const std::vector<ILaser *> &metroidLasers,
+             IRidley &ridley,
              IClock &clock)
 {
   level++;
@@ -35,5 +37,6 @@ void levelUp(int &level,
   {
     laser->reset();
   }
+  ridley.reset();
   clock.restart();
 }

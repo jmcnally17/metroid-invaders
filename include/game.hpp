@@ -29,6 +29,7 @@ void levelUp(int &level,
              int &soundCounter,
              const std::vector<std::vector<IMetroid *>> &metroids,
              const std::vector<ILaser *> &metroidLasers,
+             IRidley &ridley,
              IClock &clock);
 
 void evaluateLaserMetroidCollision(const CollisionInterface &collision,
