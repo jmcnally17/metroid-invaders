@@ -85,5 +85,8 @@ void Ridley::stopMovementSoundIfPlaying()
 
 void Ridley::stopMovementSoundIfAtSideOfWindow()
 {
-  movementSound_->stop();
+  if (position_.x == -96)
+  {
+    movementSound_->stop();
+  }
 }
