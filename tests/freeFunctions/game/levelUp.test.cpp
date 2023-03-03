@@ -1,6 +1,7 @@
 #include "../../../include/game.hpp"
 #include "../../mockModels/mockMetroid.hpp"
 #include "../../mockModels/mockLaser.hpp"
+#include "../../mockModels/mockRidley.hpp"
 #include "../../mockModels/mockClock.hpp"
 
 using ::testing::NiceMock;
@@ -14,9 +15,10 @@ TEST(levelUp, adds1ToTheLevelVariable)
   int soundCounter = 3;
   std::vector<std::vector<IMetroid *>> metroids;
   std::vector<ILaser *> metroidLasers;
+  NiceMock<MockRidley> ridley;
   NiceMock<MockClock> clock;
 
-  levelUp(level, interval, step, soundCounter, metroids, metroidLasers, clock);
+  levelUp(level, interval, step, soundCounter, metroids, metroidLasers, ridley, clock);
   EXPECT_EQ(level, 6);
 }
 
@@ -28,9 +30,10 @@ TEST(levelUp, resetsTheInterval)
   int soundCounter = 3;
   std::vector<std::vector<IMetroid *>> metroids;
   std::vector<ILaser *> metroidLasers;
+  NiceMock<MockRidley> ridley;
   NiceMock<MockClock> clock;
 
-  levelUp(level, interval, step, soundCounter, metroids, metroidLasers, clock);
+  levelUp(level, interval, step, soundCounter, metroids, metroidLasers, ridley, clock);
   EXPECT_EQ(interval, 665);
 }
 
@@ -42,9 +45,10 @@ TEST(levelUp, resetsTheStepCounter)
   int soundCounter = 3;
   std::vector<std::vector<IMetroid *>> metroids;
   std::vector<ILaser *> metroidLasers;
+  NiceMock<MockRidley> ridley;
   NiceMock<MockClock> clock;
 
-  levelUp(level, interval, step, soundCounter, metroids, metroidLasers, clock);
+  levelUp(level, interval, step, soundCounter, metroids, metroidLasers, ridley, clock);
   EXPECT_EQ(step, 1);
 }
 
@@ -56,9 +60,10 @@ TEST(levelUp, resetsTheSoundCounter)
   int soundCounter = 3;
   std::vector<std::vector<IMetroid *>> metroids;
   std::vector<ILaser *> metroidLasers;
+  NiceMock<MockRidley> ridley;
   NiceMock<MockClock> clock;
 
-  levelUp(level, interval, step, soundCounter, metroids, metroidLasers, clock);
+  levelUp(level, interval, step, soundCounter, metroids, metroidLasers, ridley, clock);
   EXPECT_EQ(soundCounter, 0);
 }
 
@@ -81,11 +86,12 @@ TEST(levelUp, callsResurrectOnEachMetroid)
     metroids[i] = metroidRow;
   }
   std::vector<ILaser *> metroidLasers;
+  NiceMock<MockRidley> ridley;
   NiceMock<MockClock> clock;
 
   EXPECT_CALL(metroid, resurrect())
       .Times(8);
-  levelUp(level, interval, step, soundCounter, metroids, metroidLasers, clock);
+  levelUp(level, interval, step, soundCounter, metroids, metroidLasers, ridley, clock);
 }
 
 TEST(levelUp, changesDirectionOnMetroidsIfTheyAreMovingLeft)
@@ -107,6 +113,7 @@ TEST(levelUp, changesDirectionOnMetroidsIfTheyAreMovingLeft)
     metroids[i] = metroidRow;
   }
   std::vector<ILaser *> metroidLasers;
+  NiceMock<MockRidley> ridley;
   NiceMock<MockClock> clock;
 
   ON_CALL(metroid, getDirection())
@@ -114,7 +121,7 @@ TEST(levelUp, changesDirectionOnMetroidsIfTheyAreMovingLeft)
 
   EXPECT_CALL(metroid, changeDirection())
       .Times(8);
-  levelUp(level, interval, step, soundCounter, metroids, metroidLasers, clock);
+  levelUp(level, interval, step, soundCounter, metroids, metroidLasers, ridley, clock);
 }
 
 TEST(levelUp, doesNotChangeDirectionOnMetroidsIfTheyAreMovingRight)
@@ -136,6 +143,7 @@ TEST(levelUp, doesNotChangeDirectionOnMetroidsIfTheyAreMovingRight)
     metroids[i] = metroidRow;
   }
   std::vector<ILaser *> metroidLasers;
+  NiceMock<MockRidley> ridley;
   NiceMock<MockClock> clock;
 
   ON_CALL(metroid, getDirection())
@@ -143,7 +151,7 @@ TEST(levelUp, doesNotChangeDirectionOnMetroidsIfTheyAreMovingRight)
 
   EXPECT_CALL(metroid, changeDirection())
       .Times(0);
-  levelUp(level, interval, step, soundCounter, metroids, metroidLasers, clock);
+  levelUp(level, interval, step, soundCounter, metroids, metroidLasers, ridley, clock);
 }
 
 TEST(levelUp, setsNextLevelPositionOnMetroids)
@@ -165,6 +173,7 @@ TEST(levelUp, setsNextLevelPositionOnMetroids)
     metroids[i] = metroidRow;
   }
   std::vector<ILaser *> metroidLasers;
+  NiceMock<MockRidley> ridley;
   NiceMock<MockClock> clock;
 
   ON_CALL(metroid, getOriginalPosition())
@@ -172,7 +181,7 @@ TEST(levelUp, setsNextLevelPositionOnMetroids)
 
   EXPECT_CALL(metroid, setPosition(sf::Vector2f(400, 1170)))
       .Times(8);
-  levelUp(level, interval, step, soundCounter, metroids, metroidLasers, clock);
+  levelUp(level, interval, step, soundCounter, metroids, metroidLasers, ridley, clock);
 }
 
 TEST(levelUp, resetsTheMetroidLasers)
@@ -189,11 +198,44 @@ TEST(levelUp, resetsTheMetroidLasers)
   {
     metroidLasers[i] = pLaser;
   }
+  NiceMock<MockRidley> ridley;
   NiceMock<MockClock> clock;
 
   EXPECT_CALL(laser, reset())
       .Times(3);
-  levelUp(level, interval, step, soundCounter, metroids, metroidLasers, clock);
+  levelUp(level, interval, step, soundCounter, metroids, metroidLasers, ridley, clock);
+}
+
+TEST(levelUp, resetsRidley)
+{
+  int level = 5;
+  int interval = 105;
+  int step = 15;
+  int soundCounter = 3;
+  std::vector<std::vector<IMetroid *>> metroids;
+  std::vector<ILaser *> metroidLasers;
+  NiceMock<MockRidley> ridley;
+  NiceMock<MockClock> clock;
+
+  EXPECT_CALL(ridley, reset())
+      .Times(1);
+  levelUp(level, interval, step, soundCounter, metroids, metroidLasers, ridley, clock);
+}
+
+TEST(levelUp, stopsRidleyMovementSoundIfPlaying)
+{
+  int level = 5;
+  int interval = 105;
+  int step = 15;
+  int soundCounter = 3;
+  std::vector<std::vector<IMetroid *>> metroids;
+  std::vector<ILaser *> metroidLasers;
+  NiceMock<MockRidley> ridley;
+  NiceMock<MockClock> clock;
+
+  EXPECT_CALL(ridley, stopMovementSoundIfPlaying())
+      .Times(1);
+  levelUp(level, interval, step, soundCounter, metroids, metroidLasers, ridley, clock);
 }
 
 TEST(levelUp, restartsTheClock)
@@ -204,9 +246,10 @@ TEST(levelUp, restartsTheClock)
   int soundCounter = 3;
   std::vector<std::vector<IMetroid *>> metroids;
   std::vector<ILaser *> metroidLasers;
+  NiceMock<MockRidley> ridley;
   MockClock clock;
 
   EXPECT_CALL(clock, restart())
       .Times(1);
-  levelUp(level, interval, step, soundCounter, metroids, metroidLasers, clock);
+  levelUp(level, interval, step, soundCounter, metroids, metroidLasers, ridley, clock);
 }

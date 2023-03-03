@@ -1,6 +1,9 @@
 #include "../../include/models/ridley.hpp"
 
-Ridley::Ridley(ISprite *sprite) : IRidley(96, 42, -96, 200, sprite), points_(150), direction_(-1) {}
+Ridley::Ridley(ISprite *sprite, ISound *movementSound) : IRidley(96, 42, -96, 200, sprite), points_(150), direction_(-1), movementSound_(movementSound)
+{
+  movementSound_->setLoop(true);
+}
 
 float Ridley::getWidth() const
 {
@@ -68,5 +71,22 @@ void Ridley::spawn(int randomNumber)
   {
     changeDirection();
     position_.x += 0.125 * direction_;
+    movementSound_->play();
+  }
+}
+
+void Ridley::stopMovementSoundIfPlaying()
+{
+  if (movementSound_->getStatus() == sf::Sound::Playing)
+  {
+    movementSound_->stop();
+  }
+}
+
+void Ridley::stopMovementSoundIfAtSideOfWindow()
+{
+  if (position_.x == -96 || position_.x == 1536)
+  {
+    stopMovementSoundIfPlaying();
   }
 }

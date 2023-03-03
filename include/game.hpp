@@ -21,6 +21,8 @@ void drawObjects(IRenderWindow &window,
                  const IText &scoreText,
                  const IText &livesText);
 
+void monitorRidleyMovementSound(IRidley &ridley);
+
 bool areMetroidsDead(const std::vector<std::vector<IMetroid *>> &metroids);
 
 void levelUp(int &level,
@@ -29,6 +31,7 @@ void levelUp(int &level,
              int &soundCounter,
              const std::vector<std::vector<IMetroid *>> &metroids,
              const std::vector<ILaser *> &metroidLasers,
+             IRidley &ridley,
              IClock &clock);
 
 void evaluateLaserMetroidCollision(const CollisionInterface &collision,
@@ -63,6 +66,6 @@ void shootMetroidLaser(const std::vector<std::vector<IMetroid *>> &metroids, con
 
 void spawnRidley(IRidley &ridley);
 
-void endGame(bool &isPlaying, bool &gameOver, int score, IText &scoreText);
+void endGame(bool &isPlaying, bool &gameOver, IRidley &ridley, int score, IText &scoreText);
 
 #endif

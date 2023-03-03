@@ -15,6 +15,8 @@ public:
   MOCK_METHOD(void, reset, ());
   MOCK_METHOD(void, move, ());
   MOCK_METHOD(void, spawn, (int randomNumber));
+  MOCK_METHOD(void, stopMovementSoundIfPlaying, ());
+  MOCK_METHOD(void, stopMovementSoundIfAtSideOfWindow, ());
 };
 
 #endif

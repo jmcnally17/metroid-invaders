@@ -59,9 +59,10 @@ int main()
     if (isPlaying)
     {
       drawObjects(window, cannon, cannonLaser, metroids, metroidLasers, ridley, scoreText, livesText);
+      monitorRidleyMovementSound(ridley);
       if (areMetroidsDead(metroids))
       {
-        levelUp(level, interval, step, soundCounter, metroids, metroidLasers, clock);
+        levelUp(level, interval, step, soundCounter, metroids, metroidLasers, ridley, clock);
       }
       evaluateLaserMetroidCollision(collisionInterface, cannonLaser, metroids, score, scoreText);
       if (hasCannonBeenHit(collisionInterface, cannon, metroidLasers))
@@ -70,7 +71,7 @@ int main()
       }
       if (haveMetroidsInvaded(metroids) || cannon.getLives() == 0)
       {
-        endGame(isPlaying, gameOver, score, scoreText);
+        endGame(isPlaying, gameOver, ridley, score, scoreText);
       }
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
       {
@@ -96,7 +97,7 @@ int main()
       displayGameOverScreen(window, gameOverText, scoreText, playAgainText);
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
       {
-        playAgain(isPlaying, gameOver, cannon, cannonLaser, metroids, metroidLasers, interval, step, soundCounter, level, score, scoreText, livesText, clock);
+        playAgain(isPlaying, gameOver, cannon, cannonLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, clock);
       }
     }
   }
@@ -203,7 +204,11 @@ Ridley makeRidley()
   ridleyTexture.loadFromFile("public/images/sprites/ridley.png");
   SpriteWrapper *ridleySprite = new SpriteWrapper(ridleyTexture);
 
-  Ridley ridley(ridleySprite);
+  sf::SoundBuffer movementBuffer;
+  movementBuffer.loadFromFile("public/audio/ridley.wav");
+  SoundWrapper *movementSound = new SoundWrapper(movementBuffer);
+
+  Ridley ridley(ridleySprite, movementSound);
   return ridley;
 }
 

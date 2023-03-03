@@ -2,11 +2,12 @@
 #define RIDLEY_HPP
 
 #include "./iRidley.hpp"
+#include "../wrappers/iSound.hpp"
 
 class Ridley : public IRidley
 {
 public:
-  Ridley(ISprite *sprite);
+  Ridley(ISprite *sprite, ISound *movementSound);
   float getWidth() const override;
   float getHeight() const override;
   sf::Vector2f getPosition() const override;
@@ -18,10 +19,13 @@ public:
   void reset() override;
   void move() override;
   void spawn(int randomNumber = rand() % 10000) override;
+  void stopMovementSoundIfPlaying() override;
+  void stopMovementSoundIfAtSideOfWindow() override;
 
 private:
   int points_;
   int direction_;
+  ISound *movementSound_;
 };
 
 #endif
