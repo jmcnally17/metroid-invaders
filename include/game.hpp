@@ -64,6 +64,6 @@ void shootMetroidLaser(const std::vector<std::vector<IMetroid *>> &metroids, con
 
 void spawnRidley(IRidley &ridley);
 
-void endGame(bool &isPlaying, bool &gameOver, int score, IText &scoreText);
+void endGame(bool &isPlaying, bool &gameOver, IRidley &ridley, int score, IText &scoreText);
 
 #endif

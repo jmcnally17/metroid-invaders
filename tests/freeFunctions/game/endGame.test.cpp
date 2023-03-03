@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include "../../../include/game.hpp"
+#include "../../mockModels/mockRidley.hpp"
 #include "../../mockModels/mockText.hpp"
 
 using ::testing::NiceMock;
@@ -9,10 +10,11 @@ TEST(endGame, changesIsPlayingToFalse)
 {
   bool isPlaying = true;
   bool gameOver = false;
+  NiceMock<MockRidley> ridley;
   int score = 1200;
   NiceMock<MockText> scoreText;
 
-  endGame(isPlaying, gameOver, score, scoreText);
+  endGame(isPlaying, gameOver, ridley, score, scoreText);
   EXPECT_FALSE(isPlaying);
 }
 
@@ -20,17 +22,32 @@ TEST(endGame, changesGameOverToTrue)
 {
   bool isPlaying = true;
   bool gameOver = false;
+  NiceMock<MockRidley> ridley;
   int score = 1200;
   NiceMock<MockText> scoreText;
 
-  endGame(isPlaying, gameOver, score, scoreText);
+  endGame(isPlaying, gameOver, ridley, score, scoreText);
   EXPECT_TRUE(gameOver);
+}
+
+TEST(endGame, stopsRidleyMovementSoundIfPlaying)
+{
+  bool isPlaying = true;
+  bool gameOver = false;
+  MockRidley ridley;
+  int score = 1200;
+  NiceMock<MockText> scoreText;
+
+  EXPECT_CALL(ridley, stopMovementSoundIfPlaying())
+      .Times(1);
+  endGame(isPlaying, gameOver, ridley, score, scoreText);
 }
 
 TEST(endGame, updatesScoreText)
 {
   bool isPlaying = true;
   bool gameOver = false;
+  NiceMock<MockRidley> ridley;
   int score = 1200;
   NiceMock<MockText> scoreText;
 
@@ -43,5 +60,5 @@ TEST(endGame, updatesScoreText)
       .Times(1);
   EXPECT_CALL(scoreText, setOrigin(200, 0))
       .Times(1);
-  endGame(isPlaying, gameOver, score, scoreText);
+  endGame(isPlaying, gameOver, ridley, score, scoreText);
 }
