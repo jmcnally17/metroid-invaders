@@ -347,7 +347,20 @@ TEST(Ridley, spawnTakesAway0Point125FromXPositionWhenRidleyIsRightOfBoard)
   EXPECT_EQ(ridley.getPosition(), sf::Vector2f(1535.875, 200));
 }
 
-TEST(Ridley, spawnDoesNotChangeDirectionOrPositionWhenNotAtLeftOrRightEdgeOfBoard)
+TEST(Ridley, spawnPlaysTheMovementSound)
+{
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  NiceMock<MockSound> movementSound;
+  MockSound *pMovementSound = &movementSound;
+  Ridley ridley(pSprite, pMovementSound);
+
+  EXPECT_CALL(movementSound, play())
+      .Times(1);
+  ridley.spawn(0);
+}
+
+TEST(Ridley, spawnDoesNotSpawnRidleyWhenNotAtLeftOrRightEdgeOfBoard)
 {
   NiceMock<MockSprite> sprite;
   MockSprite *pSprite = &sprite;
@@ -357,12 +370,14 @@ TEST(Ridley, spawnDoesNotChangeDirectionOrPositionWhenNotAtLeftOrRightEdgeOfBoar
 
   ridley.setPosition(sf::Vector2f(500, 200));
 
+  EXPECT_CALL(movementSound, play())
+      .Times(0);
   ridley.spawn(0);
   EXPECT_EQ(ridley.getDirection(), -1);
   EXPECT_EQ(ridley.getPosition(), sf::Vector2f(500, 200));
 }
 
-TEST(Ridley, spawnDoesNotChangeDirectionOrPositionWhenRandomNumberIsNot0)
+TEST(Ridley, spawnDoesNotSpawnRidleyWhenRandomNumberIsNot0)
 {
   NiceMock<MockSprite> sprite;
   MockSprite *pSprite = &sprite;
@@ -370,6 +385,8 @@ TEST(Ridley, spawnDoesNotChangeDirectionOrPositionWhenRandomNumberIsNot0)
   MockSound *pMovementSound = &movementSound;
   Ridley ridley(pSprite, pMovementSound);
 
+  EXPECT_CALL(movementSound, play())
+      .Times(0);
   ridley.spawn(50);
   EXPECT_EQ(ridley.getDirection(), -1);
   EXPECT_EQ(ridley.getPosition(), sf::Vector2f(-96, 200));

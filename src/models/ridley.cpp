@@ -71,5 +71,6 @@ void Ridley::spawn(int randomNumber)
   {
     changeDirection();
     position_.x += 0.125 * direction_;
+    movementSound_->play();
   }
 }
