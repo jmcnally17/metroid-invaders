@@ -6,8 +6,8 @@
 #include "../include/wrappers/soundWrapper.hpp"
 #include "../include/wrappers/clockWrapper.hpp"
 #include "../include/wrappers/textWrapper.hpp"
-#include "../include/models/cannonLaser.hpp"
-#include "../include/models/laserCannon.hpp"
+#include "../include/models/gunshipLaser.hpp"
+#include "../include/models/gunship.hpp"
 #include "../include/models/metroids.hpp"
 #include "../include/models/metroidLaser.hpp"
 #include "../include/models/ridley.hpp"
@@ -17,8 +17,8 @@ int main()
 {
   RenderWindowWrapper window(sf::VideoMode(1536, 1344), "Metroid Invaders");
 
-  CannonLaser cannonLaser = makeCannonLaser();
-  LaserCannon cannon = makeCannon(cannonLaser);
+  GunshipLaser gunshipLaser = makeGunshipLaser();
+  Gunship gunship = makeGunship(gunshipLaser);
   std::vector<std::vector<IMetroid *>> metroids = makeMetroids();
   std::vector<ILaser *> metroidLasers = makeMetroidLasers();
   Ridley ridley = makeRidley();
@@ -38,7 +38,7 @@ int main()
   sf::Font m56;
   m56.loadFromFile("public/fonts/MicroN56.ttf");
   TextWrapper scoreText = makeScoreText(m56);
-  TextWrapper livesText = makeLivesText(cannon, m56);
+  TextWrapper livesText = makeLivesText(gunship, m56);
   TextWrapper gameOverText = makeGameOverText(m56);
   TextWrapper playAgainText = makePlayAgainText(m56);
 
@@ -58,34 +58,34 @@ int main()
 
     if (isPlaying)
     {
-      drawObjects(window, cannon, cannonLaser, metroids, metroidLasers, ridley, scoreText, livesText);
+      drawObjects(window, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, livesText);
       monitorRidleyMovementSound(ridley);
       if (areMetroidsDead(metroids))
       {
         levelUp(level, interval, step, soundCounter, metroids, metroidLasers, ridley, clock);
       }
-      evaluateCannonLaserMetroidCollision(collisionInterface, cannonLaser, metroids, score, scoreText);
-      evaluateCannonLaserRidleyCollision(collisionInterface, cannonLaser, ridley, score, scoreText);
-      evaluateCannonMetroidLaserCollision(collisionInterface, cannon, metroidLasers, cannonLaser, livesText);
-      if (haveMetroidsInvaded(metroids) || cannon.getLives() == 0)
+      evaluateGunshipLaserMetroidCollision(collisionInterface, gunshipLaser, metroids, score, scoreText);
+      evaluateGunshipLaserRidleyCollision(collisionInterface, gunshipLaser, ridley, score, scoreText);
+      evaluateGunshipMetroidLaserCollision(collisionInterface, gunship, metroidLasers, gunshipLaser, livesText);
+      if (haveMetroidsInvaded(metroids) || gunship.getLives() == 0)
       {
         endGame(isPlaying, gameOver, ridley, score, scoreText);
       }
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
       {
-        moveLaserCannon(cannon, 0.25);
+        moveGunship(gunship, 0.25);
       }
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
       {
-        moveLaserCannon(cannon, -0.25);
+        moveGunship(gunship, -0.25);
       }
-      moveCannonLaser(cannonLaser);
+      moveGunshipLaser(gunshipLaser);
       moveMetroids(metroids, clock, interval, step, metroidSounds, soundCounter);
       moveMetroidLasers(metroidLasers);
       moveRidley(ridley);
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
       {
-        fireCannonLaser(cannon);
+        fireGunshipLaser(gunship);
       }
       shootMetroidLaser(metroids, metroidLasers);
       spawnRidley(ridley);
@@ -95,7 +95,7 @@ int main()
       displayGameOverScreen(window, gameOverText, scoreText, playAgainText);
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
       {
-        playAgain(isPlaying, gameOver, cannon, cannonLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, clock);
+        playAgain(isPlaying, gameOver, gunship, gunshipLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, clock);
       }
     }
   }
@@ -103,37 +103,37 @@ int main()
   return 0;
 }
 
-CannonLaser makeCannonLaser()
+GunshipLaser makeGunshipLaser()
 {
-  sf::Texture cannonLaserTexture;
-  cannonLaserTexture.loadFromFile("public/images/sprites/cannonLaser.png");
-  SpriteWrapper *cannonLaserSprite = new SpriteWrapper(cannonLaserTexture);
+  sf::Texture gunshipLaserTexture;
+  gunshipLaserTexture.loadFromFile("public/images/sprites/gunshipLaser.png");
+  SpriteWrapper *gunshipLaserSprite = new SpriteWrapper(gunshipLaserTexture);
 
   sf::SoundBuffer deathBuffer;
   deathBuffer.loadFromFile("public/audio/metroidDeath.wav");
   SoundWrapper *deathSound = new SoundWrapper(deathBuffer);
 
-  CannonLaser cannonLaser(cannonLaserSprite, deathSound);
-  return cannonLaser;
+  GunshipLaser gunshipLaser(gunshipLaserSprite, deathSound);
+  return gunshipLaser;
 }
 
-LaserCannon makeCannon(CannonLaser &cannonLaser)
+Gunship makeGunship(GunshipLaser &gunshipLaser)
 {
-  sf::Texture cannonTexture;
-  cannonTexture.loadFromFile("public/images/sprites/laserCannon.png");
-  SpriteWrapper *cannonSprite = new SpriteWrapper(cannonTexture);
+  sf::Texture gunshipTexture;
+  gunshipTexture.loadFromFile("public/images/sprites/gunship.png");
+  SpriteWrapper *gunshipSprite = new SpriteWrapper(gunshipTexture);
 
   sf::SoundBuffer fireSoundBuffer;
   fireSoundBuffer.loadFromFile("public/audio/shoot.wav");
   SoundWrapper *fireSound = new SoundWrapper(fireSoundBuffer);
 
   sf::SoundBuffer deathSoundBuffer;
-  deathSoundBuffer.loadFromFile("public/audio/cannonDeath.wav");
+  deathSoundBuffer.loadFromFile("public/audio/gunshipDeath.wav");
   SoundWrapper *deathSound = new SoundWrapper(deathSoundBuffer);
 
-  CannonLaser *pCannonLaser = &cannonLaser;
-  LaserCannon cannon(cannonSprite, pCannonLaser, fireSound, deathSound);
-  return cannon;
+  GunshipLaser *pGunshipLaser = &gunshipLaser;
+  Gunship gunship(gunshipSprite, pGunshipLaser, fireSound, deathSound);
+  return gunship;
 }
 
 std::vector<std::vector<IMetroid *>> makeMetroids()
@@ -245,9 +245,9 @@ TextWrapper makeScoreText(const sf::Font &font)
   return scoreText;
 }
 
-TextWrapper makeLivesText(const LaserCannon &cannon, const sf::Font &font)
+TextWrapper makeLivesText(const Gunship &gunship, const sf::Font &font)
 {
-  std::string livesString = "Lives: " + std::to_string(cannon.getLives());
+  std::string livesString = "Lives: " + std::to_string(gunship.getLives());
   TextWrapper livesText(livesString, font);
   livesText.setPosition(sf::Vector2f(1250, 0));
   livesText.setCharacterSize(50);

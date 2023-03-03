@@ -1,15 +1,15 @@
 #include <vector>
 #include "../../../include/wrappers/iText.hpp"
 #include "../../../include/wrappers/iClock.hpp"
-#include "../../../include/models/iLaserCannon.hpp"
+#include "../../../include/models/iGunship.hpp"
 #include "../../../include/models/iLaser.hpp"
 #include "../../../include/models/iMetroid.hpp"
 #include "../../../include/models/iRidley.hpp"
 
 void playAgain(bool &isPlaying,
                bool &gameOver,
-               ILaserCannon &cannon,
-               ILaser &cannonLaser,
+               IGunship &gunship,
+               ILaser &gunshipLaser,
                const std::vector<std::vector<IMetroid *>> &metroids,
                const std::vector<ILaser *> &metroidLasers,
                IRidley &ridley,
@@ -24,8 +24,8 @@ void playAgain(bool &isPlaying,
 {
   isPlaying = true;
   gameOver = false;
-  cannon.reset();
-  cannonLaser.reset();
+  gunship.reset();
+  gunshipLaser.reset();
   for (auto metroidRow : metroids)
   {
     for (auto metroid : metroidRow)
@@ -46,6 +46,6 @@ void playAgain(bool &isPlaying,
   scoreText.setString("Score: 0");
   scoreText.setPosition(sf::Vector2f(20, 0));
   scoreText.setOrigin(0, 0);
-  livesText.setString("Lives: " + std::to_string(cannon.getLives()));
+  livesText.setString("Lives: " + std::to_string(gunship.getLives()));
   clock.restart();
 }

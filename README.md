@@ -5,12 +5,12 @@ This solo project is an imitation of the classic 1978 Taito game, Space Invaders
 ## Features Pending
 
 - Title screen
-- Bunkers protecting the Laser Cannon at the bottom
+- Bunkers protecting the Gunship at the bottom
 - **_(Under consideration)_** Submit the player score into a database with their name at game over and display the leaderboard either at game over or on a live website
 
 ## Gameplay
 
-The player controls a Laser Cannon at the bottom of the window which can be moved horizontally using the left and right arrow keys. Pressing the spacebar will fire the Laser directly upwards from the Cannon's current position at the time the spacebar is pressed. A 5 x 11 grid of Metroids positioned above gradually moves down. The player must shoot them using the Laser Cannon to score points and move on to the next level before they reach the bottom.
+The player controls a Gunship at the bottom of the window which can be moved horizontally using the left and right arrow keys. Pressing the spacebar will fire the Laser directly upwards from the Gunship's current position at the time the spacebar is pressed. A 5 x 11 grid of Metroids positioned above gradually moves down. The player must shoot them using the Gunship to score points and move on to the next level before they reach the bottom.
 
 ### Rules
 
@@ -18,15 +18,15 @@ The player controls a Laser Cannon at the bottom of the window which can be move
 - The player may only have 1 Laser on the screen at any given time, meaning once the player fires the Laser, they must wait for the Laser to reach the top of the window or collide with a Metroid for them to be able to fire again
 - The Metroids move horizontally until they reach the side of the window, at which point they move down a level. Then, they move horizontally back in the other direction before moving down again and continuing this cycle
 - Once the player has eliminated all the Metroids, the game moves onto the next level where the Metroids start their movement pattern one vertical level below their starting position of the previous level
-- If the Laser Cannon is hit by one of the Metroids' lasers, the player's lives decrease by 1
-- The game is over when at least one of the Metroids that are alive reaches the bottom of the window or the player runs out of lives. This position that the bottom of the Metroid needs to reach is 48 pixels above the top of the Laser Cannon
+- If the Gunship is hit by one of the Metroids' lasers, the player's lives decrease by 1
+- The game is over when at least one of the Metroids that are alive reaches the bottom of the window or the player runs out of lives. This position that the bottom of the Metroid needs to reach is 48 pixels above the top of the Gunship
 
 <p align="center">
   <img src="./public/images/gameplay.png" width="70%">
 </p>
 
 <p align="center">
-  <b>Fig.1 -</b> A screenshot of the game window with the Laser Cannon at the bottom of the board, firing the Laser at the grid of Metroids above while dodging the Metroid lasers. Ridley (sprite yet to be updated) can also be seen hovering above the grid of Invaders. The player's score can be seen in the top left hand corner with the number of lives left in the top right hand corner
+  <b>Fig.1 -</b> A screenshot of the game window with the Gunship at the bottom of the board, firing the Laser at the grid of Metroids above while dodging the Metroid lasers. Ridley (sprite yet to be updated) can also be seen hovering above the grid of Invaders. The player's score can be seen in the top left hand corner with the number of lives left in the top right hand corner
 </p>
 
 <p align="center">

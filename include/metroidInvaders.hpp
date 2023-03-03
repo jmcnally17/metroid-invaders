@@ -3,14 +3,14 @@
 
 #include <vector>
 #include "./wrappers/textWrapper.hpp"
-#include "./models/cannonLaser.hpp"
-#include "./models/laserCannon.hpp"
+#include "./models/gunshipLaser.hpp"
+#include "./models/gunship.hpp"
 #include "./models/iMetroid.hpp"
 #include "./models/ridley.hpp"
 
-CannonLaser makeCannonLaser();
+GunshipLaser makeGunshipLaser();
 
-LaserCannon makeCannon(CannonLaser &cannonLaser);
+Gunship makeGunship(GunshipLaser &gunshipLaser);
 
 std::vector<std::vector<IMetroid *>> makeMetroids();
 
@@ -22,7 +22,7 @@ std::vector<ISound *> makeMetroidSounds();
 
 TextWrapper makeScoreText(const sf::Font &font);
 
-TextWrapper makeLivesText(const LaserCannon &cannon, const sf::Font &font);
+TextWrapper makeLivesText(const Gunship &gunship, const sf::Font &font);
 
 TextWrapper makeGameOverText(const sf::Font &font);
 

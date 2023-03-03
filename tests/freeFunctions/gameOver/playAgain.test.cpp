@@ -1,6 +1,6 @@
 #include <vector>
 #include "../../../include/gameOver.hpp"
-#include "../../mockModels/mockLaserCannon.hpp"
+#include "../../mockModels/mockGunship.hpp"
 #include "../../mockModels/mockLaser.hpp"
 #include "../../mockModels/mockMetroid.hpp"
 #include "../../mockModels/mockRidley.hpp"
@@ -14,8 +14,8 @@ TEST(playAgain, setsIsPlayingToTrue)
 {
   bool isPlaying = false;
   bool gameOver = true;
-  NiceMock<MockLaserCannon> cannon;
-  NiceMock<MockLaser> cannonLaser;
+  NiceMock<MockGunship> gunship;
+  NiceMock<MockLaser> gunshipLaser;
   std::vector<std::vector<IMetroid *>> metroids;
   std::vector<ILaser *> metroidLasers;
   NiceMock<MockRidley> ridley;
@@ -28,7 +28,7 @@ TEST(playAgain, setsIsPlayingToTrue)
   NiceMock<MockText> livesText;
   NiceMock<MockClock> clock;
 
-  playAgain(isPlaying, gameOver, cannon, cannonLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, clock);
+  playAgain(isPlaying, gameOver, gunship, gunshipLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, clock);
   EXPECT_TRUE(isPlaying);
 }
 
@@ -36,8 +36,8 @@ TEST(playAgain, setsGameOverToFalse)
 {
   bool isPlaying = false;
   bool gameOver = true;
-  NiceMock<MockLaserCannon> cannon;
-  NiceMock<MockLaser> cannonLaser;
+  NiceMock<MockGunship> gunship;
+  NiceMock<MockLaser> gunshipLaser;
   std::vector<std::vector<IMetroid *>> metroids;
   std::vector<ILaser *> metroidLasers;
   NiceMock<MockRidley> ridley;
@@ -50,16 +50,16 @@ TEST(playAgain, setsGameOverToFalse)
   NiceMock<MockText> livesText;
   NiceMock<MockClock> clock;
 
-  playAgain(isPlaying, gameOver, cannon, cannonLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, clock);
+  playAgain(isPlaying, gameOver, gunship, gunshipLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, clock);
   EXPECT_FALSE(gameOver);
 }
 
-TEST(playAgain, resetsTheLaserCannon)
+TEST(playAgain, resetsTheGunship)
 {
   bool isPlaying = false;
   bool gameOver = true;
-  NiceMock<MockLaserCannon> cannon;
-  NiceMock<MockLaser> cannonLaser;
+  NiceMock<MockGunship> gunship;
+  NiceMock<MockLaser> gunshipLaser;
   std::vector<std::vector<IMetroid *>> metroids;
   std::vector<ILaser *> metroidLasers;
   NiceMock<MockRidley> ridley;
@@ -72,17 +72,17 @@ TEST(playAgain, resetsTheLaserCannon)
   NiceMock<MockText> livesText;
   NiceMock<MockClock> clock;
 
-  EXPECT_CALL(cannon, reset())
+  EXPECT_CALL(gunship, reset())
       .Times(1);
-  playAgain(isPlaying, gameOver, cannon, cannonLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, clock);
+  playAgain(isPlaying, gameOver, gunship, gunshipLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, clock);
 }
 
-TEST(playAgain, resetsTheCannonLaser)
+TEST(playAgain, resetsTheGunshipLaser)
 {
   bool isPlaying = false;
   bool gameOver = true;
-  NiceMock<MockLaserCannon> cannon;
-  MockLaser cannonLaser;
+  NiceMock<MockGunship> gunship;
+  MockLaser gunshipLaser;
   std::vector<std::vector<IMetroid *>> metroids;
   std::vector<ILaser *> metroidLasers;
   NiceMock<MockRidley> ridley;
@@ -95,17 +95,17 @@ TEST(playAgain, resetsTheCannonLaser)
   NiceMock<MockText> livesText;
   NiceMock<MockClock> clock;
 
-  EXPECT_CALL(cannonLaser, reset())
+  EXPECT_CALL(gunshipLaser, reset())
       .Times(1);
-  playAgain(isPlaying, gameOver, cannon, cannonLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, clock);
+  playAgain(isPlaying, gameOver, gunship, gunshipLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, clock);
 }
 
 TEST(playAgain, resetsTheMetroids)
 {
   bool isPlaying = false;
   bool gameOver = true;
-  NiceMock<MockLaserCannon> cannon;
-  NiceMock<MockLaser> cannonLaser;
+  NiceMock<MockGunship> gunship;
+  NiceMock<MockLaser> gunshipLaser;
   MockMetroid metroid;
   MockMetroid *pMetroid = &metroid;
   std::vector<std::vector<IMetroid *>> metroids(2);
@@ -131,15 +131,15 @@ TEST(playAgain, resetsTheMetroids)
 
   EXPECT_CALL(metroid, reset())
       .Times(12);
-  playAgain(isPlaying, gameOver, cannon, cannonLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, clock);
+  playAgain(isPlaying, gameOver, gunship, gunshipLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, clock);
 }
 
 TEST(playAgain, resetsMetroidLasers)
 {
   bool isPlaying = false;
   bool gameOver = true;
-  NiceMock<MockLaserCannon> cannon;
-  NiceMock<MockLaser> cannonLaser;
+  NiceMock<MockGunship> gunship;
+  NiceMock<MockLaser> gunshipLaser;
   std::vector<std::vector<IMetroid *>> metroids;
   MockLaser metroidLaser;
   MockLaser *pMetroidLaser = &metroidLaser;
@@ -160,15 +160,15 @@ TEST(playAgain, resetsMetroidLasers)
 
   EXPECT_CALL(metroidLaser, reset())
       .Times(3);
-  playAgain(isPlaying, gameOver, cannon, cannonLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, clock);
+  playAgain(isPlaying, gameOver, gunship, gunshipLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, clock);
 }
 
 TEST(playAgain, resetsRidley)
 {
   bool isPlaying = false;
   bool gameOver = true;
-  NiceMock<MockLaserCannon> cannon;
-  NiceMock<MockLaser> cannonLaser;
+  NiceMock<MockGunship> gunship;
+  NiceMock<MockLaser> gunshipLaser;
   std::vector<std::vector<IMetroid *>> metroids;
   std::vector<ILaser *> metroidLasers;
   MockRidley ridley;
@@ -183,15 +183,15 @@ TEST(playAgain, resetsRidley)
 
   EXPECT_CALL(ridley, reset())
       .Times(1);
-  playAgain(isPlaying, gameOver, cannon, cannonLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, clock);
+  playAgain(isPlaying, gameOver, gunship, gunshipLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, clock);
 }
 
 TEST(playAgain, resetsClockInterval)
 {
   bool isPlaying = false;
   bool gameOver = true;
-  NiceMock<MockLaserCannon> cannon;
-  NiceMock<MockLaser> cannonLaser;
+  NiceMock<MockGunship> gunship;
+  NiceMock<MockLaser> gunshipLaser;
   std::vector<std::vector<IMetroid *>> metroids;
   std::vector<ILaser *> metroidLasers;
   NiceMock<MockRidley> ridley;
@@ -204,7 +204,7 @@ TEST(playAgain, resetsClockInterval)
   NiceMock<MockText> livesText;
   NiceMock<MockClock> clock;
 
-  playAgain(isPlaying, gameOver, cannon, cannonLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, clock);
+  playAgain(isPlaying, gameOver, gunship, gunshipLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, clock);
   EXPECT_EQ(interval, 665);
 }
 
@@ -212,8 +212,8 @@ TEST(playAgain, resetsClockStepCounter)
 {
   bool isPlaying = false;
   bool gameOver = true;
-  NiceMock<MockLaserCannon> cannon;
-  NiceMock<MockLaser> cannonLaser;
+  NiceMock<MockGunship> gunship;
+  NiceMock<MockLaser> gunshipLaser;
   std::vector<std::vector<IMetroid *>> metroids;
   std::vector<ILaser *> metroidLasers;
   NiceMock<MockRidley> ridley;
@@ -226,7 +226,7 @@ TEST(playAgain, resetsClockStepCounter)
   NiceMock<MockText> livesText;
   NiceMock<MockClock> clock;
 
-  playAgain(isPlaying, gameOver, cannon, cannonLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, clock);
+  playAgain(isPlaying, gameOver, gunship, gunshipLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, clock);
   EXPECT_EQ(step, 1);
 }
 
@@ -234,8 +234,8 @@ TEST(playAgain, resetsSoundCounter)
 {
   bool isPlaying = false;
   bool gameOver = true;
-  NiceMock<MockLaserCannon> cannon;
-  NiceMock<MockLaser> cannonLaser;
+  NiceMock<MockGunship> gunship;
+  NiceMock<MockLaser> gunshipLaser;
   std::vector<std::vector<IMetroid *>> metroids;
   std::vector<ILaser *> metroidLasers;
   NiceMock<MockRidley> ridley;
@@ -248,7 +248,7 @@ TEST(playAgain, resetsSoundCounter)
   NiceMock<MockText> livesText;
   NiceMock<MockClock> clock;
 
-  playAgain(isPlaying, gameOver, cannon, cannonLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, clock);
+  playAgain(isPlaying, gameOver, gunship, gunshipLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, clock);
   EXPECT_EQ(soundCounter, 0);
 }
 
@@ -256,8 +256,8 @@ TEST(playAgain, resetsLevel)
 {
   bool isPlaying = false;
   bool gameOver = true;
-  NiceMock<MockLaserCannon> cannon;
-  NiceMock<MockLaser> cannonLaser;
+  NiceMock<MockGunship> gunship;
+  NiceMock<MockLaser> gunshipLaser;
   std::vector<std::vector<IMetroid *>> metroids;
   std::vector<ILaser *> metroidLasers;
   NiceMock<MockRidley> ridley;
@@ -270,7 +270,7 @@ TEST(playAgain, resetsLevel)
   NiceMock<MockText> livesText;
   NiceMock<MockClock> clock;
 
-  playAgain(isPlaying, gameOver, cannon, cannonLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, clock);
+  playAgain(isPlaying, gameOver, gunship, gunshipLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, clock);
   EXPECT_EQ(level, 1);
 }
 
@@ -278,8 +278,8 @@ TEST(playAgain, resetsScore)
 {
   bool isPlaying = false;
   bool gameOver = true;
-  NiceMock<MockLaserCannon> cannon;
-  NiceMock<MockLaser> cannonLaser;
+  NiceMock<MockGunship> gunship;
+  NiceMock<MockLaser> gunshipLaser;
   std::vector<std::vector<IMetroid *>> metroids;
   std::vector<ILaser *> metroidLasers;
   NiceMock<MockRidley> ridley;
@@ -292,7 +292,7 @@ TEST(playAgain, resetsScore)
   NiceMock<MockText> livesText;
   NiceMock<MockClock> clock;
 
-  playAgain(isPlaying, gameOver, cannon, cannonLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, clock);
+  playAgain(isPlaying, gameOver, gunship, gunshipLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, clock);
   EXPECT_EQ(score, 0);
 }
 
@@ -300,8 +300,8 @@ TEST(playAgain, updatesScoreText)
 {
   bool isPlaying = false;
   bool gameOver = true;
-  NiceMock<MockLaserCannon> cannon;
-  NiceMock<MockLaser> cannonLaser;
+  NiceMock<MockGunship> gunship;
+  NiceMock<MockLaser> gunshipLaser;
   std::vector<std::vector<IMetroid *>> metroids;
   std::vector<ILaser *> metroidLasers;
   NiceMock<MockRidley> ridley;
@@ -320,15 +320,15 @@ TEST(playAgain, updatesScoreText)
       .Times(1);
   EXPECT_CALL(scoreText, setOrigin(0, 0))
       .Times(1);
-  playAgain(isPlaying, gameOver, cannon, cannonLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, clock);
+  playAgain(isPlaying, gameOver, gunship, gunshipLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, clock);
 }
 
 TEST(playAgain, updatesLivesText)
 {
   bool isPlaying = false;
   bool gameOver = true;
-  NiceMock<MockLaserCannon> cannon;
-  NiceMock<MockLaser> cannonLaser;
+  NiceMock<MockGunship> gunship;
+  NiceMock<MockLaser> gunshipLaser;
   std::vector<std::vector<IMetroid *>> metroids;
   std::vector<ILaser *> metroidLasers;
   NiceMock<MockRidley> ridley;
@@ -341,20 +341,20 @@ TEST(playAgain, updatesLivesText)
   MockText livesText;
   NiceMock<MockClock> clock;
 
-  ON_CALL(cannon, getLives())
+  ON_CALL(gunship, getLives())
       .WillByDefault(Return(3));
 
   EXPECT_CALL(livesText, setString("Lives: 3"))
       .Times(1);
-  playAgain(isPlaying, gameOver, cannon, cannonLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, clock);
+  playAgain(isPlaying, gameOver, gunship, gunshipLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, clock);
 }
 
 TEST(playAgain, restartsClock)
 {
   bool isPlaying = false;
   bool gameOver = true;
-  NiceMock<MockLaserCannon> cannon;
-  NiceMock<MockLaser> cannonLaser;
+  NiceMock<MockGunship> gunship;
+  NiceMock<MockLaser> gunshipLaser;
   std::vector<std::vector<IMetroid *>> metroids;
   std::vector<ILaser *> metroidLasers;
   NiceMock<MockRidley> ridley;
@@ -369,5 +369,5 @@ TEST(playAgain, restartsClock)
 
   EXPECT_CALL(clock, restart())
       .Times(1);
-  playAgain(isPlaying, gameOver, cannon, cannonLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, clock);
+  playAgain(isPlaying, gameOver, gunship, gunshipLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, clock);
 }
