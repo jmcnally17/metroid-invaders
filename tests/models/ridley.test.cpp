@@ -224,19 +224,6 @@ TEST(Ridley, resetSetsDirectionBackToMinus1)
   EXPECT_EQ(ridley.getDirection(), -1);
 }
 
-TEST(Ridley, resetStopsTheMovementSound)
-{
-  NiceMock<MockSprite> sprite;
-  MockSprite *pSprite = &sprite;
-  NiceMock<MockSound> movementSound;
-  MockSound *pMovementSound = &movementSound;
-  Ridley ridley(pSprite, pMovementSound);
-
-  EXPECT_CALL(movementSound, stop())
-      .Times(1);
-  ridley.reset();
-}
-
 TEST(Ridley, moveAdds0Point125ToXPositionWhenDirectionIs1AndIsOnTheBoard)
 {
   NiceMock<MockSprite> sprite;

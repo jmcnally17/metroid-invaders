@@ -54,7 +54,6 @@ void Ridley::reset()
 {
   setPosition(sf::Vector2f(-96, 200));
   direction_ = -1;
-  movementSound_->stop();
 }
 
 void Ridley::move()
