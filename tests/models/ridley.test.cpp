@@ -408,3 +408,19 @@ TEST(Ridley, stopMovementSoundIfPlayingStopsMovementSoundIfItIsPlaying)
       .Times(1);
   ridley.stopMovementSoundIfPlaying();
 }
+
+TEST(Ridley, stopMovementSoundIfPlayingDoesNotStopMovementSoundIfItIsNotPlaying)
+{
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  NiceMock<MockSound> movementSound;
+  MockSound *pMovementSound = &movementSound;
+  Ridley ridley(pSprite, pMovementSound);
+
+  ON_CALL(movementSound, getStatus())
+      .WillByDefault(Return(sf::Sound::Stopped));
+
+  EXPECT_CALL(movementSound, stop())
+      .Times(0);
+  ridley.stopMovementSoundIfPlaying();
+}

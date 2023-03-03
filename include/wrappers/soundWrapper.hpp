@@ -10,6 +10,7 @@ public:
   void play() override;
   void setLoop(bool loop) override;
   void stop() override;
+  sf::Sound::Status getStatus() const override;
 
 private:
   sf::SoundBuffer buffer_;

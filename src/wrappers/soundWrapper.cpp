@@ -19,3 +19,8 @@ void SoundWrapper::stop()
 {
   sound_.stop();
 }
+
+sf::Sound::Status SoundWrapper::getStatus() const
+{
+  return sound_.getStatus();
+}
