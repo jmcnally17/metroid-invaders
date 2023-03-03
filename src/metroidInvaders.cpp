@@ -203,7 +203,11 @@ Ridley makeRidley()
   ridleyTexture.loadFromFile("public/images/sprites/ridley.png");
   SpriteWrapper *ridleySprite = new SpriteWrapper(ridleyTexture);
 
-  Ridley ridley(ridleySprite);
+  sf::SoundBuffer movementBuffer;
+  movementBuffer.loadFromFile("public/audio/ridley.wav");
+  SoundWrapper *movementSound = new SoundWrapper(movementBuffer);
+
+  Ridley ridley(ridleySprite, movementSound);
   return ridley;
 }
 
