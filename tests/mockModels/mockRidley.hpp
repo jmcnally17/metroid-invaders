@@ -18,6 +18,7 @@ public:
   MOCK_METHOD(void, stopMovementSoundIfPlaying, ());
   MOCK_METHOD(void, stopMovementSoundIfAtSideOfWindow, ());
   MOCK_METHOD(void, die, ());
+  MOCK_METHOD(int, getPoints, (), (const));
 };
 
 #endif

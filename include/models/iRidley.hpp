@@ -13,6 +13,7 @@ public:
   virtual void stopMovementSoundIfPlaying() = 0;
   virtual void stopMovementSoundIfAtSideOfWindow() = 0;
   virtual void die() = 0;
+  virtual int getPoints() const = 0;
 };
 
 #endif
