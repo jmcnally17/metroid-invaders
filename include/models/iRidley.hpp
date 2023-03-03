@@ -11,6 +11,8 @@ public:
   virtual void move() = 0;
   virtual void spawn(int randomNumber = rand() % 10000) = 0;
   virtual void stopMovementSoundIfPlaying() = 0;
+  virtual void stopMovementSoundIfAtSideOfWindow() = 0;
+  ;
 };
 
 #endif

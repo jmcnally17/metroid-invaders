@@ -21,6 +21,8 @@ void drawObjects(IRenderWindow &window,
                  const IText &scoreText,
                  const IText &livesText);
 
+void monitorRidleyMovementSound(IRidley &ridley);
+
 bool areMetroidsDead(const std::vector<std::vector<IMetroid *>> &metroids);
 
 void levelUp(int &level,
