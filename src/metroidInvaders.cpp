@@ -18,44 +18,51 @@ int main()
 {
   RenderWindowWrapper window(sf::VideoMode(1536, 1344), "Metroid Invaders");
 
+  sf::Font m56;
+  m56.loadFromFile("public/fonts/MicroN56.ttf");
+  sf::Color white = sf::Color::White;
+  sf::Color green = sf::Color::Green;
+
+  // text objects
+  std::string titleString = "Metroid Invaders";
+  std::string instructionsString = "Press enter to play!";
+  std::string scoreString = "Score: 0";
+  std::string livesString = "Lives: 3";
+  std::string gameOverString = "Game Over";
+  std::string playAgainString = "Press p to play again";
+  TextWrapper titleText = makeText(titleString, m56, 100, green, 0.5, 768, 100);
+  TextWrapper instructionsText = makeText(instructionsString, m56, 50, green, 0.5, 768, 1200);
+  TextWrapper scoreText = makeText(scoreString, m56, 50, white, 0, 20, 0);
+  TextWrapper livesText = makeText(livesString, m56, 50, white, 0, 1250, 0);
+  TextWrapper gameOverText = makeText(gameOverString, m56, 153, white, 0.5, 768, 200);
+  TextWrapper playAgainText = makeText(playAgainString, m56, 48, white, 0.5, 768, 1000);
+
+  // audio objects
+  SoundWrapper titleTheme = makeTheme("title");
+  SoundWrapper battleTheme = makeTheme("battle");
+  SoundWrapper creditsTheme = makeTheme("credits");
+
+  // title screen background
+  SpriteWrapper titleBackground = makeTitleBackground();
+
+  // game objects
   GunshipLaser gunshipLaser = makeGunshipLaser();
   Gunship gunship = makeGunship(gunshipLaser);
   std::vector<std::vector<IMetroid *>> metroids = makeMetroids();
   std::vector<ILaser *> metroidLasers = makeMetroidLasers();
   Ridley ridley = makeRidley();
-
+  std::vector<ISound *> metroidSounds = makeMetroidSounds();
+  int soundCounter = 0;
   ClockWrapper clock;
   int interval = 665;
   int step = 1;
-
-  std::vector<ISound *> metroidSounds = makeMetroidSounds();
-  int soundCounter = 0;
-
   Collision collisionInterface;
-
   int level = 1;
   int score = 0;
 
-  sf::Font m56;
-  m56.loadFromFile("public/fonts/MicroN56.ttf");
-
-  SoundWrapper titleTheme = makeTitleTheme();
-
-  SpriteWrapper titleBackground = makeTitleBackground();
-  TextWrapper titleText = makeTitleText(m56);
-  TextWrapper instructionsText = makeInstructionsText(m56);
-
-  SoundWrapper battleTheme = makeBattleTheme();
-  TextWrapper scoreText = makeScoreText(m56);
-  TextWrapper livesText = makeLivesText(gunship, m56);
-
-  SoundWrapper creditsTheme = makeCreditsTheme();
-  TextWrapper gameOverText = makeGameOverText(m56);
-  TextWrapper playAgainText = makePlayAgainText(m56);
-
+  // final setup
   bool isPlaying = false;
   bool gameOver = false;
-
   titleTheme.play();
 
   while (window.isOpen())
@@ -122,6 +129,37 @@ int main()
   }
 
   return 0;
+}
+
+TextWrapper makeText(std::string string, const sf::Font &font, int characterSize, const sf::Color &color, float originFactor, float x, float y)
+{
+  TextWrapper text(string, font);
+  text.setCharacterSize(characterSize);
+  text.setFillColor(color);
+  sf::FloatRect textRect = text.getLocalBounds();
+  text.setOrigin(textRect.width * originFactor, 0);
+  text.setPosition(sf::Vector2f(x, y));
+
+  return text;
+}
+
+SoundWrapper makeTheme(std::string fileName)
+{
+  sf::SoundBuffer buffer;
+  buffer.loadFromFile("public/audio/" + fileName + ".wav");
+  SoundWrapper theme(buffer);
+  theme.setLoop(true);
+
+  return theme;
+}
+
+SpriteWrapper makeTitleBackground()
+{
+  sf::Texture titleBackgroundTexture;
+  titleBackgroundTexture.loadFromFile("public/images/backgrounds/title.png");
+  SpriteWrapper titleBackground(titleBackgroundTexture);
+
+  return titleBackground;
 }
 
 GunshipLaser makeGunshipLaser()
@@ -255,105 +293,4 @@ std::vector<ISound *> makeMetroidSounds()
 
   std::vector<ISound *> metroidSounds = {sound0, sound1, sound2, sound3};
   return metroidSounds;
-}
-
-SoundWrapper makeTitleTheme()
-{
-  sf::SoundBuffer titleThemeBuffer;
-  titleThemeBuffer.loadFromFile("public/audio/title.wav");
-  SoundWrapper titleTheme(titleThemeBuffer);
-  titleTheme.setLoop(true);
-
-  return titleTheme;
-}
-
-SpriteWrapper makeTitleBackground()
-{
-  sf::Texture titleBackgroundTexture;
-  titleBackgroundTexture.loadFromFile("public/images/backgrounds/title.png");
-  SpriteWrapper titleBackground(titleBackgroundTexture);
-
-  return titleBackground;
-}
-
-TextWrapper makeTitleText(const sf::Font &font)
-{
-  std::string titleString = "Metroid Invaders";
-  TextWrapper titleText(titleString, font);
-  titleText.setCharacterSize(100);
-  titleText.setFillColor(sf::Color::Green);
-  sf::FloatRect titleTextRect = titleText.getLocalBounds();
-  titleText.setOrigin(titleTextRect.width / 2, 0);
-  titleText.setPosition(sf::Vector2f(768, 100));
-
-  return titleText;
-}
-
-TextWrapper makeInstructionsText(const sf::Font &font)
-{
-  std::string instructionsString = "Press enter to play!";
-  TextWrapper instructionsText(instructionsString, font);
-  instructionsText.setCharacterSize(50);
-  instructionsText.setFillColor(sf::Color::Green);
-  sf::FloatRect instructionsTextRect = instructionsText.getLocalBounds();
-  instructionsText.setOrigin(instructionsTextRect.width / 2, 0);
-  instructionsText.setPosition(sf::Vector2f(768, 1200));
-
-  return instructionsText;
-}
-
-SoundWrapper makeBattleTheme()
-{
-  sf::SoundBuffer battleThemeBuffer;
-  battleThemeBuffer.loadFromFile("public/audio/battle.wav");
-  SoundWrapper battleTheme(battleThemeBuffer);
-  battleTheme.setLoop(true);
-
-  return battleTheme;
-}
-
-TextWrapper makeScoreText(const sf::Font &font)
-{
-  std::string scoreString = "Score: 0";
-  TextWrapper scoreText(scoreString, font);
-  scoreText.setPosition(sf::Vector2f(20, 0));
-  scoreText.setCharacterSize(50);
-  return scoreText;
-}
-
-TextWrapper makeLivesText(const Gunship &gunship, const sf::Font &font)
-{
-  std::string livesString = "Lives: " + std::to_string(gunship.getLives());
-  TextWrapper livesText(livesString, font);
-  livesText.setPosition(sf::Vector2f(1250, 0));
-  livesText.setCharacterSize(50);
-  return livesText;
-}
-
-SoundWrapper makeCreditsTheme()
-{
-  sf::SoundBuffer creditsThemeBuffer;
-  creditsThemeBuffer.loadFromFile("public/audio/credits.wav");
-  SoundWrapper creditsTheme(creditsThemeBuffer);
-  creditsTheme.setLoop(true);
-
-  return creditsTheme;
-}
-
-TextWrapper makeGameOverText(const sf::Font &font)
-{
-  std::string gameOverString = "Game Over";
-  TextWrapper gameOverText(gameOverString, font);
-  gameOverText.setPosition(sf::Vector2f(192, 200));
-  gameOverText.setCharacterSize(153);
-  return gameOverText;
-}
-
-TextWrapper makePlayAgainText(const sf::Font &font)
-{
-  std::string playAgainString = "Press p to play again";
-  TextWrapper playAgainText(playAgainString, font);
-  playAgainText.setPosition(sf::Vector2f(384, 1000));
-  playAgainText.setCharacterSize(48);
-  return playAgainText;
 }
