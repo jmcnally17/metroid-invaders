@@ -112,6 +112,10 @@ int main()
     else
     {
       displayTitleScreen(window, titleBackground, titleText, instructionsText);
+      if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+      {
+        play(isPlaying, titleTheme, battleTheme, clock);
+      }
     }
   }
 
