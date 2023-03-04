@@ -5,6 +5,6 @@
 #include "./wrappers/iSprite.hpp"
 #include "./wrappers/iText.hpp"
 
-void displayTitleScreen(IRenderWindow &window, const ISprite &background, const IText &titleText);
+void displayTitleScreen(IRenderWindow &window, const ISprite &background, const IText &titleText, const IText &instructionsText);
 
 #endif

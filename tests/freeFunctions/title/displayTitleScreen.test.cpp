@@ -10,20 +10,33 @@ TEST(displayTitleScreen, clearsTheWindow)
   NiceMock<MockRenderWindow> window;
   MockSprite background;
   MockText titleText;
+  MockText instructionsText;
 
   EXPECT_CALL(window, clear())
       .Times(1);
-  displayTitleScreen(window, background, titleText);
+  displayTitleScreen(window, background, titleText, instructionsText);
 }
 
-TEST(displayTitleScreen, drawsTheBackgroundImageAndTitleText)
+TEST(displayTitleScreen, drawsTheBackgroundImageAndTitleTextAndInstructionsText)
 {
   NiceMock<MockRenderWindow> window;
   MockSprite background;
   MockText titleText;
+  MockText instructionsText;
 
   EXPECT_CALL(window, draw(testing::Truly([](const sf::Drawable &drawable)
                                           { return true; })))
-      .Times(2);
-  displayTitleScreen(window, background, titleText);
+      .Times(3);
+  displayTitleScreen(window, background, titleText, instructionsText);
+}
+
+TEST(displayTitleScreen, displaysTheWindow)
+{
+  NiceMock<MockRenderWindow> window;
+  MockSprite background;
+  MockText titleText;
+  MockText instructionsText;
+
+  EXPECT_CALL(window, display())
+      .Times(1);
 }
