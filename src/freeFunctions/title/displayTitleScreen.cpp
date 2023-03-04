@@ -8,4 +8,5 @@ void displayTitleScreen(IRenderWindow &window, const ISprite &background, const 
   window.draw(background);
   window.draw(titleText);
   window.draw(instructionsText);
+  window.display();
 }

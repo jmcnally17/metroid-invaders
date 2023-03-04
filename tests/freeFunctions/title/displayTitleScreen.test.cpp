@@ -39,4 +39,5 @@ TEST(displayTitleScreen, displaysTheWindow)
 
   EXPECT_CALL(window, display())
       .Times(1);
+  displayTitleScreen(window, background, titleText, instructionsText);
 }
