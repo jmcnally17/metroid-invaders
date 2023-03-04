@@ -1,10 +1,10 @@
 #include "../../include/models/gunship.hpp"
 
-Gunship::Gunship(ISprite *sprite, ILaser *gunshipLaser, ISound *fireSound, ISound *deathSound) : IGunship(78, 48, 120, 1224, sprite),
-                                                                                                        lives_(3),
-                                                                                                        gunshipLaser_(gunshipLaser),
-                                                                                                        fireSound_(fireSound),
-                                                                                                        deathSound_(deathSound) {}
+Gunship::Gunship(ISprite *sprite, ILaser *gunshipLaser, ISound *fireSound, ISound *deathSound) : IGunship(78, 45, 120, 1224, sprite),
+                                                                                                 lives_(3),
+                                                                                                 gunshipLaser_(gunshipLaser),
+                                                                                                 fireSound_(fireSound),
+                                                                                                 deathSound_(deathSound) {}
 
 float Gunship::getWidth() const
 {

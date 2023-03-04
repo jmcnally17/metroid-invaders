@@ -31,7 +31,7 @@ TEST(Gunship, hasAWidthClassMemberOf78)
   EXPECT_EQ(gunship.getWidth(), 78);
 }
 
-TEST(Gunship, hasAHeightClassMemberOf48)
+TEST(Gunship, hasAHeightClassMemberOf45)
 {
   NiceMock<MockSprite> sprite;
   MockSprite *pSprite = &sprite;
@@ -40,7 +40,7 @@ TEST(Gunship, hasAHeightClassMemberOf48)
   MockSound *deathSound;
   Gunship gunship(pSprite, gunshipLaser, fireSound, deathSound);
 
-  EXPECT_EQ(gunship.getHeight(), 48);
+  EXPECT_EQ(gunship.getHeight(), 45);
 }
 
 TEST(Gunship, hasALivesClassMemberInitiallySetTo3)
