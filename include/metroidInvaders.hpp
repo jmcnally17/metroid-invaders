@@ -2,6 +2,7 @@
 #define METROID_INVADERS_HPP
 
 #include <vector>
+#include "./wrappers/spriteWrapper.hpp"
 #include "./wrappers/textWrapper.hpp"
 #include "./models/gunshipLaser.hpp"
 #include "./models/gunship.hpp"
@@ -19,6 +20,8 @@ std::vector<ILaser *> makeMetroidLasers();
 Ridley makeRidley();
 
 std::vector<ISound *> makeMetroidSounds();
+
+SpriteWrapper makeTitleBackground();
 
 TextWrapper makeScoreText(const sf::Font &font);
 

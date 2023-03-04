@@ -236,6 +236,15 @@ std::vector<ISound *> makeMetroidSounds()
   return metroidSounds;
 }
 
+SpriteWrapper makeTitleBackground()
+{
+  sf::Texture titleBackgroundTexture;
+  titleBackgroundTexture.loadFromFile("public/images/backgrounds/title.png");
+  SpriteWrapper titleBackground(titleBackgroundTexture);
+
+  return titleBackground;
+}
+
 TextWrapper makeScoreText(const sf::Font &font)
 {
   std::string scoreString = "Score: 0";
