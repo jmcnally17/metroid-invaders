@@ -5,9 +5,10 @@
 #include "./wrappers/iSprite.hpp"
 #include "./wrappers/iText.hpp"
 #include "./wrappers/iSound.hpp"
+#include "./wrappers/iClock.hpp"
 
 void displayTitleScreen(IRenderWindow &window, const ISprite &background, const IText &titleText, const IText &instructionsText);
 
-void play(bool &isPlaying, ISound &titleTheme, ISound &battleTheme);
+void play(bool &isPlaying, ISound &titleTheme, ISound &battleTheme, IClock &clock);
 
 #endif
