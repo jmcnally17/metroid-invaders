@@ -24,3 +24,8 @@ sf::Sound::Status SoundWrapper::getStatus() const
 {
   return sound_.getStatus();
 }
+
+void SoundWrapper::setVolume(float volume)
+{
+  sound_.setVolume(volume);
+}

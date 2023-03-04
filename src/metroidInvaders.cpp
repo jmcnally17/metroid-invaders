@@ -264,6 +264,7 @@ Ridley makeRidley()
   sf::SoundBuffer movementBuffer;
   movementBuffer.loadFromFile("public/audio/ridley.wav");
   SoundWrapper *movementSound = new SoundWrapper(movementBuffer);
+  movementSound->setVolume(35);
 
   sf::SoundBuffer deathBuffer;
   deathBuffer.loadFromFile("public/audio/ridleyDeath.wav");

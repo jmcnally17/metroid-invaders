@@ -11,6 +11,7 @@ public:
   void setLoop(bool loop) override;
   void stop() override;
   sf::Sound::Status getStatus() const override;
+  void setVolume(float volume);
 
 private:
   sf::SoundBuffer buffer_;
