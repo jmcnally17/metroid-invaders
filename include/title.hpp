@@ -8,6 +8,6 @@
 
 void displayTitleScreen(IRenderWindow &window, const ISprite &background, const IText &titleText, const IText &instructionsText);
 
-void play(bool &isPlaying, ISound &titleTheme);
+void play(bool &isPlaying, ISound &titleTheme, ISound &battleTheme);
 
 #endif
