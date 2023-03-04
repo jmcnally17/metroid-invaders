@@ -35,3 +35,8 @@ void TextWrapper::setOrigin(float x, float y)
 {
   text_.setOrigin(x, y);
 }
+
+void TextWrapper::setFillColor(const sf::Color &color)
+{
+  text_.setFillColor(color);
+}

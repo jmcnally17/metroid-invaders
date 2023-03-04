@@ -14,6 +14,7 @@ public:
   void setString(const std::string &string) override;
   sf::FloatRect getLocalBounds() const override;
   void setOrigin(float x, float y) override;
+  void setFillColor(const sf::Color &color);
 
 private:
   sf::String string_;

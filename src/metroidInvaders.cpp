@@ -1,4 +1,5 @@
 #include "../include/metroidInvaders.hpp"
+#include "../include/title.hpp"
 #include "../include/game.hpp"
 #include "../include/gameOver.hpp"
 #include "../include/wrappers/renderWindowWrapper.hpp"
@@ -37,13 +38,25 @@ int main()
 
   sf::Font m56;
   m56.loadFromFile("public/fonts/MicroN56.ttf");
+
+  SoundWrapper titleTheme = makeTitleTheme();
+
+  SpriteWrapper titleBackground = makeTitleBackground();
+  TextWrapper titleText = makeTitleText(m56);
+  TextWrapper instructionsText = makeInstructionsText(m56);
+
+  SoundWrapper battleTheme = makeBattleTheme();
   TextWrapper scoreText = makeScoreText(m56);
   TextWrapper livesText = makeLivesText(gunship, m56);
+
+  SoundWrapper creditsTheme = makeCreditsTheme();
   TextWrapper gameOverText = makeGameOverText(m56);
   TextWrapper playAgainText = makePlayAgainText(m56);
 
-  bool isPlaying = true;
+  bool isPlaying = false;
   bool gameOver = false;
+
+  titleTheme.play();
 
   while (window.isOpen())
   {
@@ -69,7 +82,7 @@ int main()
       evaluateGunshipMetroidLaserCollision(collisionInterface, gunship, metroidLasers, gunshipLaser, livesText);
       if (haveMetroidsInvaded(metroids) || gunship.getLives() == 0)
       {
-        endGame(isPlaying, gameOver, ridley, score, scoreText);
+        endGame(isPlaying, gameOver, ridley, score, scoreText, battleTheme, creditsTheme);
       }
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
       {
@@ -95,7 +108,15 @@ int main()
       displayGameOverScreen(window, gameOverText, scoreText, playAgainText);
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
       {
-        playAgain(isPlaying, gameOver, gunship, gunshipLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, clock);
+        playAgain(isPlaying, gameOver, gunship, gunshipLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, creditsTheme, battleTheme, clock);
+      }
+    }
+    else
+    {
+      displayTitleScreen(window, titleBackground, titleText, instructionsText);
+      if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+      {
+        play(isPlaying, titleTheme, battleTheme, clock);
       }
     }
   }
@@ -236,6 +257,61 @@ std::vector<ISound *> makeMetroidSounds()
   return metroidSounds;
 }
 
+SoundWrapper makeTitleTheme()
+{
+  sf::SoundBuffer titleThemeBuffer;
+  titleThemeBuffer.loadFromFile("public/audio/title.wav");
+  SoundWrapper titleTheme(titleThemeBuffer);
+  titleTheme.setLoop(true);
+
+  return titleTheme;
+}
+
+SpriteWrapper makeTitleBackground()
+{
+  sf::Texture titleBackgroundTexture;
+  titleBackgroundTexture.loadFromFile("public/images/backgrounds/title.png");
+  SpriteWrapper titleBackground(titleBackgroundTexture);
+
+  return titleBackground;
+}
+
+TextWrapper makeTitleText(const sf::Font &font)
+{
+  std::string titleString = "Metroid Invaders";
+  TextWrapper titleText(titleString, font);
+  titleText.setCharacterSize(100);
+  titleText.setFillColor(sf::Color::Green);
+  sf::FloatRect titleTextRect = titleText.getLocalBounds();
+  titleText.setOrigin(titleTextRect.width / 2, 0);
+  titleText.setPosition(sf::Vector2f(768, 100));
+
+  return titleText;
+}
+
+TextWrapper makeInstructionsText(const sf::Font &font)
+{
+  std::string instructionsString = "Press enter to play!";
+  TextWrapper instructionsText(instructionsString, font);
+  instructionsText.setCharacterSize(50);
+  instructionsText.setFillColor(sf::Color::Green);
+  sf::FloatRect instructionsTextRect = instructionsText.getLocalBounds();
+  instructionsText.setOrigin(instructionsTextRect.width / 2, 0);
+  instructionsText.setPosition(sf::Vector2f(768, 1200));
+
+  return instructionsText;
+}
+
+SoundWrapper makeBattleTheme()
+{
+  sf::SoundBuffer battleThemeBuffer;
+  battleThemeBuffer.loadFromFile("public/audio/battle.wav");
+  SoundWrapper battleTheme(battleThemeBuffer);
+  battleTheme.setLoop(true);
+
+  return battleTheme;
+}
+
 TextWrapper makeScoreText(const sf::Font &font)
 {
   std::string scoreString = "Score: 0";
@@ -252,6 +328,16 @@ TextWrapper makeLivesText(const Gunship &gunship, const sf::Font &font)
   livesText.setPosition(sf::Vector2f(1250, 0));
   livesText.setCharacterSize(50);
   return livesText;
+}
+
+SoundWrapper makeCreditsTheme()
+{
+  sf::SoundBuffer creditsThemeBuffer;
+  creditsThemeBuffer.loadFromFile("public/audio/credits.wav");
+  SoundWrapper creditsTheme(creditsThemeBuffer);
+  creditsTheme.setLoop(true);
+
+  return creditsTheme;
 }
 
 TextWrapper makeGameOverText(const sf::Font &font)

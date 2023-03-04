@@ -35,17 +35,17 @@ void levelUp(int &level,
              IClock &clock);
 
 void evaluateGunshipLaserMetroidCollision(const CollisionInterface &collision,
-                                         ILaser &gunshipLaser,
-                                         const std::vector<std::vector<IMetroid *>> &metroids,
-                                         int &score, IText &scoreText);
+                                          ILaser &gunshipLaser,
+                                          const std::vector<std::vector<IMetroid *>> &metroids,
+                                          int &score, IText &scoreText);
 
 void evaluateGunshipLaserRidleyCollision(const CollisionInterface &collision, ILaser &gunshipLaser, IRidley &ridley, int &score, IText &scoreText);
 
 void evaluateGunshipMetroidLaserCollision(const CollisionInterface &collision,
-                                         IGunship &gunship,
-                                         const std::vector<ILaser *> &metroidLasers,
-                                         ILaser &gunshipLaser,
-                                         IText &livesText);
+                                          IGunship &gunship,
+                                          const std::vector<ILaser *> &metroidLasers,
+                                          ILaser &gunshipLaser,
+                                          IText &livesText);
 
 bool haveMetroidsInvaded(const std::vector<std::vector<IMetroid *>> &metroids);
 
@@ -70,6 +70,6 @@ void shootMetroidLaser(const std::vector<std::vector<IMetroid *>> &metroids, con
 
 void spawnRidley(IRidley &ridley);
 
-void endGame(bool &isPlaying, bool &gameOver, IRidley &ridley, int score, IText &scoreText);
+void endGame(bool &isPlaying, bool &gameOver, IRidley &ridley, int score, IText &scoreText, ISound &battleTheme, ISound &creditsTheme);
 
 #endif
