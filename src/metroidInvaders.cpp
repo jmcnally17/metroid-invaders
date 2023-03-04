@@ -1,4 +1,5 @@
 #include "../include/metroidInvaders.hpp"
+#include "../include/title.hpp"
 #include "../include/game.hpp"
 #include "../include/gameOver.hpp"
 #include "../include/wrappers/renderWindowWrapper.hpp"
@@ -37,12 +38,17 @@ int main()
 
   sf::Font m56;
   m56.loadFromFile("public/fonts/MicroN56.ttf");
+
+  SpriteWrapper titleBackground = makeTitleBackground();
+  TextWrapper titleText = makeTitleText(m56);
+  TextWrapper instructionsText = makeInstructionsText(m56);
+
   TextWrapper scoreText = makeScoreText(m56);
   TextWrapper livesText = makeLivesText(gunship, m56);
   TextWrapper gameOverText = makeGameOverText(m56);
   TextWrapper playAgainText = makePlayAgainText(m56);
 
-  bool isPlaying = true;
+  bool isPlaying = false;
   bool gameOver = false;
 
   while (window.isOpen())
@@ -97,6 +103,10 @@ int main()
       {
         playAgain(isPlaying, gameOver, gunship, gunshipLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, clock);
       }
+    }
+    else
+    {
+      displayTitleScreen(window, titleBackground, titleText, instructionsText);
     }
   }
 
@@ -249,9 +259,11 @@ TextWrapper makeTitleText(const sf::Font &font)
 {
   std::string titleString = "Metroid Invaders";
   TextWrapper titleText(titleString, font);
+  titleText.setCharacterSize(100);
+  titleText.setFillColor(sf::Color::Green);
   sf::FloatRect titleTextRect = titleText.getLocalBounds();
   titleText.setOrigin(titleTextRect.width / 2, 0);
-  titleText.setPosition(sf::Vector2f(768, 200));
+  titleText.setPosition(sf::Vector2f(768, 100));
 
   return titleText;
 }
@@ -260,9 +272,11 @@ TextWrapper makeInstructionsText(const sf::Font &font)
 {
   std::string instructionsString = "Press enter to play!";
   TextWrapper instructionsText(instructionsString, font);
+  instructionsText.setCharacterSize(50);
+  instructionsText.setFillColor(sf::Color::Green);
   sf::FloatRect instructionsTextRect = instructionsText.getLocalBounds();
   instructionsText.setOrigin(instructionsTextRect.width / 2, 0);
-  instructionsText.setPosition(sf::Vector2f(768, 800));
+  instructionsText.setPosition(sf::Vector2f(768, 1200));
 
   return instructionsText;
 }
