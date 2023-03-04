@@ -4,6 +4,7 @@
 #include <vector>
 #include "./wrappers/iRenderWindow.hpp"
 #include "./wrappers/iText.hpp"
+#include "./wrappers/iSound.hpp"
 #include "./wrappers/iClock.hpp"
 #include "./models/iGunship.hpp"
 #include "./models/iLaser.hpp"
@@ -26,6 +27,7 @@ void playAgain(bool &isPlaying,
                int &score,
                IText &scoretext,
                IText &livesText,
+               ISound &creditsTheme,
                IClock &clock);
 
 #endif

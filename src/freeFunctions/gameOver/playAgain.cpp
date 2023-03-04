@@ -1,5 +1,6 @@
 #include <vector>
 #include "../../../include/wrappers/iText.hpp"
+#include "../../../include/wrappers/iSound.hpp"
 #include "../../../include/wrappers/iClock.hpp"
 #include "../../../include/models/iGunship.hpp"
 #include "../../../include/models/iLaser.hpp"
@@ -20,6 +21,7 @@ void playAgain(bool &isPlaying,
                int &score,
                IText &scoreText,
                IText &livesText,
+               ISound &creditsTheme,
                IClock &clock)
 {
   isPlaying = true;
@@ -47,5 +49,6 @@ void playAgain(bool &isPlaying,
   scoreText.setPosition(sf::Vector2f(20, 0));
   scoreText.setOrigin(0, 0);
   livesText.setString("Lives: " + std::to_string(gunship.getLives()));
+  creditsTheme.stop();
   clock.restart();
 }

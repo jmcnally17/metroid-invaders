@@ -5,6 +5,7 @@
 #include "../../mockModels/mockMetroid.hpp"
 #include "../../mockModels/mockRidley.hpp"
 #include "../../mockModels/mockText.hpp"
+#include "../../mockModels/mockSound.hpp"
 #include "../../mockModels/mockClock.hpp"
 
 using ::testing::NiceMock;
@@ -26,9 +27,10 @@ TEST(playAgain, setsIsPlayingToTrue)
   int score = 1030;
   NiceMock<MockText> scoreText;
   NiceMock<MockText> livesText;
+  NiceMock<MockSound> creditsTheme;
   NiceMock<MockClock> clock;
 
-  playAgain(isPlaying, gameOver, gunship, gunshipLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, clock);
+  playAgain(isPlaying, gameOver, gunship, gunshipLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, creditsTheme, clock);
   EXPECT_TRUE(isPlaying);
 }
 
@@ -48,9 +50,10 @@ TEST(playAgain, setsGameOverToFalse)
   int score = 1030;
   NiceMock<MockText> scoreText;
   NiceMock<MockText> livesText;
+  NiceMock<MockSound> creditsTheme;
   NiceMock<MockClock> clock;
 
-  playAgain(isPlaying, gameOver, gunship, gunshipLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, clock);
+  playAgain(isPlaying, gameOver, gunship, gunshipLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, creditsTheme, clock);
   EXPECT_FALSE(gameOver);
 }
 
@@ -70,11 +73,12 @@ TEST(playAgain, resetsTheGunship)
   int score = 1030;
   NiceMock<MockText> scoreText;
   NiceMock<MockText> livesText;
+  NiceMock<MockSound> creditsTheme;
   NiceMock<MockClock> clock;
 
   EXPECT_CALL(gunship, reset())
       .Times(1);
-  playAgain(isPlaying, gameOver, gunship, gunshipLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, clock);
+  playAgain(isPlaying, gameOver, gunship, gunshipLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, creditsTheme, clock);
 }
 
 TEST(playAgain, resetsTheGunshipLaser)
@@ -93,11 +97,12 @@ TEST(playAgain, resetsTheGunshipLaser)
   int score = 1030;
   NiceMock<MockText> scoreText;
   NiceMock<MockText> livesText;
+  NiceMock<MockSound> creditsTheme;
   NiceMock<MockClock> clock;
 
   EXPECT_CALL(gunshipLaser, reset())
       .Times(1);
-  playAgain(isPlaying, gameOver, gunship, gunshipLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, clock);
+  playAgain(isPlaying, gameOver, gunship, gunshipLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, creditsTheme, clock);
 }
 
 TEST(playAgain, resetsTheMetroids)
@@ -127,11 +132,12 @@ TEST(playAgain, resetsTheMetroids)
   int score = 1030;
   NiceMock<MockText> scoreText;
   NiceMock<MockText> livesText;
+  NiceMock<MockSound> creditsTheme;
   NiceMock<MockClock> clock;
 
   EXPECT_CALL(metroid, reset())
       .Times(12);
-  playAgain(isPlaying, gameOver, gunship, gunshipLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, clock);
+  playAgain(isPlaying, gameOver, gunship, gunshipLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, creditsTheme, clock);
 }
 
 TEST(playAgain, resetsMetroidLasers)
@@ -156,11 +162,12 @@ TEST(playAgain, resetsMetroidLasers)
   int score = 1030;
   NiceMock<MockText> scoreText;
   NiceMock<MockText> livesText;
+  NiceMock<MockSound> creditsTheme;
   NiceMock<MockClock> clock;
 
   EXPECT_CALL(metroidLaser, reset())
       .Times(3);
-  playAgain(isPlaying, gameOver, gunship, gunshipLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, clock);
+  playAgain(isPlaying, gameOver, gunship, gunshipLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, creditsTheme, clock);
 }
 
 TEST(playAgain, resetsRidley)
@@ -179,11 +186,12 @@ TEST(playAgain, resetsRidley)
   int score = 1030;
   NiceMock<MockText> scoreText;
   NiceMock<MockText> livesText;
+  NiceMock<MockSound> creditsTheme;
   NiceMock<MockClock> clock;
 
   EXPECT_CALL(ridley, reset())
       .Times(1);
-  playAgain(isPlaying, gameOver, gunship, gunshipLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, clock);
+  playAgain(isPlaying, gameOver, gunship, gunshipLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, creditsTheme, clock);
 }
 
 TEST(playAgain, resetsClockInterval)
@@ -202,9 +210,10 @@ TEST(playAgain, resetsClockInterval)
   int score = 1030;
   NiceMock<MockText> scoreText;
   NiceMock<MockText> livesText;
+  NiceMock<MockSound> creditsTheme;
   NiceMock<MockClock> clock;
 
-  playAgain(isPlaying, gameOver, gunship, gunshipLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, clock);
+  playAgain(isPlaying, gameOver, gunship, gunshipLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, creditsTheme, clock);
   EXPECT_EQ(interval, 665);
 }
 
@@ -224,9 +233,10 @@ TEST(playAgain, resetsClockStepCounter)
   int score = 1030;
   NiceMock<MockText> scoreText;
   NiceMock<MockText> livesText;
+  NiceMock<MockSound> creditsTheme;
   NiceMock<MockClock> clock;
 
-  playAgain(isPlaying, gameOver, gunship, gunshipLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, clock);
+  playAgain(isPlaying, gameOver, gunship, gunshipLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, creditsTheme, clock);
   EXPECT_EQ(step, 1);
 }
 
@@ -246,9 +256,10 @@ TEST(playAgain, resetsSoundCounter)
   int score = 1030;
   NiceMock<MockText> scoreText;
   NiceMock<MockText> livesText;
+  NiceMock<MockSound> creditsTheme;
   NiceMock<MockClock> clock;
 
-  playAgain(isPlaying, gameOver, gunship, gunshipLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, clock);
+  playAgain(isPlaying, gameOver, gunship, gunshipLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, creditsTheme, clock);
   EXPECT_EQ(soundCounter, 0);
 }
 
@@ -268,9 +279,10 @@ TEST(playAgain, resetsLevel)
   int score = 1030;
   NiceMock<MockText> scoreText;
   NiceMock<MockText> livesText;
+  NiceMock<MockSound> creditsTheme;
   NiceMock<MockClock> clock;
 
-  playAgain(isPlaying, gameOver, gunship, gunshipLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, clock);
+  playAgain(isPlaying, gameOver, gunship, gunshipLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, creditsTheme, clock);
   EXPECT_EQ(level, 1);
 }
 
@@ -290,9 +302,10 @@ TEST(playAgain, resetsScore)
   int score = 1030;
   NiceMock<MockText> scoreText;
   NiceMock<MockText> livesText;
+  NiceMock<MockSound> creditsTheme;
   NiceMock<MockClock> clock;
 
-  playAgain(isPlaying, gameOver, gunship, gunshipLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, clock);
+  playAgain(isPlaying, gameOver, gunship, gunshipLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, creditsTheme, clock);
   EXPECT_EQ(score, 0);
 }
 
@@ -312,6 +325,7 @@ TEST(playAgain, updatesScoreText)
   int score = 1030;
   MockText scoreText;
   NiceMock<MockText> livesText;
+  NiceMock<MockSound> creditsTheme;
   NiceMock<MockClock> clock;
 
   EXPECT_CALL(scoreText, setString("Score: 0"))
@@ -320,7 +334,7 @@ TEST(playAgain, updatesScoreText)
       .Times(1);
   EXPECT_CALL(scoreText, setOrigin(0, 0))
       .Times(1);
-  playAgain(isPlaying, gameOver, gunship, gunshipLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, clock);
+  playAgain(isPlaying, gameOver, gunship, gunshipLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, creditsTheme, clock);
 }
 
 TEST(playAgain, updatesLivesText)
@@ -339,6 +353,7 @@ TEST(playAgain, updatesLivesText)
   int score = 1030;
   NiceMock<MockText> scoreText;
   MockText livesText;
+  NiceMock<MockSound> creditsTheme;
   NiceMock<MockClock> clock;
 
   ON_CALL(gunship, getLives())
@@ -346,7 +361,31 @@ TEST(playAgain, updatesLivesText)
 
   EXPECT_CALL(livesText, setString("Lives: 3"))
       .Times(1);
-  playAgain(isPlaying, gameOver, gunship, gunshipLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, clock);
+  playAgain(isPlaying, gameOver, gunship, gunshipLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, creditsTheme, clock);
+}
+
+TEST(playAgain, stopsTheCreditsTheme)
+{
+  bool isPlaying = false;
+  bool gameOver = true;
+  NiceMock<MockGunship> gunship;
+  NiceMock<MockLaser> gunshipLaser;
+  std::vector<std::vector<IMetroid *>> metroids;
+  std::vector<ILaser *> metroidLasers;
+  NiceMock<MockRidley> ridley;
+  int interval = 105;
+  int step = 8;
+  int soundCounter = 3;
+  int level = 6;
+  int score = 1030;
+  NiceMock<MockText> scoreText;
+  NiceMock<MockText> livesText;
+  MockSound creditsTheme;
+  NiceMock<MockClock> clock;
+
+  EXPECT_CALL(clock, restart())
+      .Times(1);
+  playAgain(isPlaying, gameOver, gunship, gunshipLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, creditsTheme, clock);
 }
 
 TEST(playAgain, restartsClock)
@@ -365,9 +404,10 @@ TEST(playAgain, restartsClock)
   int score = 1030;
   NiceMock<MockText> scoreText;
   NiceMock<MockText> livesText;
+  NiceMock<MockSound> creditsTheme;
   MockClock clock;
 
   EXPECT_CALL(clock, restart())
       .Times(1);
-  playAgain(isPlaying, gameOver, gunship, gunshipLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, clock);
+  playAgain(isPlaying, gameOver, gunship, gunshipLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, creditsTheme, clock);
 }
