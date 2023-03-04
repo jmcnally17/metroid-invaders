@@ -48,6 +48,8 @@ int main()
   SoundWrapper battleTheme = makeBattleTheme();
   TextWrapper scoreText = makeScoreText(m56);
   TextWrapper livesText = makeLivesText(gunship, m56);
+
+  SoundWrapper creditsTheme = makeCreditsTheme();
   TextWrapper gameOverText = makeGameOverText(m56);
   TextWrapper playAgainText = makePlayAgainText(m56);
 
@@ -326,6 +328,16 @@ TextWrapper makeLivesText(const Gunship &gunship, const sf::Font &font)
   livesText.setPosition(sf::Vector2f(1250, 0));
   livesText.setCharacterSize(50);
   return livesText;
+}
+
+SoundWrapper makeCreditsTheme()
+{
+  sf::SoundBuffer creditsThemeBuffer;
+  creditsThemeBuffer.loadFromFile("public/audio/credits.wav");
+  SoundWrapper creditsTheme(creditsThemeBuffer);
+  creditsTheme.setLoop(true);
+
+  return creditsTheme;
 }
 
 TextWrapper makeGameOverText(const sf::Font &font)
