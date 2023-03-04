@@ -18,37 +18,34 @@ int main()
 {
   RenderWindowWrapper window(sf::VideoMode(1536, 1344), "Metroid Invaders");
 
+  sf::Font m56;
+  m56.loadFromFile("public/fonts/MicroN56.ttf");
+
+  // title screen objects
+  SoundWrapper titleTheme = makeTitleTheme();
+  SpriteWrapper titleBackground = makeTitleBackground();
+  TextWrapper titleText = makeTitleText(m56);
+  TextWrapper instructionsText = makeInstructionsText(m56);
+
+  // game objects
   GunshipLaser gunshipLaser = makeGunshipLaser();
   Gunship gunship = makeGunship(gunshipLaser);
   std::vector<std::vector<IMetroid *>> metroids = makeMetroids();
   std::vector<ILaser *> metroidLasers = makeMetroidLasers();
   Ridley ridley = makeRidley();
-
   ClockWrapper clock;
   int interval = 665;
   int step = 1;
-
   std::vector<ISound *> metroidSounds = makeMetroidSounds();
   int soundCounter = 0;
-
   Collision collisionInterface;
-
   int level = 1;
   int score = 0;
-
-  sf::Font m56;
-  m56.loadFromFile("public/fonts/MicroN56.ttf");
-
-  SoundWrapper titleTheme = makeTitleTheme();
-
-  SpriteWrapper titleBackground = makeTitleBackground();
-  TextWrapper titleText = makeTitleText(m56);
-  TextWrapper instructionsText = makeInstructionsText(m56);
-
   SoundWrapper battleTheme = makeBattleTheme();
   TextWrapper scoreText = makeScoreText(m56);
   TextWrapper livesText = makeLivesText(gunship, m56);
 
+  // game over screen objects
   SoundWrapper creditsTheme = makeCreditsTheme();
   TextWrapper gameOverText = makeGameOverText(m56);
   TextWrapper playAgainText = makePlayAgainText(m56);
