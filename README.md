@@ -4,7 +4,6 @@ This solo project is an imitation of the classic 1978 Taito game, Space Invaders
 
 ## Features Pending
 
-- Title screen
 - Bunkers protecting the Gunship at the bottom
 - **_(Under consideration)_** Submit the player score into a database with their name at game over and display the leaderboard either at game over or on a live website
 
@@ -22,11 +21,19 @@ The player controls a Gunship at the bottom of the window which can be moved hor
 - The game is over when at least one of the Metroids that are alive reaches the bottom of the window or the player runs out of lives. This position that the bottom of the Metroid needs to reach is 48 pixels above the top of the Gunship
 
 <p align="center">
+  <img src="./public/images/title.png" width="70%">
+</p>
+
+<p align="center">
+  <b>Fig.1 -</b> A screenshot of the title page that is loaded once the executable file is run
+</p>
+
+<p align="center">
   <img src="./public/images/gameplay.png" width="70%">
 </p>
 
 <p align="center">
-  <b>Fig.1 -</b> A screenshot of the game window with the Gunship at the bottom of the board, firing the Laser at the grid of Metroids above while dodging the Metroid lasers. Ridley (sprite yet to be updated) can also be seen hovering above the grid of Invaders. The player's score can be seen in the top left hand corner with the number of lives left in the top right hand corner
+  <b>Fig.2 -</b> A screenshot of the game window with the Gunship at the bottom of the board, firing the Laser at the grid of Metroids above while dodging the Metroid lasers. Ridley (sprite yet to be updated) can also be seen hovering above the grid of Invaders. The player's score can be seen in the top left hand corner with the number of lives left in the top right hand corner
 </p>
 
 <p align="center">
@@ -34,7 +41,7 @@ The player controls a Gunship at the bottom of the window which can be moved hor
 </p>
 
 <p align="center">
-  <b>Fig.2 -</b> A screenshot of the game over screen, which will be rendered once the Metroids have reached the bottom of the window or the player has run out of lives
+  <b>Fig.3 -</b> A screenshot of the game over screen, which will be rendered once the Metroids have reached the bottom of the window or the player has run out of lives
 </p>
 
 ## How To Use
