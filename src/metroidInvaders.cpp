@@ -245,6 +245,28 @@ SpriteWrapper makeTitleBackground()
   return titleBackground;
 }
 
+TextWrapper makeTitleText(const sf::Font &font)
+{
+  std::string titleString = "Metroid Invaders";
+  TextWrapper titleText(titleString, font);
+  sf::FloatRect titleTextRect = titleText.getLocalBounds();
+  titleText.setOrigin(titleTextRect.width / 2, 0);
+  titleText.setPosition(sf::Vector2f(768, 200));
+
+  return titleText;
+}
+
+TextWrapper makeInstructionsText(const sf::Font &font)
+{
+  std::string instructionsString = "Press enter to play!";
+  TextWrapper instructionsText(instructionsString, font);
+  sf::FloatRect instructionsTextRect = instructionsText.getLocalBounds();
+  instructionsText.setOrigin(instructionsTextRect.width / 2, 0);
+  instructionsText.setPosition(sf::Vector2f(768, 800));
+
+  return instructionsText;
+}
+
 TextWrapper makeScoreText(const sf::Font &font)
 {
   std::string scoreString = "Score: 0";

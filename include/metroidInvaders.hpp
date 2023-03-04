@@ -23,6 +23,10 @@ std::vector<ISound *> makeMetroidSounds();
 
 SpriteWrapper makeTitleBackground();
 
+TextWrapper makeTitleText(const sf::Font &font);
+
+TextWrapper makeInstructionsText(const sf::Font &font);
+
 TextWrapper makeScoreText(const sf::Font &font);
 
 TextWrapper makeLivesText(const Gunship &gunship, const sf::Font &font);
