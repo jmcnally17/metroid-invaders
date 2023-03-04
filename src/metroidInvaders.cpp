@@ -39,10 +39,13 @@ int main()
   sf::Font m56;
   m56.loadFromFile("public/fonts/MicroN56.ttf");
 
+  SoundWrapper titleTheme = makeTitleTheme();
+
   SpriteWrapper titleBackground = makeTitleBackground();
   TextWrapper titleText = makeTitleText(m56);
   TextWrapper instructionsText = makeInstructionsText(m56);
 
+  SoundWrapper battleTheme = makeBattleTheme();
   TextWrapper scoreText = makeScoreText(m56);
   TextWrapper livesText = makeLivesText(gunship, m56);
   TextWrapper gameOverText = makeGameOverText(m56);
@@ -50,6 +53,8 @@ int main()
 
   bool isPlaying = false;
   bool gameOver = false;
+
+  titleTheme.play();
 
   while (window.isOpen())
   {
@@ -246,6 +251,16 @@ std::vector<ISound *> makeMetroidSounds()
   return metroidSounds;
 }
 
+SoundWrapper makeTitleTheme()
+{
+  sf::SoundBuffer titleThemeBuffer;
+  titleThemeBuffer.loadFromFile("public/audio/title.wav");
+  SoundWrapper titleTheme(titleThemeBuffer);
+  titleTheme.setLoop(true);
+
+  return titleTheme;
+}
+
 SpriteWrapper makeTitleBackground()
 {
   sf::Texture titleBackgroundTexture;
@@ -279,6 +294,16 @@ TextWrapper makeInstructionsText(const sf::Font &font)
   instructionsText.setPosition(sf::Vector2f(768, 1200));
 
   return instructionsText;
+}
+
+SoundWrapper makeBattleTheme()
+{
+  sf::SoundBuffer battleThemeBuffer;
+  battleThemeBuffer.loadFromFile("public/audio/battle.wav");
+  SoundWrapper battleTheme(battleThemeBuffer);
+  battleTheme.setLoop(true);
+
+  return battleTheme;
 }
 
 TextWrapper makeScoreText(const sf::Font &font)

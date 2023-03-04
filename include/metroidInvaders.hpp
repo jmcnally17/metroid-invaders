@@ -4,6 +4,7 @@
 #include <vector>
 #include "./wrappers/spriteWrapper.hpp"
 #include "./wrappers/textWrapper.hpp"
+#include "./wrappers/soundWrapper.hpp"
 #include "./models/gunshipLaser.hpp"
 #include "./models/gunship.hpp"
 #include "./models/iMetroid.hpp"
@@ -21,11 +22,15 @@ Ridley makeRidley();
 
 std::vector<ISound *> makeMetroidSounds();
 
+SoundWrapper makeTitleTheme();
+
 SpriteWrapper makeTitleBackground();
 
 TextWrapper makeTitleText(const sf::Font &font);
 
 TextWrapper makeInstructionsText(const sf::Font &font);
+
+SoundWrapper makeBattleTheme();
 
 TextWrapper makeScoreText(const sf::Font &font);
 
