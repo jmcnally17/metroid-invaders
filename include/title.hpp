@@ -3,7 +3,8 @@
 
 #include "./wrappers/iRenderWindow.hpp"
 #include "./wrappers/iSprite.hpp"
+#include "./wrappers/iText.hpp"
 
-void displayTitleScreen(IRenderWindow &window, const ISprite &background);
+void displayTitleScreen(IRenderWindow &window, const ISprite &background, const IText &titleText);
 
 #endif
