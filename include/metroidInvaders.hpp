@@ -34,7 +34,7 @@ SoundWrapper makeBattleTheme();
 
 TextWrapper makeScoreText(const sf::Font &font);
 
-TextWrapper makeLivesText(const Gunship &gunship, const sf::Font &font);
+TextWrapper makeLivesText(const sf::Font &font);
 
 SoundWrapper makeCreditsTheme();
 

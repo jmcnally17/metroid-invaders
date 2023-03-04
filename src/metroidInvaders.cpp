@@ -43,7 +43,7 @@ int main()
   int score = 0;
   SoundWrapper battleTheme = makeBattleTheme();
   TextWrapper scoreText = makeScoreText(m56);
-  TextWrapper livesText = makeLivesText(gunship, m56);
+  TextWrapper livesText = makeLivesText(m56);
 
   // game over screen objects
   SoundWrapper creditsTheme = makeCreditsTheme();
@@ -318,9 +318,9 @@ TextWrapper makeScoreText(const sf::Font &font)
   return scoreText;
 }
 
-TextWrapper makeLivesText(const Gunship &gunship, const sf::Font &font)
+TextWrapper makeLivesText(const sf::Font &font)
 {
-  std::string livesString = "Lives: " + std::to_string(gunship.getLives());
+  std::string livesString = "Lives: 3";
   TextWrapper livesText(livesString, font);
   livesText.setPosition(sf::Vector2f(1250, 0));
   livesText.setCharacterSize(50);
