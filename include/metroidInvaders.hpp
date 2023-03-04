@@ -26,20 +26,10 @@ SoundWrapper makeTitleTheme();
 
 SpriteWrapper makeTitleBackground();
 
-TextWrapper makeTitleText(const sf::Font &font);
-
-TextWrapper makeInstructionsText(const sf::Font &font);
-
 SoundWrapper makeBattleTheme();
-
-TextWrapper makeScoreText(const sf::Font &font);
-
-TextWrapper makeLivesText(const sf::Font &font);
 
 SoundWrapper makeCreditsTheme();
 
-TextWrapper makeGameOverText(const sf::Font &font);
-
-TextWrapper makePlayAgainText(const sf::Font &font);
+TextWrapper makeText(std::string string, const sf::Font &font, int characterSize, const sf::Color &color, float originFactor, float x, float y);
 
 #endif
