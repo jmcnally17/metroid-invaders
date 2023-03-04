@@ -38,9 +38,9 @@ int main()
   TextWrapper playAgainText = makeText(playAgainString, m56, 48, white, 0.5, 768, 1000);
 
   // audio objects
-  SoundWrapper titleTheme = makeTitleTheme();
-  SoundWrapper battleTheme = makeBattleTheme();
-  SoundWrapper creditsTheme = makeCreditsTheme();
+  SoundWrapper titleTheme = makeTheme("title");
+  SoundWrapper battleTheme = makeTheme("battle");
+  SoundWrapper creditsTheme = makeTheme("credits");
 
   // title screen background
   SpriteWrapper titleBackground = makeTitleBackground();
@@ -129,6 +129,37 @@ int main()
   }
 
   return 0;
+}
+
+TextWrapper makeText(std::string string, const sf::Font &font, int characterSize, const sf::Color &color, float originFactor, float x, float y)
+{
+  TextWrapper text(string, font);
+  text.setCharacterSize(characterSize);
+  text.setFillColor(color);
+  sf::FloatRect textRect = text.getLocalBounds();
+  text.setOrigin(textRect.width * originFactor, 0);
+  text.setPosition(sf::Vector2f(x, y));
+
+  return text;
+}
+
+SoundWrapper makeTheme(std::string fileName)
+{
+  sf::SoundBuffer buffer;
+  buffer.loadFromFile("public/audio/" + fileName + ".wav");
+  SoundWrapper theme(buffer);
+  theme.setLoop(true);
+
+  return theme;
+}
+
+SpriteWrapper makeTitleBackground()
+{
+  sf::Texture titleBackgroundTexture;
+  titleBackgroundTexture.loadFromFile("public/images/backgrounds/title.png");
+  SpriteWrapper titleBackground(titleBackgroundTexture);
+
+  return titleBackground;
 }
 
 GunshipLaser makeGunshipLaser()
@@ -262,55 +293,4 @@ std::vector<ISound *> makeMetroidSounds()
 
   std::vector<ISound *> metroidSounds = {sound0, sound1, sound2, sound3};
   return metroidSounds;
-}
-
-SoundWrapper makeTitleTheme()
-{
-  sf::SoundBuffer titleThemeBuffer;
-  titleThemeBuffer.loadFromFile("public/audio/title.wav");
-  SoundWrapper titleTheme(titleThemeBuffer);
-  titleTheme.setLoop(true);
-
-  return titleTheme;
-}
-
-SpriteWrapper makeTitleBackground()
-{
-  sf::Texture titleBackgroundTexture;
-  titleBackgroundTexture.loadFromFile("public/images/backgrounds/title.png");
-  SpriteWrapper titleBackground(titleBackgroundTexture);
-
-  return titleBackground;
-}
-
-SoundWrapper makeBattleTheme()
-{
-  sf::SoundBuffer battleThemeBuffer;
-  battleThemeBuffer.loadFromFile("public/audio/battle.wav");
-  SoundWrapper battleTheme(battleThemeBuffer);
-  battleTheme.setLoop(true);
-
-  return battleTheme;
-}
-
-SoundWrapper makeCreditsTheme()
-{
-  sf::SoundBuffer creditsThemeBuffer;
-  creditsThemeBuffer.loadFromFile("public/audio/credits.wav");
-  SoundWrapper creditsTheme(creditsThemeBuffer);
-  creditsTheme.setLoop(true);
-
-  return creditsTheme;
-}
-
-TextWrapper makeText(std::string string, const sf::Font &font, int characterSize, const sf::Color &color, float originFactor, float x, float y)
-{
-  TextWrapper text(string, font);
-  text.setCharacterSize(characterSize);
-  text.setFillColor(color);
-  sf::FloatRect textRect = text.getLocalBounds();
-  text.setOrigin(textRect.width * originFactor, 0);
-  text.setPosition(sf::Vector2f(x, y));
-
-  return text;
 }
