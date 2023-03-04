@@ -22,6 +22,7 @@ void playAgain(bool &isPlaying,
                IText &scoreText,
                IText &livesText,
                ISound &creditsTheme,
+               ISound &battleTheme,
                IClock &clock)
 {
   isPlaying = true;
@@ -50,5 +51,6 @@ void playAgain(bool &isPlaying,
   scoreText.setOrigin(0, 0);
   livesText.setString("Lives: " + std::to_string(gunship.getLives()));
   creditsTheme.stop();
+  battleTheme.play();
   clock.restart();
 }

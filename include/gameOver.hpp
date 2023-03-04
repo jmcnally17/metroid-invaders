@@ -28,6 +28,7 @@ void playAgain(bool &isPlaying,
                IText &scoretext,
                IText &livesText,
                ISound &creditsTheme,
+               ISound &battleTheme,
                IClock &clock);
 
 #endif
