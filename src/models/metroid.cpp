@@ -95,18 +95,18 @@ void Metroid::reset()
   resurrect();
 }
 
-void Metroid::shoot(const std::vector<ILaser *> &lasers, int randomNumber) const
+void Metroid::shoot(const std::vector<ILaser *> &metroidLasers, int randomNumber) const
 {
   if (randomNumber == 0)
   {
     float xPosition = position_.x + (width_ / 2) - 9;
     float yPosition = position_.y + height_;
     sf::Vector2f newPosition(xPosition, yPosition);
-    for (auto laser : lasers)
+    for (auto metroidLaser : metroidLasers)
     {
-      if (laser->getPosition().y >= 1344)
+      if (metroidLaser->getPosition().y >= 1344)
       {
-        laser->setPosition(newPosition);
+        metroidLaser->setPosition(newPosition);
         return;
       }
     }

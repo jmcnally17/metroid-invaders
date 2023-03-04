@@ -1,14 +1,14 @@
 #include <vector>
 #include "../../../include/wrappers/iRenderWindow.hpp"
 #include "../../../include/wrappers/iText.hpp"
-#include "../../../include/models/iLaserCannon.hpp"
+#include "../../../include/models/iGunship.hpp"
 #include "../../../include/models/iLaser.hpp"
 #include "../../../include/models/iMetroid.hpp"
 #include "../../../include/models/iRidley.hpp"
 
 void drawObjects(IRenderWindow &window,
-                 const ILaserCannon &cannon,
-                 const ILaser &laser,
+                 const IGunship &gunship,
+                 const ILaser &gunshipLaser,
                  const std::vector<std::vector<IMetroid *>> &metroids,
                  const std::vector<ILaser *> &metroidLasers,
                  const IRidley &ridley,
@@ -16,8 +16,8 @@ void drawObjects(IRenderWindow &window,
                  const IText &livesText)
 {
   window.clear();
-  cannon.draw(window);
-  laser.draw(window);
+  gunship.draw(window);
+  gunshipLaser.draw(window);
   for (auto vec : metroids)
   {
     for (auto metroid : vec)
@@ -28,9 +28,9 @@ void drawObjects(IRenderWindow &window,
       }
     }
   }
-  for (auto laser : metroidLasers)
+  for (auto metroidLaser : metroidLasers)
   {
-    laser->draw(window);
+    metroidLaser->draw(window);
   }
   ridley.draw(window);
   window.draw(scoreText);

@@ -33,9 +33,9 @@ void levelUp(int &level,
       metroid->setPosition(levelUpPosition);
     }
   }
-  for (auto laser : metroidLasers)
+  for (auto metroidLaser : metroidLasers)
   {
-    laser->reset();
+    metroidLaser->reset();
   }
   ridley.reset();
   ridley.stopMovementSoundIfPlaying();

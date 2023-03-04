@@ -2,7 +2,7 @@
 #include "../../../include/models/iMetroid.hpp"
 #include "../../../include/models/iLaser.hpp"
 
-void shootMetroidLaser(const std::vector<std::vector<IMetroid *>> &metroids, const std::vector<ILaser *> &lasers)
+void shootMetroidLaser(const std::vector<std::vector<IMetroid *>> &metroids, const std::vector<ILaser *> &metroidLasers)
 {
   for (auto row : metroids)
   {
@@ -10,7 +10,7 @@ void shootMetroidLaser(const std::vector<std::vector<IMetroid *>> &metroids, con
     {
       if (metroid->isAlive())
       {
-        metroid->shoot(lasers);
+        metroid->shoot(metroidLasers);
       }
     }
   }

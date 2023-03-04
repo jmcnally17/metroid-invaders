@@ -191,17 +191,17 @@ TEST(levelUp, resetsTheMetroidLasers)
   int step = 15;
   int soundCounter = 3;
   std::vector<std::vector<IMetroid *>> metroids;
-  MockLaser laser;
-  MockLaser *pLaser = &laser;
+  MockLaser metroidLaser;
+  MockLaser *pMetroidLaser = &metroidLaser;
   std::vector<ILaser *> metroidLasers(3);
   for (int i = 0; i < 3; i++)
   {
-    metroidLasers[i] = pLaser;
+    metroidLasers[i] = pMetroidLaser;
   }
   NiceMock<MockRidley> ridley;
   NiceMock<MockClock> clock;
 
-  EXPECT_CALL(laser, reset())
+  EXPECT_CALL(metroidLaser, reset())
       .Times(3);
   levelUp(level, interval, step, soundCounter, metroids, metroidLasers, ridley, clock);
 }

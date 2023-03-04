@@ -22,7 +22,7 @@ public:
   bool hasJustMovedDown() const override;
   void resurrect() override;
   void reset() override;
-  void shoot(const std::vector<ILaser *> &lasers, int randomNumber = rand() % 100000) const override;
+  void shoot(const std::vector<ILaser *> &metroidLasers, int randomNumber = rand() % 100000) const override;
 
 private:
   sf::Vector2f originalPosition_;
