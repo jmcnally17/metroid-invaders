@@ -7,7 +7,7 @@
 class Ridley : public IRidley
 {
 public:
-  Ridley(ISprite *sprite, ISound *movementSound, ISound *deathSound);
+  Ridley(ISprite *rightSprite, ISprite *leftSprite, ISound *movementSound, ISound *deathSound);
   float getWidth() const override;
   float getHeight() const override;
   sf::Vector2f getPosition() const override;
@@ -24,6 +24,7 @@ public:
   void die() override;
 
 private:
+  ISprite *leftSprite_;
   int points_;
   int direction_;
   ISound *movementSound_;
