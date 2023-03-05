@@ -29,6 +29,7 @@ private:
   int direction_;
   ISound *movementSound_;
   ISound *deathSound_;
+  void updateSprites();
 };
 
 #endif

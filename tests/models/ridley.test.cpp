@@ -481,7 +481,7 @@ TEST(Ridley, spawnPlaysTheMovementSound)
   MockSprite *pRightSprite = &rightSprite;
   NiceMock<MockSprite> leftSprite;
   MockSprite *pLeftSprite = &leftSprite;
-  MockSound movementSound;
+  NiceMock<MockSound> movementSound;
   MockSound *pMovementSound = &movementSound;
   MockSound *deathSound;
   Ridley ridley(pRightSprite, pLeftSprite, pMovementSound, deathSound);
