@@ -9,6 +9,7 @@ public:
   SpriteWrapper(sf::Texture &texture);
   void setPosition(const sf::Vector2f &position) override;
   void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+  void setScale(float factorX, float factorY) override;
 
 private:
   sf::Texture texture_;

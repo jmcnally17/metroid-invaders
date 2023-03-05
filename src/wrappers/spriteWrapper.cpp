@@ -14,3 +14,8 @@ void SpriteWrapper::draw(sf::RenderTarget &target, sf::RenderStates states) cons
 {
   target.draw(sprite_, states);
 };
+
+void SpriteWrapper::setScale(float factorX, float factorY)
+{
+  sprite_.setScale(factorX, factorY);
+}

@@ -345,6 +345,35 @@ TEST(Ridley, spawnChangesDirectionToMinus1)
   EXPECT_EQ(ridley.getDirection(), -1);
 }
 
+TEST(Ridley, spawnSetsSpriteScaleWithXOf1WhenDirectionStartsAtMinus1)
+{
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  NiceMock<MockSound> movementSound;
+  MockSound *pMovementSound = &movementSound;
+  MockSound *deathSound;
+  Ridley ridley(pSprite, pMovementSound, deathSound);
+
+  EXPECT_CALL(sprite, setScale(1, 1));
+  ridley.spawn(0);
+}
+
+TEST(Ridley, spawnSetsSpriteScaleWithXOfMinus1WhenDirectionStartsAt1)
+{
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  NiceMock<MockSound> movementSound;
+  MockSound *pMovementSound = &movementSound;
+  MockSound *deathSound;
+  Ridley ridley(pSprite, pMovementSound, deathSound);
+
+  ridley.setPosition(sf::Vector2f(1536, 200)); // set ridley to the right side of the window
+  ridley.changeDirection();                    // change direction to 1
+
+  EXPECT_CALL(sprite, setScale(-1, 1));
+  ridley.spawn(0);
+}
+
 TEST(Ridley, spawnAdds0Point125ToXPositionWhenRidleyIsLeftOfBoard)
 {
   NiceMock<MockSprite> sprite;
