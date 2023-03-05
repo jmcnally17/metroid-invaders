@@ -23,6 +23,10 @@ int main()
   sf::Color white = sf::Color::White;
   sf::Color green = sf::Color::Green;
 
+  // backgrounds
+  SpriteWrapper titleBackground = makeBackground("title");
+  SpriteWrapper gameBackground = makeBackground("game");
+
   // text objects
   std::string titleString = "Metroid Invaders";
   std::string instructionsString = "Press enter to play!";
@@ -41,9 +45,6 @@ int main()
   SoundWrapper titleTheme = makeTheme("title");
   SoundWrapper battleTheme = makeTheme("battle");
   SoundWrapper creditsTheme = makeTheme("credits");
-
-  // title screen background
-  SpriteWrapper titleBackground = makeTitleBackground();
 
   // game objects
   GunshipLaser gunshipLaser = makeGunshipLaser();
@@ -78,7 +79,7 @@ int main()
 
     if (isPlaying)
     {
-      drawObjects(window, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, livesText);
+      drawObjects(window, gameBackground, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, livesText);
       monitorRidleyMovementSound(ridley);
       if (areMetroidsDead(metroids))
       {
@@ -131,6 +132,15 @@ int main()
   return 0;
 }
 
+SpriteWrapper makeBackground(std::string fileName)
+{
+  sf::Texture backgroundTexture;
+  backgroundTexture.loadFromFile("public/images/backgrounds/" + fileName + ".png");
+  SpriteWrapper background(backgroundTexture);
+
+  return background;
+}
+
 TextWrapper makeText(std::string string, const sf::Font &font, int characterSize, const sf::Color &color, float originFactor, float x, float y)
 {
   TextWrapper text(string, font);
@@ -151,15 +161,6 @@ SoundWrapper makeTheme(std::string fileName)
   theme.setLoop(true);
 
   return theme;
-}
-
-SpriteWrapper makeTitleBackground()
-{
-  sf::Texture titleBackgroundTexture;
-  titleBackgroundTexture.loadFromFile("public/images/backgrounds/title.png");
-  SpriteWrapper titleBackground(titleBackgroundTexture);
-
-  return titleBackground;
 }
 
 GunshipLaser makeGunshipLaser()

@@ -10,11 +10,11 @@
 #include "./models/iMetroid.hpp"
 #include "./models/ridley.hpp"
 
+SpriteWrapper makeBackground(std::string fileName);
+
 TextWrapper makeText(std::string string, const sf::Font &font, int characterSize, const sf::Color &color, float originFactor, float x, float y);
 
 SoundWrapper makeTheme(std::string fileName);
-
-SpriteWrapper makeTitleBackground();
 
 GunshipLaser makeGunshipLaser();
 
