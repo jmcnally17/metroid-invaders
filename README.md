@@ -33,7 +33,7 @@ The player controls a Gunship at the bottom of the window which can be moved hor
 </p>
 
 <p align="center">
-  <b>Fig.2 -</b> A screenshot of the game window with the Gunship at the bottom of the board, firing the Laser at the grid of Metroids above while dodging the Metroid lasers. Ridley (sprite yet to be updated) can also be seen hovering above the grid of Invaders. The player's score can be seen in the top left hand corner with the number of lives left in the top right hand corner
+  <b>Fig.2 -</b> A screenshot of the game window with the Gunship at the bottom of the board, firing the Laser at the grid of Metroids above while dodging the Metroid lasers. Ridley can also be seen hovering above the grid of Invaders. The player's score can be seen in the top left hand corner with the number of lives left in the top right hand corner
 </p>
 
 <p align="center">
