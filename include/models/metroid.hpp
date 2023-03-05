@@ -30,6 +30,8 @@ private:
   bool alive_;
   int direction_;
   bool justMovedDown_;
+  void moveDown();
+  void moveAcross();
 };
 
 #endif
