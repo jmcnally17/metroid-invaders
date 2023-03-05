@@ -257,9 +257,13 @@ std::vector<ILaser *> makeMetroidLasers()
 
 Ridley makeRidley()
 {
-  sf::Texture ridleyTexture;
-  ridleyTexture.loadFromFile("public/images/sprites/ridley.png");
-  SpriteWrapper *ridleySprite = new SpriteWrapper(ridleyTexture);
+  sf::Texture ridleyRightTexture;
+  ridleyRightTexture.loadFromFile("public/images/sprites/ridleyRight.png");
+  SpriteWrapper *ridleyRightSprite = new SpriteWrapper(ridleyRightTexture);
+
+  sf::Texture ridleyLeftTexture;
+  ridleyLeftTexture.loadFromFile("public/images/sprites/ridleyLeft.png");
+  SpriteWrapper *ridleyLeftSprite = new SpriteWrapper(ridleyLeftTexture);
 
   sf::SoundBuffer movementBuffer;
   movementBuffer.loadFromFile("public/audio/ridley.wav");
@@ -269,7 +273,7 @@ Ridley makeRidley()
   deathBuffer.loadFromFile("public/audio/ridleyDeath.wav");
   SoundWrapper *deathSound = new SoundWrapper(deathBuffer);
 
-  Ridley ridley(ridleySprite, movementSound, deathSound);
+  Ridley ridley(ridleyRightSprite, ridleyLeftSprite, movementSound, deathSound);
   return ridley;
 }
 
