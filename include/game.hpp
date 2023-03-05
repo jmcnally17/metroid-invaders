@@ -13,6 +13,7 @@
 #include "./interfaces/collisionInterface.hpp"
 
 void drawObjects(IRenderWindow &window,
+                 const ISprite &gameBackground,
                  const IGunship &gunship,
                  const ILaser &gunshipLaser,
                  const std::vector<std::vector<IMetroid *>> &metroids,

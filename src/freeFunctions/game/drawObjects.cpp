@@ -7,6 +7,7 @@
 #include "../../../include/models/iRidley.hpp"
 
 void drawObjects(IRenderWindow &window,
+                 const ISprite &gameBackground,
                  const IGunship &gunship,
                  const ILaser &gunshipLaser,
                  const std::vector<std::vector<IMetroid *>> &metroids,
@@ -16,6 +17,7 @@ void drawObjects(IRenderWindow &window,
                  const IText &livesText)
 {
   window.clear();
+  window.draw(gameBackground);
   gunship.draw(window);
   gunshipLaser.draw(window);
   for (auto vec : metroids)
