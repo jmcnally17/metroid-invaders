@@ -60,17 +60,7 @@ int Metroid::getDirection() const
 
 void Metroid::move()
 {
-  if (!justMovedDown_ && (abs(position_.x - originalPosition_.x - 282) < 1e-3 || abs(position_.x - originalPosition_.x + 282) < 1e-3))
-  {
-    position_.y += 42;
-    justMovedDown_ = true;
-    changeDirection();
-  }
-  else
-  {
-    position_.x += 14.1 * direction_;
-    justMovedDown_ = false;
-  }
+  (!justMovedDown_ && (abs(position_.x - originalPosition_.x - 282) < 1e-3 || abs(position_.x - originalPosition_.x + 282) < 1e-3)) ? moveDown() : moveAcross();
   sprite_->setPosition(position_);
 }
 
@@ -111,4 +101,17 @@ void Metroid::shoot(const std::vector<ILaser *> &metroidLasers, int randomNumber
       }
     }
   }
+}
+
+void Metroid::moveDown()
+{
+  position_.y += 42;
+  justMovedDown_ = true;
+  changeDirection();
+}
+
+void Metroid::moveAcross()
+{
+  position_.x += 14.1 * direction_;
+  justMovedDown_ = false;
 }

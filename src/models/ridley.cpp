@@ -1,11 +1,13 @@
 #include "../../include/models/ridley.hpp"
 
-Ridley::Ridley(ISprite *sprite, ISound *movementSound, ISound *deathSound) : IRidley(96, 42, -96, 200, sprite),
-                                                                             points_(150),
-                                                                             direction_(-1),
-                                                                             movementSound_(movementSound),
-                                                                             deathSound_(deathSound)
+Ridley::Ridley(ISprite *rightSprite, ISprite *leftSprite, ISound *movementSound, ISound *deathSound) : IRidley(96, 42, -96, 200, rightSprite),
+                                                                                                       leftSprite_(leftSprite),
+                                                                                                       points_(150),
+                                                                                                       direction_(-1),
+                                                                                                       movementSound_(movementSound),
+                                                                                                       deathSound_(deathSound)
 {
+  leftSprite_->setPosition(position_);
   movementSound_->setLoop(true);
 }
 
@@ -37,14 +39,14 @@ int Ridley::getDirection() const
 void Ridley::setPosition(const sf::Vector2f &position)
 {
   position_ = position;
-  sprite_->setPosition(position_);
+  updateSprites();
 }
 
 void Ridley::draw(IRenderWindow &window) const
 {
   if (position_.x > -96 && position_.x < 1536)
   {
-    window.draw(*sprite_);
+    direction_ == 1 ? window.draw(*sprite_) : window.draw(*leftSprite_);
   }
 }
 
@@ -64,7 +66,7 @@ void Ridley::move()
   if (position_.x > -96 && position_.x < 1536)
   {
     position_.x += 0.125 * direction_;
-    sprite_->setPosition(position_);
+    updateSprites();
   }
 }
 
@@ -73,8 +75,8 @@ void Ridley::spawn(int randomNumber)
   if (randomNumber == 0 && (position_.x == -96 || position_.x == 1536))
   {
     changeDirection();
-    sprite_->setScale(direction_, 1);
     position_.x += 0.125 * direction_;
+    updateSprites();
     movementSound_->play();
   }
 }
@@ -101,4 +103,10 @@ void Ridley::die()
   setPosition(sf::Vector2f(newXPosition, 200));
   movementSound_->stop();
   deathSound_->play();
+}
+
+void Ridley::updateSprites()
+{
+  sprite_->setPosition(position_);
+  leftSprite_->setPosition(position_);
 }

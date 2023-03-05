@@ -1,4 +1,4 @@
-# Metroid Invaders &nbsp; <img src="./public/images/sprites/gamma.png" height="30"> <img src="./public/images/sprites/alpha.png" height="30"> <img src="./public/images/sprites/larva.png" height="30"> <img src="./public/images/sprites/ridley.png" height="30">
+# Metroid Invaders &nbsp; <img src="./public/images/sprites/gamma.png" height="30"> <img src="./public/images/sprites/alpha.png" height="30"> <img src="./public/images/sprites/larva.png" height="30"> <img src="./public/images/sprites/ridleyLeft.png" height="30">
 
 This solo project is an imitation of the classic 1978 Taito game, Space Invaders. It has been written in [C++](https://en.wikipedia.org/wiki/C%2B%2B) using the [SFML](https://www.sfml-dev.org/) graphics library.
 
