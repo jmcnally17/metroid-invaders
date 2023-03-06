@@ -21,7 +21,7 @@ The player controls a Gunship at the bottom of the window which can be moved hor
 - The game is over when at least one of the Metroids that are alive reaches the bottom of the window or the player runs out of lives. This position that the bottom of the Metroid needs to reach is 48 pixels above the top of the Gunship
 
 <p align="center">
-  <img src="./public/images/title.png" width="70%">
+  <img src="./public/images/screenshots/title.png" width="70%">
 </p>
 
 <p align="center">
@@ -29,7 +29,7 @@ The player controls a Gunship at the bottom of the window which can be moved hor
 </p>
 
 <p align="center">
-  <img src="./public/images/gameplay.png" width="70%">
+  <img src="./public/images/screenshots/gameplay.png" width="70%">
 </p>
 
 <p align="center">
@@ -37,7 +37,7 @@ The player controls a Gunship at the bottom of the window which can be moved hor
 </p>
 
 <p align="center">
-  <img src="./public/images/gameOver.png" width="70%">
+  <img src="./public/images/screenshots/gameOver.png" width="70%">
 </p>
 
 <p align="center">
