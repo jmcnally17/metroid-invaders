@@ -26,6 +26,7 @@ int main()
   // backgrounds
   SpriteWrapper titleBackground = makeBackground("title");
   SpriteWrapper gameBackground = makeBackground("game");
+  gameBackground.setScale(2, 2);
 
   // text objects
   std::string titleString = "Metroid Invaders";
