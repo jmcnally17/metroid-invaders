@@ -22,6 +22,11 @@ int Bunker::getHealth() const
   return health_;
 }
 
+void Bunker::decreaseHealth()
+{
+  health_--;
+}
+
 void Bunker::draw(IRenderWindow &window) const
 {
   window.draw(*sprite_);

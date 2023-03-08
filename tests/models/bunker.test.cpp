@@ -41,13 +41,23 @@ TEST(Bunker, setsSpritePositionUponInstantiation)
   Bunker bunker(900, 300, pSprite);
 }
 
-TEST(bunker, hasAHealthClassMemberOf10)
+TEST(Bunker, hasAHealthClassMemberOf10)
 {
   NiceMock<MockSprite> sprite;
   MockSprite *pSprite = &sprite;
   Bunker bunker(900, 300, pSprite);
 
   EXPECT_EQ(bunker.getHealth(), 10);
+}
+
+TEST(Bunker, decreaseHealthDecreasesHealthBy1)
+{
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Bunker bunker(900, 300, pSprite);
+
+  bunker.decreaseHealth();
+  EXPECT_EQ(bunker.getHealth(), 9);
 }
 
 TEST(Bunker, drawCallsDrawOnWndowWithSpriteArgumentIfHealthIsGreateThan0)
