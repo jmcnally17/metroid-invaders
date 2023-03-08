@@ -35,6 +35,9 @@ void Bunker::draw(IRenderWindow &window) const
   }
 }
 
-void Bunker::reset() {}
+void Bunker::reset()
+{
+  health_ = 10;
+}
 
 void Bunker::setPosition(const sf::Vector2f &position) {}

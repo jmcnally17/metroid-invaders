@@ -89,3 +89,18 @@ TEST(Bunker, drawDoesNotCallDrawOnWindowWithSpriteArgumentIfHealthIs0)
       .Times(0);
   bunker.draw(window);
 }
+
+TEST(Bunker, resetSetsHealthBackTo10)
+{
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Bunker bunker(900, 300, pSprite);
+
+  for (int i = 0; i < 5; i++)
+  {
+    bunker.decreaseHealth();
+  }
+
+  bunker.reset();
+  EXPECT_EQ(bunker.getHealth(), 10);
+}
