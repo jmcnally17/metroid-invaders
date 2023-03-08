@@ -29,7 +29,10 @@ void Bunker::decreaseHealth()
 
 void Bunker::draw(IRenderWindow &window) const
 {
-  window.draw(*sprite_);
+  if (health_ > 0)
+  {
+    window.draw(*sprite_);
+  }
 }
 
 void Bunker::reset() {}

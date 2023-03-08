@@ -60,7 +60,7 @@ TEST(Bunker, decreaseHealthDecreasesHealthBy1)
   EXPECT_EQ(bunker.getHealth(), 9);
 }
 
-TEST(Bunker, drawCallsDrawOnWndowWithSpriteArgumentIfHealthIsGreateThan0)
+TEST(Bunker, drawCallsDrawOnWindowWithSpriteArgumentIfHealthIsGreaterThan0)
 {
   NiceMock<MockSprite> sprite;
   MockSprite *pSprite = &sprite;
@@ -70,5 +70,22 @@ TEST(Bunker, drawCallsDrawOnWndowWithSpriteArgumentIfHealthIsGreateThan0)
   EXPECT_CALL(window, draw(testing::Truly([](const sf::Drawable &drawable)
                                           { return true; })))
       .Times(1);
+  bunker.draw(window);
+}
+
+TEST(Bunker, drawDoesNotCallDrawOnWindowWithSpriteArgumentIfHealthIs0)
+{
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Bunker bunker(900, 300, pSprite);
+  MockRenderWindow window;
+
+  for (int i = 0; i < 10; i++)
+  {
+    bunker.decreaseHealth();
+  }
+
+  EXPECT_CALL(window, draw)
+      .Times(0);
   bunker.draw(window);
 }
