@@ -7,7 +7,7 @@ void evaluateGunshipLaserBunkerCollision(const CollisionInterface &collision, IL
 {
   for (auto bunker : bunkers)
   {
-    if (collision.haveCollided(gunshipLaser, *bunker))
+    if (bunker->getHealth() > 0 && collision.haveCollided(gunshipLaser, *bunker))
     {
       bunker->decreaseHealth();
       gunshipLaser.reset();
