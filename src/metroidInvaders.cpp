@@ -170,8 +170,16 @@ SoundWrapper makeTheme(std::string fileName)
 
 std::vector<IBunker *> makeBunkers()
 {
-  sf::Texture bunkerTexture;
-  bunkerTexture.loadFromFile("public/images/sprites/bunker.png");
+  sf::Texture bunkerTexture1;
+  bunkerTexture1.loadFromFile("public/images/sprites/bunker1.png");
+  sf::Texture bunkerTexture2;
+  bunkerTexture2.loadFromFile("public/images/sprites/bunker2.png");
+  sf::Texture bunkerTexture3;
+  bunkerTexture3.loadFromFile("public/images/sprites/bunker3.png");
+  sf::Texture bunkerTexture4;
+  bunkerTexture4.loadFromFile("public/images/sprites/bunker4.png");
+  sf::Texture bunkerTexture5;
+  bunkerTexture5.loadFromFile("public/images/sprites/bunker5.png");
 
   std::vector<IBunker *> bunkers(4);
 
@@ -180,8 +188,12 @@ std::vector<IBunker *> makeBunkers()
 
   for (int i = 0; i < 4; i++)
   {
-    SpriteWrapper *bunkerSprite = new SpriteWrapper(bunkerTexture);
-    Bunker *bunker = new Bunker(xOffset + (xIncrement * i), 1032, bunkerSprite);
+    SpriteWrapper *bunkerSprite1 = new SpriteWrapper(bunkerTexture1);
+    SpriteWrapper *bunkerSprite2 = new SpriteWrapper(bunkerTexture2);
+    SpriteWrapper *bunkerSprite3 = new SpriteWrapper(bunkerTexture3);
+    SpriteWrapper *bunkerSprite4 = new SpriteWrapper(bunkerTexture4);
+    SpriteWrapper *bunkerSprite5 = new SpriteWrapper(bunkerTexture5);
+    Bunker *bunker = new Bunker(xOffset + (xIncrement * i), 1032, bunkerSprite1, bunkerSprite2, bunkerSprite3, bunkerSprite4, bunkerSprite5);
     bunkers[i] = bunker;
   }
 

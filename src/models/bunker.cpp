@@ -1,6 +1,13 @@
 #include "../../include/models/bunker.hpp"
 
-Bunker::Bunker(float x, float y, ISprite *sprite) : IBunker(144, 108, x, y, sprite), health_(10) {}
+Bunker::Bunker(float x, float y, ISprite *sprite1, ISprite *sprite2, ISprite *sprite3, ISprite *sprite4, ISprite *sprite5)
+    : IBunker(144, 108, x, y, sprite1), health_(10), sprite2_(sprite2), sprite3_(sprite3), sprite4_(sprite4), sprite5_(sprite5)
+{
+  sprite2_->setPosition(position_);
+  sprite3_->setPosition(position_);
+  sprite4_->setPosition(position_);
+  sprite5_->setPosition(position_);
+}
 
 float Bunker::getWidth() const
 {
@@ -29,9 +36,28 @@ void Bunker::decreaseHealth()
 
 void Bunker::draw(IRenderWindow &window) const
 {
-  if (health_ > 0)
+  switch (health_)
   {
+  case 10:
+  case 9:
     window.draw(*sprite_);
+    break;
+  case 8:
+  case 7:
+    window.draw(*sprite2_);
+    break;
+  case 6:
+  case 5:
+    window.draw(*sprite3_);
+    break;
+  case 4:
+  case 3:
+    window.draw(*sprite4_);
+    break;
+  case 2:
+  case 1:
+    window.draw(*sprite5_);
+    break;
   }
 }
 
