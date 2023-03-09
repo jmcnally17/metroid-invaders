@@ -8,6 +8,7 @@ void evaluateGunshipLaserBunkerCollision(const CollisionInterface &collision, IL
   for (auto bunker : bunkers)
   {
     bunker->decreaseHealth();
+    gunshipLaser.reset();
     return;
   }
 }
