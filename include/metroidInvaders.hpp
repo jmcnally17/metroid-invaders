@@ -9,6 +9,7 @@
 #include "./models/gunship.hpp"
 #include "./models/iMetroid.hpp"
 #include "./models/ridley.hpp"
+#include "./models/iBunker.hpp"
 
 SpriteWrapper makeBackground(std::string fileName);
 
@@ -27,5 +28,7 @@ std::vector<ILaser *> makeMetroidLasers();
 Ridley makeRidley();
 
 std::vector<ISound *> makeMetroidSounds();
+
+std::vector<IBunker *> makeBunkers();
 
 #endif

@@ -12,6 +12,7 @@
 #include "../include/models/metroids.hpp"
 #include "../include/models/metroidLaser.hpp"
 #include "../include/models/ridley.hpp"
+#include "../include/models/bunker.hpp"
 #include "../include/interfaces/collisionInterface.hpp"
 
 int main()
@@ -54,6 +55,7 @@ int main()
   std::vector<ILaser *> metroidLasers = makeMetroidLasers();
   Ridley ridley = makeRidley();
   std::vector<ISound *> metroidSounds = makeMetroidSounds();
+  std::vector<IBunker *> bunkers = makeBunkers();
   int soundCounter = 0;
   ClockWrapper clock;
   int interval = 665;
@@ -205,6 +207,7 @@ std::vector<std::vector<IMetroid *>> makeMetroids()
   alphaTexture.loadFromFile("public/images/sprites/alpha.png");
   sf::Texture gammaTexture;
   gammaTexture.loadFromFile("public/images/sprites/gamma.png");
+
   std::vector<std::vector<IMetroid *>> metroids(5);
 
   float xOffset = 282;
@@ -245,8 +248,8 @@ std::vector<ILaser *> makeMetroidLasers()
 {
   sf::Texture metroidLaserTexture;
   metroidLaserTexture.loadFromFile("public/images/sprites/metroidLaser.png");
-  std::vector<ILaser *> metroidLasers(3);
 
+  std::vector<ILaser *> metroidLasers(3);
   for (int i = 0; i < 3; i++)
   {
     SpriteWrapper *metroidLaserSprite = new SpriteWrapper(metroidLaserTexture);
@@ -299,4 +302,24 @@ std::vector<ISound *> makeMetroidSounds()
 
   std::vector<ISound *> metroidSounds = {sound0, sound1, sound2, sound3};
   return metroidSounds;
+}
+
+std::vector<IBunker *> makeBunkers()
+{
+  sf::Texture bunkerTexture;
+  bunkerTexture.loadFromFile("public/images/sprites/bunker.png");
+
+  std::vector<IBunker *> bunkers(4);
+
+  float xOffset = 192;
+  float xIncrement = 336;
+
+  for (int i = 0; i < 4; i++)
+  {
+    SpriteWrapper *bunkerSprite = new SpriteWrapper(bunkerTexture);
+    Bunker *bunker = new Bunker(xOffset + (xIncrement * i), 1197, bunkerSprite);
+    bunkers[i] = bunker;
+  }
+
+  return bunkers;
 }
