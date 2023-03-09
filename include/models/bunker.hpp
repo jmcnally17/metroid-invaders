@@ -11,7 +11,7 @@ public:
   float getHeight() const override;
   sf::Vector2f getPosition() const override;
   int getHealth() const;
-  void decreaseHealth();
+  void decreaseHealth() override;
   void draw(IRenderWindow &window) const override;
   void reset() override;
 

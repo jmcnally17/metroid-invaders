@@ -15,7 +15,7 @@
 
 void drawObjects(IRenderWindow &window,
                  const ISprite &gameBackground,
-                 const std::vector<IBunker*> &bunkers,
+                 const std::vector<IBunker *> &bunkers,
                  const IGunship &gunship,
                  const ILaser &gunshipLaser,
                  const std::vector<std::vector<IMetroid *>> &metroids,
@@ -43,6 +43,8 @@ void evaluateGunshipLaserMetroidCollision(const CollisionInterface &collision,
                                           int &score, IText &scoreText);
 
 void evaluateGunshipLaserRidleyCollision(const CollisionInterface &collision, ILaser &gunshipLaser, IRidley &ridley, int &score, IText &scoreText);
+
+void evaluateGunshipLaserBunkerCollision(const CollisionInterface &collision, ILaser &gunshipLaser, std::vector<IBunker *> &bunkers);
 
 void evaluateGunshipMetroidLaserCollision(const CollisionInterface &collision,
                                           IGunship &gunship,
