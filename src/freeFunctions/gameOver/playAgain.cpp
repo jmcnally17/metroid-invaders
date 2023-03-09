@@ -6,6 +6,7 @@
 #include "../../../include/models/iLaser.hpp"
 #include "../../../include/models/iMetroid.hpp"
 #include "../../../include/models/iRidley.hpp"
+#include "../../../include/models/iBunker.hpp"
 
 void playAgain(bool &isPlaying,
                bool &gameOver,
@@ -14,6 +15,7 @@ void playAgain(bool &isPlaying,
                const std::vector<std::vector<IMetroid *>> &metroids,
                const std::vector<ILaser *> &metroidLasers,
                IRidley &ridley,
+               const std::vector<IBunker *> &bunkers,
                int &interval,
                int &step,
                int &soundCounter,
@@ -41,6 +43,10 @@ void playAgain(bool &isPlaying,
     metroidLaser->reset();
   }
   ridley.reset();
+  for (auto bunker : bunkers)
+  {
+    bunker->reset();
+  }
   interval = 665;
   step = 1;
   soundCounter = 0;
