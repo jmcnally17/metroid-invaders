@@ -82,7 +82,7 @@ int main()
 
     if (isPlaying)
     {
-      drawObjects(window, gameBackground, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, livesText);
+      drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, livesText);
       monitorRidleyMovementSound(ridley);
       if (areMetroidsDead(metroids))
       {
