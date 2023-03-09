@@ -5,5 +5,9 @@
 
 void evaluateGunshipLaserBunkerCollision(const CollisionInterface &collision, ILaser &gunshipLaser, std::vector<IBunker *> &bunkers)
 {
-  bunkers[0]->decreaseHealth();
+  for (auto bunker : bunkers)
+  {
+    bunker->decreaseHealth();
+    return;
+  }
 }

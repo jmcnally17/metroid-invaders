@@ -8,14 +8,14 @@ using ::testing::Return;
 
 TEST(evaluateGunshipLaserBunkerCollision, decreasesHealthOfBunkerWhenColliding)
 {
-  MockCollision collision;
-  MockLaser gunshipLaser;
-  MockBunker bunker;
-  MockBunker *rBunker = &bunker;
+  NiceMock<MockCollision> collision;
+  NiceMock<MockLaser> gunshipLaser;
+  NiceMock<MockBunker> bunker;
+  MockBunker *pBunker = &bunker;
   std::vector<IBunker *> bunkers(4);
   for (int i = 0; i < 4; i++)
   {
-    bunkers[i] = rBunker;
+    bunkers[i] = pBunker;
   }
 
   ON_CALL(bunker, getHealth())
