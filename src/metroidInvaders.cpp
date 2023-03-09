@@ -12,6 +12,7 @@
 #include "../include/models/metroids.hpp"
 #include "../include/models/metroidLaser.hpp"
 #include "../include/models/ridley.hpp"
+#include "../include/models/bunker.hpp"
 #include "../include/interfaces/collisionInterface.hpp"
 
 int main()
@@ -48,6 +49,7 @@ int main()
   SoundWrapper creditsTheme = makeTheme("credits");
 
   // game objects
+  std::vector<IBunker *> bunkers = makeBunkers();
   GunshipLaser gunshipLaser = makeGunshipLaser();
   Gunship gunship = makeGunship(gunshipLaser);
   std::vector<std::vector<IMetroid *>> metroids = makeMetroids();
@@ -80,7 +82,7 @@ int main()
 
     if (isPlaying)
     {
-      drawObjects(window, gameBackground, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, livesText);
+      drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, livesText);
       monitorRidleyMovementSound(ridley);
       if (areMetroidsDead(metroids))
       {
@@ -88,6 +90,8 @@ int main()
       }
       evaluateGunshipLaserMetroidCollision(collisionInterface, gunshipLaser, metroids, score, scoreText);
       evaluateGunshipLaserRidleyCollision(collisionInterface, gunshipLaser, ridley, score, scoreText);
+      evaluateGunshipLaserBunkerCollision(collisionInterface, gunshipLaser, bunkers);
+      evaluateMetroidLaserBunkerCollision(collisionInterface, metroidLasers, bunkers);
       evaluateGunshipMetroidLaserCollision(collisionInterface, gunship, metroidLasers, gunshipLaser, livesText);
       if (haveMetroidsInvaded(metroids) || gunship.getLives() == 0)
       {
@@ -117,7 +121,7 @@ int main()
       displayGameOverScreen(window, gameOverText, scoreText, playAgainText);
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
       {
-        playAgain(isPlaying, gameOver, gunship, gunshipLaser, metroids, metroidLasers, ridley, interval, step, soundCounter, level, score, scoreText, livesText, creditsTheme, battleTheme, clock);
+        playAgain(isPlaying, gameOver, gunship, gunshipLaser, metroids, metroidLasers, ridley, bunkers, interval, step, soundCounter, level, score, scoreText, livesText, creditsTheme, battleTheme, clock);
       }
     }
     else
@@ -164,6 +168,26 @@ SoundWrapper makeTheme(std::string fileName)
   return theme;
 }
 
+std::vector<IBunker *> makeBunkers()
+{
+  sf::Texture bunkerTexture;
+  bunkerTexture.loadFromFile("public/images/sprites/bunker.png");
+
+  std::vector<IBunker *> bunkers(4);
+
+  float xOffset = 192;
+  float xIncrement = 336;
+
+  for (int i = 0; i < 4; i++)
+  {
+    SpriteWrapper *bunkerSprite = new SpriteWrapper(bunkerTexture);
+    Bunker *bunker = new Bunker(xOffset + (xIncrement * i), 1032, bunkerSprite);
+    bunkers[i] = bunker;
+  }
+
+  return bunkers;
+}
+
 GunshipLaser makeGunshipLaser()
 {
   sf::Texture gunshipLaserTexture;
@@ -205,6 +229,7 @@ std::vector<std::vector<IMetroid *>> makeMetroids()
   alphaTexture.loadFromFile("public/images/sprites/alpha.png");
   sf::Texture gammaTexture;
   gammaTexture.loadFromFile("public/images/sprites/gamma.png");
+
   std::vector<std::vector<IMetroid *>> metroids(5);
 
   float xOffset = 282;
@@ -245,8 +270,8 @@ std::vector<ILaser *> makeMetroidLasers()
 {
   sf::Texture metroidLaserTexture;
   metroidLaserTexture.loadFromFile("public/images/sprites/metroidLaser.png");
-  std::vector<ILaser *> metroidLasers(3);
 
+  std::vector<ILaser *> metroidLasers(3);
   for (int i = 0; i < 3; i++)
   {
     SpriteWrapper *metroidLaserSprite = new SpriteWrapper(metroidLaserTexture);

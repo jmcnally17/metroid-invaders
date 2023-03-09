@@ -1,6 +1,7 @@
 #include <vector>
 #include "../../../include/wrappers/iRenderWindow.hpp"
 #include "../../../include/wrappers/iText.hpp"
+#include "../../../include/models/iBunker.hpp"
 #include "../../../include/models/iGunship.hpp"
 #include "../../../include/models/iLaser.hpp"
 #include "../../../include/models/iMetroid.hpp"
@@ -8,6 +9,7 @@
 
 void drawObjects(IRenderWindow &window,
                  const ISprite &gameBackground,
+                 const std::vector<IBunker *> &bunkers,
                  const IGunship &gunship,
                  const ILaser &gunshipLaser,
                  const std::vector<std::vector<IMetroid *>> &metroids,
@@ -18,6 +20,10 @@ void drawObjects(IRenderWindow &window,
 {
   window.clear();
   window.draw(gameBackground);
+  for (auto bunker : bunkers)
+  {
+    bunker->draw(window);
+  }
   gunship.draw(window);
   gunshipLaser.draw(window);
   for (auto vec : metroids)

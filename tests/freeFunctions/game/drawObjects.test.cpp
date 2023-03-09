@@ -1,6 +1,7 @@
 #include "../../../include/game.hpp"
 #include "../../mockModels/mockSprite.hpp"
 #include "../../mockModels/mockRenderWindow.hpp"
+#include "../../mockModels/mockBunker.hpp"
 #include "../../mockModels/mockGunship.hpp"
 #include "../../mockModels/mockLaser.hpp"
 #include "../../mockModels/mockMetroid.hpp"
@@ -14,6 +15,7 @@ TEST(drawObjects, callsClearOnTheWindow)
 {
   NiceMock<MockRenderWindow> window;
   MockSprite gameBackground;
+  std::vector<IBunker *> bunkers;
   NiceMock<MockGunship> gunship;
   NiceMock<MockLaser> gunshipLaser;
   std::vector<std::vector<IMetroid *>> metroids;
@@ -24,13 +26,38 @@ TEST(drawObjects, callsClearOnTheWindow)
 
   EXPECT_CALL(window, clear())
       .Times(1);
-  drawObjects(window, gameBackground, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, livesText);
+  drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, livesText);
+}
+
+TEST(drawObjects, callsDrawOnTheBunkers)
+{
+  NiceMock<MockRenderWindow> window;
+  MockSprite gameBackground;
+  MockBunker bunker;
+  MockBunker *pBunker = &bunker;
+  std::vector<IBunker *> bunkers(4);
+  for (int i = 0; i < 4; i++)
+  {
+    bunkers[i] = pBunker;
+  }
+  NiceMock<MockGunship> gunship;
+  NiceMock<MockLaser> gunshipLaser;
+  std::vector<std::vector<IMetroid *>> metroids;
+  std::vector<ILaser *> metroidLasers;
+  NiceMock<MockRidley> ridley;
+  MockText scoreText;
+  MockText livesText;
+
+  EXPECT_CALL(bunker, draw)
+      .Times(4);
+  drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, livesText);
 }
 
 TEST(drawObjects, callsDrawOnTheGunship)
 {
   NiceMock<MockRenderWindow> window;
   MockSprite gameBackground;
+  std::vector<IBunker *> bunkers;
   MockGunship gunship;
   NiceMock<MockLaser> gunshipLaser;
   std::vector<std::vector<IMetroid *>> metroids;
@@ -41,13 +68,14 @@ TEST(drawObjects, callsDrawOnTheGunship)
 
   EXPECT_CALL(gunship, draw)
       .Times(1);
-  drawObjects(window, gameBackground, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, livesText);
+  drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, livesText);
 }
 
 TEST(drawObjects, callsDrawOnTheGunshipLaser)
 {
   NiceMock<MockRenderWindow> window;
   MockSprite gameBackground;
+  std::vector<IBunker *> bunkers;
   NiceMock<MockGunship> gunship;
   MockLaser gunshipLaser;
   std::vector<std::vector<IMetroid *>> metroids;
@@ -58,13 +86,14 @@ TEST(drawObjects, callsDrawOnTheGunshipLaser)
 
   EXPECT_CALL(gunshipLaser, draw)
       .Times(1);
-  drawObjects(window, gameBackground, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, livesText);
+  drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, livesText);
 }
 
 TEST(drawObjects, callsDrawOnAllTheMetroidsIfTheyAreAlive)
 {
   NiceMock<MockRenderWindow> window;
   MockSprite gameBackground;
+  std::vector<IBunker *> bunkers;
   NiceMock<MockGunship> gunship;
   NiceMock<MockLaser> gunshipLaser;
   NiceMock<MockMetroid> metroid;
@@ -89,13 +118,14 @@ TEST(drawObjects, callsDrawOnAllTheMetroidsIfTheyAreAlive)
 
   EXPECT_CALL(metroid, draw)
       .Times(55);
-  drawObjects(window, gameBackground, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, livesText);
+  drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, livesText);
 }
 
 TEST(drawObjects, doesNotCallDrawOnAllTheMetroidsIfTheyAreDead)
 {
   NiceMock<MockRenderWindow> window;
   MockSprite gameBackground;
+  std::vector<IBunker *> bunkers;
   NiceMock<MockGunship> gunship;
   NiceMock<MockLaser> gunshipLaser;
   NiceMock<MockMetroid> metroid;
@@ -120,13 +150,14 @@ TEST(drawObjects, doesNotCallDrawOnAllTheMetroidsIfTheyAreDead)
 
   EXPECT_CALL(metroid, draw)
       .Times(0);
-  drawObjects(window, gameBackground, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, livesText);
+  drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, livesText);
 }
 
 TEST(drawObjects, drawsTheMetroidLasers)
 {
   NiceMock<MockRenderWindow> window;
   MockSprite gameBackground;
+  std::vector<IBunker *> bunkers;
   NiceMock<MockGunship> gunship;
   NiceMock<MockLaser> gunshipLaser;
   std::vector<std::vector<IMetroid *>> metroids;
@@ -143,13 +174,14 @@ TEST(drawObjects, drawsTheMetroidLasers)
 
   EXPECT_CALL(metroidLaser, draw)
       .Times(3);
-  drawObjects(window, gameBackground, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, livesText);
+  drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, livesText);
 }
 
 TEST(drawObjects, drawsRidley)
 {
   NiceMock<MockRenderWindow> window;
   MockSprite gameBackground;
+  std::vector<IBunker *> bunkers;
   NiceMock<MockGunship> gunship;
   NiceMock<MockLaser> gunshipLaser;
   std::vector<std::vector<IMetroid *>> metroids;
@@ -160,13 +192,14 @@ TEST(drawObjects, drawsRidley)
 
   EXPECT_CALL(ridley, draw)
       .Times(1);
-  drawObjects(window, gameBackground, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, livesText);
+  drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, livesText);
 }
 
 TEST(drawObjects, drawsTheBackgroundAndScoreAndLivesText)
 {
   NiceMock<MockRenderWindow> window;
   MockSprite gameBackground;
+  std::vector<IBunker *> bunkers;
   NiceMock<MockGunship> gunship;
   NiceMock<MockLaser> gunshipLaser;
   std::vector<std::vector<IMetroid *>> metroids;
@@ -178,13 +211,14 @@ TEST(drawObjects, drawsTheBackgroundAndScoreAndLivesText)
   EXPECT_CALL(window, draw(testing::Truly([](const sf::Drawable &drawable)
                                           { return true; })))
       .Times(3);
-  drawObjects(window, gameBackground, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, livesText);
+  drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, livesText);
 }
 
 TEST(drawObjects, callsDisplayOnTheWindow)
 {
   NiceMock<MockRenderWindow> window;
   MockSprite gameBackground;
+  std::vector<IBunker *> bunkers;
   NiceMock<MockGunship> gunship;
   NiceMock<MockLaser> gunshipLaser;
   std::vector<std::vector<IMetroid *>> metroids;
@@ -195,5 +229,5 @@ TEST(drawObjects, callsDisplayOnTheWindow)
 
   EXPECT_CALL(window, display())
       .Times(1);
-  drawObjects(window, gameBackground, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, livesText);
+  drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, livesText);
 }

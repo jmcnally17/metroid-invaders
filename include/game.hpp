@@ -6,6 +6,7 @@
 #include "./wrappers/iSound.hpp"
 #include "./wrappers/iClock.hpp"
 #include "./wrappers/iText.hpp"
+#include "./models/iBunker.hpp"
 #include "./models/iGunship.hpp"
 #include "./models/iLaser.hpp"
 #include "./models/iMetroid.hpp"
@@ -14,6 +15,7 @@
 
 void drawObjects(IRenderWindow &window,
                  const ISprite &gameBackground,
+                 const std::vector<IBunker *> &bunkers,
                  const IGunship &gunship,
                  const ILaser &gunshipLaser,
                  const std::vector<std::vector<IMetroid *>> &metroids,
@@ -41,6 +43,10 @@ void evaluateGunshipLaserMetroidCollision(const CollisionInterface &collision,
                                           int &score, IText &scoreText);
 
 void evaluateGunshipLaserRidleyCollision(const CollisionInterface &collision, ILaser &gunshipLaser, IRidley &ridley, int &score, IText &scoreText);
+
+void evaluateGunshipLaserBunkerCollision(const CollisionInterface &collision, ILaser &gunshipLaser, std::vector<IBunker *> &bunkers);
+
+void evaluateMetroidLaserBunkerCollision(const CollisionInterface &collision, const std::vector<ILaser *> &metroidLasers, std::vector<IBunker *> &bunkers);
 
 void evaluateGunshipMetroidLaserCollision(const CollisionInterface &collision,
                                           IGunship &gunship,
