@@ -11,6 +11,7 @@ void evaluateMetroidLaserBunkerCollision(const CollisionInterface &collision, co
     while (count < 4)
     {
       bunkers[count]->decreaseHealth();
+      metroidLaser->reset();
       count = 4;
     }
   }
