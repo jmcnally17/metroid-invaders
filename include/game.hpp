@@ -6,6 +6,7 @@
 #include "./wrappers/iSound.hpp"
 #include "./wrappers/iClock.hpp"
 #include "./wrappers/iText.hpp"
+#include "./models/iBunker.hpp"
 #include "./models/iGunship.hpp"
 #include "./models/iLaser.hpp"
 #include "./models/iMetroid.hpp"
@@ -14,6 +15,7 @@
 
 void drawObjects(IRenderWindow &window,
                  const ISprite &gameBackground,
+                 const std::vector<IBunker*> &bunkers,
                  const IGunship &gunship,
                  const ILaser &gunshipLaser,
                  const std::vector<std::vector<IMetroid *>> &metroids,
