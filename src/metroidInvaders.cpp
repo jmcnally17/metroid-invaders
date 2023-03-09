@@ -179,7 +179,7 @@ std::vector<IBunker *> makeBunkers()
   for (int i = 0; i < 4; i++)
   {
     SpriteWrapper *bunkerSprite = new SpriteWrapper(bunkerTexture);
-    Bunker *bunker = new Bunker(xOffset + (xIncrement * i), 1197, bunkerSprite);
+    Bunker *bunker = new Bunker(xOffset + (xIncrement * i), 1032, bunkerSprite);
     bunkers[i] = bunker;
   }
 
