@@ -4,7 +4,7 @@ This solo project is an imitation of the classic 1978 Taito game, Space Invaders
 
 ## Features Pending
 
-- **_(Under consideration)_** Submit the player score into a database with their name at game over and display the leaderboard either at game over or on a live website OR keep the player's current high score in a local text file that can be overwritten
+- Keep the player's current high score in a local text file that can be overwritten
 
 ## Gameplay
 
