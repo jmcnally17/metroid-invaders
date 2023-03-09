@@ -171,7 +171,7 @@ SoundWrapper makeTheme(std::string fileName)
 std::vector<IBunker *> makeBunkers()
 {
   sf::Texture bunkerTexture;
-  bunkerTexture.loadFromFile("public/images/sprites/bunker.png");
+  bunkerTexture.loadFromFile("public/images/sprites/bunker1.png");
 
   std::vector<IBunker *> bunkers(4);
 
