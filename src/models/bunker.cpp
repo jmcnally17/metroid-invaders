@@ -36,9 +36,28 @@ void Bunker::decreaseHealth()
 
 void Bunker::draw(IRenderWindow &window) const
 {
-  if (health_ > 0)
+  switch (health_)
   {
+  case 10:
+  case 9:
     window.draw(*sprite_);
+    break;
+  case 8:
+  case 7:
+    window.draw(*sprite2_);
+    break;
+  case 6:
+  case 5:
+    window.draw(*sprite3_);
+    break;
+  case 4:
+  case 3:
+    window.draw(*sprite4_);
+    break;
+  case 2:
+  case 1:
+    window.draw(*sprite5_);
+    break;
   }
 }
 

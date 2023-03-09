@@ -116,7 +116,7 @@ TEST(Bunker, decreaseHealthDecreasesHealthBy1)
   EXPECT_EQ(bunker.getHealth(), 9);
 }
 
-TEST(Bunker, drawCallsDrawOnWindowWithSpriteArgumentIfHealthIsGreaterThan0)
+TEST(Bunker, drawCallsDrawOnWindowWithFirstSpriteIfHealthIs9or10)
 {
   NiceMock<MockSprite> sprite1;
   MockSprite *pSprite1 = &sprite1;
@@ -137,7 +137,111 @@ TEST(Bunker, drawCallsDrawOnWindowWithSpriteArgumentIfHealthIsGreaterThan0)
   bunker.draw(window);
 }
 
-TEST(Bunker, drawDoesNotCallDrawOnWindowWithSpriteArgumentIfHealthIs0)
+TEST(Bunker, drawCallsDrawOnWindowWithSecondSpriteIfHealthIs7or8)
+{
+  NiceMock<MockSprite> sprite1;
+  MockSprite *pSprite1 = &sprite1;
+  NiceMock<MockSprite> sprite2;
+  MockSprite *pSprite2 = &sprite2;
+  NiceMock<MockSprite> sprite3;
+  MockSprite *pSprite3 = &sprite3;
+  NiceMock<MockSprite> sprite4;
+  MockSprite *pSprite4 = &sprite4;
+  NiceMock<MockSprite> sprite5;
+  MockSprite *pSprite5 = &sprite5;
+  Bunker bunker(900, 300, pSprite1, pSprite2, pSprite3, pSprite4, pSprite5);
+  MockRenderWindow window;
+
+  for (int i = 0; i < 2; i++)
+  {
+    bunker.decreaseHealth();
+  }
+
+  EXPECT_CALL(window, draw(testing::Truly([](const sf::Drawable &drawable)
+                                          { return true; })))
+      .Times(1);
+  bunker.draw(window);
+}
+
+TEST(Bunker, drawCallsDrawOnWindowWithThirdSpriteIfHealthIs5or6)
+{
+  NiceMock<MockSprite> sprite1;
+  MockSprite *pSprite1 = &sprite1;
+  NiceMock<MockSprite> sprite2;
+  MockSprite *pSprite2 = &sprite2;
+  NiceMock<MockSprite> sprite3;
+  MockSprite *pSprite3 = &sprite3;
+  NiceMock<MockSprite> sprite4;
+  MockSprite *pSprite4 = &sprite4;
+  NiceMock<MockSprite> sprite5;
+  MockSprite *pSprite5 = &sprite5;
+  Bunker bunker(900, 300, pSprite1, pSprite2, pSprite3, pSprite4, pSprite5);
+  MockRenderWindow window;
+
+  for (int i = 0; i < 4; i++)
+  {
+    bunker.decreaseHealth();
+  }
+
+  EXPECT_CALL(window, draw(testing::Truly([](const sf::Drawable &drawable)
+                                          { return true; })))
+      .Times(1);
+  bunker.draw(window);
+}
+
+TEST(Bunker, drawCallsDrawOnWindowWithFourthSpriteIfHealthIsAt3or4)
+{
+  NiceMock<MockSprite> sprite1;
+  MockSprite *pSprite1 = &sprite1;
+  NiceMock<MockSprite> sprite2;
+  MockSprite *pSprite2 = &sprite2;
+  NiceMock<MockSprite> sprite3;
+  MockSprite *pSprite3 = &sprite3;
+  NiceMock<MockSprite> sprite4;
+  MockSprite *pSprite4 = &sprite4;
+  NiceMock<MockSprite> sprite5;
+  MockSprite *pSprite5 = &sprite5;
+  Bunker bunker(900, 300, pSprite1, pSprite2, pSprite3, pSprite4, pSprite5);
+  MockRenderWindow window;
+
+  for (int i = 0; i < 6; i++)
+  {
+    bunker.decreaseHealth();
+  }
+
+  EXPECT_CALL(window, draw(testing::Truly([](const sf::Drawable &drawable)
+                                          { return true; })))
+      .Times(1);
+  bunker.draw(window);
+}
+
+TEST(Bunker, drawCallsDrawOnWindowWithFifthSpriteIfHealthIs1or2)
+{
+  NiceMock<MockSprite> sprite1;
+  MockSprite *pSprite1 = &sprite1;
+  NiceMock<MockSprite> sprite2;
+  MockSprite *pSprite2 = &sprite2;
+  NiceMock<MockSprite> sprite3;
+  MockSprite *pSprite3 = &sprite3;
+  NiceMock<MockSprite> sprite4;
+  MockSprite *pSprite4 = &sprite4;
+  NiceMock<MockSprite> sprite5;
+  MockSprite *pSprite5 = &sprite5;
+  Bunker bunker(900, 300, pSprite1, pSprite2, pSprite3, pSprite4, pSprite5);
+  MockRenderWindow window;
+
+  for (int i = 0; i < 8; i++)
+  {
+    bunker.decreaseHealth();
+  }
+
+  EXPECT_CALL(window, draw(testing::Truly([](const sf::Drawable &drawable)
+                                          { return true; })))
+      .Times(1);
+  bunker.draw(window);
+}
+
+TEST(Bunker, drawDoesNotCallDrawOnWindowIfHealthIs0)
 {
   NiceMock<MockSprite> sprite1;
   MockSprite *pSprite1 = &sprite1;
