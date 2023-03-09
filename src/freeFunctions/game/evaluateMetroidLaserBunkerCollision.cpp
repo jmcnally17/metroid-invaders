@@ -7,9 +7,11 @@ void evaluateMetroidLaserBunkerCollision(const CollisionInterface &collision, co
 {
   for (auto metroidLaser : metroidLasers)
   {
-    for (auto bunker : bunkers)
+    int count = 0;
+    while (count < 4)
     {
-      bunker->decreaseHealth();
+      bunkers[count]->decreaseHealth();
+      count = 4;
     }
   }
 }

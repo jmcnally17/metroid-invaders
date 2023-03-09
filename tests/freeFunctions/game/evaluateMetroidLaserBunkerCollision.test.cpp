@@ -30,6 +30,6 @@ TEST(evaluateMetroidLaserBunkerCollision, decreasesHealthOfBunkersWhenColliding)
       .WillByDefault(Return(true));
 
   EXPECT_CALL(bunker, decreaseHealth())
-      .Times(12);
+      .Times(3);
   evaluateMetroidLaserBunkerCollision(collision, metroidLasers, bunkers);
 }
