@@ -11,7 +11,7 @@ void evaluateMetroidLaserBunkerCollision(const CollisionInterface &collision, co
     while (count < 4)
     {
       IBunker *bunker = bunkers[count];
-      if (collision.haveCollided(*metroidLaser, *bunker))
+      if (bunker->getHealth() > 0 && collision.haveCollided(*metroidLaser, *bunker))
       {
         bunker->decreaseHealth();
         metroidLaser->reset();
