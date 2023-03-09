@@ -90,6 +90,7 @@ int main()
       }
       evaluateGunshipLaserMetroidCollision(collisionInterface, gunshipLaser, metroids, score, scoreText);
       evaluateGunshipLaserRidleyCollision(collisionInterface, gunshipLaser, ridley, score, scoreText);
+      evaluateGunshipLaserBunkerCollision(collisionInterface, gunshipLaser, bunkers);
       evaluateGunshipMetroidLaserCollision(collisionInterface, gunship, metroidLasers, gunshipLaser, livesText);
       if (haveMetroidsInvaded(metroids) || gunship.getLives() == 0)
       {
