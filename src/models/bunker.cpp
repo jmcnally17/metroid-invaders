@@ -1,6 +1,6 @@
 #include "../../include/models/bunker.hpp"
 
-Bunker::Bunker(float x, float y, ISprite *sprite) : ObjectInterface(144, 108, x, y, sprite), health_(10) {}
+Bunker::Bunker(float x, float y, ISprite *sprite) : IBunker(144, 108, x, y, sprite), health_(10) {}
 
 float Bunker::getWidth() const
 {

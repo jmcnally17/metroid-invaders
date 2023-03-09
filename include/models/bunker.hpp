@@ -1,9 +1,9 @@
 #ifndef BUNKER_HPP
 #define BUNKER_HPP
 
-#include "./objectInterface.hpp"
+#include "./iBunker.hpp"
 
-class Bunker : public ObjectInterface
+class Bunker : public IBunker
 {
 public:
   Bunker(float x, float y, ISprite *sprite);
