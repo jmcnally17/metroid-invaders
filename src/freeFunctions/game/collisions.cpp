@@ -24,8 +24,11 @@ void evaluateGunshipLaserMetroidCollision(const CollisionInterface &collision,
         metroid->die();
         score += metroid->getPoints();
         scoreText.setString("Score: " + std::to_string(score));
-        highScore = score;
-        highScoreText.setString("High Score: " + std::to_string(highScore));
+        if (score > highScore)
+        {
+          highScore = score;
+          highScoreText.setString("High Score: " + std::to_string(highScore));
+        }
         gunshipLaser.playMetroidDeath();
         gunshipLaser.reset();
         return;

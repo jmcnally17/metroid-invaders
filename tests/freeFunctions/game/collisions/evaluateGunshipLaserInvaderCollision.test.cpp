@@ -111,6 +111,40 @@ TEST(evaluateGunshipLaserMetroidCollision, updatesTheHighScoreIfScoreSurpassesIt
   EXPECT_EQ(highScore, 150);
 }
 
+TEST(evaluateGunshipLaserMetroidCollision, doesNotUpdateTheHighScoreIfScoreDoesNotSurpassesIt)
+{
+  NiceMock<MockCollision> collision;
+  NiceMock<MockLaser> gunshipLaser;
+  NiceMock<MockMetroid> metroid;
+  MockMetroid *pMetroid = &metroid;
+  std::vector<std::vector<IMetroid *>> metroids(2);
+  for (int i = 0; i < 2; i++)
+  {
+    std::vector<IMetroid *> metroidRow(10);
+    for (int j = 0; j < 10; j++)
+    {
+      metroidRow[j] = pMetroid;
+    }
+    metroids[i] = metroidRow;
+  }
+  int score = 0;
+  NiceMock<MockText> scoreText;
+  int highScore = 120;
+  MockText highScoreText;
+
+  ON_CALL(metroid, isAlive())
+      .WillByDefault(Return(true));
+  ON_CALL(collision, haveCollided)
+      .WillByDefault(Return(true));
+  ON_CALL(metroid, getPoints())
+      .WillByDefault(Return(30));
+
+  EXPECT_CALL(highScoreText, setString)
+      .Times(0);
+  evaluateGunshipLaserMetroidCollision(collision, gunshipLaser, metroids, score, scoreText, highScore, highScoreText);
+  EXPECT_EQ(highScore, 120);
+}
+
 TEST(evaluateGunshipLaserMetroidCollision, doesNotKillMetroidsThatAreAliveAndGunshipLaserIsNotCollidingWith)
 {
   NiceMock<MockCollision> collision;
