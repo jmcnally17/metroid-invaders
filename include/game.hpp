@@ -22,6 +22,7 @@ void drawObjects(IRenderWindow &window,
                  const std::vector<ILaser *> &metroidLasers,
                  const IRidley &ridley,
                  const IText &scoreText,
+                 const IText &highScoreText,
                  const IText &livesText);
 
 void monitorRidleyMovementSound(IRidley &ridley);
