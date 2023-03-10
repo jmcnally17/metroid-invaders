@@ -99,8 +99,8 @@ int main()
       evaluateGunshipMetroidLaserCollision(collisionInterface, gunship, metroidLasers, gunshipLaser, livesText);
       if (haveMetroidsInvaded(metroids) || gunship.getLives() == 0)
       {
-        endGame(isPlaying, gameOver, ridley, score, scoreText, battleTheme, creditsTheme);
-        updateHighScore(score, highScoreText);
+        endGame(isPlaying, gameOver, ridley, battleTheme, creditsTheme);
+        updateHighScore(score, scoreText, highScoreText);
       }
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
       {

@@ -78,8 +78,8 @@ void shootMetroidLaser(const std::vector<std::vector<IMetroid *>> &metroids, con
 
 void spawnRidley(IRidley &ridley);
 
-void endGame(bool &isPlaying, bool &gameOver, IRidley &ridley, int score, IText &scoreText, ISound &battleTheme, ISound &creditsTheme);
+void endGame(bool &isPlaying, bool &gameOver, IRidley &ridley, ISound &battleTheme, ISound &creditsTheme);
 
-void updateHighScore(int score, IText &highScoreText);
+void updateHighScore(int score, IText &scoreText, IText &highScoreText);
 
 #endif

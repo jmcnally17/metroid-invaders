@@ -21,20 +21,16 @@ bool haveMetroidsInvaded(const std::vector<std::vector<IMetroid *>> &metroids)
   return false;
 }
 
-void endGame(bool &isPlaying, bool &gameOver, IRidley &ridley, int score, IText &scoreText, ISound &battleTheme, ISound &creditsTheme)
+void endGame(bool &isPlaying, bool &gameOver, IRidley &ridley, ISound &battleTheme, ISound &creditsTheme)
 {
   isPlaying = false;
   gameOver = true;
   ridley.stopMovementSoundIfPlaying();
-  scoreText.setString("You scored " + std::to_string(score) + " points");
-  scoreText.setPosition(sf::Vector2f(768, 600));
-  sf::FloatRect scoreTextRect = scoreText.getLocalBounds();
-  scoreText.setOrigin(scoreTextRect.width / 2, 0);
   battleTheme.stop();
   creditsTheme.play();
 }
 
-void updateHighScore(int score, IText &highScoreText)
+void updateHighScore(int score, IText &scoreText, IText &highScoreText)
 {
   std::string highScore;
   std::ifstream highScoreReadFile("highScore.txt");
@@ -45,6 +41,14 @@ void updateHighScore(int score, IText &highScoreText)
     std::ofstream highScoreWriteFile("highScore.txt");
     highScoreWriteFile << score;
     highScoreWriteFile.close();
+    scoreText.setString("New High Score! " + std::to_string(score) + " points");
+    highScoreText.setString("High Score: " + std::to_string(score));
   }
-  highScoreText.setString("High Score: " + std::to_string(score));
+  else
+  {
+    scoreText.setString("You scored " + std::to_string(score) + " points");
+  }
+  scoreText.setPosition(sf::Vector2f(768, 600));
+  sf::FloatRect scoreTextRect = scoreText.getLocalBounds();
+  scoreText.setOrigin(scoreTextRect.width / 2, 0);
 }
