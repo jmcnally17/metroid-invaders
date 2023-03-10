@@ -31,4 +31,6 @@ Ridley makeRidley();
 
 std::vector<ISound *> makeMetroidSounds();
 
+void pullHighScore(IText &highScoreText);
+
 #endif

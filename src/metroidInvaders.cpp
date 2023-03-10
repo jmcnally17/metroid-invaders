@@ -1,3 +1,4 @@
+#include <fstream>
 #include "../include/metroidInvaders.hpp"
 #include "../include/title.hpp"
 #include "../include/game.hpp"
@@ -69,6 +70,7 @@ int main()
   // final setup
   bool isPlaying = false;
   bool gameOver = false;
+  pullHighScore(highScoreText);
   titleTheme.play();
 
   while (window.isOpen())
@@ -338,4 +340,16 @@ std::vector<ISound *> makeMetroidSounds()
 
   std::vector<ISound *> metroidSounds = {sound0, sound1, sound2, sound3};
   return metroidSounds;
+}
+
+void pullHighScore(IText &highScoreText)
+{
+  std::string highScore;
+  std::ifstream highScoreFile("highScore.txt");
+  getline(highScoreFile, highScore);
+  if (!(highScore == ""))
+  {
+    highScoreText.setString("HighScore: " + highScore);
+  }
+  highScoreFile.close();
 }
