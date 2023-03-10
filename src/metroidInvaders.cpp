@@ -70,7 +70,7 @@ int main()
   // final setup
   bool isPlaying = false;
   bool gameOver = false;
-  pullHighScore(highScoreText);
+  int highScore = pullHighScore(highScoreText);
   titleTheme.play();
 
   while (window.isOpen())
@@ -100,7 +100,7 @@ int main()
       if (haveMetroidsInvaded(metroids) || gunship.getLives() == 0)
       {
         endGame(isPlaying, gameOver, ridley, battleTheme, creditsTheme);
-        updateHighScore(score, scoreText, highScoreText);
+        updateHighScore(score, highScore, scoreText, highScoreText);
       }
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
       {
@@ -343,14 +343,17 @@ std::vector<ISound *> makeMetroidSounds()
   return metroidSounds;
 }
 
-void pullHighScore(IText &highScoreText)
+int pullHighScore(IText &highScoreText)
 {
-  std::string highScore;
+  std::string highScoreString;
   std::ifstream highScoreFile("highScore.txt");
-  getline(highScoreFile, highScore);
-  if (!(highScore == ""))
+  getline(highScoreFile, highScoreString);
+  int highScore = 0;
+  if (!(highScoreString == ""))
   {
-    highScoreText.setString("HighScore: " + highScore);
+    highScore = std::stoi(highScoreString);
+    highScoreText.setString("HighScore: " + highScoreString);
   }
   highScoreFile.close();
+  return highScore;
 }

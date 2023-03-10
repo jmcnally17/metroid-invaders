@@ -1,5 +1,4 @@
 #include <vector>
-#include <iostream>
 #include <fstream>
 #include "../../../include/models/iMetroid.hpp"
 #include "../../../include/models/iRidley.hpp"
@@ -30,14 +29,11 @@ void endGame(bool &isPlaying, bool &gameOver, IRidley &ridley, ISound &battleThe
   creditsTheme.play();
 }
 
-void updateHighScore(int score, IText &scoreText, IText &highScoreText)
+void updateHighScore(int score, int &highScore, IText &scoreText, IText &highScoreText)
 {
-  std::string highScore;
-  std::ifstream highScoreReadFile("highScore.txt");
-  getline(highScoreReadFile, highScore);
-  highScoreReadFile.close();
-  if (highScore == "" || score > std::stoi(highScore))
+  if (score > highScore)
   {
+    highScore = score;
     std::ofstream highScoreWriteFile("highScore.txt");
     highScoreWriteFile << score;
     highScoreWriteFile.close();
