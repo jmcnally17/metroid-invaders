@@ -66,11 +66,12 @@ int main()
   Collision collisionInterface;
   int level = 1;
   int score = 0;
+  int highScore = 0;
 
   // final setup
   bool isPlaying = false;
   bool gameOver = false;
-  pullHighScore(highScoreText);
+  pullHighScore(highScore, highScoreText);
   titleTheme.play();
 
   while (window.isOpen())
@@ -92,15 +93,15 @@ int main()
       {
         levelUp(level, interval, step, soundCounter, metroids, metroidLasers, ridley, clock);
       }
-      evaluateGunshipLaserMetroidCollision(collisionInterface, gunshipLaser, metroids, score, scoreText);
-      evaluateGunshipLaserRidleyCollision(collisionInterface, gunshipLaser, ridley, score, scoreText);
+      evaluateGunshipLaserMetroidCollision(collisionInterface, gunshipLaser, metroids, score, scoreText, highScore, highScoreText);
+      evaluateGunshipLaserRidleyCollision(collisionInterface, gunshipLaser, ridley, score, scoreText, highScore, highScoreText);
       evaluateGunshipLaserBunkerCollision(collisionInterface, gunshipLaser, bunkers);
       evaluateMetroidLaserBunkerCollision(collisionInterface, metroidLasers, bunkers);
       evaluateGunshipMetroidLaserCollision(collisionInterface, gunship, metroidLasers, gunshipLaser, livesText);
       if (haveMetroidsInvaded(metroids) || gunship.getLives() == 0)
       {
         endGame(isPlaying, gameOver, ridley, battleTheme, creditsTheme);
-        updateHighScore(score, scoreText, highScoreText);
+        updateHighScore(score, highScore, scoreText, highScoreText);
       }
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
       {
@@ -343,14 +344,15 @@ std::vector<ISound *> makeMetroidSounds()
   return metroidSounds;
 }
 
-void pullHighScore(IText &highScoreText)
+void pullHighScore(int &highScore, IText &highScoreText)
 {
-  std::string highScore;
+  std::string highScoreString;
   std::ifstream highScoreFile("highScore.txt");
-  getline(highScoreFile, highScore);
-  if (!(highScore == ""))
-  {
-    highScoreText.setString("HighScore: " + highScore);
-  }
+  getline(highScoreFile, highScoreString);
   highScoreFile.close();
+  if (!(highScoreString == ""))
+  {
+    highScore = std::stoi(highScoreString);
+    highScoreText.setString("HighScore: " + highScoreString);
+  }
 }

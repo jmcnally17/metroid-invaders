@@ -41,9 +41,18 @@ void levelUp(int &level,
 void evaluateGunshipLaserMetroidCollision(const CollisionInterface &collision,
                                           ILaser &gunshipLaser,
                                           const std::vector<std::vector<IMetroid *>> &metroids,
-                                          int &score, IText &scoreText);
+                                          int &score,
+                                          IText &scoreText,
+                                          int &highScore,
+                                          IText &highScoreText);
 
-void evaluateGunshipLaserRidleyCollision(const CollisionInterface &collision, ILaser &gunshipLaser, IRidley &ridley, int &score, IText &scoreText);
+void evaluateGunshipLaserRidleyCollision(const CollisionInterface &collision,
+                                         ILaser &gunshipLaser,
+                                         IRidley &ridley,
+                                         int &score,
+                                         IText &scoreText,
+                                         int &highScore,
+                                         IText &highScoretext);
 
 void evaluateGunshipLaserBunkerCollision(const CollisionInterface &collision, ILaser &gunshipLaser, std::vector<IBunker *> &bunkers);
 
@@ -80,6 +89,6 @@ void spawnRidley(IRidley &ridley);
 
 void endGame(bool &isPlaying, bool &gameOver, IRidley &ridley, ISound &battleTheme, ISound &creditsTheme);
 
-void updateHighScore(int score, IText &scoreText, IText &highScoreText);
+void updateHighScore(int score, int &highScore, IText &scoreText, IText &highScoreText);
 
 #endif

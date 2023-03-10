@@ -14,13 +14,15 @@ TEST(evaluateGunshipLaserRidleyCollision, killsRidleyIfCollidingWithGunshipLaser
     NiceMock<MockRidley> ridley;
     int score = 430;
     NiceMock<MockText> scoreText;
+    int highScore = 1000;
+    MockText highScoreText;
 
     ON_CALL(collision, haveCollided)
         .WillByDefault(Return(true));
 
     EXPECT_CALL(ridley, die())
         .Times(1);
-    evaluateGunshipLaserRidleyCollision(collision, gunshipLaser, ridley, score, scoreText);
+    evaluateGunshipLaserRidleyCollision(collision, gunshipLaser, ridley, score, scoreText, highScore, highScoreText);
 }
 
 TEST(evaluateGunshipLaserRidleyCollision, addsTheRidleyPointsToTheScore)
@@ -29,24 +31,9 @@ TEST(evaluateGunshipLaserRidleyCollision, addsTheRidleyPointsToTheScore)
     NiceMock<MockLaser> gunshipLaser;
     NiceMock<MockRidley> ridley;
     int score = 430;
-    NiceMock<MockText> scoreText;
-
-    ON_CALL(collision, haveCollided)
-        .WillByDefault(Return(true));
-    ON_CALL(ridley, getPoints())
-        .WillByDefault(Return(150));
-
-    evaluateGunshipLaserRidleyCollision(collision, gunshipLaser, ridley, score, scoreText);
-    EXPECT_EQ(score, 580);
-}
-
-TEST(evaluateGunshipLaserRidleyCollision, updatesTheScoreText)
-{
-    NiceMock<MockCollision> collision;
-    NiceMock<MockLaser> gunshipLaser;
-    NiceMock<MockRidley> ridley;
-    int score = 430;
     MockText scoreText;
+    int highScore = 1000;
+    MockText highScoreText;
 
     ON_CALL(collision, haveCollided)
         .WillByDefault(Return(true));
@@ -55,7 +42,48 @@ TEST(evaluateGunshipLaserRidleyCollision, updatesTheScoreText)
 
     EXPECT_CALL(scoreText, setString("Score: 580"))
         .Times(1);
-    evaluateGunshipLaserRidleyCollision(collision, gunshipLaser, ridley, score, scoreText);
+    evaluateGunshipLaserRidleyCollision(collision, gunshipLaser, ridley, score, scoreText, highScore, highScoreText);
+    EXPECT_EQ(score, 580);
+}
+
+TEST(evaluateGunshipLaserRidleyCollision, updatesTheHighScoreTextIfScoreSurpassesHighScore)
+{
+    NiceMock<MockCollision> collision;
+    NiceMock<MockLaser> gunshipLaser;
+    NiceMock<MockRidley> ridley;
+    int score = 430;
+    NiceMock<MockText> scoreText;
+    int highScore = 450;
+    MockText highScoreText;
+
+    ON_CALL(collision, haveCollided)
+        .WillByDefault(Return(true));
+    ON_CALL(ridley, getPoints())
+        .WillByDefault(Return(150));
+
+    EXPECT_CALL(highScoreText, setString("High Score: 580"))
+        .Times(1);
+    evaluateGunshipLaserRidleyCollision(collision, gunshipLaser, ridley, score, scoreText, highScore, highScoreText);
+}
+
+TEST(evaluateGunshipLaserRidleyCollision, doesNotUpdatesTheHighScoreTextIfScoreDoesNotSurpassHighScore)
+{
+    NiceMock<MockCollision> collision;
+    NiceMock<MockLaser> gunshipLaser;
+    NiceMock<MockRidley> ridley;
+    int score = 430;
+    NiceMock<MockText> scoreText;
+    int highScore = 1000;
+    MockText highScoreText;
+
+    ON_CALL(collision, haveCollided)
+        .WillByDefault(Return(true));
+    ON_CALL(ridley, getPoints())
+        .WillByDefault(Return(150));
+
+    EXPECT_CALL(highScoreText, setString)
+        .Times(0);
+    evaluateGunshipLaserRidleyCollision(collision, gunshipLaser, ridley, score, scoreText, highScore, highScoreText);
 }
 
 TEST(evaluateGunshipLaserRidleyCollision, resetsTheGunshipLaser)
@@ -65,13 +93,15 @@ TEST(evaluateGunshipLaserRidleyCollision, resetsTheGunshipLaser)
     NiceMock<MockRidley> ridley;
     int score = 430;
     NiceMock<MockText> scoreText;
+    int highScore = 1000;
+    MockText highScoreText;
 
     ON_CALL(collision, haveCollided)
         .WillByDefault(Return(true));
 
     EXPECT_CALL(gunshipLaser, reset())
         .Times(1);
-    evaluateGunshipLaserRidleyCollision(collision, gunshipLaser, ridley, score, scoreText);
+    evaluateGunshipLaserRidleyCollision(collision, gunshipLaser, ridley, score, scoreText, highScore, highScoreText);
 }
 
 TEST(evaluateGunshipLaserRidleyCollision, doesNotModifyAnythingIfRidleyAndLaserAreNotColliding)
@@ -81,6 +111,8 @@ TEST(evaluateGunshipLaserRidleyCollision, doesNotModifyAnythingIfRidleyAndLaserA
     MockRidley ridley;
     int score = 430;
     MockText scoreText;
+    int highScore = 1000;
+    MockText highScoreText;
 
     ON_CALL(collision, haveCollided)
         .WillByDefault(Return(false));
@@ -93,6 +125,6 @@ TEST(evaluateGunshipLaserRidleyCollision, doesNotModifyAnythingIfRidleyAndLaserA
         .Times(0);
     EXPECT_CALL(gunshipLaser, reset())
         .Times(0);
-    evaluateGunshipLaserRidleyCollision(collision, gunshipLaser, ridley, score, scoreText);
+    evaluateGunshipLaserRidleyCollision(collision, gunshipLaser, ridley, score, scoreText, highScore, highScoreText);
     EXPECT_EQ(score, 430);
 }

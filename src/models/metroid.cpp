@@ -60,7 +60,8 @@ int Metroid::getDirection() const
 
 void Metroid::move()
 {
-  (!justMovedDown_ && (abs(position_.x - originalPosition_.x - 282) < 1e-3 || abs(position_.x - originalPosition_.x + 282) < 1e-3)) ? moveDown() : moveAcross();
+  bool isAtTheSide = abs(position_.x - originalPosition_.x - 282) < 1e-3 || abs(position_.x - originalPosition_.x + 282) < 1e-3;
+  (!justMovedDown_ && isAtTheSide) ? moveDown() : moveAcross();
   sprite_->setPosition(position_);
 }
 

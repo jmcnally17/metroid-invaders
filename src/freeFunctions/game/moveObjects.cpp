@@ -16,7 +16,12 @@ void moveGunshipLaser(ILaser &gunshipLaser)
   gunshipLaser.move();
 }
 
-void moveMetroids(const std::vector<std::vector<IMetroid *>> &metroids, IClock &clock, int &interval, int &step, std::vector<ISound *> &sounds, int &soundCounter)
+void moveMetroids(const std::vector<std::vector<IMetroid *>> &metroids,
+                  IClock &clock,
+                  int &interval,
+                  int &step,
+                  std::vector<ISound *> &sounds,
+                  int &soundCounter)
 {
   if (clock.getElapsedTime().asMilliseconds() >= interval * step)
   {
