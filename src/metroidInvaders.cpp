@@ -93,7 +93,7 @@ int main()
       {
         levelUp(level, interval, step, soundCounter, metroids, metroidLasers, ridley, clock);
       }
-      evaluateGunshipLaserMetroidCollision(collisionInterface, gunshipLaser, metroids, score, scoreText);
+      evaluateGunshipLaserMetroidCollision(collisionInterface, gunshipLaser, metroids, score, scoreText, highScore, highScoreText);
       evaluateGunshipLaserRidleyCollision(collisionInterface, gunshipLaser, ridley, score, scoreText);
       evaluateGunshipLaserBunkerCollision(collisionInterface, gunshipLaser, bunkers);
       evaluateMetroidLaserBunkerCollision(collisionInterface, metroidLasers, bunkers);
