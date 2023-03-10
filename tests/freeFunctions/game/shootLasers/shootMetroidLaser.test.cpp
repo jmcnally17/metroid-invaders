@@ -1,6 +1,6 @@
-#include "../../../include/game.hpp"
-#include "../../mockModels/mockMetroid.hpp"
-#include "../../mockModels/mockLaser.hpp"
+#include "../../../../include/game.hpp"
+#include "../../../mockModels/mockMetroid.hpp"
+#include "../../../mockModels/mockLaser.hpp"
 
 using ::testing::NiceMock;
 using ::testing::Return;
