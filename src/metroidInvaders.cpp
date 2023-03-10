@@ -94,7 +94,7 @@ int main()
         levelUp(level, interval, step, soundCounter, metroids, metroidLasers, ridley, clock);
       }
       evaluateGunshipLaserMetroidCollision(collisionInterface, gunshipLaser, metroids, score, scoreText, highScore, highScoreText);
-      evaluateGunshipLaserRidleyCollision(collisionInterface, gunshipLaser, ridley, score, scoreText);
+      evaluateGunshipLaserRidleyCollision(collisionInterface, gunshipLaser, ridley, score, scoreText, highScore, highScoreText);
       evaluateGunshipLaserBunkerCollision(collisionInterface, gunshipLaser, bunkers);
       evaluateMetroidLaserBunkerCollision(collisionInterface, metroidLasers, bunkers);
       evaluateGunshipMetroidLaserCollision(collisionInterface, gunship, metroidLasers, gunshipLaser, livesText);
