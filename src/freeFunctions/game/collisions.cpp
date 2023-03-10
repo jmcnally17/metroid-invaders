@@ -11,7 +11,9 @@ void evaluateGunshipLaserMetroidCollision(const CollisionInterface &collision,
                                           ILaser &gunshipLaser,
                                           const std::vector<std::vector<IMetroid *>> &metroids,
                                           int &score,
-                                          IText &scoreText)
+                                          IText &scoreText,
+                                          int &highScore,
+                                          IText &highScoreText)
 {
   for (auto vec : metroids)
   {
@@ -22,6 +24,8 @@ void evaluateGunshipLaserMetroidCollision(const CollisionInterface &collision,
         metroid->die();
         score += metroid->getPoints();
         scoreText.setString("Score: " + std::to_string(score));
+        highScore = score;
+        highScoreText.setString("High Score: " + std::to_string(highScore));
         gunshipLaser.playMetroidDeath();
         gunshipLaser.reset();
         return;

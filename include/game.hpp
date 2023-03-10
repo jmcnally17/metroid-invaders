@@ -41,7 +41,10 @@ void levelUp(int &level,
 void evaluateGunshipLaserMetroidCollision(const CollisionInterface &collision,
                                           ILaser &gunshipLaser,
                                           const std::vector<std::vector<IMetroid *>> &metroids,
-                                          int &score, IText &scoreText);
+                                          int &score,
+                                          IText &scoreText,
+                                          int &highScore,
+                                          IText &highScoreText);
 
 void evaluateGunshipLaserRidleyCollision(const CollisionInterface &collision, ILaser &gunshipLaser, IRidley &ridley, int &score, IText &scoreText);
 
