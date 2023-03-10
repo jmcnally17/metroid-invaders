@@ -3,6 +3,21 @@
 #include "../../../include/models/iRidley.hpp"
 #include "../../../include/wrappers/iClock.hpp"
 
+bool areMetroidsDead(const std::vector<std::vector<IMetroid *>> &metroids)
+{
+  for (auto row : metroids)
+  {
+    for (auto metroid : row)
+    {
+      if (metroid->isAlive())
+      {
+        return false;
+      }
+    }
+  }
+  return true;
+}
+
 void levelUp(int &level,
              int &interval,
              int &step,
