@@ -22,11 +22,12 @@ TEST(drawObjects, callsClearOnTheWindow)
   std::vector<ILaser *> metroidLasers;
   NiceMock<MockRidley> ridley;
   MockText scoreText;
+  MockText highScoreText;
   MockText livesText;
 
   EXPECT_CALL(window, clear())
       .Times(1);
-  drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, livesText);
+  drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, highScoreText, livesText);
 }
 
 TEST(drawObjects, callsDrawOnTheBunkers)
@@ -46,11 +47,12 @@ TEST(drawObjects, callsDrawOnTheBunkers)
   std::vector<ILaser *> metroidLasers;
   NiceMock<MockRidley> ridley;
   MockText scoreText;
+  MockText highScoreText;
   MockText livesText;
 
   EXPECT_CALL(bunker, draw)
       .Times(4);
-  drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, livesText);
+  drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, highScoreText, livesText);
 }
 
 TEST(drawObjects, callsDrawOnTheGunship)
@@ -64,11 +66,12 @@ TEST(drawObjects, callsDrawOnTheGunship)
   std::vector<ILaser *> metroidLasers;
   NiceMock<MockRidley> ridley;
   MockText scoreText;
+  MockText highScoreText;
   MockText livesText;
 
   EXPECT_CALL(gunship, draw)
       .Times(1);
-  drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, livesText);
+  drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, highScoreText, livesText);
 }
 
 TEST(drawObjects, callsDrawOnTheGunshipLaser)
@@ -82,11 +85,12 @@ TEST(drawObjects, callsDrawOnTheGunshipLaser)
   std::vector<ILaser *> metroidLasers;
   NiceMock<MockRidley> ridley;
   MockText scoreText;
+  MockText highScoreText;
   MockText livesText;
 
   EXPECT_CALL(gunshipLaser, draw)
       .Times(1);
-  drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, livesText);
+  drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, highScoreText, livesText);
 }
 
 TEST(drawObjects, callsDrawOnAllTheMetroidsIfTheyAreAlive)
@@ -111,6 +115,7 @@ TEST(drawObjects, callsDrawOnAllTheMetroidsIfTheyAreAlive)
   std::vector<ILaser *> metroidLasers;
   NiceMock<MockRidley> ridley;
   MockText scoreText;
+  MockText highScoreText;
   MockText livesText;
 
   ON_CALL(metroid, isAlive())
@@ -118,7 +123,7 @@ TEST(drawObjects, callsDrawOnAllTheMetroidsIfTheyAreAlive)
 
   EXPECT_CALL(metroid, draw)
       .Times(55);
-  drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, livesText);
+  drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, highScoreText, livesText);
 }
 
 TEST(drawObjects, doesNotCallDrawOnAllTheMetroidsIfTheyAreDead)
@@ -143,6 +148,7 @@ TEST(drawObjects, doesNotCallDrawOnAllTheMetroidsIfTheyAreDead)
   std::vector<ILaser *> metroidLasers;
   NiceMock<MockRidley> ridley;
   MockText scoreText;
+  MockText highScoreText;
   MockText livesText;
 
   ON_CALL(metroid, isAlive())
@@ -150,7 +156,7 @@ TEST(drawObjects, doesNotCallDrawOnAllTheMetroidsIfTheyAreDead)
 
   EXPECT_CALL(metroid, draw)
       .Times(0);
-  drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, livesText);
+  drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, highScoreText, livesText);
 }
 
 TEST(drawObjects, drawsTheMetroidLasers)
@@ -170,11 +176,12 @@ TEST(drawObjects, drawsTheMetroidLasers)
   }
   NiceMock<MockRidley> ridley;
   MockText scoreText;
+  MockText highScoreText;
   MockText livesText;
 
   EXPECT_CALL(metroidLaser, draw)
       .Times(3);
-  drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, livesText);
+  drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, highScoreText, livesText);
 }
 
 TEST(drawObjects, drawsRidley)
@@ -188,14 +195,15 @@ TEST(drawObjects, drawsRidley)
   std::vector<ILaser *> metroidLasers;
   MockRidley ridley;
   MockText scoreText;
+  MockText highScoreText;
   MockText livesText;
 
   EXPECT_CALL(ridley, draw)
       .Times(1);
-  drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, livesText);
+  drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, highScoreText, livesText);
 }
 
-TEST(drawObjects, drawsTheBackgroundAndScoreAndLivesText)
+TEST(drawObjects, drawsTheBackgroundAndScoreAndHighScoreAndLivesText)
 {
   NiceMock<MockRenderWindow> window;
   MockSprite gameBackground;
@@ -206,12 +214,13 @@ TEST(drawObjects, drawsTheBackgroundAndScoreAndLivesText)
   std::vector<ILaser *> metroidLasers;
   NiceMock<MockRidley> ridley;
   MockText scoreText;
+  MockText highScoreText;
   MockText livesText;
 
   EXPECT_CALL(window, draw(testing::Truly([](const sf::Drawable &drawable)
                                           { return true; })))
-      .Times(3);
-  drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, livesText);
+      .Times(4);
+  drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, highScoreText, livesText);
 }
 
 TEST(drawObjects, callsDisplayOnTheWindow)
@@ -225,9 +234,10 @@ TEST(drawObjects, callsDisplayOnTheWindow)
   std::vector<ILaser *> metroidLasers;
   NiceMock<MockRidley> ridley;
   MockText scoreText;
+  MockText highScoreText;
   MockText livesText;
 
   EXPECT_CALL(window, display())
       .Times(1);
-  drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, livesText);
+  drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, highScoreText, livesText);
 }

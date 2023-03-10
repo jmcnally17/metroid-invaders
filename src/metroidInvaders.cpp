@@ -1,3 +1,4 @@
+#include <fstream>
 #include "../include/metroidInvaders.hpp"
 #include "../include/title.hpp"
 #include "../include/game.hpp"
@@ -33,12 +34,14 @@ int main()
   std::string titleString = "Metroid Invaders";
   std::string instructionsString = "Press enter to play!";
   std::string scoreString = "Score: 0";
+  std::string highScoreString = "High Score: 0";
   std::string livesString = "Lives: 3";
   std::string gameOverString = "Game Over";
   std::string playAgainString = "Press p to play again";
   TextWrapper titleText = makeText(titleString, m56, 100, green, 0.5, 768, 100);
   TextWrapper instructionsText = makeText(instructionsString, m56, 50, green, 0.5, 768, 1200);
   TextWrapper scoreText = makeText(scoreString, m56, 50, white, 0, 20, 0);
+  TextWrapper highScoreText = makeText(highScoreString, m56, 50, white, 0.5, 768, 0);
   TextWrapper livesText = makeText(livesString, m56, 50, white, 0, 1250, 0);
   TextWrapper gameOverText = makeText(gameOverString, m56, 153, white, 0.5, 768, 200);
   TextWrapper playAgainText = makeText(playAgainString, m56, 48, white, 0.5, 768, 1000);
@@ -67,6 +70,7 @@ int main()
   // final setup
   bool isPlaying = false;
   bool gameOver = false;
+  pullHighScore(highScoreText);
   titleTheme.play();
 
   while (window.isOpen())
@@ -82,7 +86,7 @@ int main()
 
     if (isPlaying)
     {
-      drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, livesText);
+      drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, highScoreText, livesText);
       monitorRidleyMovementSound(ridley);
       if (areMetroidsDead(metroids))
       {
@@ -95,7 +99,8 @@ int main()
       evaluateGunshipMetroidLaserCollision(collisionInterface, gunship, metroidLasers, gunshipLaser, livesText);
       if (haveMetroidsInvaded(metroids) || gunship.getLives() == 0)
       {
-        endGame(isPlaying, gameOver, ridley, score, scoreText, battleTheme, creditsTheme);
+        endGame(isPlaying, gameOver, ridley, battleTheme, creditsTheme);
+        updateHighScore(score, scoreText, highScoreText);
       }
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
       {
@@ -336,4 +341,16 @@ std::vector<ISound *> makeMetroidSounds()
 
   std::vector<ISound *> metroidSounds = {sound0, sound1, sound2, sound3};
   return metroidSounds;
+}
+
+void pullHighScore(IText &highScoreText)
+{
+  std::string highScore;
+  std::ifstream highScoreFile("highScore.txt");
+  getline(highScoreFile, highScore);
+  if (!(highScore == ""))
+  {
+    highScoreText.setString("HighScore: " + highScore);
+  }
+  highScoreFile.close();
 }

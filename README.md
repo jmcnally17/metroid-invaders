@@ -2,10 +2,6 @@
 
 This solo project is an imitation of the classic 1978 Taito game, Space Invaders. It has been written in [C++](https://en.wikipedia.org/wiki/C%2B%2B) using the [SFML](https://www.sfml-dev.org/) graphics library.
 
-## Features Pending
-
-- Keep the player's current high score in a local text file that can be overwritten
-
 ## Gameplay
 
 The player controls a Gunship at the bottom of the window which can be moved horizontally using the left and right arrow keys. Pressing the spacebar will fire the Laser directly upwards from the Gunship's current position at the time the spacebar is pressed. A 5 x 11 grid of Metroids positioned above gradually moves down. The player must shoot them using the Gunship to score points and move on to the next level before they reach the bottom. The Gunship is protected by 4 Bunkers which can each take 10 laser hits (including from the Gunship Laser) before being removed from the window.
@@ -32,7 +28,7 @@ The player controls a Gunship at the bottom of the window which can be moved hor
 </p>
 
 <p align="center">
-  <b>Fig.2 -</b> A screenshot of the game window with the Gunship at the bottom of the board, below the Bunkers, firing the Laser at the grid of Metroids above while dodging the Metroid lasers. Ridley can also be seen hovering above the grid of Invaders. The player's score can be seen in the top left hand corner with the number of lives left in the top right hand corner
+  <b>Fig.2 -</b> A screenshot of the game window with the Gunship at the bottom of the board, below the Bunkers, firing the Laser at the grid of Metroids above while dodging the Metroid lasers. Ridley can also be seen hovering above the grid of Invaders. The player's current score and high score can be seen at the top of the window alongside the number of lives the player has left.
 </p>
 
 <p align="center">

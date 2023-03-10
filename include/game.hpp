@@ -22,6 +22,7 @@ void drawObjects(IRenderWindow &window,
                  const std::vector<ILaser *> &metroidLasers,
                  const IRidley &ridley,
                  const IText &scoreText,
+                 const IText &highScoreText,
                  const IText &livesText);
 
 void monitorRidleyMovementSound(IRidley &ridley);
@@ -77,6 +78,8 @@ void shootMetroidLaser(const std::vector<std::vector<IMetroid *>> &metroids, con
 
 void spawnRidley(IRidley &ridley);
 
-void endGame(bool &isPlaying, bool &gameOver, IRidley &ridley, int score, IText &scoreText, ISound &battleTheme, ISound &creditsTheme);
+void endGame(bool &isPlaying, bool &gameOver, IRidley &ridley, ISound &battleTheme, ISound &creditsTheme);
+
+void updateHighScore(int score, IText &scoreText, IText &highScoreText);
 
 #endif

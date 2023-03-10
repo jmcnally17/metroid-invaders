@@ -16,6 +16,7 @@ void drawObjects(IRenderWindow &window,
                  const std::vector<ILaser *> &metroidLasers,
                  const IRidley &ridley,
                  const IText &scoreText,
+                 const IText &highScoreText,
                  const IText &livesText)
 {
   window.clear();
@@ -42,6 +43,7 @@ void drawObjects(IRenderWindow &window,
   }
   ridley.draw(window);
   window.draw(scoreText);
+  window.draw(highScoreText);
   window.draw(livesText);
   window.display();
 }
