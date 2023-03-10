@@ -77,7 +77,7 @@ TEST(evaluateGunshipLaserMetroidCollision, addsTheMetroidPointsToTheScore)
   EXPECT_EQ(score, 30);
 }
 
-TEST(evaluateGunshipLaserMetroidCollision, updatesTheHighScoreIfScoreSurpassesIt)
+TEST(evaluateGunshipLaserMetroidCollision, updatesTheHighScoreTextIfScoreSurpassesHighScore)
 {
   NiceMock<MockCollision> collision;
   NiceMock<MockLaser> gunshipLaser;
@@ -108,10 +108,9 @@ TEST(evaluateGunshipLaserMetroidCollision, updatesTheHighScoreIfScoreSurpassesIt
   EXPECT_CALL(highScoreText, setString("High Score: 150"))
       .Times(1);
   evaluateGunshipLaserMetroidCollision(collision, gunshipLaser, metroids, score, scoreText, highScore, highScoreText);
-  EXPECT_EQ(highScore, 150);
 }
 
-TEST(evaluateGunshipLaserMetroidCollision, doesNotUpdateTheHighScoreIfScoreDoesNotSurpassIt)
+TEST(evaluateGunshipLaserMetroidCollision, doesNotUpdateTheHighScoreTextIfScoreDoesNotSurpassHighScore)
 {
   NiceMock<MockCollision> collision;
   NiceMock<MockLaser> gunshipLaser;
@@ -142,7 +141,6 @@ TEST(evaluateGunshipLaserMetroidCollision, doesNotUpdateTheHighScoreIfScoreDoesN
   EXPECT_CALL(highScoreText, setString)
       .Times(0);
   evaluateGunshipLaserMetroidCollision(collision, gunshipLaser, metroids, score, scoreText, highScore, highScoreText);
-  EXPECT_EQ(highScore, 120);
 }
 
 TEST(evaluateGunshipLaserMetroidCollision, doesNotKillMetroidsThatAreAliveAndGunshipLaserIsNotCollidingWith)

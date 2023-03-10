@@ -46,7 +46,7 @@ TEST(evaluateGunshipLaserRidleyCollision, addsTheRidleyPointsToTheScore)
     EXPECT_EQ(score, 580);
 }
 
-TEST(evaluateGunshipLaserRidleyCollision, updatesTheHighScoreIfScoreSurpassesIt)
+TEST(evaluateGunshipLaserRidleyCollision, updatesTheHighScoreTextIfScoreSurpassesHighScore)
 {
     NiceMock<MockCollision> collision;
     NiceMock<MockLaser> gunshipLaser;
@@ -64,10 +64,9 @@ TEST(evaluateGunshipLaserRidleyCollision, updatesTheHighScoreIfScoreSurpassesIt)
     EXPECT_CALL(highScoreText, setString("High Score: 580"))
         .Times(1);
     evaluateGunshipLaserRidleyCollision(collision, gunshipLaser, ridley, score, scoreText, highScore, highScoreText);
-    EXPECT_EQ(highScore, 580);
 }
 
-TEST(evaluateGunshipLaserRidleyCollision, doesNotUpdatesTheHighScoreIfScoreDoesNotSurpassIt)
+TEST(evaluateGunshipLaserRidleyCollision, doesNotUpdatesTheHighScoreTextIfScoreDoesNotSurpassHighScore)
 {
     NiceMock<MockCollision> collision;
     NiceMock<MockLaser> gunshipLaser;
@@ -85,7 +84,6 @@ TEST(evaluateGunshipLaserRidleyCollision, doesNotUpdatesTheHighScoreIfScoreDoesN
     EXPECT_CALL(highScoreText, setString)
         .Times(0);
     evaluateGunshipLaserRidleyCollision(collision, gunshipLaser, ridley, score, scoreText, highScore, highScoreText);
-    EXPECT_EQ(highScore, 1000);
 }
 
 TEST(evaluateGunshipLaserRidleyCollision, resetsTheGunshipLaser)

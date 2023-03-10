@@ -26,8 +26,7 @@ void evaluateGunshipLaserMetroidCollision(const CollisionInterface &collision,
         scoreText.setString("Score: " + std::to_string(score));
         if (score > highScore)
         {
-          highScore = score;
-          highScoreText.setString("High Score: " + std::to_string(highScore));
+          highScoreText.setString("High Score: " + std::to_string(score));
         }
         gunshipLaser.playMetroidDeath();
         gunshipLaser.reset();
@@ -52,8 +51,7 @@ void evaluateGunshipLaserRidleyCollision(const CollisionInterface &collision,
     scoreText.setString("Score: " + std::to_string(score));
     if (score > highScore)
     {
-      highScore = score;
-      highScoreText.setString("High Score: " + std::to_string(highScore));
+      highScoreText.setString("High Score: " + std::to_string(score));
     }
     gunshipLaser.reset();
   }
