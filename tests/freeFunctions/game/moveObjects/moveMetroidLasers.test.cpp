@@ -1,5 +1,5 @@
-#include "../../../include/game.hpp"
-#include "../../mockModels/mockLaser.hpp"
+#include "../../../../include/game.hpp"
+#include "../../../mockModels/mockLaser.hpp"
 
 TEST(moveMetroidLasers, callsMoveOnMetroidLasers)
 {
