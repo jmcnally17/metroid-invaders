@@ -100,6 +100,7 @@ int main()
       if (haveMetroidsInvaded(metroids) || gunship.getLives() == 0)
       {
         endGame(isPlaying, gameOver, ridley, score, scoreText, battleTheme, creditsTheme);
+        updateHighScore(score, highScoreText);
       }
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
       {

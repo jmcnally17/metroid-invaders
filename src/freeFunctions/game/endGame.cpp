@@ -1,4 +1,6 @@
 #include <vector>
+#include <iostream>
+#include <fstream>
 #include "../../../include/models/iMetroid.hpp"
 #include "../../../include/models/iRidley.hpp"
 #include "../../../include/wrappers/iText.hpp"
@@ -30,4 +32,19 @@ void endGame(bool &isPlaying, bool &gameOver, IRidley &ridley, int score, IText 
   scoreText.setOrigin(scoreTextRect.width / 2, 0);
   battleTheme.stop();
   creditsTheme.play();
+}
+
+void updateHighScore(int score, IText &highScoreText)
+{
+  std::string highScore;
+  std::ifstream highScoreReadFile("highScore.txt");
+  getline(highScoreReadFile, highScore);
+  highScoreReadFile.close();
+  if (highScore == "" || score > std::stoi(highScore))
+  {
+    std::ofstream highScoreWriteFile("highScore.txt");
+    highScoreWriteFile << score;
+    highScoreWriteFile.close();
+  }
+  highScoreText.setString("High Score: " + std::to_string(score));
 }

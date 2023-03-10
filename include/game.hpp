@@ -80,4 +80,6 @@ void spawnRidley(IRidley &ridley);
 
 void endGame(bool &isPlaying, bool &gameOver, IRidley &ridley, int score, IText &scoreText, ISound &battleTheme, ISound &creditsTheme);
 
+void updateHighScore(int score, IText &highScoreText);
+
 #endif
