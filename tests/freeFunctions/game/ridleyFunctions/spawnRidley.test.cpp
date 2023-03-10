@@ -1,5 +1,5 @@
-#include "../../../include/game.hpp"
-#include "../../mockModels/mockRidley.hpp"
+#include "../../../../include/game.hpp"
+#include "../../../mockModels/mockRidley.hpp"
 
 TEST(spawnRidley, callsSpawnOnRidley)
 {
