@@ -46,7 +46,13 @@ void evaluateGunshipLaserMetroidCollision(const CollisionInterface &collision,
                                           int &highScore,
                                           IText &highScoreText);
 
-void evaluateGunshipLaserRidleyCollision(const CollisionInterface &collision, ILaser &gunshipLaser, IRidley &ridley, int &score, IText &scoreText);
+void evaluateGunshipLaserRidleyCollision(const CollisionInterface &collision,
+                                         ILaser &gunshipLaser,
+                                         IRidley &ridley,
+                                         int &score,
+                                         IText &scoreText,
+                                         int &highScore,
+                                         IText &highScoretext);
 
 void evaluateGunshipLaserBunkerCollision(const CollisionInterface &collision, ILaser &gunshipLaser, std::vector<IBunker *> &bunkers);
 

@@ -37,13 +37,21 @@ void evaluateGunshipLaserMetroidCollision(const CollisionInterface &collision,
   }
 }
 
-void evaluateGunshipLaserRidleyCollision(const CollisionInterface &collision, ILaser &gunshipLaser, IRidley &ridley, int &score, IText &scoreText)
+void evaluateGunshipLaserRidleyCollision(const CollisionInterface &collision,
+                                         ILaser &gunshipLaser,
+                                         IRidley &ridley,
+                                         int &score,
+                                         IText &scoreText,
+                                         int &highScore,
+                                         IText &highScoreText)
 {
   if (collision.haveCollided(gunshipLaser, ridley))
   {
     ridley.die();
     score += ridley.getPoints();
     scoreText.setString("Score: " + std::to_string(score));
+    highScore = score;
+    highScoreText.setString("High Score: " + std::to_string(highScore));
     gunshipLaser.reset();
   }
 }
