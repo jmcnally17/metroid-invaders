@@ -66,11 +66,12 @@ int main()
   Collision collisionInterface;
   int level = 1;
   int score = 0;
+  int highScore = 0;
 
   // final setup
   bool isPlaying = false;
   bool gameOver = false;
-  int highScore = pullHighScore(highScoreText);
+  pullHighScore(highScore, highScoreText);
   titleTheme.play();
 
   while (window.isOpen())
@@ -343,17 +344,15 @@ std::vector<ISound *> makeMetroidSounds()
   return metroidSounds;
 }
 
-int pullHighScore(IText &highScoreText)
+void pullHighScore(int &highScore, IText &highScoreText)
 {
   std::string highScoreString;
   std::ifstream highScoreFile("highScore.txt");
   getline(highScoreFile, highScoreString);
   highScoreFile.close();
-  int highScore = 0;
   if (!(highScoreString == ""))
   {
     highScore = std::stoi(highScoreString);
     highScoreText.setString("HighScore: " + highScoreString);
   }
-  return highScore;
 }
