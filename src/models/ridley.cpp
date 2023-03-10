@@ -1,11 +1,7 @@
 #include "../../include/models/ridley.hpp"
 
-Ridley::Ridley(ISprite *rightSprite, ISprite *leftSprite, ISound *movementSound, ISound *deathSound) : IRidley(96, 42, -96, 200, rightSprite),
-                                                                                                       leftSprite_(leftSprite),
-                                                                                                       points_(150),
-                                                                                                       direction_(-1),
-                                                                                                       movementSound_(movementSound),
-                                                                                                       deathSound_(deathSound)
+Ridley::Ridley(ISprite *rightSprite, ISprite *leftSprite, ISound *movementSound, ISound *deathSound)
+    : IRidley(96, 42, -96, 200, rightSprite), leftSprite_(leftSprite), points_(150), direction_(-1), movementSound_(movementSound), deathSound_(deathSound)
 {
   leftSprite_->setPosition(position_);
   movementSound_->setLoop(true);

@@ -7,7 +7,11 @@
 #include "../../../include/models/iGunship.hpp"
 #include "../../../include/wrappers/iText.hpp"
 
-void evaluateGunshipLaserMetroidCollision(const CollisionInterface &collision, ILaser &gunshipLaser, const std::vector<std::vector<IMetroid *>> &metroids, int &score, IText &scoreText)
+void evaluateGunshipLaserMetroidCollision(const CollisionInterface &collision,
+                                          ILaser &gunshipLaser,
+                                          const std::vector<std::vector<IMetroid *>> &metroids,
+                                          int &score,
+                                          IText &scoreText)
 {
   for (auto vec : metroids)
   {
