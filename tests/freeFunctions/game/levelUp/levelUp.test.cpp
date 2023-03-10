@@ -1,8 +1,8 @@
-#include "../../../include/game.hpp"
-#include "../../mockModels/mockMetroid.hpp"
-#include "../../mockModels/mockLaser.hpp"
-#include "../../mockModels/mockRidley.hpp"
-#include "../../mockModels/mockClock.hpp"
+#include "../../../../include/game.hpp"
+#include "../../../mockModels/mockMetroid.hpp"
+#include "../../../mockModels/mockLaser.hpp"
+#include "../../../mockModels/mockRidley.hpp"
+#include "../../../mockModels/mockClock.hpp"
 
 using ::testing::NiceMock;
 using ::testing::Return;

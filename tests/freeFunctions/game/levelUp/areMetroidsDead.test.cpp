@@ -1,5 +1,5 @@
-#include "../../../include/game.hpp"
-#include "../../mockModels/mockMetroid.hpp"
+#include "../../../../include/game.hpp"
+#include "../../../mockModels/mockMetroid.hpp"
 
 using ::testing::NiceMock;
 using ::testing::Return;
