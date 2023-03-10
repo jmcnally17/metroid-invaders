@@ -29,23 +29,6 @@ TEST(evaluateGunshipLaserRidleyCollision, addsTheRidleyPointsToTheScore)
     NiceMock<MockLaser> gunshipLaser;
     NiceMock<MockRidley> ridley;
     int score = 430;
-    NiceMock<MockText> scoreText;
-
-    ON_CALL(collision, haveCollided)
-        .WillByDefault(Return(true));
-    ON_CALL(ridley, getPoints())
-        .WillByDefault(Return(150));
-
-    evaluateGunshipLaserRidleyCollision(collision, gunshipLaser, ridley, score, scoreText);
-    EXPECT_EQ(score, 580);
-}
-
-TEST(evaluateGunshipLaserRidleyCollision, updatesTheScoreText)
-{
-    NiceMock<MockCollision> collision;
-    NiceMock<MockLaser> gunshipLaser;
-    NiceMock<MockRidley> ridley;
-    int score = 430;
     MockText scoreText;
 
     ON_CALL(collision, haveCollided)
@@ -56,6 +39,7 @@ TEST(evaluateGunshipLaserRidleyCollision, updatesTheScoreText)
     EXPECT_CALL(scoreText, setString("Score: 580"))
         .Times(1);
     evaluateGunshipLaserRidleyCollision(collision, gunshipLaser, ridley, score, scoreText);
+    EXPECT_EQ(score, 580);
 }
 
 TEST(evaluateGunshipLaserRidleyCollision, resetsTheGunshipLaser)
