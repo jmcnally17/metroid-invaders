@@ -348,12 +348,12 @@ int pullHighScore(IText &highScoreText)
   std::string highScoreString;
   std::ifstream highScoreFile("highScore.txt");
   getline(highScoreFile, highScoreString);
+  highScoreFile.close();
   int highScore = 0;
   if (!(highScoreString == ""))
   {
     highScore = std::stoi(highScoreString);
     highScoreText.setString("HighScore: " + highScoreString);
   }
-  highScoreFile.close();
   return highScore;
 }
