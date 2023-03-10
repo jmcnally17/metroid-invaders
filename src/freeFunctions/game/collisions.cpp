@@ -50,8 +50,11 @@ void evaluateGunshipLaserRidleyCollision(const CollisionInterface &collision,
     ridley.die();
     score += ridley.getPoints();
     scoreText.setString("Score: " + std::to_string(score));
-    highScore = score;
-    highScoreText.setString("High Score: " + std::to_string(highScore));
+    if (score > highScore)
+    {
+      highScore = score;
+      highScoreText.setString("High Score: " + std::to_string(highScore));
+    }
     gunshipLaser.reset();
   }
 }

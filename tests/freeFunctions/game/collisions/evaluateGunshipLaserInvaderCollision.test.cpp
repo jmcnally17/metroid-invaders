@@ -111,7 +111,7 @@ TEST(evaluateGunshipLaserMetroidCollision, updatesTheHighScoreIfScoreSurpassesIt
   EXPECT_EQ(highScore, 150);
 }
 
-TEST(evaluateGunshipLaserMetroidCollision, doesNotUpdateTheHighScoreIfScoreDoesNotSurpassesIt)
+TEST(evaluateGunshipLaserMetroidCollision, doesNotUpdateTheHighScoreIfScoreDoesNotSurpassIt)
 {
   NiceMock<MockCollision> collision;
   NiceMock<MockLaser> gunshipLaser;
