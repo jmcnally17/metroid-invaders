@@ -305,7 +305,7 @@ TEST(Ridley, resetSetsDirectionBackToMinus1)
   EXPECT_EQ(ridley.getDirection(), -1);
 }
 
-TEST(Ridley, moveAdds0Point125ToXPositionWhenDirectionIs1AndIsOnTheBoard)
+TEST(Ridley, moveAdds1Point6ToXPositionWhenDirectionIs1AndIsOnTheBoard)
 {
   NiceMock<MockSprite> rightSprite;
   MockSprite *pRightSprite = &rightSprite;
@@ -323,7 +323,7 @@ TEST(Ridley, moveAdds0Point125ToXPositionWhenDirectionIs1AndIsOnTheBoard)
   EXPECT_EQ(ridley.getPosition(), sf::Vector2f(501.6, 200));
 }
 
-TEST(Ridley, moveTakesAway0Point125ToXPositionWhenDirectionIsMinus1AndIsOnTheBoard)
+TEST(Ridley, moveTakesAway1Point6ToXPositionWhenDirectionIsMinus1AndIsOnTheBoard)
 {
   NiceMock<MockSprite> rightSprite;
   MockSprite *pRightSprite = &rightSprite;
@@ -424,7 +424,7 @@ TEST(Ridley, spawnChangesDirectionToMinus1)
   EXPECT_EQ(ridley.getDirection(), -1);
 }
 
-TEST(Ridley, spawnAdds0Point125ToXPositionWhenRidleyIsLeftOfBoard)
+TEST(Ridley, spawnAdds1Point6ToXPositionWhenRidleyIsLeftOfBoard)
 {
   NiceMock<MockSprite> rightSprite;
   MockSprite *pRightSprite = &rightSprite;
@@ -436,10 +436,10 @@ TEST(Ridley, spawnAdds0Point125ToXPositionWhenRidleyIsLeftOfBoard)
   Ridley ridley(pRightSprite, pLeftSprite, pMovementSound, deathSound);
 
   ridley.spawn(0);
-  EXPECT_EQ(ridley.getPosition(), sf::Vector2f(-95.875, 200));
+  EXPECT_EQ(ridley.getPosition(), sf::Vector2f(-94.4, 200));
 }
 
-TEST(Ridley, spawnTakesAway0Point125FromXPositionWhenRidleyIsRightOfBoard)
+TEST(Ridley, spawnTakesAway1Point6FromXPositionWhenRidleyIsRightOfBoard)
 {
   NiceMock<MockSprite> rightSprite;
   MockSprite *pRightSprite = &rightSprite;
@@ -454,7 +454,7 @@ TEST(Ridley, spawnTakesAway0Point125FromXPositionWhenRidleyIsRightOfBoard)
   ridley.changeDirection();                    // Set direction to 1
 
   ridley.spawn(0);
-  EXPECT_EQ(ridley.getPosition(), sf::Vector2f(1535.875, 200));
+  EXPECT_EQ(ridley.getPosition(), sf::Vector2f(1534.4, 200));
 }
 
 TEST(Ridley, spawnUpdatesSpritePositions)
@@ -468,9 +468,9 @@ TEST(Ridley, spawnUpdatesSpritePositions)
   MockSound *deathSound;
   Ridley ridley(pRightSprite, pLeftSprite, pMovementSound, deathSound);
 
-  EXPECT_CALL(rightSprite, setPosition(sf::Vector2f(-95.875, 200)))
+  EXPECT_CALL(rightSprite, setPosition(sf::Vector2f(-94.4, 200)))
       .Times(1);
-  EXPECT_CALL(leftSprite, setPosition(sf::Vector2f(-95.875, 200)))
+  EXPECT_CALL(leftSprite, setPosition(sf::Vector2f(-94.4, 200)))
       .Times(1);
   ridley.spawn(0);
 }
