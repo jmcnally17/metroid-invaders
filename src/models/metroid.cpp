@@ -84,6 +84,7 @@ void Metroid::reset()
 {
   setPosition(originalPosition_);
   resurrect();
+  direction_ = 1;
 }
 
 void Metroid::shoot(const std::vector<ILaser *> &metroidLasers, int randomNumber) const

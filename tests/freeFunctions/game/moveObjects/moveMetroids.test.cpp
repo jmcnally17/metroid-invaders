@@ -20,7 +20,7 @@ TEST(moveMetroids, callsMoveOnMetroidsWhenTimeElapsedIsPastIntervalMultipliedByS
     }
     metroids[i] = metroidRow;
   }
-  NiceMock<MockClock> clock;
+  NiceMock<MockClock> movementClock;
   int interval = 1000;
   int step = 7;
   sf::Time time(sf::milliseconds(7005));
@@ -35,12 +35,12 @@ TEST(moveMetroids, callsMoveOnMetroidsWhenTimeElapsedIsPastIntervalMultipliedByS
   std::vector<ISound *> sounds = {pSound0, pSound1, pSound2, pSound3};
   int soundCounter = 1;
 
-  ON_CALL(clock, getElapsedTime())
+  ON_CALL(movementClock, getElapsedTime())
       .WillByDefault(Return(time));
 
   EXPECT_CALL(metroid, move())
       .Times(14);
-  moveMetroids(metroids, clock, interval, step, sounds, soundCounter);
+  moveMetroids(metroids, movementClock, interval, step, sounds, soundCounter);
 }
 
 TEST(moveMetroids, doesNotCallMoveOnMetroidsWhenTimeElapsedIsNotPastIntervalMultipliedByStep)
@@ -57,7 +57,7 @@ TEST(moveMetroids, doesNotCallMoveOnMetroidsWhenTimeElapsedIsNotPastIntervalMult
     }
     metroids[i] = metroidRow;
   }
-  NiceMock<MockClock> clock;
+  NiceMock<MockClock> movementClock;
   int interval = 1000;
   int step = 7;
   sf::Time time(sf::milliseconds(6995));
@@ -72,12 +72,12 @@ TEST(moveMetroids, doesNotCallMoveOnMetroidsWhenTimeElapsedIsNotPastIntervalMult
   std::vector<ISound *> sounds = {pSound0, pSound1, pSound2, pSound3};
   int soundCounter = 1;
 
-  ON_CALL(clock, getElapsedTime())
+  ON_CALL(movementClock, getElapsedTime())
       .WillByDefault(Return(time));
 
   EXPECT_CALL(metroid, move())
       .Times(0);
-  moveMetroids(metroids, clock, interval, step, sounds, soundCounter);
+  moveMetroids(metroids, movementClock, interval, step, sounds, soundCounter);
 }
 
 TEST(moveMetroids, adds1ToTheStepCounterWhenTimeElapsedIsPastIntervalMultipliedByStepAndMetroidsHaveNotJustMovedDown)
@@ -94,7 +94,7 @@ TEST(moveMetroids, adds1ToTheStepCounterWhenTimeElapsedIsPastIntervalMultipliedB
     }
     metroids[i] = metroidRow;
   }
-  NiceMock<MockClock> clock;
+  NiceMock<MockClock> movementClock;
   int interval = 1000;
   int step = 7;
   sf::Time time(sf::milliseconds(7005));
@@ -109,12 +109,12 @@ TEST(moveMetroids, adds1ToTheStepCounterWhenTimeElapsedIsPastIntervalMultipliedB
   std::vector<ISound *> sounds = {pSound0, pSound1, pSound2, pSound3};
   int soundCounter = 1;
 
-  ON_CALL(clock, getElapsedTime())
+  ON_CALL(movementClock, getElapsedTime())
       .WillByDefault(Return(time));
   ON_CALL(metroid, hasJustMovedDown())
       .WillByDefault(Return(false));
 
-  moveMetroids(metroids, clock, interval, step, sounds, soundCounter);
+  moveMetroids(metroids, movementClock, interval, step, sounds, soundCounter);
   EXPECT_EQ(step, 8);
 }
 
@@ -132,7 +132,7 @@ TEST(moveMetroids, callsRestartOnClockWhenTimeElapsedIsPastIntervalMultipliedByS
     }
     metroids[i] = metroidRow;
   }
-  NiceMock<MockClock> clock;
+  NiceMock<MockClock> movementClock;
   int interval = 1000;
   int step = 7;
   sf::Time time(sf::milliseconds(7005));
@@ -147,14 +147,14 @@ TEST(moveMetroids, callsRestartOnClockWhenTimeElapsedIsPastIntervalMultipliedByS
   std::vector<ISound *> sounds = {pSound0, pSound1, pSound2, pSound3};
   int soundCounter = 1;
 
-  ON_CALL(clock, getElapsedTime())
+  ON_CALL(movementClock, getElapsedTime())
       .WillByDefault(Return(time));
   ON_CALL(metroid, hasJustMovedDown())
       .WillByDefault(Return(true));
 
-  EXPECT_CALL(clock, restart())
+  EXPECT_CALL(movementClock, restart())
       .Times(1);
-  moveMetroids(metroids, clock, interval, step, sounds, soundCounter);
+  moveMetroids(metroids, movementClock, interval, step, sounds, soundCounter);
 }
 
 TEST(moveMetroids, decreasesIntervalBy35WhenTimeElapsedIsPastIntervalMultipliedByStepAndMetroidsHaveJustMovedDown)
@@ -171,7 +171,7 @@ TEST(moveMetroids, decreasesIntervalBy35WhenTimeElapsedIsPastIntervalMultipliedB
     }
     metroids[i] = metroidRow;
   }
-  NiceMock<MockClock> clock;
+  NiceMock<MockClock> movementClock;
   int interval = 1000;
   int step = 7;
   sf::Time time(sf::milliseconds(7005));
@@ -186,12 +186,12 @@ TEST(moveMetroids, decreasesIntervalBy35WhenTimeElapsedIsPastIntervalMultipliedB
   std::vector<ISound *> sounds = {pSound0, pSound1, pSound2, pSound3};
   int soundCounter = 1;
 
-  ON_CALL(clock, getElapsedTime())
+  ON_CALL(movementClock, getElapsedTime())
       .WillByDefault(Return(time));
   ON_CALL(metroid, hasJustMovedDown())
       .WillByDefault(Return(true));
 
-  moveMetroids(metroids, clock, interval, step, sounds, soundCounter);
+  moveMetroids(metroids, movementClock, interval, step, sounds, soundCounter);
   EXPECT_EQ(interval, 965);
 }
 
@@ -209,7 +209,7 @@ TEST(moveMetroids, setsStepCounterTo1WhenTimeElapsedIsPastIntervalMultipliedBySt
     }
     metroids[i] = metroidRow;
   }
-  NiceMock<MockClock> clock;
+  NiceMock<MockClock> movementClock;
   int interval = 1000;
   int step = 7;
   sf::Time time(sf::milliseconds(7005));
@@ -224,12 +224,12 @@ TEST(moveMetroids, setsStepCounterTo1WhenTimeElapsedIsPastIntervalMultipliedBySt
   std::vector<ISound *> sounds = {pSound0, pSound1, pSound2, pSound3};
   int soundCounter = 1;
 
-  ON_CALL(clock, getElapsedTime())
+  ON_CALL(movementClock, getElapsedTime())
       .WillByDefault(Return(time));
   ON_CALL(metroid, hasJustMovedDown())
       .WillByDefault(Return(true));
 
-  moveMetroids(metroids, clock, interval, step, sounds, soundCounter);
+  moveMetroids(metroids, movementClock, interval, step, sounds, soundCounter);
   EXPECT_EQ(step, 1);
 }
 
@@ -247,7 +247,7 @@ TEST(moveMetroids, playsSound0WhenTimeElapsedIsPastIntervalMultipliedByStepAndSo
     }
     metroids[i] = metroidRow;
   }
-  NiceMock<MockClock> clock;
+  NiceMock<MockClock> movementClock;
   int interval = 1000;
   int step = 7;
   sf::Time time(sf::milliseconds(7005));
@@ -262,12 +262,12 @@ TEST(moveMetroids, playsSound0WhenTimeElapsedIsPastIntervalMultipliedByStepAndSo
   std::vector<ISound *> sounds = {pSound0, pSound1, pSound2, pSound3};
   int soundCounter = 0;
 
-  ON_CALL(clock, getElapsedTime())
+  ON_CALL(movementClock, getElapsedTime())
       .WillByDefault(Return(time));
 
   EXPECT_CALL(sound0, play())
       .Times(1);
-  moveMetroids(metroids, clock, interval, step, sounds, soundCounter);
+  moveMetroids(metroids, movementClock, interval, step, sounds, soundCounter);
 }
 
 TEST(moveMetroids, playsSound1WhenTimeElapsedIsPastIntervalMultipliedByStepAndSoundCounterIs1)
@@ -284,7 +284,7 @@ TEST(moveMetroids, playsSound1WhenTimeElapsedIsPastIntervalMultipliedByStepAndSo
     }
     metroids[i] = metroidRow;
   }
-  NiceMock<MockClock> clock;
+  NiceMock<MockClock> movementClock;
   int interval = 1000;
   int step = 7;
   sf::Time time(sf::milliseconds(7005));
@@ -299,12 +299,12 @@ TEST(moveMetroids, playsSound1WhenTimeElapsedIsPastIntervalMultipliedByStepAndSo
   std::vector<ISound *> sounds = {pSound0, pSound1, pSound2, pSound3};
   int soundCounter = 1;
 
-  ON_CALL(clock, getElapsedTime())
+  ON_CALL(movementClock, getElapsedTime())
       .WillByDefault(Return(time));
 
   EXPECT_CALL(sound1, play())
       .Times(1);
-  moveMetroids(metroids, clock, interval, step, sounds, soundCounter);
+  moveMetroids(metroids, movementClock, interval, step, sounds, soundCounter);
 }
 
 TEST(moveMetroids, playsSound2WhenTimeElapsedIsPastIntervalMultipliedByStepAndSoundCounterIs2)
@@ -321,7 +321,7 @@ TEST(moveMetroids, playsSound2WhenTimeElapsedIsPastIntervalMultipliedByStepAndSo
     }
     metroids[i] = metroidRow;
   }
-  NiceMock<MockClock> clock;
+  NiceMock<MockClock> movementClock;
   int interval = 1000;
   int step = 7;
   sf::Time time(sf::milliseconds(7005));
@@ -336,12 +336,12 @@ TEST(moveMetroids, playsSound2WhenTimeElapsedIsPastIntervalMultipliedByStepAndSo
   std::vector<ISound *> sounds = {pSound0, pSound1, pSound2, pSound3};
   int soundCounter = 2;
 
-  ON_CALL(clock, getElapsedTime())
+  ON_CALL(movementClock, getElapsedTime())
       .WillByDefault(Return(time));
 
   EXPECT_CALL(sound2, play())
       .Times(1);
-  moveMetroids(metroids, clock, interval, step, sounds, soundCounter);
+  moveMetroids(metroids, movementClock, interval, step, sounds, soundCounter);
 }
 
 TEST(moveMetroids, playsSound3WhenTimeElapsedIsPastIntervalMultipliedByStepAndSoundCounterIs3)
@@ -358,7 +358,7 @@ TEST(moveMetroids, playsSound3WhenTimeElapsedIsPastIntervalMultipliedByStepAndSo
     }
     metroids[i] = metroidRow;
   }
-  NiceMock<MockClock> clock;
+  NiceMock<MockClock> movementClock;
   int interval = 1000;
   int step = 7;
   sf::Time time(sf::milliseconds(7005));
@@ -373,12 +373,12 @@ TEST(moveMetroids, playsSound3WhenTimeElapsedIsPastIntervalMultipliedByStepAndSo
   std::vector<ISound *> sounds = {pSound0, pSound1, pSound2, pSound3};
   int soundCounter = 3;
 
-  ON_CALL(clock, getElapsedTime())
+  ON_CALL(movementClock, getElapsedTime())
       .WillByDefault(Return(time));
 
   EXPECT_CALL(sound3, play())
       .Times(1);
-  moveMetroids(metroids, clock, interval, step, sounds, soundCounter);
+  moveMetroids(metroids, movementClock, interval, step, sounds, soundCounter);
 }
 
 TEST(moveMetroids, increasesSoundCounterBy1WhenTimeElapsedIsPastInterval)
@@ -395,7 +395,7 @@ TEST(moveMetroids, increasesSoundCounterBy1WhenTimeElapsedIsPastInterval)
     }
     metroids[i] = metroidRow;
   }
-  NiceMock<MockClock> clock;
+  NiceMock<MockClock> movementClock;
   int interval = 1000;
   int step = 7;
   sf::Time time(sf::milliseconds(7005));
@@ -410,9 +410,9 @@ TEST(moveMetroids, increasesSoundCounterBy1WhenTimeElapsedIsPastInterval)
   std::vector<ISound *> sounds = {pSound0, pSound1, pSound2, pSound3};
   int soundCounter = 26;
 
-  ON_CALL(clock, getElapsedTime())
+  ON_CALL(movementClock, getElapsedTime())
       .WillByDefault(Return(time));
 
-  moveMetroids(metroids, clock, interval, step, sounds, soundCounter);
+  moveMetroids(metroids, movementClock, interval, step, sounds, soundCounter);
   EXPECT_EQ(soundCounter, 27);
 }

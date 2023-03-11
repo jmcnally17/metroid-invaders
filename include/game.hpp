@@ -36,7 +36,7 @@ void levelUp(int &level,
              const std::vector<std::vector<IMetroid *>> &metroids,
              const std::vector<ILaser *> &metroidLasers,
              IRidley &ridley,
-             IClock &clock);
+             IClock &movementClock);
 
 void evaluateGunshipLaserMetroidCollision(const CollisionInterface &collision,
                                           ILaser &gunshipLaser,
@@ -71,7 +71,7 @@ void moveGunship(IGunship &gunship, float x);
 void moveGunshipLaser(ILaser &gunshipLaser);
 
 void moveMetroids(const std::vector<std::vector<IMetroid *>> &metroids,
-                  IClock &clock,
+                  IClock &movementClock,
                   int &interval,
                   int &step,
                   std::vector<ISound *> &sounds,

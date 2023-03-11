@@ -19,7 +19,7 @@ public:
   virtual int getPoints() const = 0;
   virtual int getDirection() const = 0;
   virtual void changeDirection() = 0;
-  virtual void shoot(const std::vector<ILaser *> &metroidLasers, int randomNumber = rand() % 100000) const = 0;
+  virtual void shoot(const std::vector<ILaser *> &metroidLasers, int randomNumber = rand() % 10000) const = 0;
 };
 
 #endif

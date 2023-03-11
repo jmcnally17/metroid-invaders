@@ -61,17 +61,17 @@ void Ridley::move()
 {
   if (position_.x > -96 && position_.x < 1536)
   {
-    position_.x += 0.125 * direction_;
+    position_.x += 1.6 * direction_;
     updateSprites();
   }
 }
 
 void Ridley::spawn(int randomNumber)
 {
-  if (randomNumber == 0 && (position_.x == -96 || position_.x == 1536))
+  if (randomNumber == 0 && (position_.x <= -96 || position_.x >= 1536))
   {
     changeDirection();
-    position_.x += 0.125 * direction_;
+    position_.x += 1.6 * direction_;
     updateSprites();
     movementSound_->play();
   }
@@ -87,7 +87,7 @@ void Ridley::stopMovementSoundIfPlaying()
 
 void Ridley::stopMovementSoundIfAtSideOfWindow()
 {
-  if (position_.x == -96 || position_.x == 1536)
+  if (position_.x <= -96 || position_.x >= 1536)
   {
     stopMovementSoundIfPlaying();
   }

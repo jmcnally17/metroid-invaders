@@ -35,7 +35,7 @@ void MetroidLaser::move()
 {
   if (position_.y < 1344)
   {
-    position_.y += 0.5;
+    position_.y += 6.4;
     sprite_->setPosition(position_);
   }
 }
