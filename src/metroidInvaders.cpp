@@ -87,7 +87,7 @@ int main()
       }
     }
 
-    if (frameClock.getElapsedTime().asMicroseconds() >= 1250)
+    if (frameClock.getElapsedTime().asMicroseconds() >= 6250)
     {
       if (isPlaying)
       {
@@ -109,11 +109,11 @@ int main()
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
         {
-          moveGunship(gunship, 0.25);
+          moveGunship(gunship, 3.2);
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
         {
-          moveGunship(gunship, -0.25);
+          moveGunship(gunship, -3.2);
         }
         moveGunshipLaser(gunshipLaser);
         moveMetroids(metroids, movementClock, interval, step, metroidSounds, soundCounter);
