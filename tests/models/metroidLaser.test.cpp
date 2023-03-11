@@ -97,7 +97,7 @@ TEST(MetroidLaser, moveIncreasesYPositionWhenMetroidLaserIsOnTheBoard)
   metroidLaser.setPosition(sf::Vector2f(500, 1000));
 
   metroidLaser.move();
-  EXPECT_EQ(metroidLaser.getPosition(), sf::Vector2f(500, 1000.5));
+  EXPECT_EQ(metroidLaser.getPosition(), sf::Vector2f(500, 1006.4));
 }
 
 TEST(MetroidLaser, moveUpdatesSpritePositionWhenMetroidLaserIsOnTheBoard)
@@ -107,7 +107,7 @@ TEST(MetroidLaser, moveUpdatesSpritePositionWhenMetroidLaserIsOnTheBoard)
   MetroidLaser metroidLaser(pSprite);
   metroidLaser.setPosition(sf::Vector2f(500, 1000));
 
-  EXPECT_CALL(sprite, setPosition(sf::Vector2f(500, 1000.5)))
+  EXPECT_CALL(sprite, setPosition(sf::Vector2f(500, 1006.4)))
       .Times(1);
   metroidLaser.move();
 }
