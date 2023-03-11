@@ -107,7 +107,7 @@ TEST(GunshipLaser, moveDecreasesYPositionWhenGunshipLaserIsOnTheBoard)
   gunshipLaser.setPosition(sf::Vector2f(500, 1000));
 
   gunshipLaser.move();
-  EXPECT_EQ(gunshipLaser.getPosition(), sf::Vector2f(500, 999.5));
+  EXPECT_EQ(gunshipLaser.getPosition(), sf::Vector2f(500, 993.6));
 }
 
 TEST(GunshipLaser, moveUpdatesSpritePositionWhenGunshipLaserIsOnTheBoard)
@@ -118,7 +118,7 @@ TEST(GunshipLaser, moveUpdatesSpritePositionWhenGunshipLaserIsOnTheBoard)
   GunshipLaser gunshipLaser(pSprite, sound);
   gunshipLaser.setPosition(sf::Vector2f(500, 1000));
 
-  EXPECT_CALL(sprite, setPosition(sf::Vector2f(500, 999.5)))
+  EXPECT_CALL(sprite, setPosition(sf::Vector2f(500, 993.6)))
       .Times(1);
   gunshipLaser.move();
 }
