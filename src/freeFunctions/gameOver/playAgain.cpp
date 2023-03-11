@@ -34,18 +34,7 @@ void resetObjects(IGunship &gunship, ILaser &gunshipLaser,
   }
 }
 
-void resetValues(bool &isPlaying,
-                 bool &gameOver,
-                 int &interval,
-                 int &step,
-                 int &soundCounter,
-                 int &level,
-                 int &score,
-                 IText &scoreText,
-                 IText &livesText,
-                 ISound &creditsTheme,
-                 ISound &battleTheme,
-                 IClock &clock)
+void resetValues(bool &isPlaying, bool &gameOver, int &interval, int &step, int &soundCounter, int &level, int &score)
 {
   isPlaying = true;
   gameOver = false;
@@ -54,6 +43,10 @@ void resetValues(bool &isPlaying,
   soundCounter = 0;
   level = 1;
   score = 0;
+}
+
+void resetInformationObjects(IText &scoreText, IText &livesText, ISound &creditsTheme, ISound &battleTheme, IClock &clock)
+{
   scoreText.setString("Score: 0");
   scoreText.setPosition(sf::Vector2f(20, 0));
   scoreText.setOrigin(0, 0);

@@ -20,17 +20,8 @@ void resetObjects(IGunship &gunship, ILaser &gunshipLaser,
                   IRidley &ridley,
                   const std::vector<IBunker *> &bunkers);
 
-void resetValues(bool &isPlaying,
-                 bool &gameOver,
-                 int &interval,
-                 int &step,
-                 int &soundCounter,
-                 int &level,
-                 int &score,
-                 IText &scoreText,
-                 IText &livesText,
-                 ISound &creditsTheme,
-                 ISound &battleTheme,
-                 IClock &clock);
+void resetValues(bool &isPlaying, bool &gameOver, int &interval, int &step, int &soundCounter, int &level, int &score);
+
+void resetInformationObjects(IText &scoreText, IText &livesText, ISound &creditsTheme, ISound &battleTheme, IClock &clock);
 
 #endif
