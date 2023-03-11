@@ -320,7 +320,7 @@ TEST(Ridley, moveAdds0Point125ToXPositionWhenDirectionIs1AndIsOnTheBoard)
   ridley.changeDirection();                   // Set direction to 1
 
   ridley.move();
-  EXPECT_EQ(ridley.getPosition(), sf::Vector2f(500.125, 200));
+  EXPECT_EQ(ridley.getPosition(), sf::Vector2f(501.6, 200));
 }
 
 TEST(Ridley, moveTakesAway0Point125ToXPositionWhenDirectionIsMinus1AndIsOnTheBoard)
@@ -337,7 +337,7 @@ TEST(Ridley, moveTakesAway0Point125ToXPositionWhenDirectionIsMinus1AndIsOnTheBoa
   ridley.setPosition(sf::Vector2f(500, 200)); // Put Ridley on the board
 
   ridley.move();
-  EXPECT_EQ(ridley.getPosition(), sf::Vector2f(499.875, 200));
+  EXPECT_EQ(ridley.getPosition(), sf::Vector2f(498.4, 200));
 }
 
 TEST(Ridley, moveDoesNotChangePositionWhenRidleyIsLeftOfTheBoard)
@@ -385,9 +385,9 @@ TEST(Ridley, moveUpdatesSpritePositionsWhenOnTheBoard)
 
   ridley.setPosition(sf::Vector2f(500, 200)); // Put Ridley on the board
 
-  EXPECT_CALL(rightSprite, setPosition(sf::Vector2f(499.875, 200)))
+  EXPECT_CALL(rightSprite, setPosition(sf::Vector2f(498.4, 200)))
       .Times(1);
-  EXPECT_CALL(leftSprite, setPosition(sf::Vector2f(499.875, 200)))
+  EXPECT_CALL(leftSprite, setPosition(sf::Vector2f(498.4, 200)))
       .Times(1);
   ridley.move();
 }

@@ -61,7 +61,7 @@ void Ridley::move()
 {
   if (position_.x > -96 && position_.x < 1536)
   {
-    position_.x += 0.125 * direction_;
+    position_.x += 1.6 * direction_;
     updateSprites();
   }
 }
