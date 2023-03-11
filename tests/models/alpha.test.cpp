@@ -342,6 +342,18 @@ TEST(Alpha, resetSetsAliveBackToTrue)
   EXPECT_TRUE(alpha.isAlive());
 }
 
+TEST(Alpha, resetSetsDirectionBackTo1)
+{
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Alpha alpha(200, 320, pSprite);
+
+  alpha.changeDirection();
+
+  alpha.reset();
+  EXPECT_EQ(alpha.getDirection(), 1);
+}
+
 TEST(Alpha, shootSetsPositionOfFirstMetroidLaserIfBelowBoardAndAlphaIsAlive)
 {
   NiceMock<MockSprite> sprite;

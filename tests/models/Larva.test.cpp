@@ -342,6 +342,18 @@ TEST(Larva, resetSetsAliveBackToTrue)
   EXPECT_TRUE(larva.isAlive());
 }
 
+TEST(Larva, resetSetsDirectionBackTo1)
+{
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Larva larva(200, 320, pSprite);
+
+  larva.changeDirection();
+
+  larva.reset();
+  EXPECT_EQ(larva.getDirection(), 1);
+}
+
 TEST(Larva, shootSetsPositionOfFirstMetroidLaserIfBelowBoardAndLarvaIsAlive)
 {
   NiceMock<MockSprite> sprite;
