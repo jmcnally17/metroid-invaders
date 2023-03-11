@@ -18,7 +18,7 @@ public:
   void changeDirection();
   void reset() override;
   void move() override;
-  void spawn(int randomNumber = rand() % 3000) override;
+  void spawn(int randomNumber = rand() % 2000) override;
   void stopMovementSoundIfPlaying() override;
   void stopMovementSoundIfAtSideOfWindow() override;
   void die() override;
