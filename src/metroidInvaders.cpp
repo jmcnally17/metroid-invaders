@@ -20,6 +20,8 @@ int main()
 {
   RenderWindowWrapper window(sf::VideoMode(1536, 1344), "Metroid Invaders");
 
+  ClockWrapper frameClock;
+
   sf::Font m56;
   m56.loadFromFile("public/fonts/MicroN56.ttf");
   sf::Color white = sf::Color::White;
@@ -85,60 +87,64 @@ int main()
       }
     }
 
-    if (isPlaying)
+    if (frameClock.getElapsedTime().asMicroseconds() >= 1250)
     {
-      drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, highScoreText, livesText);
-      monitorRidleyMovementSound(ridley);
-      if (areMetroidsDead(metroids))
+      if (isPlaying)
       {
-        levelUp(level, interval, step, soundCounter, metroids, metroidLasers, ridley, movementClock);
+        drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, highScoreText, livesText);
+        monitorRidleyMovementSound(ridley);
+        if (areMetroidsDead(metroids))
+        {
+          levelUp(level, interval, step, soundCounter, metroids, metroidLasers, ridley, movementClock);
+        }
+        evaluateGunshipLaserMetroidCollision(collisionInterface, gunshipLaser, metroids, score, scoreText, highScore, highScoreText);
+        evaluateGunshipLaserRidleyCollision(collisionInterface, gunshipLaser, ridley, score, scoreText, highScore, highScoreText);
+        evaluateGunshipLaserBunkerCollision(collisionInterface, gunshipLaser, bunkers);
+        evaluateMetroidLaserBunkerCollision(collisionInterface, metroidLasers, bunkers);
+        evaluateGunshipMetroidLaserCollision(collisionInterface, gunship, metroidLasers, gunshipLaser, livesText);
+        if (haveMetroidsInvaded(metroids) || gunship.getLives() == 0)
+        {
+          endGame(isPlaying, gameOver, ridley, battleTheme, creditsTheme);
+          updateHighScore(score, highScore, scoreText, highScoreText);
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+        {
+          moveGunship(gunship, 0.25);
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+        {
+          moveGunship(gunship, -0.25);
+        }
+        moveGunshipLaser(gunshipLaser);
+        moveMetroids(metroids, movementClock, interval, step, metroidSounds, soundCounter);
+        moveMetroidLasers(metroidLasers);
+        moveRidley(ridley);
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+        {
+          fireGunshipLaser(gunship);
+        }
+        shootMetroidLaser(metroids, metroidLasers);
+        spawnRidley(ridley);
       }
-      evaluateGunshipLaserMetroidCollision(collisionInterface, gunshipLaser, metroids, score, scoreText, highScore, highScoreText);
-      evaluateGunshipLaserRidleyCollision(collisionInterface, gunshipLaser, ridley, score, scoreText, highScore, highScoreText);
-      evaluateGunshipLaserBunkerCollision(collisionInterface, gunshipLaser, bunkers);
-      evaluateMetroidLaserBunkerCollision(collisionInterface, metroidLasers, bunkers);
-      evaluateGunshipMetroidLaserCollision(collisionInterface, gunship, metroidLasers, gunshipLaser, livesText);
-      if (haveMetroidsInvaded(metroids) || gunship.getLives() == 0)
+      else if (gameOver)
       {
-        endGame(isPlaying, gameOver, ridley, battleTheme, creditsTheme);
-        updateHighScore(score, highScore, scoreText, highScoreText);
+        displayGameOverScreen(window, gameOverText, scoreText, playAgainText);
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+        {
+          resetObjects(gunship, gunshipLaser, metroids, metroidLasers, ridley, bunkers);
+          resetValues(isPlaying, gameOver, interval, step, soundCounter, level, score);
+          resetInformationObjects(scoreText, livesText, creditsTheme, battleTheme, movementClock);
+        }
       }
-      if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+      else
       {
-        moveGunship(gunship, 0.25);
+        displayTitleScreen(window, titleBackground, titleText, instructionsText);
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+        {
+          play(isPlaying, titleTheme, battleTheme, movementClock);
+        }
       }
-      if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-      {
-        moveGunship(gunship, -0.25);
-      }
-      moveGunshipLaser(gunshipLaser);
-      moveMetroids(metroids, movementClock, interval, step, metroidSounds, soundCounter);
-      moveMetroidLasers(metroidLasers);
-      moveRidley(ridley);
-      if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-      {
-        fireGunshipLaser(gunship);
-      }
-      shootMetroidLaser(metroids, metroidLasers);
-      spawnRidley(ridley);
-    }
-    else if (gameOver)
-    {
-      displayGameOverScreen(window, gameOverText, scoreText, playAgainText);
-      if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
-      {
-        resetObjects(gunship, gunshipLaser, metroids, metroidLasers, ridley, bunkers);
-        resetValues(isPlaying, gameOver, interval, step, soundCounter, level, score);
-        resetInformationObjects(scoreText, livesText, creditsTheme, battleTheme, movementClock);
-      }
-    }
-    else
-    {
-      displayTitleScreen(window, titleBackground, titleText, instructionsText);
-      if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
-      {
-        play(isPlaying, titleTheme, battleTheme, movementClock);
-      }
+      frameClock.restart();
     }
   }
 
