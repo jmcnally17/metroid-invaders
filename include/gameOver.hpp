@@ -14,23 +14,14 @@
 
 void displayGameOverScreen(IRenderWindow &window, const IText &gameOverText, const IText &scoreText, const IText &playAgainText);
 
-void playAgain(bool &isPlaying,
-               bool &gameOver,
-               IGunship &gunship,
-               ILaser &gunshipLaser,
-               const std::vector<std::vector<IMetroid *>> &metroids,
-               const std::vector<ILaser *> &metroidLasers,
-               IRidley &ridley,
-               const std::vector<IBunker *> &bunkers,
-               int &interval,
-               int &step,
-               int &soundCounter,
-               int &level,
-               int &score,
-               IText &scoretext,
-               IText &livesText,
-               ISound &creditsTheme,
-               ISound &battleTheme,
-               IClock &clock);
+void resetObjects(IGunship &gunship, ILaser &gunshipLaser,
+                  const std::vector<std::vector<IMetroid *>> &metroids,
+                  const std::vector<ILaser *> &metroidLasers,
+                  IRidley &ridley,
+                  const std::vector<IBunker *> &bunkers);
+
+void resetValues(bool &isPlaying, bool &gameOver, int &interval, int &step, int &soundCounter, int &level, int &score);
+
+void resetInformationObjects(IText &scoreText, IText &livesText, ISound &creditsTheme, ISound &battleTheme, IClock &clock);
 
 #endif
