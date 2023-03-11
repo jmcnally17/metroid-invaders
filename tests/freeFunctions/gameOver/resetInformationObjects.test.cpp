@@ -11,7 +11,7 @@ TEST(resetInformationObjects, updatesScoreText)
   NiceMock<MockText> livesText;
   NiceMock<MockSound> creditsTheme;
   NiceMock<MockSound> battleTheme;
-  NiceMock<MockClock> clock;
+  NiceMock<MockClock> movementClock;
 
   EXPECT_CALL(scoreText, setString("Score: 0"))
       .Times(1);
@@ -19,7 +19,7 @@ TEST(resetInformationObjects, updatesScoreText)
       .Times(1);
   EXPECT_CALL(scoreText, setOrigin(0, 0))
       .Times(1);
-  resetInformationObjects(scoreText, livesText, creditsTheme, battleTheme, clock);
+  resetInformationObjects(scoreText, livesText, creditsTheme, battleTheme, movementClock);
 }
 
 TEST(resetInformationObjects, updatesLivesText)
@@ -28,11 +28,11 @@ TEST(resetInformationObjects, updatesLivesText)
   MockText livesText;
   NiceMock<MockSound> creditsTheme;
   NiceMock<MockSound> battleTheme;
-  NiceMock<MockClock> clock;
+  NiceMock<MockClock> movementClock;
 
   EXPECT_CALL(livesText, setString("Lives: 3"))
       .Times(1);
-  resetInformationObjects(scoreText, livesText, creditsTheme, battleTheme, clock);
+  resetInformationObjects(scoreText, livesText, creditsTheme, battleTheme, movementClock);
 }
 
 TEST(resetInformationObjects, stopsTheCreditsTheme)
@@ -41,11 +41,11 @@ TEST(resetInformationObjects, stopsTheCreditsTheme)
   NiceMock<MockText> livesText;
   MockSound creditsTheme;
   NiceMock<MockSound> battleTheme;
-  NiceMock<MockClock> clock;
+  NiceMock<MockClock> movementClock;
 
   EXPECT_CALL(creditsTheme, stop())
       .Times(1);
-  resetInformationObjects(scoreText, livesText, creditsTheme, battleTheme, clock);
+  resetInformationObjects(scoreText, livesText, creditsTheme, battleTheme, movementClock);
 }
 
 TEST(resetInformationObjects, playsTheBattleTheme)
@@ -54,11 +54,11 @@ TEST(resetInformationObjects, playsTheBattleTheme)
   NiceMock<MockText> livesText;
   NiceMock<MockSound> creditsTheme;
   MockSound battleTheme;
-  NiceMock<MockClock> clock;
+  NiceMock<MockClock> movementClock;
 
   EXPECT_CALL(battleTheme, play())
       .Times(1);
-  resetInformationObjects(scoreText, livesText, creditsTheme, battleTheme, clock);
+  resetInformationObjects(scoreText, livesText, creditsTheme, battleTheme, movementClock);
 }
 
 TEST(resetInformationObjects, restartsClock)
@@ -67,9 +67,9 @@ TEST(resetInformationObjects, restartsClock)
   NiceMock<MockText> livesText;
   NiceMock<MockSound> creditsTheme;
   NiceMock<MockSound> battleTheme;
-  MockClock clock;
+  MockClock movementClock;
 
-  EXPECT_CALL(clock, restart())
+  EXPECT_CALL(movementClock, restart())
       .Times(1);
-  resetInformationObjects(scoreText, livesText, creditsTheme, battleTheme, clock);
+  resetInformationObjects(scoreText, livesText, creditsTheme, battleTheme, movementClock);
 }

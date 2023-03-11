@@ -25,7 +25,7 @@ void levelUp(int &level,
              const std::vector<std::vector<IMetroid *>> &metroids,
              const std::vector<ILaser *> &metroidLasers,
              IRidley &ridley,
-             IClock &clock)
+             IClock &movementClock)
 {
   level++;
   interval = 665;
@@ -54,5 +54,5 @@ void levelUp(int &level,
   }
   ridley.reset();
   ridley.stopMovementSoundIfPlaying();
-  clock.restart();
+  movementClock.restart();
 }

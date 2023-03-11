@@ -22,6 +22,6 @@ void resetObjects(IGunship &gunship, ILaser &gunshipLaser,
 
 void resetValues(bool &isPlaying, bool &gameOver, int &interval, int &step, int &soundCounter, int &level, int &score);
 
-void resetInformationObjects(IText &scoreText, IText &livesText, ISound &creditsTheme, ISound &battleTheme, IClock &clock);
+void resetInformationObjects(IText &scoreText, IText &livesText, ISound &creditsTheme, ISound &battleTheme, IClock &movementClock);
 
 #endif

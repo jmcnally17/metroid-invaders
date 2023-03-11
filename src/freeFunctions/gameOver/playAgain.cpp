@@ -45,7 +45,7 @@ void resetValues(bool &isPlaying, bool &gameOver, int &interval, int &step, int 
   score = 0;
 }
 
-void resetInformationObjects(IText &scoreText, IText &livesText, ISound &creditsTheme, ISound &battleTheme, IClock &clock)
+void resetInformationObjects(IText &scoreText, IText &livesText, ISound &creditsTheme, ISound &battleTheme, IClock &movementClock)
 {
   scoreText.setString("Score: 0");
   scoreText.setPosition(sf::Vector2f(20, 0));
@@ -53,5 +53,5 @@ void resetInformationObjects(IText &scoreText, IText &livesText, ISound &credits
   livesText.setString("Lives: 3");
   creditsTheme.stop();
   battleTheme.play();
-  clock.restart();
+  movementClock.restart();
 }
