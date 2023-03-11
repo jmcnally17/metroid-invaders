@@ -127,7 +127,9 @@ int main()
       displayGameOverScreen(window, gameOverText, scoreText, playAgainText);
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
       {
-        playAgain(isPlaying, gameOver, gunship, gunshipLaser, metroids, metroidLasers, ridley, bunkers, interval, step, soundCounter, level, score, scoreText, livesText, creditsTheme, battleTheme, clock);
+        resetObjects(gunship, gunshipLaser, metroids, metroidLasers, ridley, bunkers);
+        resetValues(isPlaying, gameOver, interval, step, soundCounter, level, score);
+        resetInformationObjects(scoreText, livesText, creditsTheme, battleTheme, clock);
       }
     }
     else
