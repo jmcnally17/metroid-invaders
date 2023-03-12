@@ -3,15 +3,7 @@
 #include "../mockModels/mockRenderWindow.hpp"
 
 using ::testing::NiceMock;
-
-TEST(MetroidLaser, hasAPositionUponInstantiation)
-{
-  NiceMock<MockSprite> sprite;
-  MockSprite *pSprite = &sprite;
-  MetroidLaser metroidLaser(pSprite);
-
-  EXPECT_EQ(metroidLaser.getPosition(), sf::Vector2f(120, 1344));
-}
+using ::testing::Return;
 
 TEST(MetroidLaser, setsSpritePositionUponInstantiation)
 {
@@ -23,32 +15,18 @@ TEST(MetroidLaser, setsSpritePositionUponInstantiation)
   MetroidLaser metroidLaser(pSprite);
 }
 
-TEST(MetroidLaser, hasAWidthClassMemberOf18)
+TEST(MetroidLaser, getPositionReturnsSpritePosition)
 {
   NiceMock<MockSprite> sprite;
   MockSprite *pSprite = &sprite;
   MetroidLaser metroidLaser(pSprite);
 
-  EXPECT_EQ(metroidLaser.getWidth(), 18);
-}
+  ON_CALL(sprite, getPosition())
+      .WillByDefault(Return(sf::Vector2f(120, 1344)));
 
-TEST(MetroidLaser, hasAHeightClassMemberOf36)
-{
-  NiceMock<MockSprite> sprite;
-  MockSprite *pSprite = &sprite;
-  MetroidLaser metroidLaser(pSprite);
-
-  EXPECT_EQ(metroidLaser.getHeight(), 36);
-}
-
-TEST(MetroidLaser, setPositionChangesPositionClassMember)
-{
-  NiceMock<MockSprite> sprite;
-  MockSprite *pSprite = &sprite;
-  MetroidLaser metroidLaser(pSprite);
-
-  metroidLaser.setPosition(sf::Vector2f(530, 890));
-  EXPECT_EQ(metroidLaser.getPosition(), sf::Vector2f(530, 890));
+  EXPECT_CALL(sprite, getPosition())
+      .Times(1);
+  EXPECT_EQ(metroidLaser.getPosition(), sf::Vector2f(120, 1344));
 }
 
 TEST(MetroidLaser, setPositionChangesSpritePosition)
@@ -68,7 +46,9 @@ TEST(MetroidLaser, drawCallsDrawOnWindowArgumentWhenMetroidLaserIsOnBoard)
   MockSprite *pSprite = &sprite;
   MetroidLaser metroidLaser(pSprite);
   MockRenderWindow window;
-  metroidLaser.setPosition(sf::Vector2f(600, 700));
+
+  ON_CALL(sprite, getPosition())
+      .WillByDefault(Return(sf::Vector2f(600, 700)));
 
   EXPECT_CALL(window, draw(testing::Truly([](const sf::Drawable &drawable)
                                           { return true; })))
@@ -83,63 +63,49 @@ TEST(MetroidLaser, drawDoesNotCallDrawOnWindowArgumentWhenMetroidLaserIsBelowBoa
   MetroidLaser metroidLaser(pSprite);
   MockRenderWindow window;
 
-  EXPECT_CALL(window, draw(testing::Truly([](const sf::Drawable &drawable)
-                                          { return true; })))
+  ON_CALL(sprite, getPosition())
+      .WillByDefault(Return(sf::Vector2f(120, 1344)));
+
+  EXPECT_CALL(window, draw)
       .Times(0);
   metroidLaser.draw(window);
 }
 
-TEST(MetroidLaser, moveIncreasesYPositionWhenMetroidLaserIsOnTheBoard)
+TEST(MetroidLaser, moveIncreasesSpriteYPositionWhenMetroidLaserIsOnTheBoard)
 {
   NiceMock<MockSprite> sprite;
   MockSprite *pSprite = &sprite;
   MetroidLaser metroidLaser(pSprite);
-  metroidLaser.setPosition(sf::Vector2f(500, 1000));
 
-  metroidLaser.move();
-  EXPECT_EQ(metroidLaser.getPosition(), sf::Vector2f(500, 1006.4));
-}
+  ON_CALL(sprite, getPosition())
+      .WillByDefault(Return(sf::Vector2f(500, 1000)));
 
-TEST(MetroidLaser, moveUpdatesSpritePositionWhenMetroidLaserIsOnTheBoard)
-{
-  NiceMock<MockSprite> sprite;
-  MockSprite *pSprite = &sprite;
-  MetroidLaser metroidLaser(pSprite);
-  metroidLaser.setPosition(sf::Vector2f(500, 1000));
-
-  EXPECT_CALL(sprite, setPosition(sf::Vector2f(500, 1006.4)))
+  EXPECT_CALL(sprite, move(sf::Vector2f(0, 6.4)))
       .Times(1);
   metroidLaser.move();
 }
 
-TEST(MetroidLaser, moveDoesNotincreaseYPositionWhenMetroidLaserIsBelowTheBoard)
+TEST(MetroidLaser, moveDoesNotincreaseSpriteYPositionWhenMetroidLaserIsBelowTheBoard)
 {
   NiceMock<MockSprite> sprite;
   MockSprite *pSprite = &sprite;
   MetroidLaser metroidLaser(pSprite);
 
-  metroidLaser.move();
-  EXPECT_EQ(metroidLaser.getPosition(), sf::Vector2f(120, 1344));
-}
+  ON_CALL(sprite, getPosition())
+      .WillByDefault(Return(sf::Vector2f(120, 1344)));
 
-TEST(MetroidLaser, moveDoesNotUpdateSpritePositionWhenMetroidLaserIsBelowTheBoard)
-{
-  NiceMock<MockSprite> sprite;
-  MockSprite *pSprite = &sprite;
-  MetroidLaser metroidLaser(pSprite);
-
-  EXPECT_CALL(sprite, setPosition)
+  EXPECT_CALL(sprite, move)
       .Times(0);
   metroidLaser.move();
 }
 
-TEST(MetroidLaser, resetSetsPositionBackBelowTheBoard)
+TEST(MetroidLaser, resetSetsSpritePositionBackBelowTheBoard)
 {
   NiceMock<MockSprite> sprite;
   MockSprite *pSprite = &sprite;
   MetroidLaser metroidLaser(pSprite);
-  metroidLaser.setPosition(sf::Vector2f(400, 900));
 
+  EXPECT_CALL(sprite, setPosition(sf::Vector2f(120, 1344)))
+      .Times(1);
   metroidLaser.reset();
-  EXPECT_EQ(metroidLaser.getPosition(), sf::Vector2f(120, 1344));
 }

@@ -7,13 +7,13 @@ class Bunker : public IBunker
 {
 public:
   Bunker(float x, float y, ISprite *sprite1, ISprite *sprite2, ISprite *sprite3, ISprite *sprite4, ISprite *sprite5);
-  float getWidth() const override;
-  float getHeight() const override;
   sf::Vector2f getPosition() const override;
   int getHealth() const override;
   void decreaseHealth() override;
   void draw(IRenderWindow &window) const override;
   void reset() override;
+  sf::FloatRect getGlobalBounds() const override;
+  bool intersects(const sf::FloatRect &rectangle) const override;
 
 private:
   ISprite *sprite2_;

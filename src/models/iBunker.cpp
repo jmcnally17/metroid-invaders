@@ -2,4 +2,4 @@
 
 IBunker::IBunker() {}
 
-IBunker::IBunker(float width, float height, float x, float y, ISprite *sprite) : ObjectInterface(width, height, x, y, sprite) {}
+IBunker::IBunker(float x, float y, ISprite *sprite) : ObjectInterface(x, y, sprite) {}

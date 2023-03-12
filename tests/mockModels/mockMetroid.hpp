@@ -8,8 +8,6 @@ class MockMetroid : public IMetroid
 {
 public:
   MOCK_METHOD(void, draw, (IRenderWindow & window), (const));
-  MOCK_METHOD(float, getWidth, (), (const));
-  MOCK_METHOD(float, getHeight, (), (const));
   MOCK_METHOD(sf::Vector2f, getOriginalPosition, (), (const));
   MOCK_METHOD(sf::Vector2f, getPosition, (), (const));
   MOCK_METHOD(void, setPosition, (const sf::Vector2f &position));
@@ -23,6 +21,8 @@ public:
   MOCK_METHOD(int, getDirection, (), (const));
   MOCK_METHOD(void, changeDirection, ());
   MOCK_METHOD(void, shoot, (const std::vector<ILaser *> &metroidLasers, int randomNumber), (const));
+  MOCK_METHOD(sf::FloatRect, getGlobalBounds, (), (const));
+  MOCK_METHOD(bool, intersects, (const sf::FloatRect &rectangle), (const));
 };
 
 #endif

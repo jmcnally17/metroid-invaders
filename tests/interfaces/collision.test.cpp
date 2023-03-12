@@ -4,94 +4,34 @@
 using ::testing::NiceMock;
 using ::testing::Return;
 
-TEST(collision, haveCollidedReturnsTrueForObject1CollidingWithTopOfObject2)
+TEST(collision, haveCollidedReturnsTrueForObject1CollidingWithObject2)
 {
-    Collision collision;
+  Collision collision;
 
-    NiceMock<MockObjectInterface> object1;
-    ON_CALL(object1, getWidth())
-        .WillByDefault(Return(24));
-    ON_CALL(object1, getHeight())
-        .WillByDefault(Return(24));
-    ON_CALL(object1, getPosition())
-        .WillByDefault(Return(sf::Vector2f(400, 720)));
+  NiceMock<MockObjectInterface> object1;
+  NiceMock<MockObjectInterface> object2;
 
-    NiceMock<MockObjectInterface> object2;
-    ON_CALL(object2, getWidth())
-        .WillByDefault(Return(48));
-    ON_CALL(object2, getHeight())
-        .WillByDefault(Return(48));
-    ON_CALL(object2, getPosition())
-        .WillByDefault(Return(sf::Vector2f(390, 743)));
+  sf::FloatRect box;
+  ON_CALL(object2, getGlobalBounds)
+      .WillByDefault(Return(box));
+  ON_CALL(object1, intersects)
+      .WillByDefault(Return(true));
 
-    EXPECT_TRUE(collision.haveCollided(object1, object2));
+  EXPECT_TRUE(collision.haveCollided(object1, object2));
 }
 
-TEST(collision, haveCollidedReturnsFalseForObject1belowObject2)
+TEST(collision, haveCollidedReturnsFalseForObject1NotCollidingWithObject2)
 {
-    Collision collision;
+  Collision collision;
 
-    NiceMock<MockObjectInterface> object1;
-    ON_CALL(object1, getWidth())
-        .WillByDefault(Return(24));
-    ON_CALL(object1, getHeight())
-        .WillByDefault(Return(24));
-    ON_CALL(object1, getPosition())
-        .WillByDefault(Return(sf::Vector2f(400, 800)));
+  NiceMock<MockObjectInterface> object1;
+  NiceMock<MockObjectInterface> object2;
 
-    NiceMock<MockObjectInterface> object2;
-    ON_CALL(object2, getWidth())
-        .WillByDefault(Return(48));
-    ON_CALL(object2, getHeight())
-        .WillByDefault(Return(48));
-    ON_CALL(object2, getPosition())
-        .WillByDefault(Return(sf::Vector2f(390, 720)));
+  sf::FloatRect box;
+  ON_CALL(object2, getGlobalBounds)
+      .WillByDefault(Return(box));
+  ON_CALL(object1, intersects)
+      .WillByDefault(Return(false));
 
-    EXPECT_FALSE(collision.haveCollided(object1, object2));
-}
-
-TEST(collision, haveCollidedReturnsFalseForObject1ToTheLeftOfObject2)
-{
-    Collision collision;
-
-    NiceMock<MockObjectInterface> object1;
-    ON_CALL(object1, getWidth())
-        .WillByDefault(Return(24));
-    ON_CALL(object1, getHeight())
-        .WillByDefault(Return(24));
-    ON_CALL(object1, getPosition())
-        .WillByDefault(Return(sf::Vector2f(200, 730)));
-
-    NiceMock<MockObjectInterface> object2;
-    ON_CALL(object2, getWidth())
-        .WillByDefault(Return(48));
-    ON_CALL(object2, getHeight())
-        .WillByDefault(Return(48));
-    ON_CALL(object2, getPosition())
-        .WillByDefault(Return(sf::Vector2f(400, 720)));
-
-    EXPECT_FALSE(collision.haveCollided(object1, object2));
-}
-
-TEST(collision, haveCollidedReturnsFalseForObject1ToTheRightOfObject2)
-{
-    Collision collision;
-
-    NiceMock<MockObjectInterface> object1;
-    ON_CALL(object1, getWidth())
-        .WillByDefault(Return(24));
-    ON_CALL(object1, getHeight())
-        .WillByDefault(Return(24));
-    ON_CALL(object1, getPosition())
-        .WillByDefault(Return(sf::Vector2f(450, 730)));
-
-    NiceMock<MockObjectInterface> object2;
-    ON_CALL(object2, getWidth())
-        .WillByDefault(Return(48));
-    ON_CALL(object2, getHeight())
-        .WillByDefault(Return(48));
-    ON_CALL(object2, getPosition())
-        .WillByDefault(Return(sf::Vector2f(400, 720)));
-
-    EXPECT_FALSE(collision.haveCollided(object1, object2));
+  EXPECT_FALSE(collision.haveCollided(object1, object2));
 }

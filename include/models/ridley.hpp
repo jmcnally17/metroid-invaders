@@ -8,8 +8,6 @@ class Ridley : public IRidley
 {
 public:
   Ridley(ISprite *rightSprite, ISprite *leftSprite, ISound *movementSound, ISound *deathSound);
-  float getWidth() const override;
-  float getHeight() const override;
   sf::Vector2f getPosition() const override;
   int getPoints() const override;
   int getDirection() const;
@@ -22,6 +20,8 @@ public:
   void stopMovementSoundIfPlaying() override;
   void stopMovementSoundIfAtSideOfWindow() override;
   void die() override;
+  sf::FloatRect getGlobalBounds() const override;
+  bool intersects(const sf::FloatRect &rectangle) const override;
 
 private:
   ISprite *leftSprite_;
@@ -29,7 +29,6 @@ private:
   int direction_;
   ISound *movementSound_;
   ISound *deathSound_;
-  void updateSprites();
 };
 
 #endif

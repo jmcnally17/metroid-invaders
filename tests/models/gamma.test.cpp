@@ -6,25 +6,7 @@
 using ::testing::NiceMock;
 using ::testing::Return;
 
-TEST(Gamma, hasAWidthClassMemberOf66)
-{
-  NiceMock<MockSprite> sprite;
-  MockSprite *pSprite = &sprite;
-  Gamma gamma(200, 320, pSprite);
-
-  EXPECT_EQ(gamma.getWidth(), 72);
-}
-
-TEST(Gamma, hasAHeightClassMemberOf48)
-{
-  NiceMock<MockSprite> sprite;
-  MockSprite *pSprite = &sprite;
-  Gamma gamma(200, 320, pSprite);
-
-  EXPECT_EQ(gamma.getHeight(), 48);
-}
-
-TEST(Gamma, hasAPointsClassMemberOf20)
+TEST(Gamma, hasAPointsClassMemberOf10)
 {
   NiceMock<MockSprite> sprite;
   MockSprite *pSprite = &sprite;
@@ -40,15 +22,6 @@ TEST(Gamma, hasAnOriginalPositionMember)
   Gamma gamma(200, 320, pSprite);
 
   EXPECT_EQ(gamma.getOriginalPosition(), sf::Vector2f(200, 320));
-}
-
-TEST(Gamma, setsOwnPositionMember)
-{
-  NiceMock<MockSprite> sprite;
-  MockSprite *pSprite = &sprite;
-  Gamma gamma(200, 320, pSprite);
-
-  EXPECT_EQ(gamma.getPosition(), sf::Vector2f(200, 320));
 }
 
 TEST(Gamma, hasABoolClassMemberCalledAliveSetToTrue)
@@ -78,7 +51,7 @@ TEST(Gamma, hasAJustMovedDownMemberSetToFalse)
   EXPECT_FALSE(gamma.hasJustMovedDown());
 }
 
-TEST(Gamma, setsPositionOnSpriteClassMember)
+TEST(Gamma, setsPositionOnSpriteClassMemberUponInstantiation)
 {
   MockSprite sprite;
   MockSprite *pSprite = &sprite;
@@ -88,23 +61,14 @@ TEST(Gamma, setsPositionOnSpriteClassMember)
   Gamma gamma(200, 320, pSprite);
 }
 
-TEST(Gamma, setPositionChangesPosition)
+TEST(Gamma, setPositionChangesSpritePosition)
 {
   NiceMock<MockSprite> sprite;
   MockSprite *pSprite = &sprite;
   Gamma gamma(200, 320, pSprite);
 
-  gamma.setPosition(sf::Vector2f(500, 920));
-  EXPECT_EQ(gamma.getPosition(), sf::Vector2f(500, 920));
-}
-
-TEST(Gamma, setPositionUpdatesSpritePosition)
-{
-  NiceMock<MockSprite> sprite;
-  MockSprite *pSprite = &sprite;
-  Gamma gamma(200, 320, pSprite);
-
-  EXPECT_CALL(sprite, setPosition(sf::Vector2f(500, 920)));
+  EXPECT_CALL(sprite, setPosition(sf::Vector2f(500, 920)))
+      .Times(1);
   gamma.setPosition(sf::Vector2f(500, 920));
 }
 
@@ -141,52 +105,64 @@ TEST(Gamma, changeDirectionMultipliesDirectionByMinus1)
   EXPECT_EQ(gamma.getDirection(), -1);
 }
 
-TEST(Gamma, moveAdds14Point1ToXPositionWhenDirectionIs1AndGammaIsNotAtSideBoundary)
+TEST(Gamma, moveAdds14Point1ToSpriteXPositionWhenDirectionIs1AndGammaIsNotAtSideBoundary)
 {
   NiceMock<MockSprite> sprite;
   MockSprite *pSprite = &sprite;
   Gamma gamma(200, 320, pSprite);
 
+  ON_CALL(sprite, getPosition())
+      .WillByDefault(Return(sf::Vector2f(200, 320)));
+
+  EXPECT_CALL(sprite, move(sf::Vector2f(14.1, 0)))
+      .Times(1);
   gamma.move();
-  EXPECT_EQ(gamma.getPosition(), sf::Vector2f(214.1, 320));
 }
 
-TEST(Gamma, moveTakesAway14Point1FromXPositionWhenDirectionIsMinus1AndGammaIsNotAtSideBoundary)
+TEST(Gamma, moveTakesAway14Point1FromSpriteXPositionWhenDirectionIsMinus1AndGammaIsNotAtSideBoundary)
 {
   NiceMock<MockSprite> sprite;
   MockSprite *pSprite = &sprite;
   Gamma gamma(200, 320, pSprite);
 
   gamma.changeDirection();
+  ON_CALL(sprite, getPosition())
+      .WillByDefault(Return(sf::Vector2f(200, 320)));
+
+  EXPECT_CALL(sprite, move(sf::Vector2f(-14.1, 0)))
+      .Times(1);
   gamma.move();
-  EXPECT_EQ(gamma.getPosition(), sf::Vector2f(185.9, 320));
 }
 
-TEST(Gamma, moveAdds14Point1ToXPositionWhenGammaIsAtLeftBoundaryAndJustMovedDownIsTrue)
+TEST(Gamma, moveAdds14Point1ToSpriteXPositionWhenGammaIsAtLeftBoundaryAndJustMovedDownIsTrue)
 {
   NiceMock<MockSprite> sprite;
   MockSprite *pSprite = &sprite;
   Gamma gamma(300, 320, pSprite);
 
-  gamma.setPosition(sf::Vector2f(18, 320)); // put gamma at left boundary
-  gamma.changeDirection();                  // gamma would be moving left so need to mimic that direction
-  gamma.move();                             // call to move gamma down which sets justMovedDownToTrue
+  ON_CALL(sprite, getPosition())
+      .WillByDefault(Return(sf::Vector2f(18, 320)));
+  gamma.changeDirection(); // gamma would be moving left so need to mimic that direction
+  gamma.move();            // call to move gamma down which sets justMovedDownToTrue
 
+  EXPECT_CALL(sprite, move(sf::Vector2f(14.1, 0)))
+      .Times(1);
   gamma.move();
-  EXPECT_EQ(gamma.getPosition(), sf::Vector2f(32.1, 362));
 }
 
-TEST(Gamma, moveTakesAway14Point1FromXPositionWhenGammaIsAtRightBoundaryAndJustMovedDownIsTrue)
+TEST(Gamma, moveTakesAway14Point1FromSpriteXPositionWhenGammaIsAtRightBoundaryAndJustMovedDownIsTrue)
 {
   NiceMock<MockSprite> sprite;
   MockSprite *pSprite = &sprite;
   Gamma gamma(200, 320, pSprite);
 
-  gamma.setPosition(sf::Vector2f(482, 320)); // put gamma at right boundary
-  gamma.move();                              // call to move gamma down which sets justMovedDownToTrue
+  ON_CALL(sprite, getPosition())
+      .WillByDefault(Return(sf::Vector2f(482, 320)));
+  gamma.move(); // call to move gamma down which sets justMovedDownToTrue
 
+  EXPECT_CALL(sprite, move(sf::Vector2f(-14.1, 0)))
+      .Times(1);
   gamma.move();
-  EXPECT_EQ(gamma.getPosition(), sf::Vector2f(467.9, 362));
 }
 
 TEST(Gamma, moveSetsJustMovedDownToFalseWhenGammaIsAtLeftBoundaryAndJustMovedDownIsTrue)
@@ -195,8 +171,9 @@ TEST(Gamma, moveSetsJustMovedDownToFalseWhenGammaIsAtLeftBoundaryAndJustMovedDow
   MockSprite *pSprite = &sprite;
   Gamma gamma(300, 320, pSprite);
 
-  gamma.setPosition(sf::Vector2f(18, 320)); // put gamma at left boundary
-  gamma.move();                             // call to move gamma down which sets justMovedDownToTrue
+  ON_CALL(sprite, getPosition())
+      .WillByDefault(Return(sf::Vector2f(18, 320)));
+  gamma.move(); // call to move gamma down which sets justMovedDownToTrue
 
   gamma.move();
   EXPECT_FALSE(gamma.hasJustMovedDown());
@@ -208,22 +185,26 @@ TEST(Gamma, moveSetsJustMovedDownToFalseWhenGammaIsAtRightBoundaryAndJustMovedDo
   MockSprite *pSprite = &sprite;
   Gamma gamma(200, 320, pSprite);
 
-  gamma.setPosition(sf::Vector2f(482, 320)); // put gamma at right boundary
-  gamma.move();                              // call to move gamma down which sets justMovedDownToTrue
+  ON_CALL(sprite, getPosition())
+      .WillByDefault(Return(sf::Vector2f(482, 320)));
+  gamma.move(); // call to move gamma down which sets justMovedDownToTrue
 
   gamma.move();
   EXPECT_FALSE(gamma.hasJustMovedDown());
 }
 
-TEST(Gamma, moveAdds42ToYPositionWhenGammaIsAtRightSideBoundaryAndHasNotJustMovedDown)
+TEST(Gamma, moveAdds42ToSpriteYPositionWhenGammaIsAtRightSideBoundaryAndHasNotJustMovedDown)
 {
   NiceMock<MockSprite> sprite;
   MockSprite *pSprite = &sprite;
   Gamma gamma(200, 320, pSprite);
 
-  gamma.setPosition(sf::Vector2f(482, 320));
+  ON_CALL(sprite, getPosition())
+      .WillByDefault(Return(sf::Vector2f(482, 320)));
+
+  EXPECT_CALL(sprite, move(sf::Vector2f(0, 42)))
+      .Times(1);
   gamma.move();
-  EXPECT_EQ(gamma.getPosition(), sf::Vector2f(482, 362));
 }
 
 TEST(Gamma, moveChangesDirectionWhenGammaIsAtRightSideBoundaryAndHasNotJustMovedDown)
@@ -232,7 +213,9 @@ TEST(Gamma, moveChangesDirectionWhenGammaIsAtRightSideBoundaryAndHasNotJustMoved
   MockSprite *pSprite = &sprite;
   Gamma gamma(200, 320, pSprite);
 
-  gamma.setPosition(sf::Vector2f(482, 320));
+  ON_CALL(sprite, getPosition())
+      .WillByDefault(Return(sf::Vector2f(482, 320)));
+
   gamma.move();
   EXPECT_EQ(gamma.getDirection(), -1);
 }
@@ -243,20 +226,25 @@ TEST(Gamma, moveSetsJustMovedDownToTrueWhenGammaIsAtRightSideBoundaryAndHasNotJu
   MockSprite *pSprite = &sprite;
   Gamma gamma(200, 320, pSprite);
 
-  gamma.setPosition(sf::Vector2f(482, 320));
+  ON_CALL(sprite, getPosition())
+      .WillByDefault(Return(sf::Vector2f(482, 320)));
+
   gamma.move();
   EXPECT_TRUE(gamma.hasJustMovedDown());
 }
 
-TEST(Gamma, moveAdds42ToYPositionWhenGammaIsAtLeftSideBoundaryAndHasNotJustMovedDown)
+TEST(Gamma, moveAdds42ToSpriteYPositionWhenGammaIsAtLeftSideBoundaryAndHasNotJustMovedDown)
 {
   NiceMock<MockSprite> sprite;
   MockSprite *pSprite = &sprite;
   Gamma gamma(300, 320, pSprite);
 
-  gamma.setPosition(sf::Vector2f(18, 320));
+  ON_CALL(sprite, getPosition())
+      .WillByDefault(Return(sf::Vector2f(18, 320)));
+
+  EXPECT_CALL(sprite, move(sf::Vector2f(0, 42)))
+      .Times(1);
   gamma.move();
-  EXPECT_EQ(gamma.getPosition(), sf::Vector2f(18, 362));
 }
 
 TEST(Gamma, moveChangesDirectionWhenGammaIsAtLeftSideBoundaryAndHasNotJustMovedDown)
@@ -266,7 +254,9 @@ TEST(Gamma, moveChangesDirectionWhenGammaIsAtLeftSideBoundaryAndHasNotJustMovedD
   Gamma gamma(300, 320, pSprite);
 
   gamma.changeDirection();
-  gamma.setPosition(sf::Vector2f(18, 320));
+  ON_CALL(sprite, getPosition())
+      .WillByDefault(Return(sf::Vector2f(18, 320)));
+
   gamma.move();
   EXPECT_EQ(gamma.getDirection(), 1);
 }
@@ -277,20 +267,11 @@ TEST(Gamma, moveSetsJustMovedDownToTrueWhenGammaIsAtLeftSideBoundaryAndHasNotJus
   MockSprite *pSprite = &sprite;
   Gamma gamma(300, 320, pSprite);
 
-  gamma.setPosition(sf::Vector2f(18, 320));
+  ON_CALL(sprite, getPosition())
+      .WillByDefault(Return(sf::Vector2f(18, 320)));
+
   gamma.move();
   EXPECT_TRUE(gamma.hasJustMovedDown());
-}
-
-TEST(Gamma, moveUpdatesPositionOnSpriteMember)
-{
-  NiceMock<MockSprite> sprite;
-  MockSprite *pSprite = &sprite;
-  Gamma gamma(200, 320, pSprite);
-
-  EXPECT_CALL(sprite, setPosition(sf::Vector2f(214.1, 320)))
-      .Times(1);
-  gamma.move();
 }
 
 TEST(Gamma, resurrectSetsAliveBackToTrue)
@@ -305,25 +286,11 @@ TEST(Gamma, resurrectSetsAliveBackToTrue)
   EXPECT_TRUE(gamma.isAlive());
 }
 
-TEST(Gamma, resetSetsPositionBackToOriginalPosition)
-{
-  NiceMock<MockSprite> sprite;
-  MockSprite *pSprite = &sprite;
-  Gamma gamma(200, 320, pSprite);
-
-  gamma.setPosition(sf::Vector2f(900, 1100));
-
-  gamma.reset();
-  EXPECT_EQ(gamma.getPosition(), sf::Vector2f(200, 320));
-}
-
 TEST(Gamma, resetSetsSpritePositionBackToOriginalPosition)
 {
   NiceMock<MockSprite> sprite;
   MockSprite *pSprite = &sprite;
   Gamma gamma(200, 320, pSprite);
-
-  gamma.setPosition(sf::Vector2f(900, 1100));
 
   EXPECT_CALL(sprite, setPosition(sf::Vector2f(200, 320)))
       .Times(1);
@@ -354,7 +321,7 @@ TEST(Gamma, resetSetsDirectionBackTo1)
   EXPECT_EQ(gamma.getDirection(), 1);
 }
 
-TEST(Gamma, shootSetsPositionOfFirstMetroidLaserIfBelowBoardAndGammaIsAlive)
+TEST(Gamma, shootSetsPositionOfFirstMetroidLaserIfBelowBoard)
 {
   NiceMock<MockSprite> sprite;
   MockSprite *pSprite = &sprite;
@@ -370,15 +337,19 @@ TEST(Gamma, shootSetsPositionOfFirstMetroidLaserIfBelowBoardAndGammaIsAlive)
   metroidLasers[1] = pMetroidLaser2;
   metroidLasers[2] = pMetroidLaser3;
 
+  ON_CALL(sprite, getGlobalBounds())
+      .WillByDefault(Return(sf::FloatRect(sf::Vector2f(200, 320), sf::Vector2f(66, 48))));
+  ON_CALL(sprite, getPosition())
+      .WillByDefault(Return(sf::Vector2f(200, 320)));
   ON_CALL(metroidLaser1, getPosition())
       .WillByDefault(Return(sf::Vector2f(120, 1344)));
 
-  EXPECT_CALL(metroidLaser1, setPosition(sf::Vector2f(227, 368)))
+  EXPECT_CALL(metroidLaser1, setPosition(sf::Vector2f(224, 368)))
       .Times(1);
   gamma.shoot(metroidLasers, 0);
 }
 
-TEST(Gamma, shootSetsPositionOfSecondMetroidLaserIfBelowBoardAndFirstMetroidLaserIsOnBoardAndGammaIsAlive)
+TEST(Gamma, shootSetsPositionOfSecondMetroidLaserIfBelowBoardAndFirstMetroidLaserIsOnBoard)
 {
   NiceMock<MockSprite> sprite;
   MockSprite *pSprite = &sprite;
@@ -394,17 +365,21 @@ TEST(Gamma, shootSetsPositionOfSecondMetroidLaserIfBelowBoardAndFirstMetroidLase
   metroidLasers[1] = pMetroidLaser2;
   metroidLasers[2] = pMetroidLaser3;
 
+  ON_CALL(sprite, getGlobalBounds())
+      .WillByDefault(Return(sf::FloatRect(sf::Vector2f(200, 320), sf::Vector2f(66, 48))));
+  ON_CALL(sprite, getPosition())
+      .WillByDefault(Return(sf::Vector2f(200, 320)));
   ON_CALL(metroidLaser1, getPosition())
       .WillByDefault(Return(sf::Vector2f(120, 900)));
   ON_CALL(metroidLaser2, getPosition())
       .WillByDefault(Return(sf::Vector2f(120, 1344)));
 
-  EXPECT_CALL(metroidLaser2, setPosition(sf::Vector2f(227, 368)))
+  EXPECT_CALL(metroidLaser2, setPosition(sf::Vector2f(224, 368)))
       .Times(1);
   gamma.shoot(metroidLasers, 0);
 }
 
-TEST(Gamma, shootSetsPositionOfThirdMetroidLaserIfBelowBoardAndFirstAndSecondMetroidLasersAreOnBoardAndGammaIsAlive)
+TEST(Gamma, shootSetsPositionOfThirdMetroidLaserIfBelowBoardAndFirstAndSecondMetroidLasersAreOnBoard)
 {
   NiceMock<MockSprite> sprite;
   MockSprite *pSprite = &sprite;
@@ -420,6 +395,10 @@ TEST(Gamma, shootSetsPositionOfThirdMetroidLaserIfBelowBoardAndFirstAndSecondMet
   metroidLasers[1] = pMetroidLaser2;
   metroidLasers[2] = pMetroidLaser3;
 
+  ON_CALL(sprite, getGlobalBounds())
+      .WillByDefault(Return(sf::FloatRect(sf::Vector2f(200, 320), sf::Vector2f(66, 48))));
+  ON_CALL(sprite, getPosition())
+      .WillByDefault(Return(sf::Vector2f(200, 320)));
   ON_CALL(metroidLaser1, getPosition())
       .WillByDefault(Return(sf::Vector2f(120, 900)));
   ON_CALL(metroidLaser2, getPosition())
@@ -427,12 +406,12 @@ TEST(Gamma, shootSetsPositionOfThirdMetroidLaserIfBelowBoardAndFirstAndSecondMet
   ON_CALL(metroidLaser3, getPosition())
       .WillByDefault(Return(sf::Vector2f(120, 1344)));
 
-  EXPECT_CALL(metroidLaser3, setPosition(sf::Vector2f(227, 368)))
+  EXPECT_CALL(metroidLaser3, setPosition(sf::Vector2f(224, 368)))
       .Times(1);
   gamma.shoot(metroidLasers, 0);
 }
 
-TEST(Gamma, shootDoesNotSetPositionOfAnyMetroidLaserIfTheyAreAllOnBoardAndGammaIsAlive)
+TEST(Gamma, shootDoesNotSetPositionOfAnyMetroidLaserIfTheyAreAllOnBoard)
 {
   NiceMock<MockSprite> sprite;
   MockSprite *pSprite = &sprite;
@@ -448,6 +427,10 @@ TEST(Gamma, shootDoesNotSetPositionOfAnyMetroidLaserIfTheyAreAllOnBoardAndGammaI
   metroidLasers[1] = pMetroidLaser2;
   metroidLasers[2] = pMetroidLaser3;
 
+  ON_CALL(sprite, getGlobalBounds())
+      .WillByDefault(Return(sf::FloatRect(sf::Vector2f(200, 320), sf::Vector2f(66, 48))));
+  ON_CALL(sprite, getPosition())
+      .WillByDefault(Return(sf::Vector2f(200, 320)));
   ON_CALL(metroidLaser1, getPosition())
       .WillByDefault(Return(sf::Vector2f(120, 900)));
   ON_CALL(metroidLaser2, getPosition())
@@ -480,6 +463,10 @@ TEST(Gamma, shootDoesNotSetPositionOfAnyMetroidLaserIfRandomNumberIsNot0)
   metroidLasers[1] = pMetroidLaser2;
   metroidLasers[2] = pMetroidLaser3;
 
+  ON_CALL(sprite, getGlobalBounds())
+      .WillByDefault(Return(sf::FloatRect(sf::Vector2f(200, 320), sf::Vector2f(66, 48))));
+  ON_CALL(sprite, getPosition())
+      .WillByDefault(Return(sf::Vector2f(200, 320)));
   ON_CALL(metroidLaser1, getPosition())
       .WillByDefault(Return(sf::Vector2f(120, 1344)));
   ON_CALL(metroidLaser2, getPosition())

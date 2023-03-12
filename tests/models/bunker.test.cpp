@@ -3,57 +3,7 @@
 #include "../mockModels/mockRenderWindow.hpp"
 
 using ::testing::NiceMock;
-
-TEST(Bunker, hasAWidthClassMemberOf144)
-{
-  NiceMock<MockSprite> sprite1;
-  MockSprite *pSprite1 = &sprite1;
-  NiceMock<MockSprite> sprite2;
-  MockSprite *pSprite2 = &sprite2;
-  NiceMock<MockSprite> sprite3;
-  MockSprite *pSprite3 = &sprite3;
-  NiceMock<MockSprite> sprite4;
-  MockSprite *pSprite4 = &sprite4;
-  NiceMock<MockSprite> sprite5;
-  MockSprite *pSprite5 = &sprite5;
-  Bunker bunker(900, 300, pSprite1, pSprite2, pSprite3, pSprite4, pSprite5);
-
-  EXPECT_EQ(bunker.getWidth(), 144);
-}
-
-TEST(Bunker, hasAHeightClassMemberOf108)
-{
-  NiceMock<MockSprite> sprite1;
-  MockSprite *pSprite1 = &sprite1;
-  NiceMock<MockSprite> sprite2;
-  MockSprite *pSprite2 = &sprite2;
-  NiceMock<MockSprite> sprite3;
-  MockSprite *pSprite3 = &sprite3;
-  NiceMock<MockSprite> sprite4;
-  MockSprite *pSprite4 = &sprite4;
-  NiceMock<MockSprite> sprite5;
-  MockSprite *pSprite5 = &sprite5;
-  Bunker bunker(900, 300, pSprite1, pSprite2, pSprite3, pSprite4, pSprite5);
-
-  EXPECT_EQ(bunker.getHeight(), 108);
-}
-
-TEST(Bunker, setsOwnPositionWithConstructor)
-{
-  NiceMock<MockSprite> sprite1;
-  MockSprite *pSprite1 = &sprite1;
-  NiceMock<MockSprite> sprite2;
-  MockSprite *pSprite2 = &sprite2;
-  NiceMock<MockSprite> sprite3;
-  MockSprite *pSprite3 = &sprite3;
-  NiceMock<MockSprite> sprite4;
-  MockSprite *pSprite4 = &sprite4;
-  NiceMock<MockSprite> sprite5;
-  MockSprite *pSprite5 = &sprite5;
-  Bunker bunker(900, 300, pSprite1, pSprite2, pSprite3, pSprite4, pSprite5);
-
-  EXPECT_EQ(bunker.getPosition(), sf::Vector2f(900, 300));
-}
+using ::testing::Return;
 
 TEST(Bunker, setsSpritePositionsUponInstantiation)
 {
@@ -79,6 +29,28 @@ TEST(Bunker, setsSpritePositionsUponInstantiation)
   EXPECT_CALL(sprite5, setPosition(sf::Vector2f(900, 300)))
       .Times(1);
   Bunker bunker(900, 300, pSprite1, pSprite2, pSprite3, pSprite4, pSprite5);
+}
+
+TEST(Bunker, getPositionReturnsSpritePosition)
+{
+  NiceMock<MockSprite> sprite1;
+  MockSprite *pSprite1 = &sprite1;
+  NiceMock<MockSprite> sprite2;
+  MockSprite *pSprite2 = &sprite2;
+  NiceMock<MockSprite> sprite3;
+  MockSprite *pSprite3 = &sprite3;
+  NiceMock<MockSprite> sprite4;
+  MockSprite *pSprite4 = &sprite4;
+  NiceMock<MockSprite> sprite5;
+  MockSprite *pSprite5 = &sprite5;
+  Bunker bunker(900, 300, pSprite1, pSprite2, pSprite3, pSprite4, pSprite5);
+
+  ON_CALL(sprite1, getPosition())
+      .WillByDefault(Return(sf::Vector2f(900, 300)));
+
+  EXPECT_CALL(sprite1, getPosition())
+      .Times(1);
+  EXPECT_EQ(bunker.getPosition(), sf::Vector2f(900, 300));
 }
 
 TEST(Bunker, hasAHealthClassMemberOf10)

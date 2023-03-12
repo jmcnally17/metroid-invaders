@@ -2,4 +2,4 @@
 
 IRidley::IRidley() {}
 
-IRidley::IRidley(float width, float height, float x, float y, ISprite *sprite) : ObjectInterface(width, height, x, y, sprite) {}
+IRidley::IRidley(float x, float y, ISprite *sprite) : ObjectInterface(x, y, sprite) {}

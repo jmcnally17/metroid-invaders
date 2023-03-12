@@ -6,24 +6,6 @@
 using ::testing::NiceMock;
 using ::testing::Return;
 
-TEST(Alpha, hasAWidthClassMemberOf66)
-{
-  NiceMock<MockSprite> sprite;
-  MockSprite *pSprite = &sprite;
-  Alpha alpha(200, 320, pSprite);
-
-  EXPECT_EQ(alpha.getWidth(), 66);
-}
-
-TEST(Alpha, hasAHeightClassMemberOf48)
-{
-  NiceMock<MockSprite> sprite;
-  MockSprite *pSprite = &sprite;
-  Alpha alpha(200, 320, pSprite);
-
-  EXPECT_EQ(alpha.getHeight(), 48);
-}
-
 TEST(Alpha, hasAPointsClassMemberOf20)
 {
   NiceMock<MockSprite> sprite;
@@ -40,15 +22,6 @@ TEST(Alpha, hasAnOriginalPositionMember)
   Alpha alpha(200, 320, pSprite);
 
   EXPECT_EQ(alpha.getOriginalPosition(), sf::Vector2f(200, 320));
-}
-
-TEST(Alpha, setsOwnPositionMember)
-{
-  NiceMock<MockSprite> sprite;
-  MockSprite *pSprite = &sprite;
-  Alpha alpha(200, 320, pSprite);
-
-  EXPECT_EQ(alpha.getPosition(), sf::Vector2f(200, 320));
 }
 
 TEST(Alpha, hasABoolClassMemberCalledAliveSetToTrue)
@@ -78,7 +51,7 @@ TEST(Alpha, hasAJustMovedDownMemberSetToFalse)
   EXPECT_FALSE(alpha.hasJustMovedDown());
 }
 
-TEST(Alpha, setsPositionOnSpriteClassMember)
+TEST(Alpha, setsPositionOnSpriteClassMemberUponInstantiation)
 {
   MockSprite sprite;
   MockSprite *pSprite = &sprite;
@@ -88,23 +61,14 @@ TEST(Alpha, setsPositionOnSpriteClassMember)
   Alpha alpha(200, 320, pSprite);
 }
 
-TEST(Alpha, setPositionChangesPosition)
+TEST(Alpha, setPositionChangesSpritePosition)
 {
   NiceMock<MockSprite> sprite;
   MockSprite *pSprite = &sprite;
   Alpha alpha(200, 320, pSprite);
 
-  alpha.setPosition(sf::Vector2f(500, 920));
-  EXPECT_EQ(alpha.getPosition(), sf::Vector2f(500, 920));
-}
-
-TEST(Alpha, setPositionUpdatesSpritePosition)
-{
-  NiceMock<MockSprite> sprite;
-  MockSprite *pSprite = &sprite;
-  Alpha alpha(200, 320, pSprite);
-
-  EXPECT_CALL(sprite, setPosition(sf::Vector2f(500, 920)));
+  EXPECT_CALL(sprite, setPosition(sf::Vector2f(500, 920)))
+      .Times(1);
   alpha.setPosition(sf::Vector2f(500, 920));
 }
 
@@ -141,52 +105,64 @@ TEST(Alpha, changeDirectionMultipliesDirectionByMinus1)
   EXPECT_EQ(alpha.getDirection(), -1);
 }
 
-TEST(Alpha, moveAdds14Point1ToXPositionWhenDirectionIs1AndAlphaIsNotAtSideBoundary)
+TEST(Alpha, moveAdds14Point1ToSpriteXPositionWhenDirectionIs1AndAlphaIsNotAtSideBoundary)
 {
   NiceMock<MockSprite> sprite;
   MockSprite *pSprite = &sprite;
   Alpha alpha(200, 320, pSprite);
 
+  ON_CALL(sprite, getPosition())
+      .WillByDefault(Return(sf::Vector2f(200, 320)));
+
+  EXPECT_CALL(sprite, move(sf::Vector2f(14.1, 0)))
+      .Times(1);
   alpha.move();
-  EXPECT_EQ(alpha.getPosition(), sf::Vector2f(214.1, 320));
 }
 
-TEST(Alpha, moveTakesAway14Point1FromXPositionWhenDirectionIsMinus1AndAlphaIsNotAtSideBoundary)
+TEST(Alpha, moveTakesAway14Point1FromSpriteXPositionWhenDirectionIsMinus1AndAlphaIsNotAtSideBoundary)
 {
   NiceMock<MockSprite> sprite;
   MockSprite *pSprite = &sprite;
   Alpha alpha(200, 320, pSprite);
 
   alpha.changeDirection();
+  ON_CALL(sprite, getPosition())
+      .WillByDefault(Return(sf::Vector2f(200, 320)));
+
+  EXPECT_CALL(sprite, move(sf::Vector2f(-14.1, 0)))
+      .Times(1);
   alpha.move();
-  EXPECT_EQ(alpha.getPosition(), sf::Vector2f(185.9, 320));
 }
 
-TEST(Alpha, moveAdds14Point1ToXPositionWhenAlphaIsAtLeftBoundaryAndJustMovedDownIsTrue)
+TEST(Alpha, moveAdds14Point1ToSpriteXPositionWhenAlphaIsAtLeftBoundaryAndJustMovedDownIsTrue)
 {
   NiceMock<MockSprite> sprite;
   MockSprite *pSprite = &sprite;
   Alpha alpha(300, 320, pSprite);
 
-  alpha.setPosition(sf::Vector2f(18, 320)); // put alpha at left boundary
-  alpha.changeDirection();                  // alpha would be moving left so need to mimic that direction
-  alpha.move();                             // call to move alpha down which sets justMovedDownToTrue
+  ON_CALL(sprite, getPosition())
+      .WillByDefault(Return(sf::Vector2f(18, 320)));
+  alpha.changeDirection(); // alpha would be moving left so need to mimic that direction
+  alpha.move();            // call to move alpha down which sets justMovedDownToTrue
 
+  EXPECT_CALL(sprite, move(sf::Vector2f(14.1, 0)))
+      .Times(1);
   alpha.move();
-  EXPECT_EQ(alpha.getPosition(), sf::Vector2f(32.1, 362));
 }
 
-TEST(Alpha, moveTakesAway14Point1FromXPositionWhenAlphaIsAtRightBoundaryAndJustMovedDownIsTrue)
+TEST(Alpha, moveTakesAway14Point1FromSpriteXPositionWhenAlphaIsAtRightBoundaryAndJustMovedDownIsTrue)
 {
   NiceMock<MockSprite> sprite;
   MockSprite *pSprite = &sprite;
   Alpha alpha(200, 320, pSprite);
 
-  alpha.setPosition(sf::Vector2f(482, 320)); // put alpha at right boundary
-  alpha.move();                              // call to move alpha down which sets justMovedDownToTrue
+  ON_CALL(sprite, getPosition())
+      .WillByDefault(Return(sf::Vector2f(482, 320)));
+  alpha.move(); // call to move alpha down which sets justMovedDownToTrue
 
+  EXPECT_CALL(sprite, move(sf::Vector2f(-14.1, 0)))
+      .Times(1);
   alpha.move();
-  EXPECT_EQ(alpha.getPosition(), sf::Vector2f(467.9, 362));
 }
 
 TEST(Alpha, moveSetsJustMovedDownToFalseWhenAlphaIsAtLeftBoundaryAndJustMovedDownIsTrue)
@@ -195,8 +171,9 @@ TEST(Alpha, moveSetsJustMovedDownToFalseWhenAlphaIsAtLeftBoundaryAndJustMovedDow
   MockSprite *pSprite = &sprite;
   Alpha alpha(300, 320, pSprite);
 
-  alpha.setPosition(sf::Vector2f(18, 320)); // put alpha at left boundary
-  alpha.move();                             // call to move alpha down which sets justMovedDownToTrue
+  ON_CALL(sprite, getPosition())
+      .WillByDefault(Return(sf::Vector2f(18, 320)));
+  alpha.move(); // call to move alpha down which sets justMovedDownToTrue
 
   alpha.move();
   EXPECT_FALSE(alpha.hasJustMovedDown());
@@ -208,22 +185,26 @@ TEST(Alpha, moveSetsJustMovedDownToFalseWhenAlphaIsAtRightBoundaryAndJustMovedDo
   MockSprite *pSprite = &sprite;
   Alpha alpha(200, 320, pSprite);
 
-  alpha.setPosition(sf::Vector2f(482, 320)); // put alpha at right boundary
-  alpha.move();                              // call to move alpha down which sets justMovedDownToTrue
+  ON_CALL(sprite, getPosition())
+      .WillByDefault(Return(sf::Vector2f(482, 320)));
+  alpha.move(); // call to move alpha down which sets justMovedDownToTrue
 
   alpha.move();
   EXPECT_FALSE(alpha.hasJustMovedDown());
 }
 
-TEST(Alpha, moveAdds42ToYPositionWhenAlphaIsAtRightSideBoundaryAndHasNotJustMovedDown)
+TEST(Alpha, moveAdds42ToSpriteYPositionWhenAlphaIsAtRightSideBoundaryAndHasNotJustMovedDown)
 {
   NiceMock<MockSprite> sprite;
   MockSprite *pSprite = &sprite;
   Alpha alpha(200, 320, pSprite);
 
-  alpha.setPosition(sf::Vector2f(482, 320));
+  ON_CALL(sprite, getPosition())
+      .WillByDefault(Return(sf::Vector2f(482, 320)));
+
+  EXPECT_CALL(sprite, move(sf::Vector2f(0, 42)))
+      .Times(1);
   alpha.move();
-  EXPECT_EQ(alpha.getPosition(), sf::Vector2f(482, 362));
 }
 
 TEST(Alpha, moveChangesDirectionWhenAlphaIsAtRightSideBoundaryAndHasNotJustMovedDown)
@@ -232,7 +213,9 @@ TEST(Alpha, moveChangesDirectionWhenAlphaIsAtRightSideBoundaryAndHasNotJustMoved
   MockSprite *pSprite = &sprite;
   Alpha alpha(200, 320, pSprite);
 
-  alpha.setPosition(sf::Vector2f(482, 320));
+  ON_CALL(sprite, getPosition())
+      .WillByDefault(Return(sf::Vector2f(482, 320)));
+
   alpha.move();
   EXPECT_EQ(alpha.getDirection(), -1);
 }
@@ -243,20 +226,25 @@ TEST(Alpha, moveSetsJustMovedDownToTrueWhenAlphaIsAtRightSideBoundaryAndHasNotJu
   MockSprite *pSprite = &sprite;
   Alpha alpha(200, 320, pSprite);
 
-  alpha.setPosition(sf::Vector2f(482, 320));
+  ON_CALL(sprite, getPosition())
+      .WillByDefault(Return(sf::Vector2f(482, 320)));
+
   alpha.move();
   EXPECT_TRUE(alpha.hasJustMovedDown());
 }
 
-TEST(Alpha, moveAdds42ToYPositionWhenAlphaIsAtLeftSideBoundaryAndHasNotJustMovedDown)
+TEST(Alpha, moveAdds42ToSpriteYPositionWhenAlphaIsAtLeftSideBoundaryAndHasNotJustMovedDown)
 {
   NiceMock<MockSprite> sprite;
   MockSprite *pSprite = &sprite;
   Alpha alpha(300, 320, pSprite);
 
-  alpha.setPosition(sf::Vector2f(18, 320));
+  ON_CALL(sprite, getPosition())
+      .WillByDefault(Return(sf::Vector2f(18, 320)));
+
+  EXPECT_CALL(sprite, move(sf::Vector2f(0, 42)))
+      .Times(1);
   alpha.move();
-  EXPECT_EQ(alpha.getPosition(), sf::Vector2f(18, 362));
 }
 
 TEST(Alpha, moveChangesDirectionWhenAlphaIsAtLeftSideBoundaryAndHasNotJustMovedDown)
@@ -266,7 +254,9 @@ TEST(Alpha, moveChangesDirectionWhenAlphaIsAtLeftSideBoundaryAndHasNotJustMovedD
   Alpha alpha(300, 320, pSprite);
 
   alpha.changeDirection();
-  alpha.setPosition(sf::Vector2f(18, 320));
+  ON_CALL(sprite, getPosition())
+      .WillByDefault(Return(sf::Vector2f(18, 320)));
+
   alpha.move();
   EXPECT_EQ(alpha.getDirection(), 1);
 }
@@ -277,20 +267,11 @@ TEST(Alpha, moveSetsJustMovedDownToTrueWhenAlphaIsAtLeftSideBoundaryAndHasNotJus
   MockSprite *pSprite = &sprite;
   Alpha alpha(300, 320, pSprite);
 
-  alpha.setPosition(sf::Vector2f(18, 320));
+  ON_CALL(sprite, getPosition())
+      .WillByDefault(Return(sf::Vector2f(18, 320)));
+
   alpha.move();
   EXPECT_TRUE(alpha.hasJustMovedDown());
-}
-
-TEST(Alpha, moveUpdatesPositionOnSpriteMember)
-{
-  NiceMock<MockSprite> sprite;
-  MockSprite *pSprite = &sprite;
-  Alpha alpha(200, 320, pSprite);
-
-  EXPECT_CALL(sprite, setPosition(sf::Vector2f(214.1, 320)))
-      .Times(1);
-  alpha.move();
 }
 
 TEST(Alpha, resurrectSetsAliveBackToTrue)
@@ -305,25 +286,11 @@ TEST(Alpha, resurrectSetsAliveBackToTrue)
   EXPECT_TRUE(alpha.isAlive());
 }
 
-TEST(Alpha, resetSetsPositionBackToOriginalPosition)
-{
-  NiceMock<MockSprite> sprite;
-  MockSprite *pSprite = &sprite;
-  Alpha alpha(200, 320, pSprite);
-
-  alpha.setPosition(sf::Vector2f(900, 1100));
-
-  alpha.reset();
-  EXPECT_EQ(alpha.getPosition(), sf::Vector2f(200, 320));
-}
-
 TEST(Alpha, resetSetsSpritePositionBackToOriginalPosition)
 {
   NiceMock<MockSprite> sprite;
   MockSprite *pSprite = &sprite;
   Alpha alpha(200, 320, pSprite);
-
-  alpha.setPosition(sf::Vector2f(900, 1100));
 
   EXPECT_CALL(sprite, setPosition(sf::Vector2f(200, 320)))
       .Times(1);
@@ -354,7 +321,7 @@ TEST(Alpha, resetSetsDirectionBackTo1)
   EXPECT_EQ(alpha.getDirection(), 1);
 }
 
-TEST(Alpha, shootSetsPositionOfFirstMetroidLaserIfBelowBoardAndAlphaIsAlive)
+TEST(Alpha, shootSetsPositionOfFirstMetroidLaserIfBelowBoard)
 {
   NiceMock<MockSprite> sprite;
   MockSprite *pSprite = &sprite;
@@ -370,6 +337,10 @@ TEST(Alpha, shootSetsPositionOfFirstMetroidLaserIfBelowBoardAndAlphaIsAlive)
   metroidLasers[1] = pMetroidLaser2;
   metroidLasers[2] = pMetroidLaser3;
 
+  ON_CALL(sprite, getGlobalBounds())
+      .WillByDefault(Return(sf::FloatRect(sf::Vector2f(200, 320), sf::Vector2f(66, 48))));
+  ON_CALL(sprite, getPosition())
+      .WillByDefault(Return(sf::Vector2f(200, 320)));
   ON_CALL(metroidLaser1, getPosition())
       .WillByDefault(Return(sf::Vector2f(120, 1344)));
 
@@ -378,7 +349,7 @@ TEST(Alpha, shootSetsPositionOfFirstMetroidLaserIfBelowBoardAndAlphaIsAlive)
   alpha.shoot(metroidLasers, 0);
 }
 
-TEST(Alpha, shootSetsPositionOfSecondMetroidLaserIfBelowBoardAndFirstMetroidLaserIsOnBoardAndAlphaIsAlive)
+TEST(Alpha, shootSetsPositionOfSecondMetroidLaserIfBelowBoardAndFirstMetroidLaserIsOnBoard)
 {
   NiceMock<MockSprite> sprite;
   MockSprite *pSprite = &sprite;
@@ -394,6 +365,10 @@ TEST(Alpha, shootSetsPositionOfSecondMetroidLaserIfBelowBoardAndFirstMetroidLase
   metroidLasers[1] = pMetroidLaser2;
   metroidLasers[2] = pMetroidLaser3;
 
+  ON_CALL(sprite, getGlobalBounds())
+      .WillByDefault(Return(sf::FloatRect(sf::Vector2f(200, 320), sf::Vector2f(66, 48))));
+  ON_CALL(sprite, getPosition())
+      .WillByDefault(Return(sf::Vector2f(200, 320)));
   ON_CALL(metroidLaser1, getPosition())
       .WillByDefault(Return(sf::Vector2f(120, 900)));
   ON_CALL(metroidLaser2, getPosition())
@@ -404,7 +379,7 @@ TEST(Alpha, shootSetsPositionOfSecondMetroidLaserIfBelowBoardAndFirstMetroidLase
   alpha.shoot(metroidLasers, 0);
 }
 
-TEST(Alpha, shootSetsPositionOfThirdMetroidLaserIfBelowBoardAndFirstAndSecondMetroidLasersAreOnBoardAndAlphaIsAlive)
+TEST(Alpha, shootSetsPositionOfThirdMetroidLaserIfBelowBoardAndFirstAndSecondMetroidLasersAreOnBoard)
 {
   NiceMock<MockSprite> sprite;
   MockSprite *pSprite = &sprite;
@@ -420,6 +395,10 @@ TEST(Alpha, shootSetsPositionOfThirdMetroidLaserIfBelowBoardAndFirstAndSecondMet
   metroidLasers[1] = pMetroidLaser2;
   metroidLasers[2] = pMetroidLaser3;
 
+  ON_CALL(sprite, getGlobalBounds())
+      .WillByDefault(Return(sf::FloatRect(sf::Vector2f(200, 320), sf::Vector2f(66, 48))));
+  ON_CALL(sprite, getPosition())
+      .WillByDefault(Return(sf::Vector2f(200, 320)));
   ON_CALL(metroidLaser1, getPosition())
       .WillByDefault(Return(sf::Vector2f(120, 900)));
   ON_CALL(metroidLaser2, getPosition())
@@ -432,7 +411,7 @@ TEST(Alpha, shootSetsPositionOfThirdMetroidLaserIfBelowBoardAndFirstAndSecondMet
   alpha.shoot(metroidLasers, 0);
 }
 
-TEST(Alpha, shootDoesNotSetPositionOfAnyMetroidLaserIfTheyAreAllOnBoardAndAlphaIsAlive)
+TEST(Alpha, shootDoesNotSetPositionOfAnyMetroidLaserIfTheyAreAllOnBoard)
 {
   NiceMock<MockSprite> sprite;
   MockSprite *pSprite = &sprite;
@@ -448,6 +427,10 @@ TEST(Alpha, shootDoesNotSetPositionOfAnyMetroidLaserIfTheyAreAllOnBoardAndAlphaI
   metroidLasers[1] = pMetroidLaser2;
   metroidLasers[2] = pMetroidLaser3;
 
+  ON_CALL(sprite, getGlobalBounds())
+      .WillByDefault(Return(sf::FloatRect(sf::Vector2f(200, 320), sf::Vector2f(66, 48))));
+  ON_CALL(sprite, getPosition())
+      .WillByDefault(Return(sf::Vector2f(200, 320)));
   ON_CALL(metroidLaser1, getPosition())
       .WillByDefault(Return(sf::Vector2f(120, 900)));
   ON_CALL(metroidLaser2, getPosition())
@@ -480,6 +463,10 @@ TEST(Alpha, shootDoesNotSetPositionOfAnyMetroidLaserIfRandomNumberIsNot0)
   metroidLasers[1] = pMetroidLaser2;
   metroidLasers[2] = pMetroidLaser3;
 
+  ON_CALL(sprite, getGlobalBounds())
+      .WillByDefault(Return(sf::FloatRect(sf::Vector2f(200, 320), sf::Vector2f(66, 48))));
+  ON_CALL(sprite, getPosition())
+      .WillByDefault(Return(sf::Vector2f(200, 320)));
   ON_CALL(metroidLaser1, getPosition())
       .WillByDefault(Return(sf::Vector2f(120, 1344)));
   ON_CALL(metroidLaser2, getPosition())

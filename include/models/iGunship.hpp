@@ -7,7 +7,7 @@ class IGunship : public ObjectInterface
 {
 public:
   IGunship();
-  IGunship(float width, float height, float x, float y, ISprite *sprite);
+  IGunship(float x, float y, ISprite *sprite);
   virtual void move(float x) = 0;
   virtual void fire() = 0;
   virtual void loseLife() = 0;

@@ -7,7 +7,7 @@ class IBunker : public ObjectInterface
 {
 public:
   IBunker();
-  IBunker(float width, float height, float x, float y, ISprite *sprite);
+  IBunker(float x, float y, ISprite *sprite);
   virtual int getHealth() const = 0;
   virtual void decreaseHealth() = 0;
 };

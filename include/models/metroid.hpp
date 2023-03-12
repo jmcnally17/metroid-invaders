@@ -6,9 +6,7 @@
 class Metroid : public IMetroid
 {
 public:
-  Metroid(float width, float height, float x, float y, ISprite *sprite, int points);
-  float getWidth() const override;
-  float getHeight() const override;
+  Metroid(float x, float y, ISprite *sprite, int points);
   int getPoints() const override;
   sf::Vector2f getOriginalPosition() const override;
   sf::Vector2f getPosition() const override;
@@ -23,6 +21,8 @@ public:
   void resurrect() override;
   void reset() override;
   void shoot(const std::vector<ILaser *> &metroidLasers, int randomNumber = rand() % 10000) const override;
+  sf::FloatRect getGlobalBounds() const override;
+  bool intersects(const sf::FloatRect &rectangle) const override;
 
 private:
   sf::Vector2f originalPosition_;

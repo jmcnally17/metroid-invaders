@@ -9,8 +9,6 @@ class Gunship : public IGunship
 {
 public:
   Gunship(ISprite *sprite, ILaser *gunshipLaser, ISound *fireSound, ISound *deathSound);
-  float getWidth() const override;
-  float getHeight() const override;
   int getLives() const override;
   void setPosition(const sf::Vector2f &position) override;
   sf::Vector2f getPosition() const override;
@@ -20,6 +18,8 @@ public:
   void resetPosition() override;
   void reset() override;
   void loseLife() override;
+  sf::FloatRect getGlobalBounds() const override;
+  bool intersects(const sf::FloatRect &rectangle) const override;
 
 private:
   int lives_;

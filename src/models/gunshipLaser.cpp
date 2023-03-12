@@ -1,31 +1,20 @@
 #include "../../include/models/gunshipLaser.hpp"
 
-GunshipLaser::GunshipLaser(ISprite *sprite, ISound *sound) : ILaser(6, 24, 120, -24, sprite), sound_(sound) {}
-
-float GunshipLaser::getWidth() const
-{
-  return width_;
-}
-
-float GunshipLaser::getHeight() const
-{
-  return height_;
-}
+GunshipLaser::GunshipLaser(ISprite *sprite, ISound *sound) : ILaser(120, -24, sprite), sound_(sound) {}
 
 sf::Vector2f GunshipLaser::getPosition() const
 {
-  return position_;
+  return sprite_->getPosition();
 }
 
 void GunshipLaser::setPosition(const sf::Vector2f &position)
 {
-  position_ = position;
-  sprite_->setPosition(position_);
+  sprite_->setPosition(position);
 }
 
 void GunshipLaser::draw(IRenderWindow &window) const
 {
-  if (position_.y > 0 - height_)
+  if (getPosition().y > -24)
   {
     window.draw(*sprite_);
   }
@@ -33,10 +22,9 @@ void GunshipLaser::draw(IRenderWindow &window) const
 
 void GunshipLaser::move()
 {
-  if (position_.y > 0 - height_)
+  if (getPosition().y > -24)
   {
-    position_.y -= 6.4;
-    sprite_->setPosition(position_);
+    sprite_->move(sf::Vector2f(0, -6.4));
   }
 }
 
@@ -48,4 +36,15 @@ void GunshipLaser::reset()
 void GunshipLaser::playMetroidDeath() const
 {
   sound_->play();
+}
+
+sf::FloatRect GunshipLaser::getGlobalBounds() const
+{
+  return sprite_->getGlobalBounds();
+}
+
+bool GunshipLaser::intersects(const sf::FloatRect &rectangle) const
+{
+  sf::FloatRect box = getGlobalBounds();
+  return box.intersects(rectangle);
 }

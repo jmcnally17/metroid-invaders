@@ -7,7 +7,7 @@ class IRidley : public ObjectInterface
 {
 public:
   IRidley();
-  IRidley(float width, float height, float x, float y, ISprite *sprite);
+  IRidley(float x, float y, ISprite *sprite);
   virtual void move() = 0;
   virtual void spawn(int randomNumber = rand() % 2000) = 0;
   virtual void stopMovementSoundIfPlaying() = 0;
