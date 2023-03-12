@@ -482,3 +482,59 @@ TEST(Larva, shootDoesNotSetPositionOfAnyMetroidLaserIfRandomNumberIsNot0)
       .Times(0);
   larva.shoot(metroidLasers, 50);
 }
+
+TEST(Larva, getGlobalBoundsReturnsSpriteGlobalBounds)
+{
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Larva larva(200, 320, pSprite);
+
+  sf::FloatRect spriteBounds(sf::Vector2f(200, 320), sf::Vector2f(48, 48));
+  ON_CALL(sprite, getGlobalBounds())
+      .WillByDefault(Return(spriteBounds));
+
+  EXPECT_CALL(sprite, getGlobalBounds())
+      .Times(1);
+  EXPECT_EQ(larva.getGlobalBounds(), spriteBounds);
+}
+
+TEST(Larva, intersectsGetsTheSpriteGlobalBounds)
+{
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Larva larva(200, 320, pSprite);
+
+  sf::FloatRect rectangle;
+
+  EXPECT_CALL(sprite, getGlobalBounds())
+      .Times(1);
+  larva.intersects(rectangle);
+}
+
+TEST(Larva, intersectsReturnsTrueWhenCollidingWithARectangle)
+{
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Larva larva(200, 320, pSprite);
+
+  sf::FloatRect spriteBounds(sf::Vector2f(200, 320), sf::Vector2f(48, 48));
+  ON_CALL(sprite, getGlobalBounds())
+      .WillByDefault(Return(spriteBounds));
+  sf::FloatRect rectangle(sf::Vector2f(230, 350), sf::Vector2f(6, 24));
+
+  EXPECT_TRUE(larva.intersects(rectangle));
+}
+
+TEST(Larva, intersectsReturnsFalseWhenNotCollidingWithARectangle)
+{
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  Larva larva(200, 320, pSprite);
+
+  sf::FloatRect spriteBounds(sf::Vector2f(200, 320), sf::Vector2f(48, 48));
+  ON_CALL(sprite, getGlobalBounds())
+      .WillByDefault(Return(spriteBounds));
+  sf::FloatRect rectangle(sf::Vector2f(300, 500), sf::Vector2f(6, 24));
+
+  EXPECT_FALSE(larva.intersects(rectangle));
+}

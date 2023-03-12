@@ -260,3 +260,91 @@ TEST(Bunker, resetSetsHealthBackTo10)
   bunker.reset();
   EXPECT_EQ(bunker.getHealth(), 10);
 }
+
+TEST(Bunker, getGlobalBoundsReturnsSpriteGlobalBounds)
+{
+  NiceMock<MockSprite> sprite1;
+  MockSprite *pSprite1 = &sprite1;
+  NiceMock<MockSprite> sprite2;
+  MockSprite *pSprite2 = &sprite2;
+  NiceMock<MockSprite> sprite3;
+  MockSprite *pSprite3 = &sprite3;
+  NiceMock<MockSprite> sprite4;
+  MockSprite *pSprite4 = &sprite4;
+  NiceMock<MockSprite> sprite5;
+  MockSprite *pSprite5 = &sprite5;
+  Bunker bunker(900, 300, pSprite1, pSprite2, pSprite3, pSprite4, pSprite5);
+
+  sf::FloatRect spriteBounds(sf::Vector2f(900, 300), sf::Vector2f(144, 108));
+  ON_CALL(sprite1, getGlobalBounds())
+      .WillByDefault(Return(spriteBounds));
+
+  EXPECT_CALL(sprite1, getGlobalBounds())
+      .Times(1);
+  EXPECT_EQ(bunker.getGlobalBounds(), spriteBounds);
+}
+
+TEST(Bunker, intersectsGetsTheSpriteGlobalBounds)
+{
+  NiceMock<MockSprite> sprite1;
+  MockSprite *pSprite1 = &sprite1;
+  NiceMock<MockSprite> sprite2;
+  MockSprite *pSprite2 = &sprite2;
+  NiceMock<MockSprite> sprite3;
+  MockSprite *pSprite3 = &sprite3;
+  NiceMock<MockSprite> sprite4;
+  MockSprite *pSprite4 = &sprite4;
+  NiceMock<MockSprite> sprite5;
+  MockSprite *pSprite5 = &sprite5;
+  Bunker bunker(900, 300, pSprite1, pSprite2, pSprite3, pSprite4, pSprite5);
+
+  sf::FloatRect rectangle;
+
+  EXPECT_CALL(sprite1, getGlobalBounds())
+      .Times(1);
+  bunker.intersects(rectangle);
+}
+
+TEST(Bunker, intersectsReturnsTrueWhenCollidingWithARectangle)
+{
+  NiceMock<MockSprite> sprite1;
+  MockSprite *pSprite1 = &sprite1;
+  NiceMock<MockSprite> sprite2;
+  MockSprite *pSprite2 = &sprite2;
+  NiceMock<MockSprite> sprite3;
+  MockSprite *pSprite3 = &sprite3;
+  NiceMock<MockSprite> sprite4;
+  MockSprite *pSprite4 = &sprite4;
+  NiceMock<MockSprite> sprite5;
+  MockSprite *pSprite5 = &sprite5;
+  Bunker bunker(900, 300, pSprite1, pSprite2, pSprite3, pSprite4, pSprite5);
+
+  sf::FloatRect spriteBounds(sf::Vector2f(900, 300), sf::Vector2f(144, 108));
+  ON_CALL(sprite1, getGlobalBounds())
+      .WillByDefault(Return(spriteBounds));
+  sf::FloatRect rectangle(sf::Vector2f(910, 290), sf::Vector2f(6, 24));
+
+  EXPECT_TRUE(bunker.intersects(rectangle));
+}
+
+TEST(Bunker, intersectsReturnsFalseWhenNotCollidingWithARectangle)
+{
+  NiceMock<MockSprite> sprite1;
+  MockSprite *pSprite1 = &sprite1;
+  NiceMock<MockSprite> sprite2;
+  MockSprite *pSprite2 = &sprite2;
+  NiceMock<MockSprite> sprite3;
+  MockSprite *pSprite3 = &sprite3;
+  NiceMock<MockSprite> sprite4;
+  MockSprite *pSprite4 = &sprite4;
+  NiceMock<MockSprite> sprite5;
+  MockSprite *pSprite5 = &sprite5;
+  Bunker bunker(900, 300, pSprite1, pSprite2, pSprite3, pSprite4, pSprite5);
+
+  sf::FloatRect spriteBounds(sf::Vector2f(900, 300), sf::Vector2f(144, 108));
+  ON_CALL(sprite1, getGlobalBounds())
+      .WillByDefault(Return(spriteBounds));
+  sf::FloatRect rectangle(sf::Vector2f(300, 500), sf::Vector2f(6, 24));
+
+  EXPECT_FALSE(bunker.intersects(rectangle));
+}

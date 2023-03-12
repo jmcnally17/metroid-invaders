@@ -131,3 +131,63 @@ TEST(GunshipLaser, playMetroidDeathCallsPlayOnTheSoundClassMember)
       .Times(1);
   gunshipLaser.playMetroidDeath();
 }
+
+TEST(GunshipLaser, getGlobalBoundsReturnsSpriteGlobalBounds)
+{
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  MockSound *sound;
+  GunshipLaser gunshipLaser(pSprite, sound);
+
+  sf::FloatRect spriteBounds(sf::Vector2f(800, 900), sf::Vector2f(6, 24));
+  ON_CALL(sprite, getGlobalBounds())
+      .WillByDefault(Return(spriteBounds));
+
+  EXPECT_CALL(sprite, getGlobalBounds())
+      .Times(1);
+  EXPECT_EQ(gunshipLaser.getGlobalBounds(), spriteBounds);
+}
+
+TEST(GunshipLaser, intersectsGetsTheSpriteGlobalBounds)
+{
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  MockSound *sound;
+  GunshipLaser gunshipLaser(pSprite, sound);
+
+  sf::FloatRect rectangle;
+
+  EXPECT_CALL(sprite, getGlobalBounds())
+      .Times(1);
+  gunshipLaser.intersects(rectangle);
+}
+
+TEST(GunshipLaser, intersectsReturnsTrueWhenCollidingWithARectangle)
+{
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  MockSound *sound;
+  GunshipLaser gunshipLaser(pSprite, sound);
+
+  sf::FloatRect spriteBounds(sf::Vector2f(800, 900), sf::Vector2f(6, 24));
+  ON_CALL(sprite, getGlobalBounds())
+      .WillByDefault(Return(spriteBounds));
+  sf::FloatRect rectangle(sf::Vector2f(770, 880), sf::Vector2f(72, 48));
+
+  EXPECT_TRUE(gunshipLaser.intersects(rectangle));
+}
+
+TEST(GunshipLaser, intersectsReturnsFalseWhenNotCollidingWithARectangle)
+{
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  MockSound *sound;
+  GunshipLaser gunshipLaser(pSprite, sound);
+
+  sf::FloatRect spriteBounds(sf::Vector2f(800, 900), sf::Vector2f(6, 24));
+  ON_CALL(sprite, getGlobalBounds())
+      .WillByDefault(Return(spriteBounds));
+  sf::FloatRect rectangle(sf::Vector2f(300, 500), sf::Vector2f(72, 48));
+
+  EXPECT_FALSE(gunshipLaser.intersects(rectangle));
+}
