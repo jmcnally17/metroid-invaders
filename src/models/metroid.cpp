@@ -105,6 +105,17 @@ void Metroid::shoot(const std::vector<ILaser *> &metroidLasers, int randomNumber
   }
 }
 
+sf::FloatRect Metroid::getGlobalBounds() const
+{
+  return sprite_->getGlobalBounds();
+}
+
+bool Metroid::intersects(const sf::FloatRect &rectangle) const
+{
+  sf::FloatRect box = getGlobalBounds();
+  return box.intersects(rectangle);
+}
+
 void Metroid::moveDown()
 {
   position_.y += 42;

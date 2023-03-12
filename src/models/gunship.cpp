@@ -69,3 +69,14 @@ void Gunship::loseLife()
   lives_--;
   deathSound_->play();
 }
+
+sf::FloatRect Gunship::getGlobalBounds() const
+{
+  return sprite_->getGlobalBounds();
+}
+
+bool Gunship::intersects(const sf::FloatRect &rectangle) const
+{
+  sf::FloatRect box = getGlobalBounds();
+  return box.intersects(rectangle);
+}

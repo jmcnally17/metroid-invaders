@@ -15,6 +15,8 @@ public:
   MOCK_METHOD(void, decreaseHealth, ());
   MOCK_METHOD(void, draw, (IRenderWindow & window), (const));
   MOCK_METHOD(void, reset, ());
+  MOCK_METHOD(sf::FloatRect, getGlobalBounds, (), (const));
+  MOCK_METHOD(bool, intersects, (const sf::FloatRect &rectangle), (const));
 };
 
 #endif

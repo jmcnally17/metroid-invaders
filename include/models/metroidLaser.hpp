@@ -14,6 +14,8 @@ public:
   void draw(IRenderWindow &window) const override;
   void move() override;
   void reset() override;
+  sf::FloatRect getGlobalBounds() const override;
+  bool intersects(const sf::FloatRect &rectangle) const override;
 
 private:
   void playMetroidDeath() const override;

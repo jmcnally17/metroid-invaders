@@ -101,6 +101,17 @@ void Ridley::die()
   deathSound_->play();
 }
 
+sf::FloatRect Ridley::getGlobalBounds() const
+{
+  return sprite_->getGlobalBounds();
+}
+
+bool Ridley::intersects(const sf::FloatRect &rectangle) const
+{
+  sf::FloatRect box = getGlobalBounds();
+  return box.intersects(rectangle);
+}
+
 void Ridley::updateSprites()
 {
   sprite_->setPosition(position_);

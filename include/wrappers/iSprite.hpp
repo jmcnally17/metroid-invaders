@@ -8,6 +8,7 @@ class ISprite : virtual public sf::Drawable
 public:
   virtual void setPosition(const sf::Vector2f &position) = 0;
   virtual void setScale(float factorX, float factorY) = 0;
+  virtual sf::FloatRect getGlobalBounds() const = 0;
 };
 
 #endif

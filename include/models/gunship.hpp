@@ -20,6 +20,8 @@ public:
   void resetPosition() override;
   void reset() override;
   void loseLife() override;
+  sf::FloatRect getGlobalBounds() const override;
+  bool intersects(const sf::FloatRect &rectangle) const override;
 
 private:
   int lives_;

@@ -15,6 +15,8 @@ public:
   MOCK_METHOD(void, move, ());
   MOCK_METHOD(void, reset, ());
   MOCK_METHOD(void, playMetroidDeath, (), (const));
+  MOCK_METHOD(sf::FloatRect, getGlobalBounds, (), (const));
+  MOCK_METHOD(bool, intersects, (const sf::FloatRect &rectangle), (const));
 };
 
 #endif

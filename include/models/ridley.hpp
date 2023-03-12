@@ -22,6 +22,8 @@ public:
   void stopMovementSoundIfPlaying() override;
   void stopMovementSoundIfAtSideOfWindow() override;
   void die() override;
+  sf::FloatRect getGlobalBounds() const override;
+  bool intersects(const sf::FloatRect &rectangle) const override;
 
 private:
   ISprite *leftSprite_;

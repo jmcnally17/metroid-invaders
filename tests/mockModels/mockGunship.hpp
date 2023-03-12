@@ -18,6 +18,8 @@ public:
   MOCK_METHOD(void, loseLife, ());
   MOCK_METHOD(void, resetPosition, ());
   MOCK_METHOD(int, getLives, (), (const));
+  MOCK_METHOD(sf::FloatRect, getGlobalBounds, (), (const));
+  MOCK_METHOD(bool, intersects, (const sf::FloatRect &rectangle), (const));
 };
 
 #endif

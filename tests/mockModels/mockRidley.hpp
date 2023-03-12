@@ -19,6 +19,8 @@ public:
   MOCK_METHOD(void, stopMovementSoundIfAtSideOfWindow, ());
   MOCK_METHOD(void, die, ());
   MOCK_METHOD(int, getPoints, (), (const));
+  MOCK_METHOD(sf::FloatRect, getGlobalBounds, (), (const));
+  MOCK_METHOD(bool, intersects, (const sf::FloatRect &rectangle), (const));
 };
 
 #endif

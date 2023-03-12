@@ -45,4 +45,15 @@ void MetroidLaser::reset()
   setPosition(sf::Vector2f(120, 1344));
 }
 
+sf::FloatRect MetroidLaser::getGlobalBounds() const
+{
+  return sprite_->getGlobalBounds();
+}
+
+bool MetroidLaser::intersects(const sf::FloatRect &rectangle) const
+{
+  sf::FloatRect box = getGlobalBounds();
+  return box.intersects(rectangle);
+}
+
 void MetroidLaser::playMetroidDeath() const {}

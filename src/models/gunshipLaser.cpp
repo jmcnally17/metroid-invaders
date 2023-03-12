@@ -49,3 +49,14 @@ void GunshipLaser::playMetroidDeath() const
 {
   sound_->play();
 }
+
+sf::FloatRect GunshipLaser::getGlobalBounds() const
+{
+  return sprite_->getGlobalBounds();
+}
+
+bool GunshipLaser::intersects(const sf::FloatRect &rectangle) const
+{
+  sf::FloatRect box = getGlobalBounds();
+  return box.intersects(rectangle);
+}

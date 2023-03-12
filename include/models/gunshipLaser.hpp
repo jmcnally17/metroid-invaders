@@ -16,6 +16,8 @@ public:
   void move() override;
   void reset() override;
   void playMetroidDeath() const override;
+  sf::FloatRect getGlobalBounds() const override;
+  bool intersects(const sf::FloatRect &rectangle) const override;
 
 private:
   ISound *sound_;

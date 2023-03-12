@@ -16,6 +16,9 @@ public:
   virtual void setPosition(const sf::Vector2f &position) = 0;
   virtual void draw(IRenderWindow &window) const = 0;
   virtual void reset() = 0;
+  virtual sf::FloatRect getGlobalBounds() const = 0;
+  virtual bool intersects(const sf::FloatRect &rectangle) const = 0;
+  ;
 
 protected:
   float width_;

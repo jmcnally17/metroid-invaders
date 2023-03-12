@@ -19,3 +19,8 @@ void SpriteWrapper::setScale(float factorX, float factorY)
 {
   sprite_.setScale(factorX, factorY);
 }
+
+sf::FloatRect SpriteWrapper::getGlobalBounds() const
+{
+  return sprite_.getGlobalBounds();
+}

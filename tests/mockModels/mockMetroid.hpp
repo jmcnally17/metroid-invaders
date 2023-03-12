@@ -23,6 +23,8 @@ public:
   MOCK_METHOD(int, getDirection, (), (const));
   MOCK_METHOD(void, changeDirection, ());
   MOCK_METHOD(void, shoot, (const std::vector<ILaser *> &metroidLasers, int randomNumber), (const));
+  MOCK_METHOD(sf::FloatRect, getGlobalBounds, (), (const));
+  MOCK_METHOD(bool, intersects, (const sf::FloatRect &rectangle), (const));
 };
 
 #endif

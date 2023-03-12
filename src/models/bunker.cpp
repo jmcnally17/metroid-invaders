@@ -66,4 +66,15 @@ void Bunker::reset()
   health_ = 10;
 }
 
+sf::FloatRect Bunker::getGlobalBounds() const
+{
+  return sprite_->getGlobalBounds();
+}
+
+bool Bunker::intersects(const sf::FloatRect &rectangle) const
+{
+  sf::FloatRect box = getGlobalBounds();
+  return box.intersects(rectangle);
+}
+
 void Bunker::setPosition(const sf::Vector2f &position) {}

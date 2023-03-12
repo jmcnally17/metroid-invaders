@@ -14,6 +14,8 @@ public:
   void decreaseHealth() override;
   void draw(IRenderWindow &window) const override;
   void reset() override;
+  sf::FloatRect getGlobalBounds() const override;
+  bool intersects(const sf::FloatRect &rectangle) const override;
 
 private:
   ISprite *sprite2_;

@@ -23,6 +23,8 @@ public:
   void resurrect() override;
   void reset() override;
   void shoot(const std::vector<ILaser *> &metroidLasers, int randomNumber = rand() % 10000) const override;
+  sf::FloatRect getGlobalBounds() const override;
+  bool intersects(const sf::FloatRect &rectangle) const override;
 
 private:
   sf::Vector2f originalPosition_;
