@@ -296,3 +296,71 @@ TEST(Gunship, loseLifePlaysDeathSoundClassMember)
       .Times(1);
   gunship.loseLife();
 }
+
+TEST(Gunship, getGlobalBoundsReturnsSpriteGlobalBounds)
+{
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  MockLaser *gunshipLaser;
+  MockSound *fireSound;
+  MockSound *deathSound;
+  Gunship gunship(pSprite, gunshipLaser, fireSound, deathSound);
+
+  sf::FloatRect spriteBounds(sf::Vector2f(120, 1224), sf::Vector2f(78, 45));
+  ON_CALL(sprite, getGlobalBounds())
+      .WillByDefault(Return(spriteBounds));
+
+  EXPECT_CALL(sprite, getGlobalBounds())
+      .Times(1);
+  EXPECT_EQ(gunship.getGlobalBounds(), spriteBounds);
+}
+
+TEST(Gunship, intersectsGetsTheSpriteGlobalBounds)
+{
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  MockLaser *gunshipLaser;
+  MockSound *fireSound;
+  MockSound *deathSound;
+  Gunship gunship(pSprite, gunshipLaser, fireSound, deathSound);
+
+  sf::FloatRect rectangle;
+
+  EXPECT_CALL(sprite, getGlobalBounds())
+      .Times(1);
+  gunship.intersects(rectangle);
+}
+
+TEST(Gunship, intersectsReturnsTrueWhenCollidingWithARectangle)
+{
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  MockLaser *gunshipLaser;
+  MockSound *fireSound;
+  MockSound *deathSound;
+  Gunship gunship(pSprite, gunshipLaser, fireSound, deathSound);
+
+  sf::FloatRect spriteBounds(sf::Vector2f(120, 1224), sf::Vector2f(78, 45));
+  ON_CALL(sprite, getGlobalBounds())
+      .WillByDefault(Return(spriteBounds));
+  sf::FloatRect rectangle(sf::Vector2f(130, 1210), sf::Vector2f(18, 36));
+
+  EXPECT_TRUE(gunship.intersects(rectangle));
+}
+
+TEST(Gunship, intersectsReturnsFalseWhenNotCollidingWithARectangle)
+{
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite = &sprite;
+  MockLaser *gunshipLaser;
+  MockSound *fireSound;
+  MockSound *deathSound;
+  Gunship gunship(pSprite, gunshipLaser, fireSound, deathSound);
+
+  sf::FloatRect spriteBounds(sf::Vector2f(120, 1224), sf::Vector2f(78, 45));
+  ON_CALL(sprite, getGlobalBounds())
+      .WillByDefault(Return(spriteBounds));
+  sf::FloatRect rectangle(sf::Vector2f(300, 500), sf::Vector2f(18, 36));
+
+  EXPECT_FALSE(gunship.intersects(rectangle));
+}

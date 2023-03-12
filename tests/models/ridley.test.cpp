@@ -685,3 +685,79 @@ TEST(Ridley, diePlaysTheDeathSound)
       .Times(1);
   ridley.die();
 }
+
+TEST(Ridley, getGlobalBoundsReturnsSpriteGlobalBounds)
+{
+  NiceMock<MockSprite> rightSprite;
+  MockSprite *pRightSprite = &rightSprite;
+  NiceMock<MockSprite> leftSprite;
+  MockSprite *pLeftSprite = &leftSprite;
+  NiceMock<MockSound> movementSound;
+  MockSound *pMovementSound = &movementSound;
+  MockSound *deathSound;
+  Ridley ridley(pRightSprite, pLeftSprite, pMovementSound, deathSound);
+
+  sf::FloatRect spriteBounds(sf::Vector2f(200, 600), sf::Vector2f(96, 42));
+  ON_CALL(rightSprite, getGlobalBounds())
+      .WillByDefault(Return(spriteBounds));
+
+  EXPECT_CALL(rightSprite, getGlobalBounds())
+      .Times(1);
+  EXPECT_EQ(ridley.getGlobalBounds(), spriteBounds);
+}
+
+TEST(Ridley, intersectsGetsTheSpriteGlobalBounds)
+{
+  NiceMock<MockSprite> rightSprite;
+  MockSprite *pRightSprite = &rightSprite;
+  NiceMock<MockSprite> leftSprite;
+  MockSprite *pLeftSprite = &leftSprite;
+  NiceMock<MockSound> movementSound;
+  MockSound *pMovementSound = &movementSound;
+  MockSound *deathSound;
+  Ridley ridley(pRightSprite, pLeftSprite, pMovementSound, deathSound);
+
+  sf::FloatRect rectangle;
+
+  EXPECT_CALL(rightSprite, getGlobalBounds())
+      .Times(1);
+  ridley.intersects(rectangle);
+}
+
+TEST(Ridley, intersectsReturnsTrueWhenCollidingWithARectangle)
+{
+  NiceMock<MockSprite> rightSprite;
+  MockSprite *pRightSprite = &rightSprite;
+  NiceMock<MockSprite> leftSprite;
+  MockSprite *pLeftSprite = &leftSprite;
+  NiceMock<MockSound> movementSound;
+  MockSound *pMovementSound = &movementSound;
+  MockSound *deathSound;
+  Ridley ridley(pRightSprite, pLeftSprite, pMovementSound, deathSound);
+
+  sf::FloatRect spriteBounds(sf::Vector2f(200, 600), sf::Vector2f(96, 42));
+  ON_CALL(rightSprite, getGlobalBounds())
+      .WillByDefault(Return(spriteBounds));
+  sf::FloatRect rectangle(sf::Vector2f(220, 630), sf::Vector2f(6, 24));
+
+  EXPECT_TRUE(ridley.intersects(rectangle));
+}
+
+TEST(Ridley, intersectsReturnsFalseWhenNotCollidingWithARectangle)
+{
+  NiceMock<MockSprite> rightSprite;
+  MockSprite *pRightSprite = &rightSprite;
+  NiceMock<MockSprite> leftSprite;
+  MockSprite *pLeftSprite = &leftSprite;
+  NiceMock<MockSound> movementSound;
+  MockSound *pMovementSound = &movementSound;
+  MockSound *deathSound;
+  Ridley ridley(pRightSprite, pLeftSprite, pMovementSound, deathSound);
+
+  sf::FloatRect spriteBounds(sf::Vector2f(200, 600), sf::Vector2f(96, 42));
+  ON_CALL(rightSprite, getGlobalBounds())
+      .WillByDefault(Return(spriteBounds));
+  sf::FloatRect rectangle(sf::Vector2f(120, 800), sf::Vector2f(6, 24));
+
+  EXPECT_FALSE(ridley.intersects(rectangle));
+}
