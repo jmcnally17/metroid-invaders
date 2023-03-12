@@ -9,7 +9,7 @@ class IMetroid : public ObjectInterface
 {
 public:
   IMetroid();
-  IMetroid(float width, float height, float x, float y, ISprite *sprite);
+  IMetroid(float x, float y, ISprite *sprite);
   virtual sf::Vector2f getOriginalPosition() const = 0;
   virtual bool isAlive() const = 0;
   virtual void die() = 0;

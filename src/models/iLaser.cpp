@@ -2,4 +2,4 @@
 
 ILaser::ILaser() {}
 
-ILaser::ILaser(float width, float height, float x, float y, ISprite *sprite) : ObjectInterface(width, height, x, y, sprite) {}
+ILaser::ILaser(float x, float y, ISprite *sprite) : ObjectInterface(x, y, sprite) {}

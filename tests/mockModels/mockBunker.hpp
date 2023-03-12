@@ -7,8 +7,6 @@
 class MockBunker : public IBunker
 {
 public:
-  MOCK_METHOD(float, getWidth, (), (const));
-  MOCK_METHOD(float, getHeight, (), (const));
   MOCK_METHOD(sf::Vector2f, getPosition, (), (const));
   MOCK_METHOD(int, getHealth, (), (const));
   MOCK_METHOD(void, setPosition, (const sf::Vector2f &position));

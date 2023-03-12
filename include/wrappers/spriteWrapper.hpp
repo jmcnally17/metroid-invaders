@@ -7,9 +7,10 @@ class SpriteWrapper : public ISprite, virtual public sf::Drawable
 {
 public:
   SpriteWrapper(sf::Texture &texture);
+  sf::Vector2f getPosition() const override;
   void setPosition(const sf::Vector2f &position) override;
   void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
-  void setScale(float factorX, float factorY) override;
+  void move(const sf::Vector2f &offset) override;
   sf::FloatRect getGlobalBounds() const override;
 
 private:

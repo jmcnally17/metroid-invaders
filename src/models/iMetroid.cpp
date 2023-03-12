@@ -2,4 +2,4 @@
 
 IMetroid::IMetroid() {}
 
-IMetroid::IMetroid(float width, float height, float x, float y, ISprite *sprite) : ObjectInterface(width, height, x, y, sprite) {}
+IMetroid::IMetroid(float x, float y, ISprite *sprite) : ObjectInterface(x, y, sprite) {}

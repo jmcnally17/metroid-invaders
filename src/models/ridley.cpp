@@ -1,25 +1,15 @@
 #include "../../include/models/ridley.hpp"
 
 Ridley::Ridley(ISprite *rightSprite, ISprite *leftSprite, ISound *movementSound, ISound *deathSound)
-    : IRidley(96, 42, -96, 200, rightSprite), leftSprite_(leftSprite), points_(150), direction_(-1), movementSound_(movementSound), deathSound_(deathSound)
+    : IRidley(-96, 200, rightSprite), leftSprite_(leftSprite), points_(150), direction_(-1), movementSound_(movementSound), deathSound_(deathSound)
 {
-  leftSprite_->setPosition(position_);
+  leftSprite_->setPosition(sf::Vector2f(-96, 200));
   movementSound_->setLoop(true);
-}
-
-float Ridley::getWidth() const
-{
-  return width_;
-}
-
-float Ridley::getHeight() const
-{
-  return height_;
 }
 
 sf::Vector2f Ridley::getPosition() const
 {
-  return position_;
+  return sprite_->getPosition();
 }
 
 int Ridley::getPoints() const
@@ -34,13 +24,14 @@ int Ridley::getDirection() const
 
 void Ridley::setPosition(const sf::Vector2f &position)
 {
-  position_ = position;
-  updateSprites();
+  sprite_->setPosition(position);
+  leftSprite_->setPosition(position);
 }
 
 void Ridley::draw(IRenderWindow &window) const
 {
-  if (position_.x > -96 && position_.x < 1536)
+  float xPosition = getPosition().x;
+  if (xPosition > -96 && xPosition < 1536)
   {
     direction_ == 1 ? window.draw(*sprite_) : window.draw(*leftSprite_);
   }
@@ -59,20 +50,22 @@ void Ridley::reset()
 
 void Ridley::move()
 {
-  if (position_.x > -96 && position_.x < 1536)
+  float xPosition = getPosition().x;
+  if (xPosition > -96 && xPosition < 1536)
   {
-    position_.x += 1.6 * direction_;
-    updateSprites();
+    sprite_->move(sf::Vector2f(1.6 * direction_, 0));
+    leftSprite_->move(sf::Vector2f(1.6 * direction_, 0));
   }
 }
 
 void Ridley::spawn(int randomNumber)
 {
-  if (randomNumber == 0 && (position_.x <= -96 || position_.x >= 1536))
+  float xPosition = getPosition().x;
+  if (randomNumber == 0 && (xPosition <= -96 || xPosition >= 1536))
   {
     changeDirection();
-    position_.x += 1.6 * direction_;
-    updateSprites();
+    sprite_->move(sf::Vector2f(1.6 * direction_, 0));
+    leftSprite_->move(sf::Vector2f(1.6 * direction_, 0));
     movementSound_->play();
   }
 }
@@ -87,7 +80,8 @@ void Ridley::stopMovementSoundIfPlaying()
 
 void Ridley::stopMovementSoundIfAtSideOfWindow()
 {
-  if (position_.x <= -96 || position_.x >= 1536)
+  float xPosition = getPosition().x;
+  if (xPosition <= -96 || xPosition >= 1536)
   {
     stopMovementSoundIfPlaying();
   }
@@ -110,10 +104,4 @@ bool Ridley::intersects(const sf::FloatRect &rectangle) const
 {
   sf::FloatRect box = getGlobalBounds();
   return box.intersects(rectangle);
-}
-
-void Ridley::updateSprites()
-{
-  sprite_->setPosition(position_);
-  leftSprite_->setPosition(position_);
 }

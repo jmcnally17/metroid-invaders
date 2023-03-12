@@ -8,8 +8,6 @@ class MockMetroid : public IMetroid
 {
 public:
   MOCK_METHOD(void, draw, (IRenderWindow & window), (const));
-  MOCK_METHOD(float, getWidth, (), (const));
-  MOCK_METHOD(float, getHeight, (), (const));
   MOCK_METHOD(sf::Vector2f, getOriginalPosition, (), (const));
   MOCK_METHOD(sf::Vector2f, getPosition, (), (const));
   MOCK_METHOD(void, setPosition, (const sf::Vector2f &position));

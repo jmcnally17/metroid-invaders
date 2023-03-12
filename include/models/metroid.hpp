@@ -6,9 +6,7 @@
 class Metroid : public IMetroid
 {
 public:
-  Metroid(float width, float height, float x, float y, ISprite *sprite, int points);
-  float getWidth() const override;
-  float getHeight() const override;
+  Metroid(float x, float y, ISprite *sprite, int points);
   int getPoints() const override;
   sf::Vector2f getOriginalPosition() const override;
   sf::Vector2f getPosition() const override;

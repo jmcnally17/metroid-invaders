@@ -8,8 +8,6 @@ class GunshipLaser : public ILaser
 {
 public:
   GunshipLaser(ISprite *sprite, ISound *sound);
-  float getWidth() const override;
-  float getHeight() const override;
   sf::Vector2f getPosition() const override;
   void setPosition(const sf::Vector2f &position) override;
   void draw(IRenderWindow &window) const override;
