@@ -10,6 +10,7 @@ public:
   MOCK_METHOD(void, clear, ());
   MOCK_METHOD(void, draw, (const sf::Drawable &drawable));
   MOCK_METHOD(void, display, ());
+  MOCK_METHOD(void, setView, (const sf::View &view));
 };
 
 #endif

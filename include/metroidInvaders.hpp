@@ -5,6 +5,7 @@
 #include "./wrappers/textWrapper.hpp"
 #include "./wrappers/soundWrapper.hpp"
 #include "./wrappers/spriteWrapper.hpp"
+#include "./wrappers/iRenderWindow.hpp"
 #include "./models/iBunker.hpp"
 #include "./models/gunshipLaser.hpp"
 #include "./models/gunship.hpp"
@@ -32,5 +33,7 @@ Ridley makeRidley();
 std::vector<ISound *> makeMetroidSounds();
 
 void pullHighScore(int &highScore, IText &highScoreText);
+
+void adjustView(IRenderWindow &window, int windowWidth, int windowHeight);
 
 #endif
