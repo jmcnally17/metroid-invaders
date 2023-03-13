@@ -31,3 +31,8 @@ void RenderWindowWrapper::display()
 {
   window_.display();
 }
+
+void RenderWindowWrapper::setView(const sf::View &view)
+{
+  window_.setView(view);
+}

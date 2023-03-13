@@ -74,6 +74,18 @@ int main()
       {
         window.close();
       }
+
+      if (event.type == sf::Event::Resized)
+      {
+        float newXOrigin = (event.size.width - 1536) / 2;
+        float newWidth = 1536 + newXOrigin * 2;
+
+        float newYOrigin = (event.size.height - 1334) / 2;
+        float newHeight = 1344 + newYOrigin * 2;
+
+        sf::FloatRect visibleArea(-newXOrigin, -newYOrigin, newWidth, newHeight);
+        window.setView(sf::View(visibleArea));
+      }
     }
 
     if (frameClock.getElapsedTime().asMicroseconds() >= 6250)

@@ -13,6 +13,7 @@ public:
   void clear() override;
   void draw(const sf::Drawable &drawable) override;
   void display() override;
+  void setView(const sf::View &view);
 
 private:
   sf::RenderWindow window_;
