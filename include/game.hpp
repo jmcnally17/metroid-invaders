@@ -23,7 +23,8 @@ void drawObjects(IRenderWindow &window,
                  const IRidley &ridley,
                  const IText &scoreText,
                  const IText &highScoreText,
-                 const IText &livesText);
+                 const IText &livesText,
+                 const std::vector<sf::RectangleShape> &rectangles);
 
 void monitorRidleyMovementSound(IRidley &ridley);
 

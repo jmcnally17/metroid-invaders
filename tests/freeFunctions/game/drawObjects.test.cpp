@@ -24,10 +24,11 @@ TEST(drawObjects, callsClearOnTheWindow)
   MockText scoreText;
   MockText highScoreText;
   MockText livesText;
+  std::vector<sf::RectangleShape> rectangles;
 
   EXPECT_CALL(window, clear())
       .Times(1);
-  drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, highScoreText, livesText);
+  drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, highScoreText, livesText, rectangles);
 }
 
 TEST(drawObjects, callsDrawOnTheBunkers)
@@ -49,10 +50,11 @@ TEST(drawObjects, callsDrawOnTheBunkers)
   MockText scoreText;
   MockText highScoreText;
   MockText livesText;
+  std::vector<sf::RectangleShape> rectangles;
 
   EXPECT_CALL(bunker, draw)
       .Times(4);
-  drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, highScoreText, livesText);
+  drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, highScoreText, livesText, rectangles);
 }
 
 TEST(drawObjects, callsDrawOnTheGunship)
@@ -68,10 +70,11 @@ TEST(drawObjects, callsDrawOnTheGunship)
   MockText scoreText;
   MockText highScoreText;
   MockText livesText;
+  std::vector<sf::RectangleShape> rectangles;
 
   EXPECT_CALL(gunship, draw)
       .Times(1);
-  drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, highScoreText, livesText);
+  drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, highScoreText, livesText, rectangles);
 }
 
 TEST(drawObjects, callsDrawOnTheGunshipLaser)
@@ -87,10 +90,11 @@ TEST(drawObjects, callsDrawOnTheGunshipLaser)
   MockText scoreText;
   MockText highScoreText;
   MockText livesText;
+  std::vector<sf::RectangleShape> rectangles;
 
   EXPECT_CALL(gunshipLaser, draw)
       .Times(1);
-  drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, highScoreText, livesText);
+  drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, highScoreText, livesText, rectangles);
 }
 
 TEST(drawObjects, callsDrawOnAllTheMetroidsIfTheyAreAlive)
@@ -117,13 +121,14 @@ TEST(drawObjects, callsDrawOnAllTheMetroidsIfTheyAreAlive)
   MockText scoreText;
   MockText highScoreText;
   MockText livesText;
+  std::vector<sf::RectangleShape> rectangles;
 
   ON_CALL(metroid, isAlive())
       .WillByDefault(Return(true));
 
   EXPECT_CALL(metroid, draw)
       .Times(55);
-  drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, highScoreText, livesText);
+  drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, highScoreText, livesText, rectangles);
 }
 
 TEST(drawObjects, doesNotCallDrawOnAllTheMetroidsIfTheyAreDead)
@@ -150,13 +155,14 @@ TEST(drawObjects, doesNotCallDrawOnAllTheMetroidsIfTheyAreDead)
   MockText scoreText;
   MockText highScoreText;
   MockText livesText;
+  std::vector<sf::RectangleShape> rectangles;
 
   ON_CALL(metroid, isAlive())
       .WillByDefault(Return(false));
 
   EXPECT_CALL(metroid, draw)
       .Times(0);
-  drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, highScoreText, livesText);
+  drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, highScoreText, livesText, rectangles);
 }
 
 TEST(drawObjects, drawsTheMetroidLasers)
@@ -178,10 +184,11 @@ TEST(drawObjects, drawsTheMetroidLasers)
   MockText scoreText;
   MockText highScoreText;
   MockText livesText;
+  std::vector<sf::RectangleShape> rectangles;
 
   EXPECT_CALL(metroidLaser, draw)
       .Times(3);
-  drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, highScoreText, livesText);
+  drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, highScoreText, livesText, rectangles);
 }
 
 TEST(drawObjects, drawsRidley)
@@ -197,13 +204,14 @@ TEST(drawObjects, drawsRidley)
   MockText scoreText;
   MockText highScoreText;
   MockText livesText;
+  std::vector<sf::RectangleShape> rectangles;
 
   EXPECT_CALL(ridley, draw)
       .Times(1);
-  drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, highScoreText, livesText);
+  drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, highScoreText, livesText, rectangles);
 }
 
-TEST(drawObjects, drawsTheBackgroundAndScoreAndHighScoreAndLivesText)
+TEST(drawObjects, drawsTheBackgroundAndScoreAndHighScoreAndLivesTextAndRectangles)
 {
   NiceMock<MockRenderWindow> window;
   MockSprite gameBackground;
@@ -216,11 +224,15 @@ TEST(drawObjects, drawsTheBackgroundAndScoreAndHighScoreAndLivesText)
   MockText scoreText;
   MockText highScoreText;
   MockText livesText;
+  sf::RectangleShape rectangle;
+  std::vector<sf::RectangleShape> rectangles(2);
+  rectangles[0] = rectangle;
+  rectangles[1] = rectangle;
 
   EXPECT_CALL(window, draw(testing::Truly([](const sf::Drawable &drawable)
                                           { return true; })))
-      .Times(4);
-  drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, highScoreText, livesText);
+      .Times(6);
+  drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, highScoreText, livesText, rectangles);
 }
 
 TEST(drawObjects, callsDisplayOnTheWindow)
@@ -236,8 +248,9 @@ TEST(drawObjects, callsDisplayOnTheWindow)
   MockText scoreText;
   MockText highScoreText;
   MockText livesText;
+  std::vector<sf::RectangleShape> rectangles;
 
   EXPECT_CALL(window, display())
       .Times(1);
-  drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, highScoreText, livesText);
+  drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, highScoreText, livesText, rectangles);
 }

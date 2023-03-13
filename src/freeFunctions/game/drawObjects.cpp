@@ -17,7 +17,8 @@ void drawObjects(IRenderWindow &window,
                  const IRidley &ridley,
                  const IText &scoreText,
                  const IText &highScoreText,
-                 const IText &livesText)
+                 const IText &livesText,
+                 const std::vector<sf::RectangleShape> &rectangles)
 {
   window.clear();
   window.draw(gameBackground);
@@ -45,5 +46,9 @@ void drawObjects(IRenderWindow &window,
   window.draw(scoreText);
   window.draw(highScoreText);
   window.draw(livesText);
+  for (auto rectangle : rectangles)
+  {
+    window.draw(rectangle);
+  }
   window.display();
 }
