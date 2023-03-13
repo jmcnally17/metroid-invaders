@@ -210,6 +210,22 @@ std::vector<ISound *> makeMetroidSounds()
   return metroidSounds;
 }
 
+std::vector<sf::RectangleShape> makeRectangles()
+{
+  sf::RectangleShape rectangle1(sf::Vector2f(96, 42));
+  rectangle1.setPosition(sf::Vector2f(-96, 200));
+  rectangle1.setFillColor(sf::Color::Black);
+  sf::RectangleShape rectangle2(sf::Vector2f(96, 42));
+  rectangle2.setPosition(sf::Vector2f(1536, 200));
+  rectangle2.setFillColor(sf::Color::Black);
+
+  std::vector<sf::RectangleShape> rectangles(2);
+  rectangles[0] = rectangle1;
+  rectangles[1] = rectangle2;
+
+  return rectangles;
+}
+
 void pullHighScore(int &highScore, IText &highScoreText)
 {
   std::string highScoreString;
