@@ -34,8 +34,6 @@ std::vector<ISound *> makeMetroidSounds();
 
 void pullHighScore(int &highScore, IText &highScoreText);
 
-sf::View adjustView(int windowWidth, int windowHeight);
-
-void setNewView(IRenderWindow &window, const sf::View &newView);
+void adjustView(IRenderWindow &window, int windowWidth, int windowHeight);
 
 #endif
