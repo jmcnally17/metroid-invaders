@@ -50,6 +50,7 @@ int main()
   std::vector<ILaser *> metroidLasers = makeMetroidLasers();
   Ridley ridley = makeRidley();
   std::vector<ISound *> metroidSounds = makeMetroidSounds();
+  std::vector<sf::RectangleShape> rectangles = makeRectangles();
   int soundCounter = 0;
   ClockWrapper movementClock;
   int interval = 665;
@@ -74,13 +75,17 @@ int main()
       {
         window.close();
       }
+      else if (event.type == sf::Event::Resized)
+      {
+        adjustView(window, event.size.width, event.size.height);
+      }
     }
 
     if (frameClock.getElapsedTime().asMicroseconds() >= 6250)
     {
       if (isPlaying)
       {
-        drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, highScoreText, livesText);
+        drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, highScoreText, livesText, rectangles);
         monitorRidleyMovementSound(ridley);
         if (areMetroidsDead(metroids))
         {
