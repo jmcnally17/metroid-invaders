@@ -77,14 +77,34 @@ int main()
 
       if (event.type == sf::Event::Resized)
       {
-        float newXOrigin = (event.size.width - 1536) / 2;
-        float newWidth = 1536 + newXOrigin * 2;
+        float widthRatio = (float)event.size.width / 1536;
+        float heightRatio = (float)event.size.height / 1334;
 
-        float newYOrigin = (event.size.height - 1334) / 2;
-        float newHeight = 1344 + newYOrigin * 2;
+        if (widthRatio > 1 && heightRatio > 1)
+        {
+          float newXOrigin = (event.size.width - 1536) / 2;
+          float newYOrigin = (event.size.height - 1334) / 2;
+          bool doesXNeedToFillOut = widthRatio < heightRatio;
 
-        sf::FloatRect visibleArea(-newXOrigin, -newYOrigin, newWidth, newHeight);
-        window.setView(sf::View(visibleArea));
+          if (doesXNeedToFillOut)
+          {
+            float OriginDecrease = (widthRatio - 1) * 1536 / 2;
+            newXOrigin = 0;
+            newYOrigin -= OriginDecrease;
+          }
+          else
+          {
+            float OriginDecrease = (heightRatio - 1) * 1536 / 2;
+            newXOrigin -= OriginDecrease;
+            newYOrigin = 0;
+          }
+
+          float newWidth = 1536 + newXOrigin * 2;
+          float newHeight = 1344 + newYOrigin * 2;
+
+          sf::FloatRect visibleArea(-newXOrigin, -newYOrigin, newWidth, newHeight);
+          window.setView(sf::View(visibleArea));
+        }
       }
     }
 
