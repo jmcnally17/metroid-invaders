@@ -76,7 +76,8 @@ int main()
       }
       else if (event.type == sf::Event::Resized)
       {
-        adjustView(window, event.size.width, event.size.height);
+        sf::View newView = adjustView(event.size.width, event.size.height);
+        setNewView(window, newView);
       }
     }
 

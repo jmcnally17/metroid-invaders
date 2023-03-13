@@ -1,6 +1,6 @@
 #include "../../include/wrappers/iRenderWindow.hpp"
 
-void adjustView(IRenderWindow &window, int windowWidth, int windowHeight)
+sf::View adjustView(int windowWidth, int windowHeight)
 {
   float widthRatio = (float)windowWidth / 1536;
   float heightRatio = (float)windowHeight / 1334;
@@ -22,5 +22,10 @@ void adjustView(IRenderWindow &window, int windowWidth, int windowHeight)
   }
 
   sf::FloatRect visibleArea(newXOrigin, newYOrigin, newWidth, newHeight);
-  window.setView(sf::View(visibleArea));
+  return sf::View(visibleArea);
+}
+
+void setNewView(IRenderWindow &window, const sf::View &newView)
+{
+  window.setView(newView);
 }
