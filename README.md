@@ -50,7 +50,7 @@ git clone https://github.com/jmcnally17/metroid-invaders.git
 Then run the game by entering
 
 ```
-bin/MetroidInvaders
+bin/Debug/MetroidInvaders
 ```
 
 into your terminal while in the [main](https://github.com/jmcnally17/metroid-invaders) directory. However, if you would like to have a go at compiling the code yourself, see the instructions below for macOS to get started.
