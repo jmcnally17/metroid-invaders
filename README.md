@@ -88,7 +88,7 @@ Enter `bin/MetroidInvaders` into your terminal and a window should open with the
 Tests have been written using the [GoogleTest](http://google.github.io/googletest/) framework while adhering to the TDD process. To run the tests, enter
 
 ```
-bin/tests
+bin/Debug/MetroidInvadersTest
 ```
 
 while in the [main](https://github.com/jmcnally17/metroid-invaders) directory. If you want to compile the tests yourself, you can start by installing GoogleTest with Homebrew by entering
