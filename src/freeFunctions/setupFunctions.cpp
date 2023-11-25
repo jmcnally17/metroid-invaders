@@ -12,7 +12,7 @@
 SpriteWrapper makeBackground(std::string fileName)
 {
   sf::Texture backgroundTexture;
-  backgroundTexture.loadFromFile("public/images/backgrounds/" + fileName + ".png");
+  backgroundTexture.loadFromFile("resources/images/backgrounds/" + fileName + ".png");
   SpriteWrapper background(backgroundTexture);
 
   return background;
@@ -33,7 +33,7 @@ TextWrapper makeText(std::string string, const sf::Font &font, int characterSize
 SoundWrapper makeTheme(std::string fileName)
 {
   sf::SoundBuffer buffer;
-  buffer.loadFromFile("public/audio/" + fileName + ".wav");
+  buffer.loadFromFile("resources/audio/" + fileName + ".wav");
   SoundWrapper theme(buffer);
   theme.setLoop(true);
 
@@ -43,15 +43,15 @@ SoundWrapper makeTheme(std::string fileName)
 std::vector<IBunker *> makeBunkers()
 {
   sf::Texture bunkerTexture1;
-  bunkerTexture1.loadFromFile("public/images/sprites/bunker1.png");
+  bunkerTexture1.loadFromFile("resources/images/sprites/bunker1.png");
   sf::Texture bunkerTexture2;
-  bunkerTexture2.loadFromFile("public/images/sprites/bunker2.png");
+  bunkerTexture2.loadFromFile("resources/images/sprites/bunker2.png");
   sf::Texture bunkerTexture3;
-  bunkerTexture3.loadFromFile("public/images/sprites/bunker3.png");
+  bunkerTexture3.loadFromFile("resources/images/sprites/bunker3.png");
   sf::Texture bunkerTexture4;
-  bunkerTexture4.loadFromFile("public/images/sprites/bunker4.png");
+  bunkerTexture4.loadFromFile("resources/images/sprites/bunker4.png");
   sf::Texture bunkerTexture5;
-  bunkerTexture5.loadFromFile("public/images/sprites/bunker5.png");
+  bunkerTexture5.loadFromFile("resources/images/sprites/bunker5.png");
 
   std::vector<IBunker *> bunkers(4);
 
@@ -75,11 +75,11 @@ std::vector<IBunker *> makeBunkers()
 GunshipLaser makeGunshipLaser()
 {
   sf::Texture gunshipLaserTexture;
-  gunshipLaserTexture.loadFromFile("public/images/sprites/gunshipLaser.png");
+  gunshipLaserTexture.loadFromFile("resources/images/sprites/gunshipLaser.png");
   SpriteWrapper *gunshipLaserSprite = new SpriteWrapper(gunshipLaserTexture);
 
   sf::SoundBuffer deathBuffer;
-  deathBuffer.loadFromFile("public/audio/metroidDeath.wav");
+  deathBuffer.loadFromFile("resources/audio/metroidDeath.wav");
   SoundWrapper *deathSound = new SoundWrapper(deathBuffer);
 
   GunshipLaser gunshipLaser(gunshipLaserSprite, deathSound);
@@ -89,15 +89,15 @@ GunshipLaser makeGunshipLaser()
 Gunship makeGunship(GunshipLaser &gunshipLaser)
 {
   sf::Texture gunshipTexture;
-  gunshipTexture.loadFromFile("public/images/sprites/gunship.png");
+  gunshipTexture.loadFromFile("resources/images/sprites/gunship.png");
   SpriteWrapper *gunshipSprite = new SpriteWrapper(gunshipTexture);
 
   sf::SoundBuffer fireSoundBuffer;
-  fireSoundBuffer.loadFromFile("public/audio/shoot.wav");
+  fireSoundBuffer.loadFromFile("resources/audio/shoot.wav");
   SoundWrapper *fireSound = new SoundWrapper(fireSoundBuffer);
 
   sf::SoundBuffer deathSoundBuffer;
-  deathSoundBuffer.loadFromFile("public/audio/gunshipDeath.wav");
+  deathSoundBuffer.loadFromFile("resources/audio/gunshipDeath.wav");
   SoundWrapper *deathSound = new SoundWrapper(deathSoundBuffer);
 
   GunshipLaser *pGunshipLaser = &gunshipLaser;
@@ -108,11 +108,11 @@ Gunship makeGunship(GunshipLaser &gunshipLaser)
 std::vector<std::vector<IMetroid *>> makeMetroids()
 {
   sf::Texture larvaTexture;
-  larvaTexture.loadFromFile("public/images/sprites/larva.png");
+  larvaTexture.loadFromFile("resources/images/sprites/larva.png");
   sf::Texture alphaTexture;
-  alphaTexture.loadFromFile("public/images/sprites/alpha.png");
+  alphaTexture.loadFromFile("resources/images/sprites/alpha.png");
   sf::Texture gammaTexture;
-  gammaTexture.loadFromFile("public/images/sprites/gamma.png");
+  gammaTexture.loadFromFile("resources/images/sprites/gamma.png");
 
   std::vector<std::vector<IMetroid *>> metroids(5);
 
@@ -153,7 +153,7 @@ std::vector<std::vector<IMetroid *>> makeMetroids()
 std::vector<ILaser *> makeMetroidLasers()
 {
   sf::Texture metroidLaserTexture;
-  metroidLaserTexture.loadFromFile("public/images/sprites/metroidLaser.png");
+  metroidLaserTexture.loadFromFile("resources/images/sprites/metroidLaser.png");
 
   std::vector<ILaser *> metroidLasers(3);
   for (int i = 0; i < 3; i++)
@@ -169,19 +169,19 @@ std::vector<ILaser *> makeMetroidLasers()
 Ridley makeRidley()
 {
   sf::Texture ridleyRightTexture;
-  ridleyRightTexture.loadFromFile("public/images/sprites/ridleyRight.png");
+  ridleyRightTexture.loadFromFile("resources/images/sprites/ridleyRight.png");
   SpriteWrapper *ridleyRightSprite = new SpriteWrapper(ridleyRightTexture);
 
   sf::Texture ridleyLeftTexture;
-  ridleyLeftTexture.loadFromFile("public/images/sprites/ridleyLeft.png");
+  ridleyLeftTexture.loadFromFile("resources/images/sprites/ridleyLeft.png");
   SpriteWrapper *ridleyLeftSprite = new SpriteWrapper(ridleyLeftTexture);
 
   sf::SoundBuffer movementBuffer;
-  movementBuffer.loadFromFile("public/audio/ridley.wav");
+  movementBuffer.loadFromFile("resources/audio/ridley.wav");
   SoundWrapper *movementSound = new SoundWrapper(movementBuffer);
 
   sf::SoundBuffer deathBuffer;
-  deathBuffer.loadFromFile("public/audio/ridleyDeath.wav");
+  deathBuffer.loadFromFile("resources/audio/ridleyDeath.wav");
   SoundWrapper *deathSound = new SoundWrapper(deathBuffer);
 
   Ridley ridley(ridleyRightSprite, ridleyLeftSprite, movementSound, deathSound);
@@ -191,19 +191,19 @@ Ridley makeRidley()
 std::vector<ISound *> makeMetroidSounds()
 {
   sf::SoundBuffer sound0Buffer;
-  sound0Buffer.loadFromFile("public/audio/metroid0.wav");
+  sound0Buffer.loadFromFile("resources/audio/metroid0.wav");
   SoundWrapper *sound0 = new SoundWrapper(sound0Buffer);
 
   sf::SoundBuffer sound1Buffer;
-  sound1Buffer.loadFromFile("public/audio/metroid1.wav");
+  sound1Buffer.loadFromFile("resources/audio/metroid1.wav");
   SoundWrapper *sound1 = new SoundWrapper(sound1Buffer);
 
   sf::SoundBuffer sound2Buffer;
-  sound2Buffer.loadFromFile("public/audio/metroid2.wav");
+  sound2Buffer.loadFromFile("resources/audio/metroid2.wav");
   SoundWrapper *sound2 = new SoundWrapper(sound2Buffer);
 
   sf::SoundBuffer sound3Buffer;
-  sound3Buffer.loadFromFile("public/audio/metroid3.wav");
+  sound3Buffer.loadFromFile("resources/audio/metroid3.wav");
   SoundWrapper *sound3 = new SoundWrapper(sound3Buffer);
 
   std::vector<ISound *> metroidSounds = {sound0, sound1, sound2, sound3};

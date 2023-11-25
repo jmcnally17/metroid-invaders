@@ -13,7 +13,7 @@ int main()
   ClockWrapper frameClock;
 
   sf::Font m56;
-  m56.loadFromFile("public/fonts/MicroN56.ttf");
+  m56.loadFromFile("resources/fonts/MicroN56.ttf");
   sf::Color white = sf::Color::White;
   sf::Color green = sf::Color::Green;
 

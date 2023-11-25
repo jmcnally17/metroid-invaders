@@ -1,4 +1,4 @@
-# Metroid Invaders &nbsp; <img src="./public/images/sprites/gamma.png" height="30"> <img src="./public/images/sprites/alpha.png" height="30"> <img src="./public/images/sprites/larva.png" height="30"> <img src="./public/images/sprites/ridleyLeft.png" height="30">
+# Metroid Invaders &nbsp; <img src="./resources/images/sprites/gamma.png" height="30"> <img src="./resources/images/sprites/alpha.png" height="30"> <img src="./resources/images/sprites/larva.png" height="30"> <img src="./resources/images/sprites/ridleyLeft.png" height="30">
 
 This solo project is an imitation of the classic 1978 Taito game, Space Invaders. It has been written in [C++](https://en.wikipedia.org/wiki/C%2B%2B) using the [SFML](https://www.sfml-dev.org/) graphics library. Using a clock object from SFML, the game runs at a framerate of 160fps.
 
@@ -16,7 +16,7 @@ The player controls a Gunship at the bottom of the window which can be moved hor
 - The game is over when at least one of the Metroids that are alive reaches the bottom of the window or the player runs out of lives. This position that the bottom of the Metroid needs to reach is 48 pixels above the top of the Gunship
 
 <p align="center">
-  <img src="./public/images/screenshots/title.png" width="70%">
+  <img src="./resources/images/screenshots/title.png" width="70%">
 </p>
 
 <p align="center">
@@ -24,7 +24,7 @@ The player controls a Gunship at the bottom of the window which can be moved hor
 </p>
 
 <p align="center">
-  <img src="./public/images/screenshots/gameplay.png" width="70%">
+  <img src="./resources/images/screenshots/gameplay.png" width="70%">
 </p>
 
 <p align="center">
@@ -32,7 +32,7 @@ The player controls a Gunship at the bottom of the window which can be moved hor
 </p>
 
 <p align="center">
-  <img src="./public/images/screenshots/gameOver.png" width="70%">
+  <img src="./resources/images/screenshots/gameOver.png" width="70%">
 </p>
 
 <p align="center">
