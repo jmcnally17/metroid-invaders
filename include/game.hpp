@@ -30,10 +30,7 @@ void monitorRidleyMovementSound(IRidley &ridley);
 
 bool areMetroidsDead(const std::vector<std::vector<IMetroid *>> &metroids);
 
-void levelUp(int &level,
-             int &interval,
-             int &step,
-             int &soundCounter,
+void levelUp(std::unordered_map<std::string, int> &variables,
              const std::vector<std::vector<IMetroid *>> &metroids,
              const std::vector<ILaser *> &metroidLasers,
              IRidley &ridley,
@@ -42,17 +39,15 @@ void levelUp(int &level,
 void evaluateGunshipLaserMetroidCollision(const CollisionInterface &collision,
                                           ILaser &gunshipLaser,
                                           const std::vector<std::vector<IMetroid *>> &metroids,
-                                          int &score,
+                                          std::unordered_map<std::string, int> &variables,
                                           IText &scoreText,
-                                          int &highScore,
                                           IText &highScoreText);
 
 void evaluateGunshipLaserRidleyCollision(const CollisionInterface &collision,
                                          ILaser &gunshipLaser,
                                          IRidley &ridley,
-                                         int &score,
+                                         std::unordered_map<std::string, int> &variables,
                                          IText &scoreText,
-                                         int &highScore,
                                          IText &highScoretext);
 
 void evaluateGunshipLaserBunkerCollision(const CollisionInterface &collision, ILaser &gunshipLaser, std::vector<IBunker *> &bunkers);
@@ -73,10 +68,8 @@ void moveGunshipLaser(ILaser &gunshipLaser);
 
 void moveMetroids(const std::vector<std::vector<IMetroid *>> &metroids,
                   IClock &movementClock,
-                  int &interval,
-                  int &step,
-                  std::vector<ISound *> &sounds,
-                  int &soundCounter);
+                  std::unordered_map<std::string, int> &variables,
+                  std::vector<ISound *> &sounds);
 
 void moveMetroidLasers(const std::vector<ILaser *> &metroidLasers);
 
@@ -90,6 +83,6 @@ void spawnRidley(IRidley &ridley);
 
 void endGame(bool &isPlaying, bool &gameOver, IRidley &ridley, ISound &battleTheme, ISound &creditsTheme);
 
-void updateHighScore(int score, int &highScore, IText &scoreText, IText &highScoreText);
+void updateHighScore(std::unordered_map<std::string, int> &variables, IText &scoreText, IText &highScoreText);
 
 #endif

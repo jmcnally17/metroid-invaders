@@ -24,9 +24,11 @@ TEST(evaluateGunshipLaserMetroidCollision, killsMetroidThatIsAliveAndGunshipLase
     }
     metroids[i] = metroidRow;
   }
-  int score = 0;
+  std::unordered_map<std::string, int> variables = {
+    {"score", 0},
+    {"highScore", 120},
+  };
   NiceMock<MockText> scoreText;
-  int highScore = 120;
   MockText highScoreText;
 
   ON_CALL(metroid, isAlive())
@@ -40,7 +42,7 @@ TEST(evaluateGunshipLaserMetroidCollision, killsMetroidThatIsAliveAndGunshipLase
       .Times(1);
   EXPECT_CALL(gunshipLaser, playMetroidDeath())
       .Times(1);
-  evaluateGunshipLaserMetroidCollision(collision, gunshipLaser, metroids, score, scoreText, highScore, highScoreText);
+  evaluateGunshipLaserMetroidCollision(collision, gunshipLaser, metroids, variables, scoreText, highScoreText);
 }
 
 TEST(evaluateGunshipLaserMetroidCollision, addsTheMetroidPointsToTheScore)
@@ -59,9 +61,11 @@ TEST(evaluateGunshipLaserMetroidCollision, addsTheMetroidPointsToTheScore)
     }
     metroids[i] = metroidRow;
   }
-  int score = 0;
+  std::unordered_map<std::string, int> variables = {
+    {"score", 0},
+    {"highScore", 120},
+  };
   MockText scoreText;
-  int highScore = 120;
   MockText highScoreText;
 
   ON_CALL(metroid, isAlive())
@@ -73,8 +77,8 @@ TEST(evaluateGunshipLaserMetroidCollision, addsTheMetroidPointsToTheScore)
 
   EXPECT_CALL(scoreText, setString("Score: 30"))
       .Times(1);
-  evaluateGunshipLaserMetroidCollision(collision, gunshipLaser, metroids, score, scoreText, highScore, highScoreText);
-  EXPECT_EQ(score, 30);
+  evaluateGunshipLaserMetroidCollision(collision, gunshipLaser, metroids, variables, scoreText, highScoreText);
+  EXPECT_EQ(variables["score"], 30);
 }
 
 TEST(evaluateGunshipLaserMetroidCollision, updatesTheHighScoreTextIfScoreSurpassesHighScore)
@@ -93,9 +97,11 @@ TEST(evaluateGunshipLaserMetroidCollision, updatesTheHighScoreTextIfScoreSurpass
     }
     metroids[i] = metroidRow;
   }
-  int score = 120;
+  std::unordered_map<std::string, int> variables = {
+    {"score", 120},
+    {"highScore", 120},
+  };
   NiceMock<MockText> scoreText;
-  int highScore = 120;
   MockText highScoreText;
 
   ON_CALL(metroid, isAlive())
@@ -107,7 +113,7 @@ TEST(evaluateGunshipLaserMetroidCollision, updatesTheHighScoreTextIfScoreSurpass
 
   EXPECT_CALL(highScoreText, setString("High Score: 150"))
       .Times(1);
-  evaluateGunshipLaserMetroidCollision(collision, gunshipLaser, metroids, score, scoreText, highScore, highScoreText);
+  evaluateGunshipLaserMetroidCollision(collision, gunshipLaser, metroids, variables, scoreText, highScoreText);
 }
 
 TEST(evaluateGunshipLaserMetroidCollision, doesNotUpdateTheHighScoreTextIfScoreDoesNotSurpassHighScore)
@@ -126,9 +132,11 @@ TEST(evaluateGunshipLaserMetroidCollision, doesNotUpdateTheHighScoreTextIfScoreD
     }
     metroids[i] = metroidRow;
   }
-  int score = 0;
+  std::unordered_map<std::string, int> variables = {
+    {"score", 0},
+    {"highScore", 120},
+  };
   NiceMock<MockText> scoreText;
-  int highScore = 120;
   MockText highScoreText;
 
   ON_CALL(metroid, isAlive())
@@ -140,7 +148,7 @@ TEST(evaluateGunshipLaserMetroidCollision, doesNotUpdateTheHighScoreTextIfScoreD
 
   EXPECT_CALL(highScoreText, setString)
       .Times(0);
-  evaluateGunshipLaserMetroidCollision(collision, gunshipLaser, metroids, score, scoreText, highScore, highScoreText);
+  evaluateGunshipLaserMetroidCollision(collision, gunshipLaser, metroids, variables, scoreText, highScoreText);
 }
 
 TEST(evaluateGunshipLaserMetroidCollision, doesNotKillMetroidsThatAreAliveAndGunshipLaserIsNotCollidingWith)
@@ -159,9 +167,11 @@ TEST(evaluateGunshipLaserMetroidCollision, doesNotKillMetroidsThatAreAliveAndGun
     }
     metroids[i] = metroidRow;
   }
-  int score = 0;
+  std::unordered_map<std::string, int> variables = {
+    {"score", 0},
+    {"highScore", 120},
+  };
   NiceMock<MockText> scoreText;
-  int highScore = 120;
   MockText highScoreText;
 
   ON_CALL(metroid, isAlive())
@@ -175,7 +185,7 @@ TEST(evaluateGunshipLaserMetroidCollision, doesNotKillMetroidsThatAreAliveAndGun
       .Times(0);
   EXPECT_CALL(gunshipLaser, playMetroidDeath())
       .Times(0);
-  evaluateGunshipLaserMetroidCollision(collision, gunshipLaser, metroids, score, scoreText, highScore, highScoreText);
+  evaluateGunshipLaserMetroidCollision(collision, gunshipLaser, metroids, variables, scoreText, highScoreText);
 }
 
 TEST(evaluateGunshipLaserMetroidCollision, doesNotKillMetroidsThatAreDeadAndGunshipLaserIsCollidingWith)
@@ -194,9 +204,11 @@ TEST(evaluateGunshipLaserMetroidCollision, doesNotKillMetroidsThatAreDeadAndGuns
     }
     metroids[i] = metroidRow;
   }
-  int score = 0;
+  std::unordered_map<std::string, int> variables = {
+    {"score", 0},
+    {"highScore", 120},
+  };
   NiceMock<MockText> scoreText;
-  int highScore = 120;
   MockText highScoreText;
 
   ON_CALL(metroid, isAlive())
@@ -210,7 +222,7 @@ TEST(evaluateGunshipLaserMetroidCollision, doesNotKillMetroidsThatAreDeadAndGuns
       .Times(0);
   EXPECT_CALL(gunshipLaser, playMetroidDeath())
       .Times(0);
-  evaluateGunshipLaserMetroidCollision(collision, gunshipLaser, metroids, score, scoreText, highScore, highScoreText);
+  evaluateGunshipLaserMetroidCollision(collision, gunshipLaser, metroids, variables, scoreText, highScoreText);
 }
 
 TEST(evaluateGunshipLaserMetroidCollision, doesNotKillMetroidsThatAreDeadAndGunshipLaserIsNotCollidingWith)
@@ -229,9 +241,11 @@ TEST(evaluateGunshipLaserMetroidCollision, doesNotKillMetroidsThatAreDeadAndGuns
     }
     metroids[i] = metroidRow;
   }
-  int score = 0;
+  std::unordered_map<std::string, int> variables = {
+    {"score", 0},
+    {"highScore", 120},
+  };
   NiceMock<MockText> scoreText;
-  int highScore = 120;
   MockText highScoreText;
 
   ON_CALL(metroid, isAlive())
@@ -245,5 +259,5 @@ TEST(evaluateGunshipLaserMetroidCollision, doesNotKillMetroidsThatAreDeadAndGuns
       .Times(0);
   EXPECT_CALL(gunshipLaser, playMetroidDeath())
       .Times(0);
-  evaluateGunshipLaserMetroidCollision(collision, gunshipLaser, metroids, score, scoreText, highScore, highScoreText);
+  evaluateGunshipLaserMetroidCollision(collision, gunshipLaser, metroids, variables, scoreText, highScoreText);
 }

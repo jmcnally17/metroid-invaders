@@ -29,20 +29,20 @@ void endGame(bool &isPlaying, bool &gameOver, IRidley &ridley, ISound &battleThe
   creditsTheme.play();
 }
 
-void updateHighScore(int score, int &highScore, IText &scoreText, IText &highScoreText)
+void updateHighScore(std::unordered_map<std::string, int> &variables, IText &scoreText, IText &highScoreText)
 {
-  if (score > highScore)
+  if (variables["score"] > variables["highScore"])
   {
-    highScore = score;
+    variables["highScore"] = variables["score"];
     std::ofstream highScoreWriteFile("highScore.txt");
-    highScoreWriteFile << score;
+    highScoreWriteFile << variables["score"];
     highScoreWriteFile.close();
-    scoreText.setString("New High Score! " + std::to_string(score) + " points");
-    highScoreText.setString("High Score: " + std::to_string(score));
+    scoreText.setString("New High Score! " + std::to_string(variables["score"]) + " points");
+    highScoreText.setString("High Score: " + std::to_string(variables["score"]));
   }
   else
   {
-    scoreText.setString("You scored " + std::to_string(score) + " points");
+    scoreText.setString("You scored " + std::to_string(variables["score"]) + " points");
   }
   scoreText.setPosition(sf::Vector2f(768, 600));
   sf::FloatRect scoreTextRect = scoreText.getLocalBounds();

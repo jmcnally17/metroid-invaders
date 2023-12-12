@@ -9,70 +9,80 @@ using ::testing::Return;
 
 TEST(levelUp, adds1ToTheLevelVariable)
 {
-  int level = 5;
-  int interval = 105;
-  int step = 15;
-  int soundCounter = 3;
+  std::unordered_map<std::string, int> variables = {
+    {"interval", 105},
+    {"level", 5},
+    {"soundCounter", 3},
+    {"step", 15},
+  };
   std::vector<std::vector<IMetroid *>> metroids;
   std::vector<ILaser *> metroidLasers;
   NiceMock<MockRidley> ridley;
   NiceMock<MockClock> movementClock;
 
-  levelUp(level, interval, step, soundCounter, metroids, metroidLasers, ridley, movementClock);
-  EXPECT_EQ(level, 6);
+  levelUp(variables, metroids, metroidLasers, ridley, movementClock);
+  EXPECT_EQ(variables["level"], 6);
 }
 
 TEST(levelUp, resetsTheInterval)
 {
-  int level = 5;
-  int interval = 105;
-  int step = 15;
-  int soundCounter = 3;
+  std::unordered_map<std::string, int> variables = {
+    {"interval", 105},
+    {"level", 5},
+    {"soundCounter", 3},
+    {"step", 15},
+  };
   std::vector<std::vector<IMetroid *>> metroids;
   std::vector<ILaser *> metroidLasers;
   NiceMock<MockRidley> ridley;
   NiceMock<MockClock> movementClock;
 
-  levelUp(level, interval, step, soundCounter, metroids, metroidLasers, ridley, movementClock);
-  EXPECT_EQ(interval, 665);
+  levelUp(variables, metroids, metroidLasers, ridley, movementClock);
+  EXPECT_EQ(variables["interval"], 665);
 }
 
 TEST(levelUp, resetsTheStepCounter)
 {
-  int level = 5;
-  int interval = 105;
-  int step = 15;
-  int soundCounter = 3;
+  std::unordered_map<std::string, int> variables = {
+    {"interval", 105},
+    {"level", 5},
+    {"soundCounter", 3},
+    {"step", 15},
+  };
   std::vector<std::vector<IMetroid *>> metroids;
   std::vector<ILaser *> metroidLasers;
   NiceMock<MockRidley> ridley;
   NiceMock<MockClock> movementClock;
 
-  levelUp(level, interval, step, soundCounter, metroids, metroidLasers, ridley, movementClock);
-  EXPECT_EQ(step, 1);
+  levelUp(variables, metroids, metroidLasers, ridley, movementClock);
+  EXPECT_EQ(variables["step"], 1);
 }
 
 TEST(levelUp, resetsTheSoundCounter)
 {
-  int level = 5;
-  int interval = 105;
-  int step = 15;
-  int soundCounter = 3;
+  std::unordered_map<std::string, int> variables = {
+    {"interval", 105},
+    {"level", 5},
+    {"soundCounter", 3},
+    {"step", 15},
+  };
   std::vector<std::vector<IMetroid *>> metroids;
   std::vector<ILaser *> metroidLasers;
   NiceMock<MockRidley> ridley;
   NiceMock<MockClock> movementClock;
 
-  levelUp(level, interval, step, soundCounter, metroids, metroidLasers, ridley, movementClock);
-  EXPECT_EQ(soundCounter, 0);
+  levelUp(variables, metroids, metroidLasers, ridley, movementClock);
+  EXPECT_EQ(variables["soundCounter"], 0);
 }
 
 TEST(levelUp, callsResurrectOnEachMetroid)
 {
-  int level = 5;
-  int interval = 105;
-  int step = 15;
-  int soundCounter = 3;
+  std::unordered_map<std::string, int> variables = {
+    {"interval", 105},
+    {"level", 5},
+    {"soundCounter", 3},
+    {"step", 15},
+  };
   NiceMock<MockMetroid> metroid;
   MockMetroid *pMetroid = &metroid;
   std::vector<std::vector<IMetroid *>> metroids(2);
@@ -91,15 +101,17 @@ TEST(levelUp, callsResurrectOnEachMetroid)
 
   EXPECT_CALL(metroid, resurrect())
       .Times(8);
-  levelUp(level, interval, step, soundCounter, metroids, metroidLasers, ridley, movementClock);
+  levelUp(variables, metroids, metroidLasers, ridley, movementClock);
 }
 
 TEST(levelUp, changesDirectionOnMetroidsIfTheyAreMovingLeft)
 {
-  int level = 5;
-  int interval = 105;
-  int step = 15;
-  int soundCounter = 3;
+  std::unordered_map<std::string, int> variables = {
+    {"interval", 105},
+    {"level", 5},
+    {"soundCounter", 3},
+    {"step", 15},
+  };
   NiceMock<MockMetroid> metroid;
   MockMetroid *pMetroid = &metroid;
   std::vector<std::vector<IMetroid *>> metroids(2);
@@ -121,15 +133,17 @@ TEST(levelUp, changesDirectionOnMetroidsIfTheyAreMovingLeft)
 
   EXPECT_CALL(metroid, changeDirection())
       .Times(8);
-  levelUp(level, interval, step, soundCounter, metroids, metroidLasers, ridley, movementClock);
+  levelUp(variables, metroids, metroidLasers, ridley, movementClock);
 }
 
 TEST(levelUp, doesNotChangeDirectionOnMetroidsIfTheyAreMovingRight)
 {
-  int level = 5;
-  int interval = 105;
-  int step = 15;
-  int soundCounter = 3;
+  std::unordered_map<std::string, int> variables = {
+    {"interval", 105},
+    {"level", 5},
+    {"soundCounter", 3},
+    {"step", 15},
+  };
   NiceMock<MockMetroid> metroid;
   MockMetroid *pMetroid = &metroid;
   std::vector<std::vector<IMetroid *>> metroids(2);
@@ -151,15 +165,17 @@ TEST(levelUp, doesNotChangeDirectionOnMetroidsIfTheyAreMovingRight)
 
   EXPECT_CALL(metroid, changeDirection())
       .Times(0);
-  levelUp(level, interval, step, soundCounter, metroids, metroidLasers, ridley, movementClock);
+  levelUp(variables, metroids, metroidLasers, ridley, movementClock);
 }
 
 TEST(levelUp, setsNextLevelPositionOnMetroids)
 {
-  int level = 5;
-  int interval = 105;
-  int step = 15;
-  int soundCounter = 3;
+  std::unordered_map<std::string, int> variables = {
+    {"interval", 105},
+    {"level", 5},
+    {"soundCounter", 3},
+    {"step", 15},
+  };
   NiceMock<MockMetroid> metroid;
   MockMetroid *pMetroid = &metroid;
   std::vector<std::vector<IMetroid *>> metroids(2);
@@ -181,15 +197,17 @@ TEST(levelUp, setsNextLevelPositionOnMetroids)
 
   EXPECT_CALL(metroid, setPosition(sf::Vector2f(400, 1170)))
       .Times(8);
-  levelUp(level, interval, step, soundCounter, metroids, metroidLasers, ridley, movementClock);
+  levelUp(variables, metroids, metroidLasers, ridley, movementClock);
 }
 
 TEST(levelUp, resetsTheMetroidLasers)
 {
-  int level = 5;
-  int interval = 105;
-  int step = 15;
-  int soundCounter = 3;
+  std::unordered_map<std::string, int> variables = {
+    {"interval", 105},
+    {"level", 5},
+    {"soundCounter", 3},
+    {"step", 15},
+  };
   std::vector<std::vector<IMetroid *>> metroids;
   MockLaser metroidLaser;
   MockLaser *pMetroidLaser = &metroidLaser;
@@ -203,15 +221,17 @@ TEST(levelUp, resetsTheMetroidLasers)
 
   EXPECT_CALL(metroidLaser, reset())
       .Times(3);
-  levelUp(level, interval, step, soundCounter, metroids, metroidLasers, ridley, movementClock);
+  levelUp(variables, metroids, metroidLasers, ridley, movementClock);
 }
 
 TEST(levelUp, resetsRidley)
 {
-  int level = 5;
-  int interval = 105;
-  int step = 15;
-  int soundCounter = 3;
+  std::unordered_map<std::string, int> variables = {
+    {"interval", 105},
+    {"level", 5},
+    {"soundCounter", 3},
+    {"step", 15},
+  };
   std::vector<std::vector<IMetroid *>> metroids;
   std::vector<ILaser *> metroidLasers;
   NiceMock<MockRidley> ridley;
@@ -219,15 +239,17 @@ TEST(levelUp, resetsRidley)
 
   EXPECT_CALL(ridley, reset())
       .Times(1);
-  levelUp(level, interval, step, soundCounter, metroids, metroidLasers, ridley, movementClock);
+  levelUp(variables, metroids, metroidLasers, ridley, movementClock);
 }
 
 TEST(levelUp, stopsRidleyMovementSoundIfPlaying)
 {
-  int level = 5;
-  int interval = 105;
-  int step = 15;
-  int soundCounter = 3;
+  std::unordered_map<std::string, int> variables = {
+    {"interval", 105},
+    {"level", 5},
+    {"soundCounter", 3},
+    {"step", 15},
+  };
   std::vector<std::vector<IMetroid *>> metroids;
   std::vector<ILaser *> metroidLasers;
   NiceMock<MockRidley> ridley;
@@ -235,15 +257,17 @@ TEST(levelUp, stopsRidleyMovementSoundIfPlaying)
 
   EXPECT_CALL(ridley, stopMovementSoundIfPlaying())
       .Times(1);
-  levelUp(level, interval, step, soundCounter, metroids, metroidLasers, ridley, movementClock);
+  levelUp(variables, metroids, metroidLasers, ridley, movementClock);
 }
 
 TEST(levelUp, restartsTheClock)
 {
-  int level = 5;
-  int interval = 105;
-  int step = 15;
-  int soundCounter = 3;
+  std::unordered_map<std::string, int> variables = {
+    {"interval", 105},
+    {"level", 5},
+    {"soundCounter", 3},
+    {"step", 15},
+  };
   std::vector<std::vector<IMetroid *>> metroids;
   std::vector<ILaser *> metroidLasers;
   NiceMock<MockRidley> ridley;
@@ -251,5 +275,5 @@ TEST(levelUp, restartsTheClock)
 
   EXPECT_CALL(movementClock, restart())
       .Times(1);
-  levelUp(level, interval, step, soundCounter, metroids, metroidLasers, ridley, movementClock);
+  levelUp(variables, metroids, metroidLasers, ridley, movementClock);
 }

@@ -51,19 +51,23 @@ int main()
   Ridley ridley = makeRidley();
   std::vector<ISound *> metroidSounds = makeMetroidSounds();
   std::vector<sf::RectangleShape> rectangles = makeRectangles();
-  int soundCounter = 0;
   ClockWrapper movementClock;
-  int interval = 665;
-  int step = 1;
   Collision collisionInterface;
-  int level = 1;
-  int score = 0;
-  int highScore = 0;
+  
+  // variables
+  std::unordered_map<std::string, int> variables = {
+    {"soundCounter", 0},
+    {"interval", 665},
+    {"step", 1},
+    {"level", 1},
+    {"score", 0},
+    {"highScore", 0},
+  };
 
   // final setup
   bool isPlaying = false;
   bool gameOver = false;
-  pullHighScore(highScore, highScoreText);
+  pullHighScore(variables, highScoreText);
   titleTheme.play();
 
   while (window.isOpen())
@@ -89,17 +93,17 @@ int main()
         monitorRidleyMovementSound(ridley);
         if (areMetroidsDead(metroids))
         {
-          levelUp(level, interval, step, soundCounter, metroids, metroidLasers, ridley, movementClock);
+          levelUp(variables, metroids, metroidLasers, ridley, movementClock);
         }
-        evaluateGunshipLaserMetroidCollision(collisionInterface, gunshipLaser, metroids, score, scoreText, highScore, highScoreText);
-        evaluateGunshipLaserRidleyCollision(collisionInterface, gunshipLaser, ridley, score, scoreText, highScore, highScoreText);
+        evaluateGunshipLaserMetroidCollision(collisionInterface, gunshipLaser, metroids, variables, scoreText, highScoreText);
+        evaluateGunshipLaserRidleyCollision(collisionInterface, gunshipLaser, ridley, variables, scoreText, highScoreText);
         evaluateGunshipLaserBunkerCollision(collisionInterface, gunshipLaser, bunkers);
         evaluateMetroidLaserBunkerCollision(collisionInterface, metroidLasers, bunkers);
         evaluateGunshipMetroidLaserCollision(collisionInterface, gunship, metroidLasers, gunshipLaser, livesText);
         if (haveMetroidsInvaded(metroids) || gunship.getLives() == 0)
         {
           endGame(isPlaying, gameOver, ridley, battleTheme, creditsTheme);
-          updateHighScore(score, highScore, scoreText, highScoreText);
+          updateHighScore(variables, scoreText, highScoreText);
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
         {
@@ -110,7 +114,7 @@ int main()
           moveGunship(gunship, -3.2);
         }
         moveGunshipLaser(gunshipLaser);
-        moveMetroids(metroids, movementClock, interval, step, metroidSounds, soundCounter);
+        moveMetroids(metroids, movementClock, variables, metroidSounds);
         moveMetroidLasers(metroidLasers);
         moveRidley(ridley);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
@@ -126,7 +130,7 @@ int main()
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
         {
           resetObjects(gunship, gunshipLaser, metroids, metroidLasers, ridley, bunkers);
-          resetValues(isPlaying, gameOver, interval, step, soundCounter, level, score);
+          resetValues(isPlaying, gameOver, variables);
           resetInformationObjects(scoreText, livesText, creditsTheme, battleTheme, movementClock);
         }
       }

@@ -18,19 +18,16 @@ bool areMetroidsDead(const std::vector<std::vector<IMetroid *>> &metroids)
   return true;
 }
 
-void levelUp(int &level,
-             int &interval,
-             int &step,
-             int &soundCounter,
+void levelUp(std::unordered_map<std::string, int> &variables,
              const std::vector<std::vector<IMetroid *>> &metroids,
              const std::vector<ILaser *> &metroidLasers,
              IRidley &ridley,
              IClock &movementClock)
 {
-  level++;
-  interval = 665;
-  step = 1;
-  soundCounter = 0;
+  variables["level"]++;
+  variables["interval"] = 665;
+  variables["step"] = 1;
+  variables["soundCounter"] = 0;
   for (auto row : metroids)
   {
     for (auto metroid : row)
@@ -43,7 +40,7 @@ void levelUp(int &level,
       sf::Vector2f originalPosition = metroid->getOriginalPosition();
       float originalXPosition = originalPosition.x;
       float originalYPosition = originalPosition.y;
-      float levelUpShift = (level - 1) * 42;
+      float levelUpShift = (variables["level"] - 1) * 42;
       sf::Vector2f levelUpPosition(originalXPosition, originalYPosition + levelUpShift);
       metroid->setPosition(levelUpPosition);
     }

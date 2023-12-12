@@ -10,9 +10,8 @@
 void evaluateGunshipLaserMetroidCollision(const CollisionInterface &collision,
                                           ILaser &gunshipLaser,
                                           const std::vector<std::vector<IMetroid *>> &metroids,
-                                          int &score,
+                                          std::unordered_map<std::string, int> &variables,
                                           IText &scoreText,
-                                          int &highScore,
                                           IText &highScoreText)
 {
   for (auto vec : metroids)
@@ -22,11 +21,11 @@ void evaluateGunshipLaserMetroidCollision(const CollisionInterface &collision,
       if (metroid->isAlive() && collision.haveCollided(gunshipLaser, *metroid))
       {
         metroid->die();
-        score += metroid->getPoints();
-        scoreText.setString("Score: " + std::to_string(score));
-        if (score > highScore)
+        variables["score"] += metroid->getPoints();
+        scoreText.setString("Score: " + std::to_string(variables["score"]));
+        if (variables["score"] > variables["highScore"])
         {
-          highScoreText.setString("High Score: " + std::to_string(score));
+          highScoreText.setString("High Score: " + std::to_string(variables["score"]));
         }
         gunshipLaser.playMetroidDeath();
         gunshipLaser.reset();
@@ -39,19 +38,18 @@ void evaluateGunshipLaserMetroidCollision(const CollisionInterface &collision,
 void evaluateGunshipLaserRidleyCollision(const CollisionInterface &collision,
                                          ILaser &gunshipLaser,
                                          IRidley &ridley,
-                                         int &score,
+                                         std::unordered_map<std::string, int> &variables,
                                          IText &scoreText,
-                                         int &highScore,
                                          IText &highScoreText)
 {
   if (collision.haveCollided(gunshipLaser, ridley))
   {
     ridley.die();
-    score += ridley.getPoints();
-    scoreText.setString("Score: " + std::to_string(score));
-    if (score > highScore)
+    variables["score"] += ridley.getPoints();
+    scoreText.setString("Score: " + std::to_string(variables["score"]));
+    if (variables["score"] > variables["highScore"])
     {
-      highScoreText.setString("High Score: " + std::to_string(score));
+      highScoreText.setString("High Score: " + std::to_string(variables["score"]));
     }
     gunshipLaser.reset();
   }

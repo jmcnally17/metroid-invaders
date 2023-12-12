@@ -34,7 +34,7 @@ std::vector<ISound *> makeMetroidSounds();
 
 std::vector<sf::RectangleShape> makeRectangles();
 
-void pullHighScore(int &highScore, IText &highScoreText);
+void pullHighScore(std::unordered_map<std::string, int> &variables, IText &highScoreText);
 
 void adjustView(IRenderWindow &window, int windowWidth, int windowHeight);
 

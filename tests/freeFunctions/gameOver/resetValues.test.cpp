@@ -5,13 +5,16 @@ TEST(resetValues, setsIsPlayingToTrue)
 {
   bool isPlaying = false;
   bool gameOver = true;
-  int interval = 105;
-  int step = 8;
-  int soundCounter = 3;
-  int level = 6;
   int score = 1030;
+  std::unordered_map<std::string, int> variables = {
+    {"soundCounter", 3},
+    {"interval", 105},
+    {"step", 8},
+    {"level", 6},
+    {"score", 1030},
+  };
 
-  resetValues(isPlaying, gameOver, interval, step, soundCounter, level, score);
+  resetValues(isPlaying, gameOver, variables);
   EXPECT_TRUE(isPlaying);
 }
 
@@ -19,13 +22,15 @@ TEST(resetValues, setsGameOverToFalse)
 {
   bool isPlaying = false;
   bool gameOver = true;
-  int interval = 105;
-  int step = 8;
-  int soundCounter = 3;
-  int level = 6;
-  int score = 1030;
+  std::unordered_map<std::string, int> variables = {
+    {"soundCounter", 3},
+    {"interval", 105},
+    {"step", 8},
+    {"level", 6},
+    {"score", 1030},
+  };
 
-  resetValues(isPlaying, gameOver, interval, step, soundCounter, level, score);
+  resetValues(isPlaying, gameOver, variables);
   EXPECT_FALSE(gameOver);
 }
 
@@ -33,68 +38,78 @@ TEST(resetValues, resetsClockInterval)
 {
   bool isPlaying = false;
   bool gameOver = true;
-  int interval = 105;
-  int step = 8;
-  int soundCounter = 3;
-  int level = 6;
-  int score = 1030;
+  std::unordered_map<std::string, int> variables = {
+    {"soundCounter", 3},
+    {"interval", 105},
+    {"step", 8},
+    {"level", 6},
+    {"score", 1030},
+  };
 
-  resetValues(isPlaying, gameOver, interval, step, soundCounter, level, score);
-  EXPECT_EQ(interval, 665);
+  resetValues(isPlaying, gameOver, variables);
+  EXPECT_EQ(variables["interval"], 665);
 }
 
 TEST(resetValues, resetsClockStepCounter)
 {
   bool isPlaying = false;
   bool gameOver = true;
-  int interval = 105;
-  int step = 8;
-  int soundCounter = 3;
-  int level = 6;
-  int score = 1030;
+  std::unordered_map<std::string, int> variables = {
+    {"soundCounter", 3},
+    {"interval", 105},
+    {"step", 8},
+    {"level", 6},
+    {"score", 1030},
+  };
 
-  resetValues(isPlaying, gameOver, interval, step, soundCounter, level, score);
-  EXPECT_EQ(step, 1);
+  resetValues(isPlaying, gameOver, variables);
+  EXPECT_EQ(variables["step"], 1);
 }
 
 TEST(resetValues, resetsSoundCounter)
 {
   bool isPlaying = false;
   bool gameOver = true;
-  int interval = 105;
-  int step = 8;
-  int soundCounter = 3;
-  int level = 6;
-  int score = 1030;
+  std::unordered_map<std::string, int> variables = {
+    {"soundCounter", 3},
+    {"interval", 105},
+    {"step", 8},
+    {"level", 6},
+    {"score", 1030},
+  };
 
-  resetValues(isPlaying, gameOver, interval, step, soundCounter, level, score);
-  EXPECT_EQ(soundCounter, 0);
+  resetValues(isPlaying, gameOver, variables);
+  EXPECT_EQ(variables["soundCounter"], 0);
 }
 
 TEST(resetValues, resetsLevel)
 {
   bool isPlaying = false;
   bool gameOver = true;
-  int interval = 105;
-  int step = 8;
-  int soundCounter = 3;
-  int level = 6;
-  int score = 1030;
+  std::unordered_map<std::string, int> variables = {
+    {"soundCounter", 3},
+    {"interval", 105},
+    {"step", 8},
+    {"level", 6},
+    {"score", 1030},
+  };
 
-  resetValues(isPlaying, gameOver, interval, step, soundCounter, level, score);
-  EXPECT_EQ(level, 1);
+  resetValues(isPlaying, gameOver, variables);
+  EXPECT_EQ(variables["level"], 1);
 }
 
 TEST(resetValues, resetsScore)
 {
   bool isPlaying = false;
   bool gameOver = true;
-  int interval = 105;
-  int step = 8;
-  int soundCounter = 3;
-  int level = 6;
-  int score = 1030;
+  std::unordered_map<std::string, int> variables = {
+    {"soundCounter", 3},
+    {"interval", 105},
+    {"step", 8},
+    {"level", 6},
+    {"score", 1030},
+  };
 
-  resetValues(isPlaying, gameOver, interval, step, soundCounter, level, score);
-  EXPECT_EQ(score, 0);
+  resetValues(isPlaying, gameOver, variables);
+  EXPECT_EQ(variables["score"], 0);
 }

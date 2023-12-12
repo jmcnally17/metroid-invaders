@@ -34,15 +34,15 @@ void resetObjects(IGunship &gunship, ILaser &gunshipLaser,
   }
 }
 
-void resetValues(bool &isPlaying, bool &gameOver, int &interval, int &step, int &soundCounter, int &level, int &score)
+void resetValues(bool &isPlaying, bool &gameOver, std::unordered_map<std::string, int> &variables)
 {
   isPlaying = true;
   gameOver = false;
-  interval = 665;
-  step = 1;
-  soundCounter = 0;
-  level = 1;
-  score = 0;
+  variables["interval"] = 665;
+  variables["step"] = 1;
+  variables["soundCounter"] = 0;
+  variables["level"] = 1;
+  variables["score"] = 0;
 }
 
 void resetInformationObjects(IText &scoreText, IText &livesText, ISound &creditsTheme, ISound &battleTheme, IClock &movementClock)

@@ -226,7 +226,7 @@ std::vector<sf::RectangleShape> makeRectangles()
   return rectangles;
 }
 
-void pullHighScore(int &highScore, IText &highScoreText)
+void pullHighScore(std::unordered_map<std::string, int> &variables, IText &highScoreText)
 {
   std::string highScoreString;
   std::ifstream highScoreFile("highScore.txt");
@@ -234,7 +234,7 @@ void pullHighScore(int &highScore, IText &highScoreText)
   highScoreFile.close();
   if (!(highScoreString == ""))
   {
-    highScore = std::stoi(highScoreString);
+    variables["highScore"] = std::stoi(highScoreString);
     highScoreText.setString("HighScore: " + highScoreString);
   }
 }
