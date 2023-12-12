@@ -5,7 +5,6 @@ TEST(resetValues, setsIsPlayingToTrue)
 {
   bool isPlaying = false;
   bool gameOver = true;
-  int score = 1030;
   std::unordered_map<std::string, int> variables = {
     {"soundCounter", 3},
     {"interval", 105},
