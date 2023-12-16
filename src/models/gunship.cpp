@@ -25,7 +25,7 @@ void Gunship::draw(IRenderWindow &window) const
 
 void Gunship::move(float x)
 {
-  if (!((x < 0 && getPosition().x <= 0) || (x > 0 && getPosition().x >= 1458)))
+  if (getPosition().x + x >= 0 && getPosition().x + x <= 1458)
   {
     sprite_->move(sf::Vector2f(x, 0));
   }
