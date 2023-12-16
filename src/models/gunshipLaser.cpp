@@ -45,6 +45,6 @@ sf::FloatRect GunshipLaser::getGlobalBounds() const
 
 bool GunshipLaser::intersects(const sf::FloatRect &rectangle) const
 {
-  sf::FloatRect box = getGlobalBounds();
+  sf::FloatRect box {getGlobalBounds()};
   return box.intersects(rectangle);
 }

@@ -1,4 +1,3 @@
-#include <vector>
 #include "../../../include/wrappers/iText.hpp"
 #include "../../../include/wrappers/iSound.hpp"
 #include "../../../include/wrappers/iClock.hpp"
@@ -9,10 +8,10 @@
 #include "../../../include/models/iBunker.hpp"
 
 void resetObjects(IGunship &gunship, ILaser &gunshipLaser,
-                  const std::vector<std::vector<IMetroid *>> &metroids,
-                  const std::vector<ILaser *> &metroidLasers,
+                  const std::array<std::array<IMetroid*, 11>, 5> &metroids,
+                  const std::array<ILaser*, 3> &metroidLasers,
                   IRidley &ridley,
-                  const std::vector<IBunker *> &bunkers)
+                  const std::array<IBunker*, 4> &bunkers)
 {
   gunship.reset();
   gunshipLaser.reset();

@@ -1,4 +1,3 @@
-#include <vector>
 #include "../../../include/models/iGunship.hpp"
 #include "../../../include/models/iMetroid.hpp"
 #include "../../../include/models/iLaser.hpp"
@@ -8,7 +7,7 @@ void fireGunshipLaser(IGunship &gunship)
   gunship.fire();
 }
 
-void shootMetroidLaser(const std::vector<std::vector<IMetroid *>> &metroids, const std::vector<ILaser *> &metroidLasers)
+void shootMetroidLaser(const std::array<std::array<IMetroid*, 11>, 5> &metroids, const std::array<ILaser*, 3> &metroidLasers)
 {
   for (auto row : metroids)
   {

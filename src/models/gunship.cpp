@@ -35,7 +35,7 @@ void Gunship::fire()
 {
   if (gunshipLaser_->getPosition().y <= -24)
   {
-    float startingXPosition = getPosition().x + 36;
+    float startingXPosition {getPosition().x + 36};
     gunshipLaser_->setPosition(sf::Vector2f(startingXPosition, getPosition().y));
     fireSound_->play();
   }
@@ -65,6 +65,6 @@ sf::FloatRect Gunship::getGlobalBounds() const
 
 bool Gunship::intersects(const sf::FloatRect &rectangle) const
 {
-  sf::FloatRect box = getGlobalBounds();
+  sf::FloatRect box {getGlobalBounds()};
   return box.intersects(rectangle);
 }

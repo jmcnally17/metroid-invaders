@@ -4,12 +4,8 @@
 TEST(moveMetroidLasers, callsMoveOnMetroidLasers)
 {
   MockLaser metroidLaser;
-  MockLaser *pMetroidLaser = &metroidLaser;
-  std::vector<ILaser *> metroidLasers(3);
-  for (int i = 0; i < 3; i++)
-  {
-    metroidLasers[i] = pMetroidLaser;
-  }
+  MockLaser *pMetroidLaser {&metroidLaser};
+  std::array<ILaser*, 3> metroidLasers {pMetroidLaser, pMetroidLaser, pMetroidLaser};
 
   EXPECT_CALL(metroidLaser, move())
       .Times(3);

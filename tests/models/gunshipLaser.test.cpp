@@ -6,24 +6,27 @@
 using ::testing::NiceMock;
 using ::testing::Return;
 
-TEST(GunshipLaser, setsSpritePositionUponInstantiation)
+class GunshipLaserTest : public testing::Test
 {
-  MockSprite sprite;
-  MockSprite *pSprite = &sprite;
-  MockSound *sound;
+protected:
+  NiceMock<MockSprite> sprite;
+  MockSprite *pSprite {&sprite};
+  NiceMock<MockSound> sound;
+  MockSound *pSound {&sound};
+  GunshipLaser gunshipLaser {GunshipLaser(pSprite, pSound)};
+  MockRenderWindow window;
+  sf::FloatRect spriteBounds {sf::FloatRect(sf::Vector2f(800, 900), sf::Vector2f(6, 24))};
+};
 
+TEST_F(GunshipLaserTest, setsSpritePositionUponInstantiation)
+{
   EXPECT_CALL(sprite, setPosition(sf::Vector2f(120, -24)))
       .Times(1);
-  GunshipLaser gunshipLaser(pSprite, sound);
+  GunshipLaser gunshipLaser(pSprite, pSound);
 }
 
-TEST(GunshipLaser, getPositionReturnsSpritePosition)
+TEST_F(GunshipLaserTest, getPositionReturnsSpritePosition)
 {
-  NiceMock<MockSprite> sprite;
-  MockSprite *pSprite = &sprite;
-  MockSound *sound;
-  GunshipLaser gunshipLaser(pSprite, sound);
-
   ON_CALL(sprite, getPosition())
       .WillByDefault(Return(sf::Vector2f(120, -24)));
 
@@ -32,26 +35,15 @@ TEST(GunshipLaser, getPositionReturnsSpritePosition)
   EXPECT_EQ(gunshipLaser.getPosition(), sf::Vector2f(120, -24));
 }
 
-TEST(GunshipLaser, setPositionChangesSpritePosition)
+TEST_F(GunshipLaserTest, setPositionChangesSpritePosition)
 {
-  NiceMock<MockSprite> sprite;
-  MockSprite *pSprite = &sprite;
-  MockSound *sound;
-  GunshipLaser gunshipLaser(pSprite, sound);
-
   EXPECT_CALL(sprite, setPosition(sf::Vector2f(530, 890)))
       .Times(1);
   gunshipLaser.setPosition(sf::Vector2f(530, 890));
 }
 
-TEST(GunshipLaser, drawCallsDrawOnWindowArgumentWhenGunshipLaserIsOnBoard)
+TEST_F(GunshipLaserTest, drawCallsDrawOnWindowArgumentWhenGunshipLaserIsOnBoard)
 {
-  NiceMock<MockSprite> sprite;
-  MockSprite *pSprite = &sprite;
-  MockSound *sound;
-  GunshipLaser gunshipLaser(pSprite, sound);
-  MockRenderWindow window;
-
   ON_CALL(sprite, getPosition())
       .WillByDefault(Return(sf::Vector2f(600, 700)));
 
@@ -61,14 +53,8 @@ TEST(GunshipLaser, drawCallsDrawOnWindowArgumentWhenGunshipLaserIsOnBoard)
   gunshipLaser.draw(window);
 }
 
-TEST(GunshipLaser, drawDoesNotCallDrawOnWindowArgumentWhenGunshipLaserIsAboveBoard)
+TEST_F(GunshipLaserTest, drawDoesNotCallDrawOnWindowArgumentWhenGunshipLaserIsAboveBoard)
 {
-  NiceMock<MockSprite> sprite;
-  MockSprite *pSprite = &sprite;
-  MockSound *sound;
-  GunshipLaser gunshipLaser(pSprite, sound);
-  MockRenderWindow window;
-
   ON_CALL(sprite, getPosition())
       .WillByDefault(Return(sf::Vector2f(120, -24)));
 
@@ -77,13 +63,8 @@ TEST(GunshipLaser, drawDoesNotCallDrawOnWindowArgumentWhenGunshipLaserIsAboveBoa
   gunshipLaser.draw(window);
 }
 
-TEST(GunshipLaser, moveDecreasesSpriteYPositionWhenGunshipLaserIsOnTheBoard)
+TEST_F(GunshipLaserTest, moveDecreasesSpriteYPositionWhenGunshipLaserIsOnTheBoard)
 {
-  NiceMock<MockSprite> sprite;
-  MockSprite *pSprite = &sprite;
-  MockSound *sound;
-  GunshipLaser gunshipLaser(pSprite, sound);
-
   ON_CALL(sprite, getPosition())
       .WillByDefault(Return(sf::Vector2f(500, 1000)));
 
@@ -92,13 +73,8 @@ TEST(GunshipLaser, moveDecreasesSpriteYPositionWhenGunshipLaserIsOnTheBoard)
   gunshipLaser.move();
 }
 
-TEST(GunshipLaser, moveDoesNotDecreaseSpriteYPositionWhenGunshipLaserIsAboveTheBoard)
+TEST_F(GunshipLaserTest, moveDoesNotDecreaseSpriteYPositionWhenGunshipLaserIsAboveTheBoard)
 {
-  NiceMock<MockSprite> sprite;
-  MockSprite *pSprite = &sprite;
-  MockSound *sound;
-  GunshipLaser gunshipLaser(pSprite, sound);
-
   ON_CALL(sprite, getPosition())
       .WillByDefault(Return(sf::Vector2f(120, -24)));
 
@@ -107,39 +83,22 @@ TEST(GunshipLaser, moveDoesNotDecreaseSpriteYPositionWhenGunshipLaserIsAboveTheB
   gunshipLaser.move();
 }
 
-TEST(GunshipLaser, resetSetsSpritePositionBackAboveTheBoard)
+TEST_F(GunshipLaserTest, resetSetsSpritePositionBackAboveTheBoard)
 {
-  NiceMock<MockSprite> sprite;
-  MockSprite *pSprite = &sprite;
-  MockSound *sound;
-  GunshipLaser gunshipLaser(pSprite, sound);
-
   EXPECT_CALL(sprite, setPosition(sf::Vector2f(120, -24)))
       .Times(1);
   gunshipLaser.reset();
 }
 
-TEST(GunshipLaser, playMetroidDeathCallsPlayOnTheSoundClassMember)
+TEST_F(GunshipLaserTest, playMetroidDeathCallsPlayOnTheSoundClassMember)
 {
-  NiceMock<MockSprite> sprite;
-  MockSprite *pSprite = &sprite;
-  MockSound sound;
-  MockSound *pSound = &sound;
-  GunshipLaser gunshipLaser(pSprite, pSound);
-
   EXPECT_CALL(sound, play())
       .Times(1);
   gunshipLaser.playMetroidDeath();
 }
 
-TEST(GunshipLaser, getGlobalBoundsReturnsSpriteGlobalBounds)
+TEST_F(GunshipLaserTest, getGlobalBoundsReturnsSpriteGlobalBounds)
 {
-  NiceMock<MockSprite> sprite;
-  MockSprite *pSprite = &sprite;
-  MockSound *sound;
-  GunshipLaser gunshipLaser(pSprite, sound);
-
-  sf::FloatRect spriteBounds(sf::Vector2f(800, 900), sf::Vector2f(6, 24));
   ON_CALL(sprite, getGlobalBounds())
       .WillByDefault(Return(spriteBounds));
 
@@ -148,13 +107,8 @@ TEST(GunshipLaser, getGlobalBoundsReturnsSpriteGlobalBounds)
   EXPECT_EQ(gunshipLaser.getGlobalBounds(), spriteBounds);
 }
 
-TEST(GunshipLaser, intersectsGetsTheSpriteGlobalBounds)
+TEST_F(GunshipLaserTest, intersectsGetsTheSpriteGlobalBounds)
 {
-  NiceMock<MockSprite> sprite;
-  MockSprite *pSprite = &sprite;
-  MockSound *sound;
-  GunshipLaser gunshipLaser(pSprite, sound);
-
   sf::FloatRect rectangle;
 
   EXPECT_CALL(sprite, getGlobalBounds())
@@ -162,14 +116,8 @@ TEST(GunshipLaser, intersectsGetsTheSpriteGlobalBounds)
   gunshipLaser.intersects(rectangle);
 }
 
-TEST(GunshipLaser, intersectsReturnsTrueWhenCollidingWithARectangle)
+TEST_F(GunshipLaserTest, intersectsReturnsTrueWhenCollidingWithARectangle)
 {
-  NiceMock<MockSprite> sprite;
-  MockSprite *pSprite = &sprite;
-  MockSound *sound;
-  GunshipLaser gunshipLaser(pSprite, sound);
-
-  sf::FloatRect spriteBounds(sf::Vector2f(800, 900), sf::Vector2f(6, 24));
   ON_CALL(sprite, getGlobalBounds())
       .WillByDefault(Return(spriteBounds));
   sf::FloatRect rectangle(sf::Vector2f(770, 880), sf::Vector2f(72, 48));
@@ -177,14 +125,8 @@ TEST(GunshipLaser, intersectsReturnsTrueWhenCollidingWithARectangle)
   EXPECT_TRUE(gunshipLaser.intersects(rectangle));
 }
 
-TEST(GunshipLaser, intersectsReturnsFalseWhenNotCollidingWithARectangle)
+TEST_F(GunshipLaserTest, intersectsReturnsFalseWhenNotCollidingWithARectangle)
 {
-  NiceMock<MockSprite> sprite;
-  MockSprite *pSprite = &sprite;
-  MockSound *sound;
-  GunshipLaser gunshipLaser(pSprite, sound);
-
-  sf::FloatRect spriteBounds(sf::Vector2f(800, 900), sf::Vector2f(6, 24));
   ON_CALL(sprite, getGlobalBounds())
       .WillByDefault(Return(spriteBounds));
   sf::FloatRect rectangle(sf::Vector2f(300, 500), sf::Vector2f(72, 48));

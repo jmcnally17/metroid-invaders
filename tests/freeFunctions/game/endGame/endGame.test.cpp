@@ -5,64 +5,44 @@
 using ::testing::NiceMock;
 using ::testing::Return;
 
-TEST(endGame, changesIsPlayingToFalse)
+class EndGameTest : public testing::Test
 {
-  bool isPlaying = true;
-  bool gameOver = false;
+protected:
+  bool isPlaying {true};
+  bool gameOver {false};
   NiceMock<MockRidley> ridley;
   NiceMock<MockSound> battleTheme;
   NiceMock<MockSound> creditsTheme;
+};
 
+TEST_F(EndGameTest, changesIsPlayingToFalse)
+{
   endGame(isPlaying, gameOver, ridley, battleTheme, creditsTheme);
   EXPECT_FALSE(isPlaying);
 }
 
-TEST(endGame, changesGameOverToTrue)
+TEST_F(EndGameTest, changesGameOverToTrue)
 {
-  bool isPlaying = true;
-  bool gameOver = false;
-  NiceMock<MockRidley> ridley;
-  NiceMock<MockSound> battleTheme;
-  NiceMock<MockSound> creditsTheme;
-
   endGame(isPlaying, gameOver, ridley, battleTheme, creditsTheme);
   EXPECT_TRUE(gameOver);
 }
 
-TEST(endGame, stopsRidleyMovementSoundIfPlaying)
+TEST_F(EndGameTest, stopsRidleyMovementSoundIfPlaying)
 {
-  bool isPlaying = true;
-  bool gameOver = false;
-  MockRidley ridley;
-  NiceMock<MockSound> battleTheme;
-  NiceMock<MockSound> creditsTheme;
-
   EXPECT_CALL(ridley, stopMovementSoundIfPlaying())
       .Times(1);
   endGame(isPlaying, gameOver, ridley, battleTheme, creditsTheme);
 }
 
-TEST(endGame, stopsTheBattleTheme)
+TEST_F(EndGameTest, stopsTheBattleTheme)
 {
-  bool isPlaying = true;
-  bool gameOver = false;
-  NiceMock<MockRidley> ridley;
-  MockSound battleTheme;
-  NiceMock<MockSound> creditsTheme;
-
   EXPECT_CALL(battleTheme, stop())
       .Times(1);
   endGame(isPlaying, gameOver, ridley, battleTheme, creditsTheme);
 }
 
-TEST(endGame, playsTheCreditsTheme)
+TEST_F(EndGameTest, playsTheCreditsTheme)
 {
-  bool isPlaying = true;
-  bool gameOver = false;
-  NiceMock<MockRidley> ridley;
-  NiceMock<MockSound> battleTheme;
-  MockSound creditsTheme;
-
   EXPECT_CALL(creditsTheme, play())
       .Times(1);
   endGame(isPlaying, gameOver, ridley, battleTheme, creditsTheme);

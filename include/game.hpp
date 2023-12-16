@@ -1,7 +1,6 @@
 #ifndef GAME_HPP
 #define GAME_HPP
 
-#include <vector>
 #include "./wrappers/iRenderWindow.hpp"
 #include "./wrappers/iSound.hpp"
 #include "./wrappers/iClock.hpp"
@@ -15,30 +14,30 @@
 
 void drawObjects(IRenderWindow &window,
                  const ISprite &gameBackground,
-                 const std::vector<IBunker *> &bunkers,
+                 const std::array<IBunker*, 4> &bunkers,
                  const IGunship &gunship,
                  const ILaser &gunshipLaser,
-                 const std::vector<std::vector<IMetroid *>> &metroids,
-                 const std::vector<ILaser *> &metroidLasers,
+                 const std::array<std::array<IMetroid*, 11>, 5> &metroids,
+                 const std::array<ILaser*, 3> &metroidLasers,
                  const IRidley &ridley,
                  const IText &scoreText,
                  const IText &highScoreText,
                  const IText &livesText,
-                 const std::vector<sf::RectangleShape> &rectangles);
+                 const std::array<sf::RectangleShape, 2> &rectangles);
 
 void monitorRidleyMovementSound(IRidley &ridley);
 
-bool areMetroidsDead(const std::vector<std::vector<IMetroid *>> &metroids);
+bool areMetroidsDead(const std::array<std::array<IMetroid*, 11>, 5> &metroids);
 
 void levelUp(std::unordered_map<std::string, int> &variables,
-             const std::vector<std::vector<IMetroid *>> &metroids,
-             const std::vector<ILaser *> &metroidLasers,
+             const std::array<std::array<IMetroid*, 11>, 5> &metroids,
+             const std::array<ILaser*, 3> &metroidLasers,
              IRidley &ridley,
              IClock &movementClock);
 
 void evaluateGunshipLaserMetroidCollision(const CollisionInterface &collision,
                                           ILaser &gunshipLaser,
-                                          const std::vector<std::vector<IMetroid *>> &metroids,
+                                          const std::array<std::array<IMetroid*, 11>, 5> &metroids,
                                           std::unordered_map<std::string, int> &variables,
                                           IText &scoreText,
                                           IText &highScoreText);
@@ -50,34 +49,34 @@ void evaluateGunshipLaserRidleyCollision(const CollisionInterface &collision,
                                          IText &scoreText,
                                          IText &highScoretext);
 
-void evaluateGunshipLaserBunkerCollision(const CollisionInterface &collision, ILaser &gunshipLaser, std::vector<IBunker *> &bunkers);
+void evaluateGunshipLaserBunkerCollision(const CollisionInterface &collision, ILaser &gunshipLaser, std::array<IBunker*, 4> &bunkers);
 
-void evaluateMetroidLaserBunkerCollision(const CollisionInterface &collision, const std::vector<ILaser *> &metroidLasers, std::vector<IBunker *> &bunkers);
+void evaluateMetroidLaserBunkerCollision(const CollisionInterface &collision, const std::array<ILaser*, 3> &metroidLasers, std::array<IBunker*, 4> &bunkers);
 
 void evaluateGunshipMetroidLaserCollision(const CollisionInterface &collision,
                                           IGunship &gunship,
-                                          const std::vector<ILaser *> &metroidLasers,
+                                          const std::array<ILaser*, 3> &metroidLasers,
                                           ILaser &gunshipLaser,
                                           IText &livesText);
 
-bool haveMetroidsInvaded(const std::vector<std::vector<IMetroid *>> &metroids);
+bool haveMetroidsInvaded(const std::array<std::array<IMetroid*, 11>, 5> &metroids);
 
 void moveGunship(IGunship &gunship, float x);
 
 void moveGunshipLaser(ILaser &gunshipLaser);
 
-void moveMetroids(const std::vector<std::vector<IMetroid *>> &metroids,
+void moveMetroids(const std::array<std::array<IMetroid*, 11>, 5> &metroids,
                   IClock &movementClock,
                   std::unordered_map<std::string, int> &variables,
-                  std::vector<ISound *> &sounds);
+                  std::array<ISound*, 4> &sounds);
 
-void moveMetroidLasers(const std::vector<ILaser *> &metroidLasers);
+void moveMetroidLasers(const std::array<ILaser*, 3> &metroidLasers);
 
 void moveRidley(IRidley &ridley);
 
 void fireGunshipLaser(IGunship &gunship);
 
-void shootMetroidLaser(const std::vector<std::vector<IMetroid *>> &metroids, const std::vector<ILaser *> &metroidLasers);
+void shootMetroidLaser(const std::array<std::array<IMetroid*, 11>, 5> &metroids, const std::array<ILaser*, 3> &metroidLasers);
 
 void spawnRidley(IRidley &ridley);
 

@@ -9,53 +9,53 @@
 int main()
 {
   RenderWindowWrapper window(sf::VideoMode(1536, 1344), "Metroid Invaders");
-
+  
   ClockWrapper frameClock;
-
+  
   sf::Font m56;
   m56.loadFromFile("resources/fonts/MicroN56.ttf");
-  sf::Color white = sf::Color::White;
-  sf::Color green = sf::Color::Green;
-
+  sf::Color white {sf::Color::White};
+  sf::Color green {sf::Color::Green};
+  
   // backgrounds
-  SpriteWrapper titleBackground = makeBackground("title");
-  SpriteWrapper gameBackground = makeBackground("game");
-
+  SpriteWrapper titleBackground {makeBackground("title")};
+  SpriteWrapper gameBackground {makeBackground("game")};
+  
   // text objects
-  std::string titleString = "Metroid Invaders";
-  std::string instructionsString = "Press enter to play!";
-  std::string scoreString = "Score: 0";
-  std::string highScoreString = "High Score: 0";
-  std::string livesString = "Lives: 3";
-  std::string gameOverString = "Game Over";
-  std::string playAgainString = "Press p to play again";
-  TextWrapper titleText = makeText(titleString, m56, 100, green, 0.5, 768, 100);
-  TextWrapper instructionsText = makeText(instructionsString, m56, 50, green, 0.5, 768, 1200);
-  TextWrapper scoreText = makeText(scoreString, m56, 50, white, 0, 20, 0);
-  TextWrapper highScoreText = makeText(highScoreString, m56, 50, white, 0.5, 768, 0);
-  TextWrapper livesText = makeText(livesString, m56, 50, white, 0, 1250, 0);
-  TextWrapper gameOverText = makeText(gameOverString, m56, 153, white, 0.5, 768, 200);
-  TextWrapper playAgainText = makeText(playAgainString, m56, 48, white, 0.5, 768, 1000);
-
+  std::string titleString {"Metroid Invaders"};
+  std::string instructionsString {"Press enter to play!"};
+  std::string scoreString {"Score: 0"};
+  std::string highScoreString {"High Score: 0"};
+  std::string livesString {"Lives: 3"};
+  std::string gameOverString {"Game Over"};
+  std::string playAgainString {"Press p to play again"};
+  TextWrapper titleText {makeText(titleString, m56, 100, green, 0.5, 768, 100)};
+  TextWrapper instructionsText {makeText(instructionsString, m56, 50, green, 0.5, 768, 1200)};
+  TextWrapper scoreText {makeText(scoreString, m56, 50, white, 0, 20, 0)};
+  TextWrapper highScoreText {makeText(highScoreString, m56, 50, white, 0.5, 768, 0)};
+  TextWrapper livesText {makeText(livesString, m56, 50, white, 0, 1250, 0)};
+  TextWrapper gameOverText {makeText(gameOverString, m56, 153, white, 0.5, 768, 200)};
+  TextWrapper playAgainText {makeText(playAgainString, m56, 48, white, 0.5, 768, 1000)};
+  
   // audio objects
-  SoundWrapper titleTheme = makeTheme("title");
-  SoundWrapper battleTheme = makeTheme("battle");
-  SoundWrapper creditsTheme = makeTheme("credits");
-
+  SoundWrapper titleTheme {makeTheme("title")};
+  SoundWrapper battleTheme {makeTheme("battle")};
+  SoundWrapper creditsTheme {makeTheme("credits")};
+  
   // game objects
-  std::vector<IBunker *> bunkers = makeBunkers();
-  GunshipLaser gunshipLaser = makeGunshipLaser();
-  Gunship gunship = makeGunship(gunshipLaser);
-  std::vector<std::vector<IMetroid *>> metroids = makeMetroids();
-  std::vector<ILaser *> metroidLasers = makeMetroidLasers();
-  Ridley ridley = makeRidley();
-  std::vector<ISound *> metroidSounds = makeMetroidSounds();
-  std::vector<sf::RectangleShape> rectangles = makeRectangles();
+  std::array<IBunker*, 4> bunkers {makeBunkers()};
+  GunshipLaser gunshipLaser {makeGunshipLaser()};
+  Gunship gunship {makeGunship(gunshipLaser)};
+  std::array<std::array<IMetroid*, 11>, 5> metroids {makeMetroids()};
+  std::array<ILaser*, 3> metroidLasers {makeMetroidLasers()};
+  Ridley ridley {makeRidley()};
+  std::array<ISound*, 4> metroidSounds {makeMetroidSounds()};
+  std::array<sf::RectangleShape, 2> rectangles {makeRectangles()};
   ClockWrapper movementClock;
   Collision collisionInterface;
   
   // variables
-  std::unordered_map<std::string, int> variables = {
+  std::unordered_map<std::string, int> variables {
     {"soundCounter", 0},
     {"interval", 665},
     {"step", 1},
@@ -65,8 +65,8 @@ int main()
   };
 
   // final setup
-  bool isPlaying = false;
-  bool gameOver = false;
+  bool isPlaying {false};
+  bool gameOver {false};
   pullHighScore(variables, highScoreText);
   titleTheme.play();
 

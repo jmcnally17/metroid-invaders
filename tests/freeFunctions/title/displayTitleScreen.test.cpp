@@ -5,38 +5,32 @@
 
 using ::testing::NiceMock;
 
-TEST(displayTitleScreen, clearsTheWindow)
+class DisplayTitleScreenTest : public testing::Test
 {
+protected:
   NiceMock<MockRenderWindow> window;
   MockSprite background;
   MockText titleText;
   MockText instructionsText;
+};
 
+TEST_F(DisplayTitleScreenTest, clearsTheWindow)
+{
   EXPECT_CALL(window, clear())
       .Times(1);
   displayTitleScreen(window, background, titleText, instructionsText);
 }
 
-TEST(displayTitleScreen, drawsTheBackgroundImageAndTitleTextAndInstructionsText)
+TEST_F(DisplayTitleScreenTest, drawsTheBackgroundImageAndTitleTextAndInstructionsText)
 {
-  NiceMock<MockRenderWindow> window;
-  MockSprite background;
-  MockText titleText;
-  MockText instructionsText;
-
   EXPECT_CALL(window, draw(testing::Truly([](const sf::Drawable &drawable)
                                           { return true; })))
       .Times(3);
   displayTitleScreen(window, background, titleText, instructionsText);
 }
 
-TEST(displayTitleScreen, displaysTheWindow)
+TEST_F(DisplayTitleScreenTest, displaysTheWindow)
 {
-  NiceMock<MockRenderWindow> window;
-  MockSprite background;
-  MockText titleText;
-  MockText instructionsText;
-
   EXPECT_CALL(window, display())
       .Times(1);
   displayTitleScreen(window, background, titleText, instructionsText);

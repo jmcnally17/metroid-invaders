@@ -1,9 +1,8 @@
-#include <vector>
 #include "../../../include/models/iMetroid.hpp"
 #include "../../../include/models/iRidley.hpp"
 #include "../../../include/wrappers/iClock.hpp"
 
-bool areMetroidsDead(const std::vector<std::vector<IMetroid *>> &metroids)
+bool areMetroidsDead(const std::array<std::array<IMetroid*, 11>, 5> &metroids)
 {
   for (auto row : metroids)
   {
@@ -19,8 +18,8 @@ bool areMetroidsDead(const std::vector<std::vector<IMetroid *>> &metroids)
 }
 
 void levelUp(std::unordered_map<std::string, int> &variables,
-             const std::vector<std::vector<IMetroid *>> &metroids,
-             const std::vector<ILaser *> &metroidLasers,
+             const std::array<std::array<IMetroid*, 11>, 5> &metroids,
+             const std::array<ILaser*, 3> &metroidLasers,
              IRidley &ridley,
              IClock &movementClock)
 {
@@ -37,9 +36,9 @@ void levelUp(std::unordered_map<std::string, int> &variables,
       {
         metroid->changeDirection();
       }
-      sf::Vector2f originalPosition = metroid->getOriginalPosition();
-      float originalXPosition = originalPosition.x;
-      float originalYPosition = originalPosition.y;
+      sf::Vector2f originalPosition {metroid->getOriginalPosition()};
+      float originalXPosition {originalPosition.x};
+      float originalYPosition {originalPosition.y};
       float levelUpShift = (variables["level"] - 1) * 42;
       sf::Vector2f levelUpPosition(originalXPosition, originalYPosition + levelUpShift);
       metroid->setPosition(levelUpPosition);

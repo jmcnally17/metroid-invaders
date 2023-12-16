@@ -5,56 +5,35 @@
 using ::testing::NiceMock;
 using ::testing::Return;
 
-TEST(shootMetroidLaser, callsShootOnMetroidsIfTheyAreAlive)
+class ShootMetroidLaser : public testing::Test
 {
+protected:
   NiceMock<MockMetroid> metroid;
-  MockMetroid *pMetroid = &metroid;
-  std::vector<std::vector<IMetroid *>> metroids(2);
-  for (int i = 0; i < 2; i++)
-  {
-    std::vector<IMetroid *> metroidRow(3);
-    for (int j = 0; j < 3; j++)
-    {
-      metroidRow[j] = pMetroid;
-    }
-    metroids[i] = metroidRow;
-  }
-  MockLaser *metroidLaser;
-  std::vector<ILaser *> metroidLasers(3);
-  for (int i = 0; i < 3; i++)
-  {
-    metroidLasers[i] = metroidLaser;
-  }
+  MockMetroid *pMetroid {&metroid};
+  std::array<std::array<IMetroid*, 11>, 5> metroids {{
+    {{pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid}},
+    {{pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid}},
+    {{pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid}},
+    {{pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid}},
+    {{pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid}},
+  }};
+  MockLaser metroidLaser;
+  MockLaser *pMetroidLaser {&metroidLaser};
+  std::array<ILaser*, 3> metroidLasers {pMetroidLaser, pMetroidLaser, pMetroidLaser};
+};
 
+TEST_F(ShootMetroidLaser, callsShootOnMetroidsIfTheyAreAlive)
+{
   ON_CALL(metroid, isAlive())
       .WillByDefault(Return(true));
 
   EXPECT_CALL(metroid, shoot)
-      .Times(6);
+      .Times(55);
   shootMetroidLaser(metroids, metroidLasers);
 }
 
-TEST(shootMetroidLaser, doesNotCallShootOnMetroidsIfTheyAreDead)
+TEST_F(ShootMetroidLaser, doesNotCallShootOnMetroidsIfTheyAreDead)
 {
-  NiceMock<MockMetroid> metroid;
-  MockMetroid *pMetroid = &metroid;
-  std::vector<std::vector<IMetroid *>> metroids(2);
-  for (int i = 0; i < 2; i++)
-  {
-    std::vector<IMetroid *> metroidRow(3);
-    for (int j = 0; j < 3; j++)
-    {
-      metroidRow[j] = pMetroid;
-    }
-    metroids[i] = metroidRow;
-  }
-  MockLaser *metroidLaser;
-  std::vector<ILaser *> metroidLasers(3);
-  for (int i = 0; i < 3; i++)
-  {
-    metroidLasers[i] = metroidLaser;
-  }
-
   ON_CALL(metroid, isAlive())
       .WillByDefault(Return(false));
 

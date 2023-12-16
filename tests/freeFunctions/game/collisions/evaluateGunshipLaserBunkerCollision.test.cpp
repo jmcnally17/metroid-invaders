@@ -6,18 +6,18 @@
 using ::testing::NiceMock;
 using ::testing::Return;
 
-TEST(evaluateGunshipLaserBunkerCollision, decreasesHealthOfBunkerWhenColliding)
+class EvaluateGunshipLaserBunkerCollisionTest : public testing::Test
 {
+protected:
   NiceMock<MockCollision> collision;
   NiceMock<MockLaser> gunshipLaser;
   NiceMock<MockBunker> bunker;
-  MockBunker *pBunker = &bunker;
-  std::vector<IBunker *> bunkers(4);
-  for (int i = 0; i < 4; i++)
-  {
-    bunkers[i] = pBunker;
-  }
+  MockBunker *pBunker {&bunker};
+  std::array<IBunker*, 4> bunkers {pBunker, pBunker, pBunker, pBunker};
+};
 
+TEST_F(EvaluateGunshipLaserBunkerCollisionTest, decreasesHealthOfBunkerWhenColliding)
+{
   ON_CALL(bunker, getHealth())
       .WillByDefault(Return(10));
   ON_CALL(collision, haveCollided)
@@ -28,18 +28,8 @@ TEST(evaluateGunshipLaserBunkerCollision, decreasesHealthOfBunkerWhenColliding)
   evaluateGunshipLaserBunkerCollision(collision, gunshipLaser, bunkers);
 }
 
-TEST(evaluateGunshipLaserBunkerCollision, resetsTheGunshipLaserWhenColliding)
+TEST_F(EvaluateGunshipLaserBunkerCollisionTest, resetsTheGunshipLaserWhenColliding)
 {
-  NiceMock<MockCollision> collision;
-  MockLaser gunshipLaser;
-  NiceMock<MockBunker> bunker;
-  MockBunker *pBunker = &bunker;
-  std::vector<IBunker *> bunkers(4);
-  for (int i = 0; i < 4; i++)
-  {
-    bunkers[i] = pBunker;
-  }
-
   ON_CALL(bunker, getHealth())
       .WillByDefault(Return(10));
   ON_CALL(collision, haveCollided)
@@ -50,18 +40,8 @@ TEST(evaluateGunshipLaserBunkerCollision, resetsTheGunshipLaserWhenColliding)
   evaluateGunshipLaserBunkerCollision(collision, gunshipLaser, bunkers);
 }
 
-TEST(evaluateGunshipLaserBunkerCollision, doesNotCarryOutCollisionMechanicWhenHealthIs0)
+TEST_F(EvaluateGunshipLaserBunkerCollisionTest, doesNotCarryOutCollisionMechanicWhenHealthIs0)
 {
-  MockCollision collision;
-  MockLaser gunshipLaser;
-  NiceMock<MockBunker> bunker;
-  MockBunker *pBunker = &bunker;
-  std::vector<IBunker *> bunkers(4);
-  for (int i = 0; i < 4; i++)
-  {
-    bunkers[i] = pBunker;
-  }
-
   ON_CALL(bunker, getHealth())
       .WillByDefault(Return(0));
   ON_CALL(collision, haveCollided)
@@ -74,18 +54,8 @@ TEST(evaluateGunshipLaserBunkerCollision, doesNotCarryOutCollisionMechanicWhenHe
   evaluateGunshipLaserBunkerCollision(collision, gunshipLaser, bunkers);
 }
 
-TEST(evaluateGunshipLaserBunkerCollision, doesNotCarryOutCollisionMechanicWhenNotColliding)
+TEST_F(EvaluateGunshipLaserBunkerCollisionTest, doesNotCarryOutCollisionMechanicWhenNotColliding)
 {
-  NiceMock<MockCollision> collision;
-  MockLaser gunshipLaser;
-  NiceMock<MockBunker> bunker;
-  MockBunker *pBunker = &bunker;
-  std::vector<IBunker *> bunkers(4);
-  for (int i = 0; i < 4; i++)
-  {
-    bunkers[i] = pBunker;
-  }
-
   ON_CALL(bunker, getHealth())
       .WillByDefault(Return(10));
   ON_CALL(collision, haveCollided)

@@ -23,7 +23,7 @@ TextWrapper makeText(std::string string, const sf::Font &font, int characterSize
   TextWrapper text(string, font);
   text.setCharacterSize(characterSize);
   text.setFillColor(color);
-  sf::FloatRect textRect = text.getLocalBounds();
+  sf::FloatRect textRect {text.getLocalBounds()};
   text.setOrigin(textRect.width * originFactor, 0);
   text.setPosition(sf::Vector2f(x, y));
 
@@ -40,7 +40,7 @@ SoundWrapper makeTheme(std::string fileName)
   return theme;
 }
 
-std::vector<IBunker *> makeBunkers()
+std::array<IBunker*, 4> makeBunkers()
 {
   sf::Texture bunkerTexture1;
   bunkerTexture1.loadFromFile("resources/images/sprites/bunker1.png");
@@ -52,20 +52,20 @@ std::vector<IBunker *> makeBunkers()
   bunkerTexture4.loadFromFile("resources/images/sprites/bunker4.png");
   sf::Texture bunkerTexture5;
   bunkerTexture5.loadFromFile("resources/images/sprites/bunker5.png");
-
-  std::vector<IBunker *> bunkers(4);
-
+  
+  std::array<IBunker*, 4> bunkers;
+  
   float xOffset = 192;
   float xIncrement = 336;
-
+  
   for (int i = 0; i < 4; i++)
   {
-    SpriteWrapper *bunkerSprite1 = new SpriteWrapper(bunkerTexture1);
-    SpriteWrapper *bunkerSprite2 = new SpriteWrapper(bunkerTexture2);
-    SpriteWrapper *bunkerSprite3 = new SpriteWrapper(bunkerTexture3);
-    SpriteWrapper *bunkerSprite4 = new SpriteWrapper(bunkerTexture4);
-    SpriteWrapper *bunkerSprite5 = new SpriteWrapper(bunkerTexture5);
-    Bunker *bunker = new Bunker(xOffset + (xIncrement * i), 1032, bunkerSprite1, bunkerSprite2, bunkerSprite3, bunkerSprite4, bunkerSprite5);
+    SpriteWrapper *bunkerSprite1 {new SpriteWrapper(bunkerTexture1)};
+    SpriteWrapper *bunkerSprite2 {new SpriteWrapper(bunkerTexture2)};
+    SpriteWrapper *bunkerSprite3 {new SpriteWrapper(bunkerTexture3)};
+    SpriteWrapper *bunkerSprite4 {new SpriteWrapper(bunkerTexture4)};
+    SpriteWrapper *bunkerSprite5 {new SpriteWrapper(bunkerTexture5)};
+    Bunker *bunker {new Bunker(xOffset + (xIncrement * i), 1032, bunkerSprite1, bunkerSprite2, bunkerSprite3, bunkerSprite4, bunkerSprite5)};
     bunkers[i] = bunker;
   }
 
@@ -76,11 +76,11 @@ GunshipLaser makeGunshipLaser()
 {
   sf::Texture gunshipLaserTexture;
   gunshipLaserTexture.loadFromFile("resources/images/sprites/gunshipLaser.png");
-  SpriteWrapper *gunshipLaserSprite = new SpriteWrapper(gunshipLaserTexture);
+  SpriteWrapper *gunshipLaserSprite {new SpriteWrapper(gunshipLaserTexture)};
 
   sf::SoundBuffer deathBuffer;
   deathBuffer.loadFromFile("resources/audio/metroidDeath.wav");
-  SoundWrapper *deathSound = new SoundWrapper(deathBuffer);
+  SoundWrapper *deathSound {new SoundWrapper(deathBuffer)};
 
   GunshipLaser gunshipLaser(gunshipLaserSprite, deathSound);
   return gunshipLaser;
@@ -90,22 +90,22 @@ Gunship makeGunship(GunshipLaser &gunshipLaser)
 {
   sf::Texture gunshipTexture;
   gunshipTexture.loadFromFile("resources/images/sprites/gunship.png");
-  SpriteWrapper *gunshipSprite = new SpriteWrapper(gunshipTexture);
+  SpriteWrapper *gunshipSprite {new SpriteWrapper(gunshipTexture)};
 
   sf::SoundBuffer fireSoundBuffer;
   fireSoundBuffer.loadFromFile("resources/audio/shoot.wav");
-  SoundWrapper *fireSound = new SoundWrapper(fireSoundBuffer);
+  SoundWrapper *fireSound {new SoundWrapper(fireSoundBuffer)};
 
   sf::SoundBuffer deathSoundBuffer;
   deathSoundBuffer.loadFromFile("resources/audio/gunshipDeath.wav");
-  SoundWrapper *deathSound = new SoundWrapper(deathSoundBuffer);
+  SoundWrapper *deathSound {new SoundWrapper(deathSoundBuffer)};
 
-  GunshipLaser *pGunshipLaser = &gunshipLaser;
+  GunshipLaser *pGunshipLaser {&gunshipLaser};
   Gunship gunship(gunshipSprite, pGunshipLaser, fireSound, deathSound);
   return gunship;
 }
 
-std::vector<std::vector<IMetroid *>> makeMetroids()
+std::array<std::array<IMetroid*, 11>, 5> makeMetroids()
 {
   sf::Texture larvaTexture;
   larvaTexture.loadFromFile("resources/images/sprites/larva.png");
@@ -114,7 +114,7 @@ std::vector<std::vector<IMetroid *>> makeMetroids()
   sf::Texture gammaTexture;
   gammaTexture.loadFromFile("resources/images/sprites/gamma.png");
 
-  std::vector<std::vector<IMetroid *>> metroids(5);
+  std::array<std::array<IMetroid*, 11>, 5> metroids;
 
   float xOffset = 282;
   float yOffset = 348;
@@ -122,45 +122,45 @@ std::vector<std::vector<IMetroid *>> makeMetroids()
 
   for (int i = 0; i < 5; i++)
   {
-    std::vector<IMetroid *> metroidRow(11);
+    std::array<IMetroid*, 11> metroidRow;
     for (int j = 0; j < 11; j++)
     {
       if (i == 0)
       {
-        SpriteWrapper *larvaSprite = new SpriteWrapper(larvaTexture);
-        Larva *larva = new Larva(j * 90 + xOffset + extraLarvaXOffset, i * 90 + yOffset, larvaSprite);
-        metroidRow[j] = larva;
+        SpriteWrapper *larvaSprite {new SpriteWrapper(larvaTexture)};
+        Larva *larva {new Larva(j * 90 + xOffset + extraLarvaXOffset, i * 90 + yOffset, larvaSprite)};
+        metroidRow[j] = {larva};
       }
       else if (i < 3)
       {
-        SpriteWrapper *alphaSprite = new SpriteWrapper(alphaTexture);
-        Alpha *alpha = new Alpha(j * 90 + xOffset, i * 90 + yOffset, alphaSprite);
-        metroidRow[j] = alpha;
+        SpriteWrapper *alphaSprite {new SpriteWrapper(alphaTexture)};
+        Alpha *alpha {new Alpha(j * 90 + xOffset, i * 90 + yOffset, alphaSprite)};
+        metroidRow[j] = {alpha};
       }
       else
       {
-        SpriteWrapper *gammaSprite = new SpriteWrapper(gammaTexture);
-        Gamma *gamma = new Gamma(j * 90 + xOffset, i * 90 + yOffset, gammaSprite);
-        metroidRow[j] = gamma;
+        SpriteWrapper *gammaSprite {new SpriteWrapper(gammaTexture)};
+        Gamma *gamma {new Gamma(j * 90 + xOffset, i * 90 + yOffset, gammaSprite)};
+        metroidRow[j] = {gamma};
       }
     }
-    metroids[i] = metroidRow;
+    metroids[i] = {metroidRow};
   }
 
   return metroids;
 }
 
-std::vector<ILaser *> makeMetroidLasers()
+std::array<ILaser*, 3> makeMetroidLasers()
 {
   sf::Texture metroidLaserTexture;
   metroidLaserTexture.loadFromFile("resources/images/sprites/metroidLaser.png");
-
-  std::vector<ILaser *> metroidLasers(3);
+  
+  std::array<ILaser*, 3> metroidLasers;
   for (int i = 0; i < 3; i++)
   {
-    SpriteWrapper *metroidLaserSprite = new SpriteWrapper(metroidLaserTexture);
-    MetroidLaser *metroidLaser = new MetroidLaser(metroidLaserSprite);
-    metroidLasers[i] = metroidLaser;
+    SpriteWrapper *metroidLaserSprite {new SpriteWrapper(metroidLaserTexture)};
+    MetroidLaser *metroidLaser {new MetroidLaser(metroidLaserSprite)};
+    metroidLasers[i] = {metroidLaser};
   }
 
   return metroidLasers;
@@ -170,47 +170,47 @@ Ridley makeRidley()
 {
   sf::Texture ridleyRightTexture;
   ridleyRightTexture.loadFromFile("resources/images/sprites/ridleyRight.png");
-  SpriteWrapper *ridleyRightSprite = new SpriteWrapper(ridleyRightTexture);
-
+  SpriteWrapper *ridleyRightSprite {new SpriteWrapper(ridleyRightTexture)};
+  
   sf::Texture ridleyLeftTexture;
   ridleyLeftTexture.loadFromFile("resources/images/sprites/ridleyLeft.png");
-  SpriteWrapper *ridleyLeftSprite = new SpriteWrapper(ridleyLeftTexture);
-
+  SpriteWrapper *ridleyLeftSprite {new SpriteWrapper(ridleyLeftTexture)};
+  
   sf::SoundBuffer movementBuffer;
   movementBuffer.loadFromFile("resources/audio/ridley.wav");
-  SoundWrapper *movementSound = new SoundWrapper(movementBuffer);
+  SoundWrapper *movementSound {new SoundWrapper(movementBuffer)};
 
   sf::SoundBuffer deathBuffer;
   deathBuffer.loadFromFile("resources/audio/ridleyDeath.wav");
-  SoundWrapper *deathSound = new SoundWrapper(deathBuffer);
+  SoundWrapper *deathSound {new SoundWrapper(deathBuffer)};
 
   Ridley ridley(ridleyRightSprite, ridleyLeftSprite, movementSound, deathSound);
   return ridley;
 }
 
-std::vector<ISound *> makeMetroidSounds()
+std::array<ISound*, 4> makeMetroidSounds()
 {
   sf::SoundBuffer sound0Buffer;
   sound0Buffer.loadFromFile("resources/audio/metroid0.wav");
-  SoundWrapper *sound0 = new SoundWrapper(sound0Buffer);
+  SoundWrapper *sound0 {new SoundWrapper(sound0Buffer)};
 
   sf::SoundBuffer sound1Buffer;
   sound1Buffer.loadFromFile("resources/audio/metroid1.wav");
-  SoundWrapper *sound1 = new SoundWrapper(sound1Buffer);
+  SoundWrapper *sound1 {new SoundWrapper(sound1Buffer)};
 
   sf::SoundBuffer sound2Buffer;
   sound2Buffer.loadFromFile("resources/audio/metroid2.wav");
-  SoundWrapper *sound2 = new SoundWrapper(sound2Buffer);
+  SoundWrapper *sound2 {new SoundWrapper(sound2Buffer)};
 
   sf::SoundBuffer sound3Buffer;
   sound3Buffer.loadFromFile("resources/audio/metroid3.wav");
-  SoundWrapper *sound3 = new SoundWrapper(sound3Buffer);
+  SoundWrapper *sound3 {new SoundWrapper(sound3Buffer)};
 
-  std::vector<ISound *> metroidSounds = {sound0, sound1, sound2, sound3};
+  std::array<ISound*, 4> metroidSounds {sound0, sound1, sound2, sound3};
   return metroidSounds;
 }
 
-std::vector<sf::RectangleShape> makeRectangles()
+std::array<sf::RectangleShape, 2> makeRectangles()
 {
   sf::RectangleShape rectangle1(sf::Vector2f(96, 42));
   rectangle1.setPosition(sf::Vector2f(-96, 200));
@@ -219,11 +219,7 @@ std::vector<sf::RectangleShape> makeRectangles()
   rectangle2.setPosition(sf::Vector2f(1536, 200));
   rectangle2.setFillColor(sf::Color::Black);
 
-  std::vector<sf::RectangleShape> rectangles(2);
-  rectangles[0] = rectangle1;
-  rectangles[1] = rectangle2;
-
-  return rectangles;
+  return {rectangle1, rectangle2};
 }
 
 void pullHighScore(std::unordered_map<std::string, int> &variables, IText &highScoreText)

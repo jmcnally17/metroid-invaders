@@ -7,18 +7,22 @@
 using ::testing::NiceMock;
 using ::testing::Return;
 
-TEST(evaluateGunshipLaserRidleyCollision, killsRidleyIfCollidingWithGunshipLaser)
+class EvaluateGunshipLaserRidleyCollisionTest : public testing::Test
 {
+protected:
   NiceMock<MockCollision> collision;
   NiceMock<MockLaser> gunshipLaser;
   NiceMock<MockRidley> ridley;
-  std::unordered_map<std::string, int> variables = {
+  std::unordered_map<std::string, int> variables {
     {"score", 430},
     {"highScore", 1000},
   };
   NiceMock<MockText> scoreText;
   MockText highScoreText;
+};
 
+TEST_F(EvaluateGunshipLaserRidleyCollisionTest, killsRidleyIfCollidingWithGunshipLaser)
+{
   ON_CALL(collision, haveCollided)
       .WillByDefault(Return(true));
 
@@ -27,18 +31,8 @@ TEST(evaluateGunshipLaserRidleyCollision, killsRidleyIfCollidingWithGunshipLaser
   evaluateGunshipLaserRidleyCollision(collision, gunshipLaser, ridley, variables, scoreText, highScoreText);
 }
 
-TEST(evaluateGunshipLaserRidleyCollision, addsTheRidleyPointsToTheScore)
+TEST_F(EvaluateGunshipLaserRidleyCollisionTest, addsTheRidleyPointsToTheScore)
 {
-  NiceMock<MockCollision> collision;
-  NiceMock<MockLaser> gunshipLaser;
-  NiceMock<MockRidley> ridley;
-  std::unordered_map<std::string, int> variables = {
-    {"score", 430},
-    {"highScore", 1000},
-  };
-  MockText scoreText;
-  MockText highScoreText;
-
   ON_CALL(collision, haveCollided)
       .WillByDefault(Return(true));
   ON_CALL(ridley, getPoints())
@@ -50,17 +44,9 @@ TEST(evaluateGunshipLaserRidleyCollision, addsTheRidleyPointsToTheScore)
   EXPECT_EQ(variables["score"], 580);
 }
 
-TEST(evaluateGunshipLaserRidleyCollision, updatesTheHighScoreTextIfScoreSurpassesHighScore)
+TEST_F(EvaluateGunshipLaserRidleyCollisionTest, updatesTheHighScoreTextIfScoreSurpassesHighScore)
 {
-  NiceMock<MockCollision> collision;
-  NiceMock<MockLaser> gunshipLaser;
-  NiceMock<MockRidley> ridley;
-  std::unordered_map<std::string, int> variables = {
-    {"score", 430},
-    {"highScore", 450},
-  };
-  NiceMock<MockText> scoreText;
-  MockText highScoreText;
+  variables["highScore"] = {450};
 
   ON_CALL(collision, haveCollided)
       .WillByDefault(Return(true));
@@ -72,18 +58,8 @@ TEST(evaluateGunshipLaserRidleyCollision, updatesTheHighScoreTextIfScoreSurpasse
   evaluateGunshipLaserRidleyCollision(collision, gunshipLaser, ridley, variables, scoreText, highScoreText);
 }
 
-TEST(evaluateGunshipLaserRidleyCollision, doesNotUpdatesTheHighScoreTextIfScoreDoesNotSurpassHighScore)
+TEST_F(EvaluateGunshipLaserRidleyCollisionTest, doesNotUpdatesTheHighScoreTextIfScoreDoesNotSurpassHighScore)
 {
-  NiceMock<MockCollision> collision;
-  NiceMock<MockLaser> gunshipLaser;
-  NiceMock<MockRidley> ridley;
-  std::unordered_map<std::string, int> variables = {
-    {"score", 430},
-    {"highScore", 1000},
-  };
-  NiceMock<MockText> scoreText;
-  MockText highScoreText;
-
   ON_CALL(collision, haveCollided)
       .WillByDefault(Return(true));
   ON_CALL(ridley, getPoints())
@@ -94,18 +70,8 @@ TEST(evaluateGunshipLaserRidleyCollision, doesNotUpdatesTheHighScoreTextIfScoreD
   evaluateGunshipLaserRidleyCollision(collision, gunshipLaser, ridley, variables, scoreText, highScoreText);
 }
 
-TEST(evaluateGunshipLaserRidleyCollision, resetsTheGunshipLaser)
+TEST_F(EvaluateGunshipLaserRidleyCollisionTest, resetsTheGunshipLaser)
 {
-  NiceMock<MockCollision> collision;
-  MockLaser gunshipLaser;
-  NiceMock<MockRidley> ridley;
-  std::unordered_map<std::string, int> variables = {
-    {"score", 430},
-    {"highScore", 1000},
-  };
-  NiceMock<MockText> scoreText;
-  MockText highScoreText;
-
   ON_CALL(collision, haveCollided)
       .WillByDefault(Return(true));
 
@@ -114,18 +80,8 @@ TEST(evaluateGunshipLaserRidleyCollision, resetsTheGunshipLaser)
   evaluateGunshipLaserRidleyCollision(collision, gunshipLaser, ridley, variables, scoreText, highScoreText);
 }
 
-TEST(evaluateGunshipLaserRidleyCollision, doesNotModifyAnythingIfRidleyAndLaserAreNotColliding)
+TEST_F(EvaluateGunshipLaserRidleyCollisionTest, doesNotModifyAnythingIfRidleyAndLaserAreNotColliding)
 {
-  NiceMock<MockCollision> collision;
-  MockLaser gunshipLaser;
-  MockRidley ridley;
-  std::unordered_map<std::string, int> variables = {
-    {"score", 430},
-    {"highScore", 1000},
-  };
-  MockText scoreText;
-  MockText highScoreText;
-
   ON_CALL(collision, haveCollided)
       .WillByDefault(Return(false));
   ON_CALL(ridley, getPoints())

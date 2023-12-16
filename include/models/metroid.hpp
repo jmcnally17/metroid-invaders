@@ -20,7 +20,7 @@ public:
   bool hasJustMovedDown() const override;
   void resurrect() override;
   void reset() override;
-  void shoot(const std::vector<ILaser *> &metroidLasers, int randomNumber = rand() % 10000) const override;
+  void shoot(const std::array<ILaser*, 3> &metroidLasers, int randomNumber = rand() % 10000) const override;
   sf::FloatRect getGlobalBounds() const override;
   bool intersects(const sf::FloatRect &rectangle) const override;
 

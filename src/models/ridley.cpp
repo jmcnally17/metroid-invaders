@@ -30,7 +30,7 @@ void Ridley::setPosition(const sf::Vector2f &position)
 
 void Ridley::draw(IRenderWindow &window) const
 {
-  float xPosition = getPosition().x;
+  float xPosition {getPosition().x};
   if (xPosition > -96 && xPosition < 1536)
   {
     direction_ == 1 ? window.draw(*sprite_) : window.draw(*leftSprite_);
@@ -50,7 +50,7 @@ void Ridley::reset()
 
 void Ridley::move()
 {
-  float xPosition = getPosition().x;
+  float xPosition {getPosition().x};
   if (xPosition > -96 && xPosition < 1536)
   {
     sprite_->move(sf::Vector2f(1.6 * direction_, 0));
@@ -60,7 +60,7 @@ void Ridley::move()
 
 void Ridley::spawn(int randomNumber)
 {
-  float xPosition = getPosition().x;
+  float xPosition {getPosition().x};
   if (randomNumber == 0 && (xPosition <= -96 || xPosition >= 1536))
   {
     changeDirection();
@@ -80,7 +80,7 @@ void Ridley::stopMovementSoundIfPlaying()
 
 void Ridley::stopMovementSoundIfAtSideOfWindow()
 {
-  float xPosition = getPosition().x;
+  float xPosition {getPosition().x};
   if (xPosition <= -96 || xPosition >= 1536)
   {
     stopMovementSoundIfPlaying();
@@ -102,6 +102,6 @@ sf::FloatRect Ridley::getGlobalBounds() const
 
 bool Ridley::intersects(const sf::FloatRect &rectangle) const
 {
-  sf::FloatRect box = getGlobalBounds();
+  sf::FloatRect box {getGlobalBounds()};
   return box.intersects(rectangle);
 }

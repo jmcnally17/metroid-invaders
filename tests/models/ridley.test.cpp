@@ -6,34 +6,33 @@
 using ::testing::NiceMock;
 using ::testing::Return;
 
-TEST(Ridley, setsPositionOnSpriteClassMembers)
+class RidleyTest : public testing::Test
 {
-  MockSprite rightSprite;
-  MockSprite *pRightSprite = &rightSprite;
-  MockSprite leftSprite;
-  MockSprite *pLeftSprite = &leftSprite;
+protected:
+  NiceMock<MockSprite> rightSprite;
+  MockSprite *pRightSprite {&rightSprite};
+  NiceMock<MockSprite> leftSprite;
+  MockSprite *pLeftSprite {&leftSprite};
   NiceMock<MockSound> movementSound;
-  MockSound *pMovementSound = &movementSound;
-  MockSound *deathSound;
+  MockSound *pMovementSound {&movementSound};
+  NiceMock<MockSound> deathSound;
+  MockSound *pDeathSound {&deathSound};
+  Ridley ridley {Ridley(pRightSprite, pLeftSprite, pMovementSound, pDeathSound)};
+  MockRenderWindow window;
+  sf::FloatRect spriteBounds {sf::FloatRect(sf::Vector2f(200, 600), sf::Vector2f(96, 42))};
+};
 
+TEST_F(RidleyTest, setsPositionOnSpriteClassMembers)
+{
   EXPECT_CALL(rightSprite, setPosition(sf::Vector2f(-96, 200)))
       .Times(1);
   EXPECT_CALL(leftSprite, setPosition(sf::Vector2f(-96, 200)))
       .Times(1);
-  Ridley ridley(pRightSprite, pLeftSprite, pMovementSound, deathSound);
+  Ridley ridley(pRightSprite, pLeftSprite, pMovementSound, pDeathSound);
 }
 
-TEST(Ridley, getPositionReturnsSpritePosition)
+TEST_F(RidleyTest, getPositionReturnsSpritePosition)
 {
-  NiceMock<MockSprite> rightSprite;
-  MockSprite *pRightSprite = &rightSprite;
-  NiceMock<MockSprite> leftSprite;
-  MockSprite *pLeftSprite = &leftSprite;
-  NiceMock<MockSound> movementSound;
-  MockSound *pMovementSound = &movementSound;
-  MockSound *deathSound;
-  Ridley ridley(pRightSprite, pLeftSprite, pMovementSound, deathSound);
-
   ON_CALL(rightSprite, getPosition())
       .WillByDefault(Return(sf::Vector2f(-96, 200)));
 
@@ -42,60 +41,25 @@ TEST(Ridley, getPositionReturnsSpritePosition)
   EXPECT_EQ(ridley.getPosition(), sf::Vector2f(-96, 200));
 }
 
-TEST(Ridley, hasAPointsMemberOf150)
+TEST_F(RidleyTest, hasAPointsMemberOf150)
 {
-  NiceMock<MockSprite> rightSprite;
-  MockSprite *pRightSprite = &rightSprite;
-  NiceMock<MockSprite> leftSprite;
-  MockSprite *pLeftSprite = &leftSprite;
-  NiceMock<MockSound> movementSound;
-  MockSound *pMovementSound = &movementSound;
-  MockSound *deathSound;
-  Ridley ridley(pRightSprite, pLeftSprite, pMovementSound, deathSound);
-
   EXPECT_EQ(ridley.getPoints(), 150);
 }
 
-TEST(Ridley, hasADirectionMemberInitiallySetToMinus1)
+TEST_F(RidleyTest, hasADirectionMemberInitiallySetToMinus1)
 {
-  NiceMock<MockSprite> rightSprite;
-  MockSprite *pRightSprite = &rightSprite;
-  NiceMock<MockSprite> leftSprite;
-  MockSprite *pLeftSprite = &leftSprite;
-  NiceMock<MockSound> movementSound;
-  MockSound *pMovementSound = &movementSound;
-  MockSound *deathSound;
-  Ridley ridley(pRightSprite, pLeftSprite, pMovementSound, deathSound);
-
   EXPECT_EQ(ridley.getDirection(), -1);
 }
 
-TEST(Ridley, setsLoopOnMovementSoundToTrue)
+TEST_F(RidleyTest, setsLoopOnMovementSoundToTrue)
 {
-  NiceMock<MockSprite> rightSprite;
-  MockSprite *pRightSprite = &rightSprite;
-  NiceMock<MockSprite> leftSprite;
-  MockSprite *pLeftSprite = &leftSprite;
-  MockSound movementSound;
-  MockSound *pMovementSound = &movementSound;
-  MockSound *deathSound;
-
   EXPECT_CALL(movementSound, setLoop(true))
       .Times(1);
-  Ridley ridley(pRightSprite, pLeftSprite, pMovementSound, deathSound);
+  Ridley ridley(pRightSprite, pLeftSprite, pMovementSound, pDeathSound);
 }
 
-TEST(Ridley, setPositionUpdatesSpritePositions)
+TEST_F(RidleyTest, setPositionUpdatesSpritePositions)
 {
-  NiceMock<MockSprite> rightSprite;
-  MockSprite *pRightSprite = &rightSprite;
-  NiceMock<MockSprite> leftSprite;
-  MockSprite *pLeftSprite = &leftSprite;
-  NiceMock<MockSound> movementSound;
-  MockSound *pMovementSound = &movementSound;
-  MockSound *deathSound;
-  Ridley ridley(pRightSprite, pLeftSprite, pMovementSound, deathSound);
-
   EXPECT_CALL(rightSprite, setPosition(sf::Vector2f(500, 920)))
       .Times(1);
   EXPECT_CALL(leftSprite, setPosition(sf::Vector2f(500, 920)))
@@ -103,19 +67,22 @@ TEST(Ridley, setPositionUpdatesSpritePositions)
   ridley.setPosition(sf::Vector2f(500, 920));
 }
 
-TEST(Ridley, drawCallsDrawOnRightSpriteClassMemberWhenOnTheBoardAndDirectionIs1)
+TEST_F(RidleyTest, changeDirectionSwitchesDirectionTo1)
 {
-  NiceMock<MockSprite> rightSprite;
-  MockSprite *pRightSprite = &rightSprite;
-  NiceMock<MockSprite> leftSprite;
-  MockSprite *pLeftSprite = &leftSprite;
-  NiceMock<MockSound> movementSound;
-  MockSound *pMovementSound = &movementSound;
-  MockSound *deathSound;
-  Ridley ridley(pRightSprite, pLeftSprite, pMovementSound, deathSound);
-  MockRenderWindow window;
+  ridley.changeDirection();
+  EXPECT_EQ(ridley.getDirection(), 1);
+}
+
+TEST_F(RidleyTest, changeDirectionSwitchesDirectionBackToMinus1)
+{
+  ridley.changeDirection(); // Set direction to 1
 
   ridley.changeDirection();
+  EXPECT_EQ(ridley.getDirection(), -1);
+}
+
+TEST_F(RidleyTest, drawCallsDrawOnLeftSpriteClassMemberWhenOnTheBoardAndDirectionIsMinus1)
+{
   ON_CALL(rightSprite, getPosition())
       .WillByDefault(Return(sf::Vector2f(500, 200)));
 
@@ -125,18 +92,9 @@ TEST(Ridley, drawCallsDrawOnRightSpriteClassMemberWhenOnTheBoardAndDirectionIs1)
   ridley.draw(window);
 }
 
-TEST(Ridley, drawCallsDrawOnLeftSpriteClassMemberWhenOnTheBoardAndDirectionIsMinus1)
+TEST_F(RidleyTest, drawCallsDrawOnRightSpriteClassMemberWhenOnTheBoardAndDirectionIs1)
 {
-  NiceMock<MockSprite> rightSprite;
-  MockSprite *pRightSprite = &rightSprite;
-  NiceMock<MockSprite> leftSprite;
-  MockSprite *pLeftSprite = &leftSprite;
-  NiceMock<MockSound> movementSound;
-  MockSound *pMovementSound = &movementSound;
-  MockSound *deathSound;
-  Ridley ridley(pRightSprite, pLeftSprite, pMovementSound, deathSound);
-  MockRenderWindow window;
-
+  ridley.changeDirection(); // set direction to 1
   ON_CALL(rightSprite, getPosition())
       .WillByDefault(Return(sf::Vector2f(500, 200)));
 
@@ -146,18 +104,8 @@ TEST(Ridley, drawCallsDrawOnLeftSpriteClassMemberWhenOnTheBoardAndDirectionIsMin
   ridley.draw(window);
 }
 
-TEST(Ridley, drawDoesNotCallDrawOnSpriteClassMemberWhenLeftOfTheBoard)
+TEST_F(RidleyTest, drawDoesNotCallDrawOnSpriteClassMemberWhenLeftOfTheBoard)
 {
-  NiceMock<MockSprite> rightSprite;
-  MockSprite *pRightSprite = &rightSprite;
-  NiceMock<MockSprite> leftSprite;
-  MockSprite *pLeftSprite = &leftSprite;
-  NiceMock<MockSound> movementSound;
-  MockSound *pMovementSound = &movementSound;
-  MockSound *deathSound;
-  Ridley ridley(pRightSprite, pLeftSprite, pMovementSound, deathSound);
-  MockRenderWindow window;
-
   ON_CALL(rightSprite, getPosition())
       .WillByDefault(Return(sf::Vector2f(-96, 200)));
 
@@ -166,18 +114,8 @@ TEST(Ridley, drawDoesNotCallDrawOnSpriteClassMemberWhenLeftOfTheBoard)
   ridley.draw(window);
 }
 
-TEST(Ridley, drawDoesNotCallDrawOnTheSpriteClassMemberWhenRightOfTheBoard)
+TEST_F(RidleyTest, drawDoesNotCallDrawOnTheSpriteClassMemberWhenRightOfTheBoard)
 {
-  NiceMock<MockSprite> rightSprite;
-  MockSprite *pRightSprite = &rightSprite;
-  NiceMock<MockSprite> leftSprite;
-  MockSprite *pLeftSprite = &leftSprite;
-  NiceMock<MockSound> movementSound;
-  MockSound *pMovementSound = &movementSound;
-  MockSound *deathSound;
-  Ridley ridley(pRightSprite, pLeftSprite, pMovementSound, deathSound);
-  MockRenderWindow window;
-
   ON_CALL(rightSprite, getPosition())
       .WillByDefault(Return(sf::Vector2f(1536, 200)));
 
@@ -186,49 +124,8 @@ TEST(Ridley, drawDoesNotCallDrawOnTheSpriteClassMemberWhenRightOfTheBoard)
   ridley.draw(window);
 }
 
-TEST(Ridley, changeDirectionSwitchesDirectionTo1)
+TEST_F(RidleyTest, resetSetsSpritePositionsBackToOriginalPosition)
 {
-  NiceMock<MockSprite> rightSprite;
-  MockSprite *pRightSprite = &rightSprite;
-  NiceMock<MockSprite> leftSprite;
-  MockSprite *pLeftSprite = &leftSprite;
-  NiceMock<MockSound> movementSound;
-  MockSound *pMovementSound = &movementSound;
-  MockSound *deathSound;
-  Ridley ridley(pRightSprite, pLeftSprite, pMovementSound, deathSound);
-
-  ridley.changeDirection();
-  EXPECT_EQ(ridley.getDirection(), 1);
-}
-
-TEST(Ridley, changeDirectionSwitchesDirectionBackToMinus1)
-{
-  NiceMock<MockSprite> rightSprite;
-  MockSprite *pRightSprite = &rightSprite;
-  NiceMock<MockSprite> leftSprite;
-  MockSprite *pLeftSprite = &leftSprite;
-  NiceMock<MockSound> movementSound;
-  MockSound *pMovementSound = &movementSound;
-  MockSound *deathSound;
-  Ridley ridley(pRightSprite, pLeftSprite, pMovementSound, deathSound);
-
-  ridley.changeDirection(); // Set direction to 1
-
-  ridley.changeDirection();
-  EXPECT_EQ(ridley.getDirection(), -1);
-}
-
-TEST(Ridley, resetSetsSpritePositionsBackToOriginalPosition)
-{
-  NiceMock<MockSprite> rightSprite;
-  MockSprite *pRightSprite = &rightSprite;
-  NiceMock<MockSprite> leftSprite;
-  MockSprite *pLeftSprite = &leftSprite;
-  NiceMock<MockSound> movementSound;
-  MockSound *pMovementSound = &movementSound;
-  MockSound *deathSound;
-  Ridley ridley(pRightSprite, pLeftSprite, pMovementSound, deathSound);
-
   EXPECT_CALL(rightSprite, setPosition(sf::Vector2f(-96, 200)))
       .Times(1);
   EXPECT_CALL(leftSprite, setPosition(sf::Vector2f(-96, 200)))
@@ -236,34 +133,28 @@ TEST(Ridley, resetSetsSpritePositionsBackToOriginalPosition)
   ridley.reset();
 }
 
-TEST(Ridley, resetSetsDirectionBackToMinus1)
+TEST_F(RidleyTest, resetSetsDirectionBackToMinus1)
 {
-  NiceMock<MockSprite> rightSprite;
-  MockSprite *pRightSprite = &rightSprite;
-  NiceMock<MockSprite> leftSprite;
-  MockSprite *pLeftSprite = &leftSprite;
-  NiceMock<MockSound> movementSound;
-  MockSound *pMovementSound = &movementSound;
-  MockSound *deathSound;
-  Ridley ridley(pRightSprite, pLeftSprite, pMovementSound, deathSound);
-
   ridley.changeDirection(); // Set direction to 1
 
   ridley.reset();
   EXPECT_EQ(ridley.getDirection(), -1);
 }
 
-TEST(Ridley, moveAdds1Point6ToSpriteXPositionsWhenDirectionIs1AndIsOnTheBoard)
+TEST_F(RidleyTest, moveTakesAway1Point6FromSpriteXPositionsWhenDirectionIsMinus1AndIsOnTheBoard)
 {
-  NiceMock<MockSprite> rightSprite;
-  MockSprite *pRightSprite = &rightSprite;
-  NiceMock<MockSprite> leftSprite;
-  MockSprite *pLeftSprite = &leftSprite;
-  NiceMock<MockSound> movementSound;
-  MockSound *pMovementSound = &movementSound;
-  MockSound *deathSound;
-  Ridley ridley(pRightSprite, pLeftSprite, pMovementSound, deathSound);
+  ON_CALL(rightSprite, getPosition())
+      .WillByDefault(Return(sf::Vector2f(500, 200)));
 
+  EXPECT_CALL(rightSprite, move(sf::Vector2f(-1.6, 0)))
+      .Times(1);
+  EXPECT_CALL(leftSprite, move(sf::Vector2f(-1.6, 0)))
+      .Times(1);
+  ridley.move();
+}
+
+TEST_F(RidleyTest, moveAdds1Point6ToSpriteXPositionsWhenDirectionIs1AndIsOnTheBoard)
+{
   ridley.changeDirection(); // Set direction to 1
   ON_CALL(rightSprite, getPosition())
       .WillByDefault(Return(sf::Vector2f(500, 200)));
@@ -275,38 +166,8 @@ TEST(Ridley, moveAdds1Point6ToSpriteXPositionsWhenDirectionIs1AndIsOnTheBoard)
   ridley.move();
 }
 
-TEST(Ridley, moveTakesAway1Point6FromSpriteXPositionsWhenDirectionIsMinus1AndIsOnTheBoard)
+TEST_F(RidleyTest, moveDoesNotChangePositionWhenRidleyIsLeftOfTheBoard)
 {
-  NiceMock<MockSprite> rightSprite;
-  MockSprite *pRightSprite = &rightSprite;
-  NiceMock<MockSprite> leftSprite;
-  MockSprite *pLeftSprite = &leftSprite;
-  NiceMock<MockSound> movementSound;
-  MockSound *pMovementSound = &movementSound;
-  MockSound *deathSound;
-  Ridley ridley(pRightSprite, pLeftSprite, pMovementSound, deathSound);
-
-  ON_CALL(rightSprite, getPosition())
-      .WillByDefault(Return(sf::Vector2f(500, 200)));
-
-  EXPECT_CALL(rightSprite, move(sf::Vector2f(-1.6, 0)))
-      .Times(1);
-  EXPECT_CALL(leftSprite, move(sf::Vector2f(-1.6, 0)))
-      .Times(1);
-  ridley.move();
-}
-
-TEST(Ridley, moveDoesNotChangePositionWhenRidleyIsLeftOfTheBoard)
-{
-  NiceMock<MockSprite> rightSprite;
-  MockSprite *pRightSprite = &rightSprite;
-  NiceMock<MockSprite> leftSprite;
-  MockSprite *pLeftSprite = &leftSprite;
-  NiceMock<MockSound> movementSound;
-  MockSound *pMovementSound = &movementSound;
-  MockSound *deathSound;
-  Ridley ridley(pRightSprite, pLeftSprite, pMovementSound, deathSound);
-
   ON_CALL(rightSprite, getPosition())
       .WillByDefault(Return(sf::Vector2f(-96, 200)));
 
@@ -317,17 +178,8 @@ TEST(Ridley, moveDoesNotChangePositionWhenRidleyIsLeftOfTheBoard)
   ridley.move();
 }
 
-TEST(Ridley, moveDoesNotChangePositionWhenRidleyIsRightOfTheBoard)
+TEST_F(RidleyTest, moveDoesNotChangePositionWhenRidleyIsRightOfTheBoard)
 {
-  NiceMock<MockSprite> rightSprite;
-  MockSprite *pRightSprite = &rightSprite;
-  NiceMock<MockSprite> leftSprite;
-  MockSprite *pLeftSprite = &leftSprite;
-  NiceMock<MockSound> movementSound;
-  MockSound *pMovementSound = &movementSound;
-  MockSound *deathSound;
-  Ridley ridley(pRightSprite, pLeftSprite, pMovementSound, deathSound);
-
   ON_CALL(rightSprite, getPosition())
       .WillByDefault(Return(sf::Vector2f(1536, 200)));
 
@@ -338,17 +190,8 @@ TEST(Ridley, moveDoesNotChangePositionWhenRidleyIsRightOfTheBoard)
   ridley.move();
 }
 
-TEST(Ridley, spawnChangesDirectionTo1)
+TEST_F(RidleyTest, spawnChangesDirectionTo1)
 {
-  NiceMock<MockSprite> rightSprite;
-  MockSprite *pRightSprite = &rightSprite;
-  NiceMock<MockSprite> leftSprite;
-  MockSprite *pLeftSprite = &leftSprite;
-  NiceMock<MockSound> movementSound;
-  MockSound *pMovementSound = &movementSound;
-  MockSound *deathSound;
-  Ridley ridley(pRightSprite, pLeftSprite, pMovementSound, deathSound);
-
   ON_CALL(rightSprite, getPosition())
       .WillByDefault(Return(sf::Vector2f(-96, 200)));
 
@@ -356,17 +199,8 @@ TEST(Ridley, spawnChangesDirectionTo1)
   EXPECT_EQ(ridley.getDirection(), 1);
 }
 
-TEST(Ridley, spawnChangesDirectionToMinus1)
+TEST_F(RidleyTest, spawnChangesDirectionToMinus1)
 {
-  NiceMock<MockSprite> rightSprite;
-  MockSprite *pRightSprite = &rightSprite;
-  NiceMock<MockSprite> leftSprite;
-  MockSprite *pLeftSprite = &leftSprite;
-  NiceMock<MockSound> movementSound;
-  MockSound *pMovementSound = &movementSound;
-  MockSound *deathSound;
-  Ridley ridley(pRightSprite, pLeftSprite, pMovementSound, deathSound);
-
   ridley.changeDirection(); // Set direction to 1
   ON_CALL(rightSprite, getPosition())
       .WillByDefault(Return(sf::Vector2f(1536, 200)));
@@ -375,17 +209,8 @@ TEST(Ridley, spawnChangesDirectionToMinus1)
   EXPECT_EQ(ridley.getDirection(), -1);
 }
 
-TEST(Ridley, spawnAdds1Point6ToSpriteXPositionsWhenRidleyIsLeftOfBoard)
+TEST_F(RidleyTest, spawnAdds1Point6ToSpriteXPositionsWhenRidleyIsLeftOfBoard)
 {
-  NiceMock<MockSprite> rightSprite;
-  MockSprite *pRightSprite = &rightSprite;
-  NiceMock<MockSprite> leftSprite;
-  MockSprite *pLeftSprite = &leftSprite;
-  NiceMock<MockSound> movementSound;
-  MockSound *pMovementSound = &movementSound;
-  MockSound *deathSound;
-  Ridley ridley(pRightSprite, pLeftSprite, pMovementSound, deathSound);
-
   ON_CALL(rightSprite, getPosition())
       .WillByDefault(Return(sf::Vector2f(-96, 200)));
 
@@ -396,17 +221,8 @@ TEST(Ridley, spawnAdds1Point6ToSpriteXPositionsWhenRidleyIsLeftOfBoard)
   ridley.spawn(0);
 }
 
-TEST(Ridley, spawnTakesAway1Point6FromSpriteXPositionsWhenRidleyIsRightOfBoard)
+TEST_F(RidleyTest, spawnTakesAway1Point6FromSpriteXPositionsWhenRidleyIsRightOfBoard)
 {
-  NiceMock<MockSprite> rightSprite;
-  MockSprite *pRightSprite = &rightSprite;
-  NiceMock<MockSprite> leftSprite;
-  MockSprite *pLeftSprite = &leftSprite;
-  NiceMock<MockSound> movementSound;
-  MockSound *pMovementSound = &movementSound;
-  MockSound *deathSound;
-  Ridley ridley(pRightSprite, pLeftSprite, pMovementSound, deathSound);
-
   ridley.changeDirection(); // Set direction to 1
   ON_CALL(rightSprite, getPosition())
       .WillByDefault(Return(sf::Vector2f(1536, 200)));
@@ -418,17 +234,8 @@ TEST(Ridley, spawnTakesAway1Point6FromSpriteXPositionsWhenRidleyIsRightOfBoard)
   ridley.spawn(0);
 }
 
-TEST(Ridley, spawnPlaysTheMovementSound)
+TEST_F(RidleyTest, spawnPlaysTheMovementSound)
 {
-  NiceMock<MockSprite> rightSprite;
-  MockSprite *pRightSprite = &rightSprite;
-  NiceMock<MockSprite> leftSprite;
-  MockSprite *pLeftSprite = &leftSprite;
-  NiceMock<MockSound> movementSound;
-  MockSound *pMovementSound = &movementSound;
-  MockSound *deathSound;
-  Ridley ridley(pRightSprite, pLeftSprite, pMovementSound, deathSound);
-
   ON_CALL(rightSprite, getPosition())
       .WillByDefault(Return(sf::Vector2f(-96, 200)));
 
@@ -437,17 +244,8 @@ TEST(Ridley, spawnPlaysTheMovementSound)
   ridley.spawn(0);
 }
 
-TEST(Ridley, spawnDoesNotSpawnRidleyWhenNotAtLeftOrRightEdgeOfBoard)
+TEST_F(RidleyTest, spawnDoesNotSpawnRidleyWhenNotAtLeftOrRightEdgeOfBoard)
 {
-  NiceMock<MockSprite> rightSprite;
-  MockSprite *pRightSprite = &rightSprite;
-  NiceMock<MockSprite> leftSprite;
-  MockSprite *pLeftSprite = &leftSprite;
-  NiceMock<MockSound> movementSound;
-  MockSound *pMovementSound = &movementSound;
-  MockSound *deathSound;
-  Ridley ridley(pRightSprite, pLeftSprite, pMovementSound, deathSound);
-
   ON_CALL(rightSprite, getPosition())
       .WillByDefault(Return(sf::Vector2f(500, 200)));
 
@@ -461,17 +259,8 @@ TEST(Ridley, spawnDoesNotSpawnRidleyWhenNotAtLeftOrRightEdgeOfBoard)
   EXPECT_EQ(ridley.getDirection(), -1);
 }
 
-TEST(Ridley, spawnDoesNotSpawnRidleyWhenRandomNumberIsNot0)
+TEST_F(RidleyTest, spawnDoesNotSpawnRidleyWhenRandomNumberIsNot0)
 {
-  NiceMock<MockSprite> rightSprite;
-  MockSprite *pRightSprite = &rightSprite;
-  NiceMock<MockSprite> leftSprite;
-  MockSprite *pLeftSprite = &leftSprite;
-  NiceMock<MockSound> movementSound;
-  MockSound *pMovementSound = &movementSound;
-  MockSound *deathSound;
-  Ridley ridley(pRightSprite, pLeftSprite, pMovementSound, deathSound);
-
   ON_CALL(rightSprite, getPosition())
       .WillByDefault(Return(sf::Vector2f(-96, 200)));
 
@@ -485,17 +274,8 @@ TEST(Ridley, spawnDoesNotSpawnRidleyWhenRandomNumberIsNot0)
   EXPECT_EQ(ridley.getDirection(), -1);
 }
 
-TEST(Ridley, stopMovementSoundIfPlayingStopsMovementSoundIfItIsPlaying)
+TEST_F(RidleyTest, stopMovementSoundIfPlayingStopsMovementSoundIfItIsPlaying)
 {
-  NiceMock<MockSprite> rightSprite;
-  MockSprite *pRightSprite = &rightSprite;
-  NiceMock<MockSprite> leftSprite;
-  MockSprite *pLeftSprite = &leftSprite;
-  NiceMock<MockSound> movementSound;
-  MockSound *pMovementSound = &movementSound;
-  MockSound *deathSound;
-  Ridley ridley(pRightSprite, pLeftSprite, pMovementSound, deathSound);
-
   ON_CALL(movementSound, getStatus())
       .WillByDefault(Return(sf::Sound::Playing));
 
@@ -504,17 +284,8 @@ TEST(Ridley, stopMovementSoundIfPlayingStopsMovementSoundIfItIsPlaying)
   ridley.stopMovementSoundIfPlaying();
 }
 
-TEST(Ridley, stopMovementSoundIfPlayingDoesNotStopMovementSoundIfItIsNotPlaying)
+TEST_F(RidleyTest, stopMovementSoundIfPlayingDoesNotStopMovementSoundIfItIsNotPlaying)
 {
-  NiceMock<MockSprite> rightSprite;
-  MockSprite *pRightSprite = &rightSprite;
-  NiceMock<MockSprite> leftSprite;
-  MockSprite *pLeftSprite = &leftSprite;
-  NiceMock<MockSound> movementSound;
-  MockSound *pMovementSound = &movementSound;
-  MockSound *deathSound;
-  Ridley ridley(pRightSprite, pLeftSprite, pMovementSound, deathSound);
-
   ON_CALL(movementSound, getStatus())
       .WillByDefault(Return(sf::Sound::Stopped));
 
@@ -523,17 +294,8 @@ TEST(Ridley, stopMovementSoundIfPlayingDoesNotStopMovementSoundIfItIsNotPlaying)
   ridley.stopMovementSoundIfPlaying();
 }
 
-TEST(Ridley, stopMovementSoundIfAtSideOfWindowStopsMovementSoundIfAtLeftSideAndPlaying)
+TEST_F(RidleyTest, stopMovementSoundIfAtSideOfWindowStopsMovementSoundIfAtLeftSideAndPlaying)
 {
-  NiceMock<MockSprite> rightSprite;
-  MockSprite *pRightSprite = &rightSprite;
-  NiceMock<MockSprite> leftSprite;
-  MockSprite *pLeftSprite = &leftSprite;
-  NiceMock<MockSound> movementSound;
-  MockSound *pMovementSound = &movementSound;
-  MockSound *deathSound;
-  Ridley ridley(pRightSprite, pLeftSprite, pMovementSound, deathSound);
-
   ON_CALL(rightSprite, getPosition())
       .WillByDefault(Return(sf::Vector2f(-96, 200)));
   ON_CALL(movementSound, getStatus())
@@ -544,17 +306,8 @@ TEST(Ridley, stopMovementSoundIfAtSideOfWindowStopsMovementSoundIfAtLeftSideAndP
   ridley.stopMovementSoundIfAtSideOfWindow();
 }
 
-TEST(Ridley, stopMovementSoundIfAtSideOfWindowStopsMovementSoundIfAtRightSideAndPlaying)
+TEST_F(RidleyTest, stopMovementSoundIfAtSideOfWindowStopsMovementSoundIfAtRightSideAndPlaying)
 {
-  NiceMock<MockSprite> rightSprite;
-  MockSprite *pRightSprite = &rightSprite;
-  NiceMock<MockSprite> leftSprite;
-  MockSprite *pLeftSprite = &leftSprite;
-  NiceMock<MockSound> movementSound;
-  MockSound *pMovementSound = &movementSound;
-  MockSound *deathSound;
-  Ridley ridley(pRightSprite, pLeftSprite, pMovementSound, deathSound);
-
   ON_CALL(rightSprite, getPosition())
       .WillByDefault(Return(sf::Vector2f(1536, 200)));
   ON_CALL(movementSound, getStatus())
@@ -565,17 +318,8 @@ TEST(Ridley, stopMovementSoundIfAtSideOfWindowStopsMovementSoundIfAtRightSideAnd
   ridley.stopMovementSoundIfAtSideOfWindow();
 }
 
-TEST(Ridley, stopMovementSoundIfAtSideOfWindowDoesNotStopMovementSoundIfInTheWindowAndPlaying)
+TEST_F(RidleyTest, stopMovementSoundIfAtSideOfWindowDoesNotStopMovementSoundIfInTheWindowAndPlaying)
 {
-  NiceMock<MockSprite> rightSprite;
-  MockSprite *pRightSprite = &rightSprite;
-  NiceMock<MockSprite> leftSprite;
-  MockSprite *pLeftSprite = &leftSprite;
-  NiceMock<MockSound> movementSound;
-  MockSound *pMovementSound = &movementSound;
-  MockSound *deathSound;
-  Ridley ridley(pRightSprite, pLeftSprite, pMovementSound, deathSound);
-
   ON_CALL(rightSprite, getPosition())
       .WillByDefault(Return(sf::Vector2f(500, 200)));
   ON_CALL(movementSound, getStatus())
@@ -586,17 +330,8 @@ TEST(Ridley, stopMovementSoundIfAtSideOfWindowDoesNotStopMovementSoundIfInTheWin
   ridley.stopMovementSoundIfAtSideOfWindow();
 }
 
-TEST(Ridley, stopMovementSoundIfAtSideOfWindowDoesNotStopMovementSoundIfNotPlaying)
+TEST_F(RidleyTest, stopMovementSoundIfAtSideOfWindowDoesNotStopMovementSoundIfNotPlaying)
 {
-  NiceMock<MockSprite> rightSprite;
-  MockSprite *pRightSprite = &rightSprite;
-  NiceMock<MockSprite> leftSprite;
-  MockSprite *pLeftSprite = &leftSprite;
-  NiceMock<MockSound> movementSound;
-  MockSound *pMovementSound = &movementSound;
-  MockSound *deathSound;
-  Ridley ridley(pRightSprite, pLeftSprite, pMovementSound, deathSound);
-
   ON_CALL(rightSprite, getPosition())
       .WillByDefault(Return(sf::Vector2f(-96, 200)));
   ON_CALL(movementSound, getStatus())
@@ -607,18 +342,8 @@ TEST(Ridley, stopMovementSoundIfAtSideOfWindowDoesNotStopMovementSoundIfNotPlayi
   ridley.stopMovementSoundIfAtSideOfWindow();
 }
 
-TEST(Ridley, dieSetsSpritePositionsToRightOfWindowWhenDirectionIs1)
+TEST_F(RidleyTest, dieSetsSpritePositionsToRightOfWindowWhenDirectionIs1)
 {
-  NiceMock<MockSprite> rightSprite;
-  MockSprite *pRightSprite = &rightSprite;
-  NiceMock<MockSprite> leftSprite;
-  MockSprite *pLeftSprite = &leftSprite;
-  NiceMock<MockSound> movementSound;
-  MockSound *pMovementSound = &movementSound;
-  NiceMock<MockSound> deathSound;
-  MockSound *pDeathSound = &deathSound;
-  Ridley ridley(pRightSprite, pLeftSprite, pMovementSound, pDeathSound);
-
   ridley.changeDirection(); // Set direction to 1
   ON_CALL(rightSprite, getPosition())
       .WillByDefault(Return(sf::Vector2f(500, 200)));
@@ -630,18 +355,8 @@ TEST(Ridley, dieSetsSpritePositionsToRightOfWindowWhenDirectionIs1)
   ridley.die();
 }
 
-TEST(Ridley, dieSetsSpritePositionsToLeftOfWindowWhenDirectionIsMinus1)
+TEST_F(RidleyTest, dieSetsSpritePositionsToLeftOfWindowWhenDirectionIsMinus1)
 {
-  NiceMock<MockSprite> rightSprite;
-  MockSprite *pRightSprite = &rightSprite;
-  NiceMock<MockSprite> leftSprite;
-  MockSprite *pLeftSprite = &leftSprite;
-  NiceMock<MockSound> movementSound;
-  MockSound *pMovementSound = &movementSound;
-  NiceMock<MockSound> deathSound;
-  MockSound *pDeathSound = &deathSound;
-  Ridley ridley(pRightSprite, pLeftSprite, pMovementSound, pDeathSound);
-
   ON_CALL(rightSprite, getPosition())
       .WillByDefault(Return(sf::Vector2f(500, 200)));
 
@@ -652,52 +367,22 @@ TEST(Ridley, dieSetsSpritePositionsToLeftOfWindowWhenDirectionIsMinus1)
   ridley.die();
 }
 
-TEST(Ridley, dieStopsTheMovementSound)
+TEST_F(RidleyTest, dieStopsTheMovementSound)
 {
-  NiceMock<MockSprite> rightSprite;
-  MockSprite *pRightSprite = &rightSprite;
-  NiceMock<MockSprite> leftSprite;
-  MockSprite *pLeftSprite = &leftSprite;
-  NiceMock<MockSound> movementSound;
-  MockSound *pMovementSound = &movementSound;
-  NiceMock<MockSound> deathSound;
-  MockSound *pDeathSound = &deathSound;
-  Ridley ridley(pRightSprite, pLeftSprite, pMovementSound, pDeathSound);
-
   EXPECT_CALL(movementSound, stop())
       .Times(1);
   ridley.die();
 }
 
-TEST(Ridley, diePlaysTheDeathSound)
+TEST_F(RidleyTest, diePlaysTheDeathSound)
 {
-  NiceMock<MockSprite> rightSprite;
-  MockSprite *pRightSprite = &rightSprite;
-  NiceMock<MockSprite> leftSprite;
-  MockSprite *pLeftSprite = &leftSprite;
-  NiceMock<MockSound> movementSound;
-  MockSound *pMovementSound = &movementSound;
-  MockSound deathSound;
-  MockSound *pDeathSound = &deathSound;
-  Ridley ridley(pRightSprite, pLeftSprite, pMovementSound, pDeathSound);
-
   EXPECT_CALL(deathSound, play())
       .Times(1);
   ridley.die();
 }
 
-TEST(Ridley, getGlobalBoundsReturnsSpriteGlobalBounds)
+TEST_F(RidleyTest, getGlobalBoundsReturnsSpriteGlobalBounds)
 {
-  NiceMock<MockSprite> rightSprite;
-  MockSprite *pRightSprite = &rightSprite;
-  NiceMock<MockSprite> leftSprite;
-  MockSprite *pLeftSprite = &leftSprite;
-  NiceMock<MockSound> movementSound;
-  MockSound *pMovementSound = &movementSound;
-  MockSound *deathSound;
-  Ridley ridley(pRightSprite, pLeftSprite, pMovementSound, deathSound);
-
-  sf::FloatRect spriteBounds(sf::Vector2f(200, 600), sf::Vector2f(96, 42));
   ON_CALL(rightSprite, getGlobalBounds())
       .WillByDefault(Return(spriteBounds));
 
@@ -706,17 +391,8 @@ TEST(Ridley, getGlobalBoundsReturnsSpriteGlobalBounds)
   EXPECT_EQ(ridley.getGlobalBounds(), spriteBounds);
 }
 
-TEST(Ridley, intersectsGetsTheSpriteGlobalBounds)
+TEST_F(RidleyTest, intersectsGetsTheSpriteGlobalBounds)
 {
-  NiceMock<MockSprite> rightSprite;
-  MockSprite *pRightSprite = &rightSprite;
-  NiceMock<MockSprite> leftSprite;
-  MockSprite *pLeftSprite = &leftSprite;
-  NiceMock<MockSound> movementSound;
-  MockSound *pMovementSound = &movementSound;
-  MockSound *deathSound;
-  Ridley ridley(pRightSprite, pLeftSprite, pMovementSound, deathSound);
-
   sf::FloatRect rectangle;
 
   EXPECT_CALL(rightSprite, getGlobalBounds())
@@ -724,18 +400,8 @@ TEST(Ridley, intersectsGetsTheSpriteGlobalBounds)
   ridley.intersects(rectangle);
 }
 
-TEST(Ridley, intersectsReturnsTrueWhenCollidingWithARectangle)
+TEST_F(RidleyTest, intersectsReturnsTrueWhenCollidingWithARectangle)
 {
-  NiceMock<MockSprite> rightSprite;
-  MockSprite *pRightSprite = &rightSprite;
-  NiceMock<MockSprite> leftSprite;
-  MockSprite *pLeftSprite = &leftSprite;
-  NiceMock<MockSound> movementSound;
-  MockSound *pMovementSound = &movementSound;
-  MockSound *deathSound;
-  Ridley ridley(pRightSprite, pLeftSprite, pMovementSound, deathSound);
-
-  sf::FloatRect spriteBounds(sf::Vector2f(200, 600), sf::Vector2f(96, 42));
   ON_CALL(rightSprite, getGlobalBounds())
       .WillByDefault(Return(spriteBounds));
   sf::FloatRect rectangle(sf::Vector2f(220, 630), sf::Vector2f(6, 24));
@@ -743,18 +409,8 @@ TEST(Ridley, intersectsReturnsTrueWhenCollidingWithARectangle)
   EXPECT_TRUE(ridley.intersects(rectangle));
 }
 
-TEST(Ridley, intersectsReturnsFalseWhenNotCollidingWithARectangle)
+TEST_F(RidleyTest, intersectsReturnsFalseWhenNotCollidingWithARectangle)
 {
-  NiceMock<MockSprite> rightSprite;
-  MockSprite *pRightSprite = &rightSprite;
-  NiceMock<MockSprite> leftSprite;
-  MockSprite *pLeftSprite = &leftSprite;
-  NiceMock<MockSound> movementSound;
-  MockSound *pMovementSound = &movementSound;
-  MockSound *deathSound;
-  Ridley ridley(pRightSprite, pLeftSprite, pMovementSound, deathSound);
-
-  sf::FloatRect spriteBounds(sf::Vector2f(200, 600), sf::Vector2f(96, 42));
   ON_CALL(rightSprite, getGlobalBounds())
       .WillByDefault(Return(spriteBounds));
   sf::FloatRect rectangle(sf::Vector2f(120, 800), sf::Vector2f(6, 24));

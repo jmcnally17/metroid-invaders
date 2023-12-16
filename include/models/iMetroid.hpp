@@ -1,7 +1,6 @@
 #ifndef I_METROID_HPP
 #define I_METROID_HPP
 
-#include <vector>
 #include "./objectInterface.hpp"
 #include "./iLaser.hpp"
 
@@ -19,7 +18,7 @@ public:
   virtual int getPoints() const = 0;
   virtual int getDirection() const = 0;
   virtual void changeDirection() = 0;
-  virtual void shoot(const std::vector<ILaser *> &metroidLasers, int randomNumber = rand() % 10000) const = 0;
+  virtual void shoot(const std::array<ILaser*, 3> &metroidLasers, int randomNumber = rand() % 10000) const = 0;
 };
 
 #endif

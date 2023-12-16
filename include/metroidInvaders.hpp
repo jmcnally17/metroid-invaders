@@ -1,7 +1,6 @@
 #ifndef METROID_INVADERS_HPP
 #define METROID_INVADERS_HPP
 
-#include <vector>
 #include "./wrappers/textWrapper.hpp"
 #include "./wrappers/soundWrapper.hpp"
 #include "./wrappers/spriteWrapper.hpp"
@@ -18,21 +17,21 @@ TextWrapper makeText(std::string string, const sf::Font &font, int characterSize
 
 SoundWrapper makeTheme(std::string fileName);
 
-std::vector<IBunker *> makeBunkers();
+std::array<IBunker*, 4> makeBunkers();
 
 GunshipLaser makeGunshipLaser();
 
 Gunship makeGunship(GunshipLaser &gunshipLaser);
 
-std::vector<std::vector<IMetroid *>> makeMetroids();
+std::array<std::array<IMetroid*, 11>, 5> makeMetroids();
 
-std::vector<ILaser *> makeMetroidLasers();
+std::array<ILaser*, 3> makeMetroidLasers();
 
 Ridley makeRidley();
 
-std::vector<ISound *> makeMetroidSounds();
+std::array<ISound*, 4> makeMetroidSounds();
 
-std::vector<sf::RectangleShape> makeRectangles();
+std::array<sf::RectangleShape, 2> makeRectangles();
 
 void pullHighScore(std::unordered_map<std::string, int> &variables, IText &highScoreText);
 

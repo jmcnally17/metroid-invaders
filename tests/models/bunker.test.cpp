@@ -5,19 +5,26 @@
 using ::testing::NiceMock;
 using ::testing::Return;
 
-TEST(Bunker, setsSpritePositionsUponInstantiation)
+class BunkerTest : public testing::Test
 {
-  MockSprite sprite1;
-  MockSprite *pSprite1 = &sprite1;
-  MockSprite sprite2;
-  MockSprite *pSprite2 = &sprite2;
-  MockSprite sprite3;
-  MockSprite *pSprite3 = &sprite3;
-  MockSprite sprite4;
-  MockSprite *pSprite4 = &sprite4;
-  MockSprite sprite5;
-  MockSprite *pSprite5 = &sprite5;
+protected:
+  NiceMock<MockSprite> sprite1;
+  MockSprite *pSprite1 {&sprite1};
+  NiceMock<MockSprite> sprite2;
+  MockSprite *pSprite2 {&sprite2};
+  NiceMock<MockSprite> sprite3;
+  MockSprite *pSprite3 {&sprite3};
+  NiceMock<MockSprite> sprite4;
+  MockSprite *pSprite4 {&sprite4};
+  NiceMock<MockSprite> sprite5;
+  MockSprite *pSprite5 {&sprite5};
+  Bunker bunker {Bunker(900, 300, pSprite1, pSprite2, pSprite3, pSprite4, pSprite5)};
+  MockRenderWindow window;
+  sf::FloatRect spriteBounds {sf::FloatRect(sf::Vector2f(900, 300), sf::Vector2f(144, 108))};
+};
 
+TEST_F(BunkerTest, setsSpritePositionsUponInstantiation)
+{
   EXPECT_CALL(sprite1, setPosition(sf::Vector2f(900, 300)))
       .Times(1);
   EXPECT_CALL(sprite2, setPosition(sf::Vector2f(900, 300)))
@@ -31,20 +38,8 @@ TEST(Bunker, setsSpritePositionsUponInstantiation)
   Bunker bunker(900, 300, pSprite1, pSprite2, pSprite3, pSprite4, pSprite5);
 }
 
-TEST(Bunker, getPositionReturnsSpritePosition)
+TEST_F(BunkerTest, getPositionReturnsSpritePosition)
 {
-  NiceMock<MockSprite> sprite1;
-  MockSprite *pSprite1 = &sprite1;
-  NiceMock<MockSprite> sprite2;
-  MockSprite *pSprite2 = &sprite2;
-  NiceMock<MockSprite> sprite3;
-  MockSprite *pSprite3 = &sprite3;
-  NiceMock<MockSprite> sprite4;
-  MockSprite *pSprite4 = &sprite4;
-  NiceMock<MockSprite> sprite5;
-  MockSprite *pSprite5 = &sprite5;
-  Bunker bunker(900, 300, pSprite1, pSprite2, pSprite3, pSprite4, pSprite5);
-
   ON_CALL(sprite1, getPosition())
       .WillByDefault(Return(sf::Vector2f(900, 300)));
 
@@ -53,77 +48,27 @@ TEST(Bunker, getPositionReturnsSpritePosition)
   EXPECT_EQ(bunker.getPosition(), sf::Vector2f(900, 300));
 }
 
-TEST(Bunker, hasAHealthClassMemberOf10)
+TEST_F(BunkerTest, hasAHealthClassMemberOf10)
 {
-  NiceMock<MockSprite> sprite1;
-  MockSprite *pSprite1 = &sprite1;
-  NiceMock<MockSprite> sprite2;
-  MockSprite *pSprite2 = &sprite2;
-  NiceMock<MockSprite> sprite3;
-  MockSprite *pSprite3 = &sprite3;
-  NiceMock<MockSprite> sprite4;
-  MockSprite *pSprite4 = &sprite4;
-  NiceMock<MockSprite> sprite5;
-  MockSprite *pSprite5 = &sprite5;
-  Bunker bunker(900, 300, pSprite1, pSprite2, pSprite3, pSprite4, pSprite5);
-
   EXPECT_EQ(bunker.getHealth(), 10);
 }
 
-TEST(Bunker, decreaseHealthDecreasesHealthBy1)
+TEST_F(BunkerTest, decreaseHealthDecreasesHealthBy1)
 {
-  NiceMock<MockSprite> sprite1;
-  MockSprite *pSprite1 = &sprite1;
-  NiceMock<MockSprite> sprite2;
-  MockSprite *pSprite2 = &sprite2;
-  NiceMock<MockSprite> sprite3;
-  MockSprite *pSprite3 = &sprite3;
-  NiceMock<MockSprite> sprite4;
-  MockSprite *pSprite4 = &sprite4;
-  NiceMock<MockSprite> sprite5;
-  MockSprite *pSprite5 = &sprite5;
-  Bunker bunker(900, 300, pSprite1, pSprite2, pSprite3, pSprite4, pSprite5);
-
   bunker.decreaseHealth();
   EXPECT_EQ(bunker.getHealth(), 9);
 }
 
-TEST(Bunker, drawCallsDrawOnWindowWithFirstSpriteIfHealthIs9or10)
+TEST_F(BunkerTest, drawCallsDrawOnWindowWithFirstSpriteIfHealthIs9or10)
 {
-  NiceMock<MockSprite> sprite1;
-  MockSprite *pSprite1 = &sprite1;
-  NiceMock<MockSprite> sprite2;
-  MockSprite *pSprite2 = &sprite2;
-  NiceMock<MockSprite> sprite3;
-  MockSprite *pSprite3 = &sprite3;
-  NiceMock<MockSprite> sprite4;
-  MockSprite *pSprite4 = &sprite4;
-  NiceMock<MockSprite> sprite5;
-  MockSprite *pSprite5 = &sprite5;
-  Bunker bunker(900, 300, pSprite1, pSprite2, pSprite3, pSprite4, pSprite5);
-  MockRenderWindow window;
-
   EXPECT_CALL(window, draw(testing::Truly([](const sf::Drawable &drawable)
                                           { return true; })))
       .Times(1);
   bunker.draw(window);
 }
 
-TEST(Bunker, drawCallsDrawOnWindowWithSecondSpriteIfHealthIs7or8)
+TEST_F(BunkerTest, drawCallsDrawOnWindowWithSecondSpriteIfHealthIs7or8)
 {
-  NiceMock<MockSprite> sprite1;
-  MockSprite *pSprite1 = &sprite1;
-  NiceMock<MockSprite> sprite2;
-  MockSprite *pSprite2 = &sprite2;
-  NiceMock<MockSprite> sprite3;
-  MockSprite *pSprite3 = &sprite3;
-  NiceMock<MockSprite> sprite4;
-  MockSprite *pSprite4 = &sprite4;
-  NiceMock<MockSprite> sprite5;
-  MockSprite *pSprite5 = &sprite5;
-  Bunker bunker(900, 300, pSprite1, pSprite2, pSprite3, pSprite4, pSprite5);
-  MockRenderWindow window;
-
   for (int i = 0; i < 2; i++)
   {
     bunker.decreaseHealth();
@@ -135,21 +80,8 @@ TEST(Bunker, drawCallsDrawOnWindowWithSecondSpriteIfHealthIs7or8)
   bunker.draw(window);
 }
 
-TEST(Bunker, drawCallsDrawOnWindowWithThirdSpriteIfHealthIs5or6)
+TEST_F(BunkerTest, drawCallsDrawOnWindowWithThirdSpriteIfHealthIs5or6)
 {
-  NiceMock<MockSprite> sprite1;
-  MockSprite *pSprite1 = &sprite1;
-  NiceMock<MockSprite> sprite2;
-  MockSprite *pSprite2 = &sprite2;
-  NiceMock<MockSprite> sprite3;
-  MockSprite *pSprite3 = &sprite3;
-  NiceMock<MockSprite> sprite4;
-  MockSprite *pSprite4 = &sprite4;
-  NiceMock<MockSprite> sprite5;
-  MockSprite *pSprite5 = &sprite5;
-  Bunker bunker(900, 300, pSprite1, pSprite2, pSprite3, pSprite4, pSprite5);
-  MockRenderWindow window;
-
   for (int i = 0; i < 4; i++)
   {
     bunker.decreaseHealth();
@@ -161,21 +93,8 @@ TEST(Bunker, drawCallsDrawOnWindowWithThirdSpriteIfHealthIs5or6)
   bunker.draw(window);
 }
 
-TEST(Bunker, drawCallsDrawOnWindowWithFourthSpriteIfHealthIsAt3or4)
+TEST_F(BunkerTest, drawCallsDrawOnWindowWithFourthSpriteIfHealthIsAt3or4)
 {
-  NiceMock<MockSprite> sprite1;
-  MockSprite *pSprite1 = &sprite1;
-  NiceMock<MockSprite> sprite2;
-  MockSprite *pSprite2 = &sprite2;
-  NiceMock<MockSprite> sprite3;
-  MockSprite *pSprite3 = &sprite3;
-  NiceMock<MockSprite> sprite4;
-  MockSprite *pSprite4 = &sprite4;
-  NiceMock<MockSprite> sprite5;
-  MockSprite *pSprite5 = &sprite5;
-  Bunker bunker(900, 300, pSprite1, pSprite2, pSprite3, pSprite4, pSprite5);
-  MockRenderWindow window;
-
   for (int i = 0; i < 6; i++)
   {
     bunker.decreaseHealth();
@@ -187,21 +106,8 @@ TEST(Bunker, drawCallsDrawOnWindowWithFourthSpriteIfHealthIsAt3or4)
   bunker.draw(window);
 }
 
-TEST(Bunker, drawCallsDrawOnWindowWithFifthSpriteIfHealthIs1or2)
+TEST_F(BunkerTest, drawCallsDrawOnWindowWithFifthSpriteIfHealthIs1or2)
 {
-  NiceMock<MockSprite> sprite1;
-  MockSprite *pSprite1 = &sprite1;
-  NiceMock<MockSprite> sprite2;
-  MockSprite *pSprite2 = &sprite2;
-  NiceMock<MockSprite> sprite3;
-  MockSprite *pSprite3 = &sprite3;
-  NiceMock<MockSprite> sprite4;
-  MockSprite *pSprite4 = &sprite4;
-  NiceMock<MockSprite> sprite5;
-  MockSprite *pSprite5 = &sprite5;
-  Bunker bunker(900, 300, pSprite1, pSprite2, pSprite3, pSprite4, pSprite5);
-  MockRenderWindow window;
-
   for (int i = 0; i < 8; i++)
   {
     bunker.decreaseHealth();
@@ -213,21 +119,8 @@ TEST(Bunker, drawCallsDrawOnWindowWithFifthSpriteIfHealthIs1or2)
   bunker.draw(window);
 }
 
-TEST(Bunker, drawDoesNotCallDrawOnWindowIfHealthIs0)
+TEST_F(BunkerTest, drawDoesNotCallDrawOnWindowIfHealthIs0)
 {
-  NiceMock<MockSprite> sprite1;
-  MockSprite *pSprite1 = &sprite1;
-  NiceMock<MockSprite> sprite2;
-  MockSprite *pSprite2 = &sprite2;
-  NiceMock<MockSprite> sprite3;
-  MockSprite *pSprite3 = &sprite3;
-  NiceMock<MockSprite> sprite4;
-  MockSprite *pSprite4 = &sprite4;
-  NiceMock<MockSprite> sprite5;
-  MockSprite *pSprite5 = &sprite5;
-  Bunker bunker(900, 300, pSprite1, pSprite2, pSprite3, pSprite4, pSprite5);
-  MockRenderWindow window;
-
   for (int i = 0; i < 10; i++)
   {
     bunker.decreaseHealth();
@@ -238,20 +131,8 @@ TEST(Bunker, drawDoesNotCallDrawOnWindowIfHealthIs0)
   bunker.draw(window);
 }
 
-TEST(Bunker, resetSetsHealthBackTo10)
+TEST_F(BunkerTest, resetSetsHealthBackTo10)
 {
-  NiceMock<MockSprite> sprite1;
-  MockSprite *pSprite1 = &sprite1;
-  NiceMock<MockSprite> sprite2;
-  MockSprite *pSprite2 = &sprite2;
-  NiceMock<MockSprite> sprite3;
-  MockSprite *pSprite3 = &sprite3;
-  NiceMock<MockSprite> sprite4;
-  MockSprite *pSprite4 = &sprite4;
-  NiceMock<MockSprite> sprite5;
-  MockSprite *pSprite5 = &sprite5;
-  Bunker bunker(900, 300, pSprite1, pSprite2, pSprite3, pSprite4, pSprite5);
-
   for (int i = 0; i < 5; i++)
   {
     bunker.decreaseHealth();
@@ -261,21 +142,8 @@ TEST(Bunker, resetSetsHealthBackTo10)
   EXPECT_EQ(bunker.getHealth(), 10);
 }
 
-TEST(Bunker, getGlobalBoundsReturnsSpriteGlobalBounds)
+TEST_F(BunkerTest, getGlobalBoundsReturnsSpriteGlobalBounds)
 {
-  NiceMock<MockSprite> sprite1;
-  MockSprite *pSprite1 = &sprite1;
-  NiceMock<MockSprite> sprite2;
-  MockSprite *pSprite2 = &sprite2;
-  NiceMock<MockSprite> sprite3;
-  MockSprite *pSprite3 = &sprite3;
-  NiceMock<MockSprite> sprite4;
-  MockSprite *pSprite4 = &sprite4;
-  NiceMock<MockSprite> sprite5;
-  MockSprite *pSprite5 = &sprite5;
-  Bunker bunker(900, 300, pSprite1, pSprite2, pSprite3, pSprite4, pSprite5);
-
-  sf::FloatRect spriteBounds(sf::Vector2f(900, 300), sf::Vector2f(144, 108));
   ON_CALL(sprite1, getGlobalBounds())
       .WillByDefault(Return(spriteBounds));
 
@@ -284,20 +152,8 @@ TEST(Bunker, getGlobalBoundsReturnsSpriteGlobalBounds)
   EXPECT_EQ(bunker.getGlobalBounds(), spriteBounds);
 }
 
-TEST(Bunker, intersectsGetsTheSpriteGlobalBounds)
+TEST_F(BunkerTest, intersectsGetsTheSpriteGlobalBounds)
 {
-  NiceMock<MockSprite> sprite1;
-  MockSprite *pSprite1 = &sprite1;
-  NiceMock<MockSprite> sprite2;
-  MockSprite *pSprite2 = &sprite2;
-  NiceMock<MockSprite> sprite3;
-  MockSprite *pSprite3 = &sprite3;
-  NiceMock<MockSprite> sprite4;
-  MockSprite *pSprite4 = &sprite4;
-  NiceMock<MockSprite> sprite5;
-  MockSprite *pSprite5 = &sprite5;
-  Bunker bunker(900, 300, pSprite1, pSprite2, pSprite3, pSprite4, pSprite5);
-
   sf::FloatRect rectangle;
 
   EXPECT_CALL(sprite1, getGlobalBounds())
@@ -305,21 +161,8 @@ TEST(Bunker, intersectsGetsTheSpriteGlobalBounds)
   bunker.intersects(rectangle);
 }
 
-TEST(Bunker, intersectsReturnsTrueWhenCollidingWithARectangle)
+TEST_F(BunkerTest, intersectsReturnsTrueWhenCollidingWithARectangle)
 {
-  NiceMock<MockSprite> sprite1;
-  MockSprite *pSprite1 = &sprite1;
-  NiceMock<MockSprite> sprite2;
-  MockSprite *pSprite2 = &sprite2;
-  NiceMock<MockSprite> sprite3;
-  MockSprite *pSprite3 = &sprite3;
-  NiceMock<MockSprite> sprite4;
-  MockSprite *pSprite4 = &sprite4;
-  NiceMock<MockSprite> sprite5;
-  MockSprite *pSprite5 = &sprite5;
-  Bunker bunker(900, 300, pSprite1, pSprite2, pSprite3, pSprite4, pSprite5);
-
-  sf::FloatRect spriteBounds(sf::Vector2f(900, 300), sf::Vector2f(144, 108));
   ON_CALL(sprite1, getGlobalBounds())
       .WillByDefault(Return(spriteBounds));
   sf::FloatRect rectangle(sf::Vector2f(910, 290), sf::Vector2f(6, 24));
@@ -327,21 +170,8 @@ TEST(Bunker, intersectsReturnsTrueWhenCollidingWithARectangle)
   EXPECT_TRUE(bunker.intersects(rectangle));
 }
 
-TEST(Bunker, intersectsReturnsFalseWhenNotCollidingWithARectangle)
+TEST_F(BunkerTest, intersectsReturnsFalseWhenNotCollidingWithARectangle)
 {
-  NiceMock<MockSprite> sprite1;
-  MockSprite *pSprite1 = &sprite1;
-  NiceMock<MockSprite> sprite2;
-  MockSprite *pSprite2 = &sprite2;
-  NiceMock<MockSprite> sprite3;
-  MockSprite *pSprite3 = &sprite3;
-  NiceMock<MockSprite> sprite4;
-  MockSprite *pSprite4 = &sprite4;
-  NiceMock<MockSprite> sprite5;
-  MockSprite *pSprite5 = &sprite5;
-  Bunker bunker(900, 300, pSprite1, pSprite2, pSprite3, pSprite4, pSprite5);
-
-  sf::FloatRect spriteBounds(sf::Vector2f(900, 300), sf::Vector2f(144, 108));
   ON_CALL(sprite1, getGlobalBounds())
       .WillByDefault(Return(spriteBounds));
   sf::FloatRect rectangle(sf::Vector2f(300, 500), sf::Vector2f(6, 24));

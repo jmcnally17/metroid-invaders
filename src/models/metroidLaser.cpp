@@ -40,7 +40,7 @@ sf::FloatRect MetroidLaser::getGlobalBounds() const
 
 bool MetroidLaser::intersects(const sf::FloatRect &rectangle) const
 {
-  sf::FloatRect box = getGlobalBounds();
+  sf::FloatRect box {getGlobalBounds()};
   return box.intersects(rectangle);
 }
 

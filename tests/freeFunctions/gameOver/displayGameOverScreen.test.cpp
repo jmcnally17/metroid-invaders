@@ -4,38 +4,32 @@
 
 using ::testing::NiceMock;
 
-TEST(displayGameOverScreen, callsClearOnTheWindow)
+class DisplayGameOverScreenTest : public testing::Test
 {
+protected:
   NiceMock<MockRenderWindow> window;
   MockText gameOverText;
   MockText scoreText;
   MockText playAgainText;
+};
 
+TEST_F(DisplayGameOverScreenTest, callsClearOnTheWindow)
+{
   EXPECT_CALL(window, clear())
       .Times(1);
   displayGameOverScreen(window, gameOverText, scoreText, playAgainText);
 }
 
-TEST(displayGameOverScreen, drawsTheGameOverTextAndScoreTextAndPlayAgainText)
+TEST_F(DisplayGameOverScreenTest, drawsTheGameOverTextAndScoreTextAndPlayAgainText)
 {
-  NiceMock<MockRenderWindow> window;
-  MockText gameOverText;
-  MockText scoreText;
-  MockText playAgainText;
-
   EXPECT_CALL(window, draw(testing::Truly([](const sf::Drawable &drawable)
                                           { return true; })))
       .Times(3);
   displayGameOverScreen(window, gameOverText, scoreText, playAgainText);
 }
 
-TEST(displayGameOverScreen, callsDisplayOnTheWindow)
+TEST_F(DisplayGameOverScreenTest, callsDisplayOnTheWindow)
 {
-  NiceMock<MockRenderWindow> window;
-  MockText gameOverText;
-  MockText scoreText;
-  MockText playAgainText;
-
   EXPECT_CALL(window, display())
       .Times(1);
   displayGameOverScreen(window, gameOverText, scoreText, playAgainText);

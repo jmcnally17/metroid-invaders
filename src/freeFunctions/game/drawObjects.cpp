@@ -1,4 +1,3 @@
-#include <vector>
 #include "../../../include/wrappers/iRenderWindow.hpp"
 #include "../../../include/wrappers/iText.hpp"
 #include "../../../include/models/iBunker.hpp"
@@ -9,16 +8,16 @@
 
 void drawObjects(IRenderWindow &window,
                  const ISprite &gameBackground,
-                 const std::vector<IBunker *> &bunkers,
+                 const std::array<IBunker*, 4> &bunkers,
                  const IGunship &gunship,
                  const ILaser &gunshipLaser,
-                 const std::vector<std::vector<IMetroid *>> &metroids,
-                 const std::vector<ILaser *> &metroidLasers,
+                 const std::array<std::array<IMetroid*, 11>, 5> &metroids,
+                 const std::array<ILaser*, 3> &metroidLasers,
                  const IRidley &ridley,
                  const IText &scoreText,
                  const IText &highScoreText,
                  const IText &livesText,
-                 const std::vector<sf::RectangleShape> &rectangles)
+                 const std::array<sf::RectangleShape, 2> &rectangles)
 {
   window.clear();
   window.draw(gameBackground);
@@ -28,9 +27,9 @@ void drawObjects(IRenderWindow &window,
   }
   gunship.draw(window);
   gunshipLaser.draw(window);
-  for (auto vec : metroids)
+  for (auto row : metroids)
   {
-    for (auto metroid : vec)
+    for (auto metroid : row)
     {
       if (metroid->isAlive())
       {

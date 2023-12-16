@@ -1,4 +1,3 @@
-#include <vector>
 #include "../../../include/gameOver.hpp"
 #include "../../mockModels/mockGunship.hpp"
 #include "../../mockModels/mockLaser.hpp"
@@ -8,108 +7,66 @@
 
 using ::testing::NiceMock;
 
-TEST(resetObjects, resetsTheGunship)
+class ResetObjectsTest : public testing::Test
 {
+protected:
   NiceMock<MockGunship> gunship;
   NiceMock<MockLaser> gunshipLaser;
-  std::vector<std::vector<IMetroid *>> metroids;
-  std::vector<ILaser *> metroidLasers;
+  NiceMock<MockMetroid> metroid;
+  MockMetroid *pMetroid {&metroid};
+  std::array<std::array<IMetroid*, 11>, 5> metroids {{
+    {{pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid}},
+    {{pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid}},
+    {{pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid}},
+    {{pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid}},
+    {{pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid}},
+  }};
+  NiceMock<MockLaser> metroidLaser;
+  MockLaser *pMetroidLaser {&metroidLaser};
+  std::array<ILaser*, 3> metroidLasers {pMetroidLaser, pMetroidLaser, pMetroidLaser};
   NiceMock<MockRidley> ridley;
-  std::vector<IBunker *> bunkers;
+  NiceMock<MockBunker> bunker;
+  MockBunker *pBunker {&bunker};
+  std::array<IBunker*, 4> bunkers {pBunker, pBunker, pBunker, pBunker};
+};
 
+TEST_F(ResetObjectsTest, resetsTheGunship)
+{
   EXPECT_CALL(gunship, reset())
       .Times(1);
   resetObjects(gunship, gunshipLaser, metroids, metroidLasers, ridley, bunkers);
 }
 
-TEST(resetObjects, resetsTheGunshipLaser)
+TEST_F(ResetObjectsTest, resetsTheGunshipLaser)
 {
-  NiceMock<MockGunship> gunship;
-  MockLaser gunshipLaser;
-  std::vector<std::vector<IMetroid *>> metroids;
-  std::vector<ILaser *> metroidLasers;
-  NiceMock<MockRidley> ridley;
-  std::vector<IBunker *> bunkers;
-
   EXPECT_CALL(gunshipLaser, reset())
       .Times(1);
   resetObjects(gunship, gunshipLaser, metroids, metroidLasers, ridley, bunkers);
 }
 
-TEST(resetObjects, resetsTheMetroids)
+TEST_F(ResetObjectsTest, resetsTheMetroids)
 {
-  NiceMock<MockGunship> gunship;
-  NiceMock<MockLaser> gunshipLaser;
-  MockMetroid metroid;
-  MockMetroid *pMetroid = &metroid;
-  std::vector<std::vector<IMetroid *>> metroids(2);
-  for (int i = 0; i < 2; i++)
-  {
-    std::vector<IMetroid *> metroidRow(6);
-    for (int j = 0; j < 6; j++)
-    {
-      metroidRow[j] = pMetroid;
-    }
-    metroids[i] = metroidRow;
-  }
-  std::vector<ILaser *> metroidLasers;
-  NiceMock<MockRidley> ridley;
-  std::vector<IBunker *> bunkers;
-
   EXPECT_CALL(metroid, reset())
-      .Times(12);
+      .Times(55);
   resetObjects(gunship, gunshipLaser, metroids, metroidLasers, ridley, bunkers);
 }
 
-TEST(resetObjects, resetsMetroidLasers)
+TEST_F(ResetObjectsTest, resetsMetroidLasers)
 {
-  NiceMock<MockGunship> gunship;
-  NiceMock<MockLaser> gunshipLaser;
-  std::vector<std::vector<IMetroid *>> metroids;
-  MockLaser metroidLaser;
-  MockLaser *pMetroidLaser = &metroidLaser;
-  std::vector<ILaser *> metroidLasers(3);
-  for (int i = 0; i < 3; i++)
-  {
-    metroidLasers[i] = pMetroidLaser;
-  }
-  NiceMock<MockRidley> ridley;
-  std::vector<IBunker *> bunkers;
-
   EXPECT_CALL(metroidLaser, reset())
       .Times(3);
   resetObjects(gunship, gunshipLaser, metroids, metroidLasers, ridley, bunkers);
 }
 
-TEST(resetObjects, resetsRidley)
+TEST_F(ResetObjectsTest, resetsRidley)
 {
-  NiceMock<MockGunship> gunship;
-  NiceMock<MockLaser> gunshipLaser;
-  std::vector<std::vector<IMetroid *>> metroids;
-  std::vector<ILaser *> metroidLasers;
-  MockRidley ridley;
-  std::vector<IBunker *> bunkers;
-
   EXPECT_CALL(ridley, reset())
       .Times(1);
   resetObjects(gunship, gunshipLaser, metroids, metroidLasers, ridley, bunkers);
 }
 
-TEST(resetObjects, resetsTheBunkers)
+TEST_F(ResetObjectsTest, resetsTheBunkers)
 {
-  NiceMock<MockGunship> gunship;
-  NiceMock<MockLaser> gunshipLaser;
-  std::vector<std::vector<IMetroid *>> metroids;
-  std::vector<ILaser *> metroidLasers;
-  NiceMock<MockRidley> ridley;
-  MockBunker bunker;
-  MockBunker *pBunker = &bunker;
-  std::vector<IBunker *> bunkers(4);
-  for (int i = 0; i < 4; i++)
-  {
-    bunkers[i] = pBunker;
-  }
-
   EXPECT_CALL(bunker, reset())
       .Times(4);
   resetObjects(gunship, gunshipLaser, metroids, metroidLasers, ridley, bunkers);

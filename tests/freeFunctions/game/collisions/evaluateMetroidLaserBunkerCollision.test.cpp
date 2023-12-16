@@ -6,24 +6,20 @@
 using ::testing::NiceMock;
 using ::testing::Return;
 
-TEST(evaluateMetroidLaserBunkerCollision, decreasesHealthOfBunkersWhenColliding)
+class EvaluateMetroidLaserBunkerCollisionTest : public testing::Test
 {
+protected:
   NiceMock<MockCollision> collision;
   NiceMock<MockLaser> metroidLaser;
-  MockLaser *pMetroidLaser = &metroidLaser;
-  std::vector<ILaser *> metroidLasers(3);
-  for (int i = 0; i < 4; i++)
-  {
-    metroidLasers[i] = pMetroidLaser;
-  }
+  MockLaser *pMetroidLaser {&metroidLaser};
+  std::array<ILaser*, 3> metroidLasers {pMetroidLaser, pMetroidLaser, pMetroidLaser};
   NiceMock<MockBunker> bunker;
-  MockBunker *pBunker = &bunker;
-  std::vector<IBunker *> bunkers(4);
-  for (int i = 0; i < 4; i++)
-  {
-    bunkers[i] = pBunker;
-  }
+  MockBunker *pBunker {&bunker};
+  std::array<IBunker*, 4> bunkers {pBunker, pBunker, pBunker, pBunker};
+};
 
+TEST_F(EvaluateMetroidLaserBunkerCollisionTest, decreasesHealthOfBunkersWhenColliding)
+{
   ON_CALL(bunker, getHealth())
       .WillByDefault(Return(10));
   ON_CALL(collision, haveCollided)
@@ -34,24 +30,8 @@ TEST(evaluateMetroidLaserBunkerCollision, decreasesHealthOfBunkersWhenColliding)
   evaluateMetroidLaserBunkerCollision(collision, metroidLasers, bunkers);
 }
 
-TEST(evaluateMetroidLaserBunkerCollision, resetsMetroidLasersWhenColliding)
+TEST_F(EvaluateMetroidLaserBunkerCollisionTest, resetsMetroidLasersWhenColliding)
 {
-  NiceMock<MockCollision> collision;
-  MockLaser metroidLaser;
-  MockLaser *pMetroidLaser = &metroidLaser;
-  std::vector<ILaser *> metroidLasers(3);
-  for (int i = 0; i < 4; i++)
-  {
-    metroidLasers[i] = pMetroidLaser;
-  }
-  NiceMock<MockBunker> bunker;
-  MockBunker *pBunker = &bunker;
-  std::vector<IBunker *> bunkers(4);
-  for (int i = 0; i < 4; i++)
-  {
-    bunkers[i] = pBunker;
-  }
-
   ON_CALL(bunker, getHealth())
       .WillByDefault(Return(10));
   ON_CALL(collision, haveCollided)
@@ -62,24 +42,8 @@ TEST(evaluateMetroidLaserBunkerCollision, resetsMetroidLasersWhenColliding)
   evaluateMetroidLaserBunkerCollision(collision, metroidLasers, bunkers);
 }
 
-TEST(evaluateMetroidLaserBunkerCollision, doesNotCarryOutCollisionMechanicsIfHealthIs0)
+TEST_F(EvaluateMetroidLaserBunkerCollisionTest, doesNotCarryOutCollisionMechanicsIfHealthIs0)
 {
-  MockCollision collision;
-  MockLaser metroidLaser;
-  MockLaser *pMetroidLaser = &metroidLaser;
-  std::vector<ILaser *> metroidLasers(3);
-  for (int i = 0; i < 4; i++)
-  {
-    metroidLasers[i] = pMetroidLaser;
-  }
-  NiceMock<MockBunker> bunker;
-  MockBunker *pBunker = &bunker;
-  std::vector<IBunker *> bunkers(4);
-  for (int i = 0; i < 4; i++)
-  {
-    bunkers[i] = pBunker;
-  }
-
   ON_CALL(bunker, getHealth())
       .WillByDefault(Return(0));
   ON_CALL(collision, haveCollided)
@@ -92,24 +56,8 @@ TEST(evaluateMetroidLaserBunkerCollision, doesNotCarryOutCollisionMechanicsIfHea
   evaluateMetroidLaserBunkerCollision(collision, metroidLasers, bunkers);
 }
 
-TEST(evaluateMetroidLaserBunkerCollision, doesNotCarryOutCollisionMechanicsWhenNotColliding)
+TEST_F(EvaluateMetroidLaserBunkerCollisionTest, doesNotCarryOutCollisionMechanicsWhenNotColliding)
 {
-  NiceMock<MockCollision> collision;
-  MockLaser metroidLaser;
-  MockLaser *pMetroidLaser = &metroidLaser;
-  std::vector<ILaser *> metroidLasers(3);
-  for (int i = 0; i < 4; i++)
-  {
-    metroidLasers[i] = pMetroidLaser;
-  }
-  NiceMock<MockBunker> bunker;
-  MockBunker *pBunker = &bunker;
-  std::vector<IBunker *> bunkers(4);
-  for (int i = 0; i < 4; i++)
-  {
-    bunkers[i] = pBunker;
-  }
-
   ON_CALL(bunker, getHealth())
       .WillByDefault(Return(10));
   ON_CALL(collision, haveCollided)

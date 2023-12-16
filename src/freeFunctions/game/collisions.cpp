@@ -1,4 +1,3 @@
-#include <vector>
 #include "../../../include/interfaces/collisionInterface.hpp"
 #include "../../../include/models/iLaser.hpp"
 #include "../../../include/models/iMetroid.hpp"
@@ -9,14 +8,14 @@
 
 void evaluateGunshipLaserMetroidCollision(const CollisionInterface &collision,
                                           ILaser &gunshipLaser,
-                                          const std::vector<std::vector<IMetroid *>> &metroids,
+                                          const std::array<std::array<IMetroid*, 11>, 5> &metroids,
                                           std::unordered_map<std::string, int> &variables,
                                           IText &scoreText,
                                           IText &highScoreText)
 {
-  for (auto vec : metroids)
+  for (auto row : metroids)
   {
-    for (auto metroid : vec)
+    for (auto metroid : row)
     {
       if (metroid->isAlive() && collision.haveCollided(gunshipLaser, *metroid))
       {
@@ -55,7 +54,7 @@ void evaluateGunshipLaserRidleyCollision(const CollisionInterface &collision,
   }
 }
 
-void evaluateGunshipLaserBunkerCollision(const CollisionInterface &collision, ILaser &gunshipLaser, std::vector<IBunker *> &bunkers)
+void evaluateGunshipLaserBunkerCollision(const CollisionInterface &collision, ILaser &gunshipLaser, std::array<IBunker*, 4> &bunkers)
 {
   for (auto bunker : bunkers)
   {
@@ -68,7 +67,7 @@ void evaluateGunshipLaserBunkerCollision(const CollisionInterface &collision, IL
   }
 }
 
-void evaluateMetroidLaserBunkerCollision(const CollisionInterface &collision, const std::vector<ILaser *> &metroidLasers, std::vector<IBunker *> &bunkers)
+void evaluateMetroidLaserBunkerCollision(const CollisionInterface &collision, const std::array<ILaser*, 3> &metroidLasers, std::array<IBunker*, 4> &bunkers)
 {
   for (auto metroidLaser : metroidLasers)
   {
@@ -92,7 +91,7 @@ void evaluateMetroidLaserBunkerCollision(const CollisionInterface &collision, co
 
 void evaluateGunshipMetroidLaserCollision(const CollisionInterface &collision,
                                           IGunship &gunship,
-                                          const std::vector<ILaser *> &metroidLasers,
+                                          const std::array<ILaser*, 3> &metroidLasers,
                                           ILaser &gunshipLaser,
                                           IText &livesText)
 {

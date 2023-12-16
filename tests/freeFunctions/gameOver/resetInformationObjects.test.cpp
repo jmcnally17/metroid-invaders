@@ -5,14 +5,18 @@
 
 using ::testing::NiceMock;
 
-TEST(resetInformationObjects, updatesScoreText)
+class ResetInformationObjectsTest : public testing::Test
 {
-  MockText scoreText;
+protected:
+  NiceMock<MockText> scoreText;
   NiceMock<MockText> livesText;
   NiceMock<MockSound> creditsTheme;
   NiceMock<MockSound> battleTheme;
   NiceMock<MockClock> movementClock;
+};
 
+TEST_F(ResetInformationObjectsTest, updatesScoreText)
+{
   EXPECT_CALL(scoreText, setString("Score: 0"))
       .Times(1);
   EXPECT_CALL(scoreText, setPosition(sf::Vector2f(20, 0)))
@@ -22,53 +26,29 @@ TEST(resetInformationObjects, updatesScoreText)
   resetInformationObjects(scoreText, livesText, creditsTheme, battleTheme, movementClock);
 }
 
-TEST(resetInformationObjects, updatesLivesText)
+TEST_F(ResetInformationObjectsTest, updatesLivesText)
 {
-  NiceMock<MockText> scoreText;
-  MockText livesText;
-  NiceMock<MockSound> creditsTheme;
-  NiceMock<MockSound> battleTheme;
-  NiceMock<MockClock> movementClock;
-
   EXPECT_CALL(livesText, setString("Lives: 3"))
       .Times(1);
   resetInformationObjects(scoreText, livesText, creditsTheme, battleTheme, movementClock);
 }
 
-TEST(resetInformationObjects, stopsTheCreditsTheme)
+TEST_F(ResetInformationObjectsTest, stopsTheCreditsTheme)
 {
-  NiceMock<MockText> scoreText;
-  NiceMock<MockText> livesText;
-  MockSound creditsTheme;
-  NiceMock<MockSound> battleTheme;
-  NiceMock<MockClock> movementClock;
-
   EXPECT_CALL(creditsTheme, stop())
       .Times(1);
   resetInformationObjects(scoreText, livesText, creditsTheme, battleTheme, movementClock);
 }
 
-TEST(resetInformationObjects, playsTheBattleTheme)
+TEST_F(ResetInformationObjectsTest, playsTheBattleTheme)
 {
-  NiceMock<MockText> scoreText;
-  NiceMock<MockText> livesText;
-  NiceMock<MockSound> creditsTheme;
-  MockSound battleTheme;
-  NiceMock<MockClock> movementClock;
-
   EXPECT_CALL(battleTheme, play())
       .Times(1);
   resetInformationObjects(scoreText, livesText, creditsTheme, battleTheme, movementClock);
 }
 
-TEST(resetInformationObjects, restartsClock)
+TEST_F(ResetInformationObjectsTest, restartsClock)
 {
-  NiceMock<MockText> scoreText;
-  NiceMock<MockText> livesText;
-  NiceMock<MockSound> creditsTheme;
-  NiceMock<MockSound> battleTheme;
-  MockClock movementClock;
-
   EXPECT_CALL(movementClock, restart())
       .Times(1);
   resetInformationObjects(scoreText, livesText, creditsTheme, battleTheme, movementClock);

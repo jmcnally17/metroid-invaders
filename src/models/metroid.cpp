@@ -45,8 +45,8 @@ int Metroid::getDirection() const
 
 void Metroid::move()
 {
-  float xDistanceCovered = getPosition().x - originalPosition_.x;
-  bool isAtTheSide = abs(xDistanceCovered - 282) < 1e-3 || abs(xDistanceCovered + 282) < 1e-3;
+  float xDistanceCovered {getPosition().x - originalPosition_.x};
+  bool isAtTheSide {abs(xDistanceCovered - 282) < 1e-3 || abs(xDistanceCovered + 282) < 1e-3};
   (!justMovedDown_ && isAtTheSide) ? moveDown() : moveAcross();
 }
 
@@ -72,13 +72,13 @@ void Metroid::reset()
   direction_ = 1;
 }
 
-void Metroid::shoot(const std::vector<ILaser *> &metroidLasers, int randomNumber) const
+void Metroid::shoot(const std::array<ILaser*, 3> &metroidLasers, int randomNumber) const
 {
   if (randomNumber == 0)
   {
-    sf::FloatRect bounds = getGlobalBounds();
-    float xPosition = getPosition().x + (bounds.width / 2) - 9;
-    float yPosition = getPosition().y + bounds.height;
+    sf::FloatRect bounds {getGlobalBounds()};
+    float xPosition {getPosition().x + (bounds.width / 2) - 9};
+    float yPosition {getPosition().y + bounds.height};
     sf::Vector2f newPosition(xPosition, yPosition);
     for (auto metroidLaser : metroidLasers)
     {
@@ -98,7 +98,7 @@ sf::FloatRect Metroid::getGlobalBounds() const
 
 bool Metroid::intersects(const sf::FloatRect &rectangle) const
 {
-  sf::FloatRect box = getGlobalBounds();
+  sf::FloatRect box {getGlobalBounds()};
   return box.intersects(rectangle);
 }
 

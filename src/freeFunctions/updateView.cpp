@@ -2,13 +2,13 @@
 
 void adjustView(IRenderWindow &window, int windowWidth, int windowHeight)
 {
-  float widthRatio = (float)windowWidth / 1536;
-  float heightRatio = (float)windowHeight / 1334;
+  float widthRatio {(float)windowWidth / 1536};
+  float heightRatio {(float)windowHeight / 1334};
 
-  float newXOrigin = 0;
-  float newYOrigin = 0;
-  float newWidth = 1536;
-  float newHeight = 1344;
+  float newXOrigin {0};
+  float newYOrigin {0};
+  float newWidth {1536};
+  float newHeight {1344};
 
   if (widthRatio < heightRatio)
   {

@@ -1,4 +1,3 @@
-#include <vector>
 #include "../../../include/models/iGunship.hpp"
 #include "../../../include/models/iLaser.hpp"
 #include "../../../include/models/iMetroid.hpp"
@@ -16,16 +15,16 @@ void moveGunshipLaser(ILaser &gunshipLaser)
   gunshipLaser.move();
 }
 
-void moveMetroids(const std::vector<std::vector<IMetroid *>> &metroids,
+void moveMetroids(const std::array<std::array<IMetroid*, 11>, 5> &metroids,
                   IClock &movementClock,
                   std::unordered_map<std::string, int> &variables,
-                  std::vector<ISound *> &sounds)
+                  std::array<ISound*, 4> &sounds)
 {
   if (movementClock.getElapsedTime().asMilliseconds() >= variables["interval"] * variables["step"])
   {
-    for (auto vec : metroids)
+    for (auto row : metroids)
     {
-      for (auto metroid : vec)
+      for (auto metroid : row)
       {
         metroid->move();
       }
@@ -45,7 +44,7 @@ void moveMetroids(const std::vector<std::vector<IMetroid *>> &metroids,
   }
 }
 
-void moveMetroidLasers(const std::vector<ILaser *> &metroidLasers)
+void moveMetroidLasers(const std::array<ILaser*, 3> &metroidLasers)
 {
   for (auto metroidLaser : metroidLasers)
   {

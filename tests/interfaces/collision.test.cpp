@@ -4,14 +4,18 @@
 using ::testing::NiceMock;
 using ::testing::Return;
 
-TEST(collision, haveCollidedReturnsTrueForObject1CollidingWithObject2)
+class CollisionTest : public testing::Test
 {
+protected:
   Collision collision;
-
+  
   NiceMock<MockObjectInterface> object1;
   NiceMock<MockObjectInterface> object2;
-
   sf::FloatRect box;
+};
+
+TEST_F(CollisionTest, haveCollidedReturnsTrueForObject1CollidingWithObject2)
+{
   ON_CALL(object2, getGlobalBounds)
       .WillByDefault(Return(box));
   ON_CALL(object1, intersects)
@@ -20,14 +24,8 @@ TEST(collision, haveCollidedReturnsTrueForObject1CollidingWithObject2)
   EXPECT_TRUE(collision.haveCollided(object1, object2));
 }
 
-TEST(collision, haveCollidedReturnsFalseForObject1NotCollidingWithObject2)
+TEST_F(CollisionTest, haveCollidedReturnsFalseForObject1NotCollidingWithObject2)
 {
-  Collision collision;
-
-  NiceMock<MockObjectInterface> object1;
-  NiceMock<MockObjectInterface> object2;
-
-  sf::FloatRect box;
   ON_CALL(object2, getGlobalBounds)
       .WillByDefault(Return(box));
   ON_CALL(object1, intersects)

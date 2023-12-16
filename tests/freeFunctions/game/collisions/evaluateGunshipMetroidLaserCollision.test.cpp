@@ -7,20 +7,20 @@
 using ::testing::NiceMock;
 using ::testing::Return;
 
-TEST(evaluateGunshipMetroidLaserCollision, callsLoseLifeOnGunship)
+class EvaluateGunshipMetroidLaserCollisionTest : public testing::Test
 {
+protected:
   NiceMock<MockCollision> collision;
   NiceMock<MockGunship> gunship;
   NiceMock<MockLaser> metroidLaser;
-  MockLaser *pMetroidLaser = &metroidLaser;
-  std::vector<ILaser *> metroidLasers(3);
-  for (int i = 0; i < 3; i++)
-  {
-    metroidLasers[i] = pMetroidLaser;
-  }
+  MockLaser *pMetroidLaser {&metroidLaser};
+  std::array<ILaser*, 3> metroidLasers {pMetroidLaser, pMetroidLaser, pMetroidLaser};
   NiceMock<MockLaser> gunshipLaser;
   NiceMock<MockText> livesText;
+};
 
+TEST_F(EvaluateGunshipMetroidLaserCollisionTest, callsLoseLifeOnGunship)
+{
   ON_CALL(collision, haveCollided)
       .WillByDefault(Return(true));
 
@@ -29,20 +29,8 @@ TEST(evaluateGunshipMetroidLaserCollision, callsLoseLifeOnGunship)
   evaluateGunshipMetroidLaserCollision(collision, gunship, metroidLasers, gunshipLaser, livesText);
 }
 
-TEST(evaluateGunshipMetroidLaserCollision, callsResetPositionOnGunship)
+TEST_F(EvaluateGunshipMetroidLaserCollisionTest, callsResetPositionOnGunship)
 {
-  NiceMock<MockCollision> collision;
-  NiceMock<MockGunship> gunship;
-  NiceMock<MockLaser> metroidLaser;
-  MockLaser *pMetroidLaser = &metroidLaser;
-  std::vector<ILaser *> metroidLasers(3);
-  for (int i = 0; i < 3; i++)
-  {
-    metroidLasers[i] = pMetroidLaser;
-  }
-  NiceMock<MockLaser> gunshipLaser;
-  NiceMock<MockText> livesText;
-
   ON_CALL(collision, haveCollided)
       .WillByDefault(Return(true));
 
@@ -51,20 +39,8 @@ TEST(evaluateGunshipMetroidLaserCollision, callsResetPositionOnGunship)
   evaluateGunshipMetroidLaserCollision(collision, gunship, metroidLasers, gunshipLaser, livesText);
 }
 
-TEST(evaluateGunshipMetroidLaserCollision, callsResetOnMetroidLasers)
+TEST_F(EvaluateGunshipMetroidLaserCollisionTest, callsResetOnMetroidLasers)
 {
-  NiceMock<MockCollision> collision;
-  NiceMock<MockGunship> gunship;
-  MockLaser metroidLaser;
-  MockLaser *pMetroidLaser = &metroidLaser;
-  std::vector<ILaser *> metroidLasers(3);
-  for (int i = 0; i < 3; i++)
-  {
-    metroidLasers[i] = pMetroidLaser;
-  }
-  NiceMock<MockLaser> gunshipLaser;
-  NiceMock<MockText> livesText;
-
   ON_CALL(collision, haveCollided)
       .WillByDefault(Return(true));
 
@@ -73,20 +49,8 @@ TEST(evaluateGunshipMetroidLaserCollision, callsResetOnMetroidLasers)
   evaluateGunshipMetroidLaserCollision(collision, gunship, metroidLasers, gunshipLaser, livesText);
 }
 
-TEST(evaluateGunshipMetroidLaserCollision, callsResetOnGunshipLaser)
+TEST_F(EvaluateGunshipMetroidLaserCollisionTest, callsResetOnGunshipLaser)
 {
-  NiceMock<MockCollision> collision;
-  NiceMock<MockGunship> gunship;
-  NiceMock<MockLaser> metroidLaser;
-  MockLaser *pMetroidLaser = &metroidLaser;
-  std::vector<ILaser *> metroidLasers(3);
-  for (int i = 0; i < 3; i++)
-  {
-    metroidLasers[i] = pMetroidLaser;
-  }
-  MockLaser gunshipLaser;
-  NiceMock<MockText> livesText;
-
   ON_CALL(collision, haveCollided)
       .WillByDefault(Return(true));
 
@@ -95,20 +59,8 @@ TEST(evaluateGunshipMetroidLaserCollision, callsResetOnGunshipLaser)
   evaluateGunshipMetroidLaserCollision(collision, gunship, metroidLasers, gunshipLaser, livesText);
 }
 
-TEST(evaluateGunshipMetroidLaserCollision, updatesTheLivesText)
+TEST_F(EvaluateGunshipMetroidLaserCollisionTest, updatesTheLivesText)
 {
-  NiceMock<MockCollision> collision;
-  NiceMock<MockGunship> gunship;
-  NiceMock<MockLaser> metroidLaser;
-  MockLaser *pMetroidLaser = &metroidLaser;
-  std::vector<ILaser *> metroidLasers(3);
-  for (int i = 0; i < 3; i++)
-  {
-    metroidLasers[i] = pMetroidLaser;
-  }
-  NiceMock<MockLaser> gunshipLaser;
-  MockText livesText;
-
   ON_CALL(collision, haveCollided)
       .WillByDefault(Return(true));
   ON_CALL(gunship, getLives())
@@ -119,20 +71,8 @@ TEST(evaluateGunshipMetroidLaserCollision, updatesTheLivesText)
   evaluateGunshipMetroidLaserCollision(collision, gunship, metroidLasers, gunshipLaser, livesText);
 }
 
-TEST(evaluateGunshipMetroidLaserCollision, doesNotModifyAnythingIfThereAreNoCollisions)
+TEST_F(EvaluateGunshipMetroidLaserCollisionTest, doesNotModifyAnythingIfThereAreNoCollisions)
 {
-  NiceMock<MockCollision> collision;
-  MockGunship gunship;
-  MockLaser metroidLaser;
-  MockLaser *pMetroidLaser = &metroidLaser;
-  std::vector<ILaser *> metroidLasers(3);
-  for (int i = 0; i < 3; i++)
-  {
-    metroidLasers[i] = pMetroidLaser;
-  }
-  MockLaser gunshipLaser;
-  MockText livesText;
-
   ON_CALL(collision, haveCollided)
       .WillByDefault(Return(false));
   ON_CALL(gunship, getLives())
