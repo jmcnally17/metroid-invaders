@@ -1,4 +1,5 @@
 #include "../include/MetroidInvaders.hpp"
+#include "../include/Factory.hpp"
 #include "../include/Title.hpp"
 #include "../include/Game.hpp"
 #include "../include/GameOver.hpp"
@@ -18,8 +19,8 @@ int main()
   sf::Color green {sf::Color::Green};
   
   // backgrounds
-  SpriteAdaptor titleBackground {makeBackground("title")};
-  SpriteAdaptor gameBackground {makeBackground("game")};
+  SpriteAdaptor titleBackground {Factory::makeBackground("title")};
+  SpriteAdaptor gameBackground {Factory::makeBackground("game")};
   
   // text objects
   std::string titleString {"Metroid Invaders"};
@@ -29,28 +30,28 @@ int main()
   std::string livesString {"Lives: 3"};
   std::string gameOverString {"Game Over"};
   std::string playAgainString {"Press p to play again"};
-  TextAdaptor titleText {makeText(titleString, m56, 100, green, 0.5, 768, 100)};
-  TextAdaptor instructionsText {makeText(instructionsString, m56, 50, green, 0.5, 768, 1200)};
-  TextAdaptor scoreText {makeText(scoreString, m56, 50, white, 0, 20, 0)};
-  TextAdaptor highScoreText {makeText(highScoreString, m56, 50, white, 0.5, 768, 0)};
-  TextAdaptor livesText {makeText(livesString, m56, 50, white, 0, 1250, 0)};
-  TextAdaptor gameOverText {makeText(gameOverString, m56, 153, white, 0.5, 768, 200)};
-  TextAdaptor playAgainText {makeText(playAgainString, m56, 48, white, 0.5, 768, 1000)};
+  TextAdaptor titleText {Factory::makeText(titleString, m56, 100, green, 0.5, 768, 100)};
+  TextAdaptor instructionsText {Factory::makeText(instructionsString, m56, 50, green, 0.5, 768, 1200)};
+  TextAdaptor scoreText {Factory::makeText(scoreString, m56, 50, white, 0, 20, 0)};
+  TextAdaptor highScoreText {Factory::makeText(highScoreString, m56, 50, white, 0.5, 768, 0)};
+  TextAdaptor livesText {Factory::makeText(livesString, m56, 50, white, 0, 1250, 0)};
+  TextAdaptor gameOverText {Factory::makeText(gameOverString, m56, 153, white, 0.5, 768, 200)};
+  TextAdaptor playAgainText {Factory::makeText(playAgainString, m56, 48, white, 0.5, 768, 1000)};
   
   // audio objects
-  SoundAdaptor titleTheme {makeTheme("title")};
-  SoundAdaptor battleTheme {makeTheme("battle")};
-  SoundAdaptor creditsTheme {makeTheme("credits")};
+  SoundAdaptor titleTheme {Factory::makeTheme("title")};
+  SoundAdaptor battleTheme {Factory::makeTheme("battle")};
+  SoundAdaptor creditsTheme {Factory::makeTheme("credits")};
   
   // game objects
-  std::array<IBunker*, 4> bunkers {makeBunkers()};
-  GunshipLaser gunshipLaser {makeGunshipLaser()};
-  Gunship gunship {makeGunship(gunshipLaser)};
-  std::array<std::array<IMetroid*, 11>, 5> metroids {makeMetroids()};
-  std::array<IMetroidLaser*, 3> metroidLasers {makeMetroidLasers()};
-  Ridley ridley {makeRidley()};
-  std::array<ISound*, 4> metroidSounds {makeMetroidSounds()};
-  std::array<sf::RectangleShape, 2> rectangles {makeRectangles()};
+  std::array<IBunker*, 4> bunkers {Factory::makeBunkers()};
+  GunshipLaser gunshipLaser {Factory::makeGunshipLaser()};
+  Gunship gunship {Factory::makeGunship(gunshipLaser)};
+  std::array<std::array<IMetroid*, 11>, 5> metroids {Factory::makeMetroids()};
+  std::array<IMetroidLaser*, 3> metroidLasers {Factory::makeMetroidLasers()};
+  Ridley ridley {Factory::makeRidley()};
+  std::array<ISound*, 4> metroidSounds {Factory::makeMetroidSounds()};
+  std::array<sf::RectangleShape, 2> rectangles {Factory::makeRectangles()};
   ClockAdaptor movementClock;
   Collision collisionInterface;
   
