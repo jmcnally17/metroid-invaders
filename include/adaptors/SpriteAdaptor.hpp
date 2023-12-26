@@ -1,12 +1,12 @@
-#ifndef SPRITE_WRAPPER_HPP
-#define SPRITE_WRAPPER_HPP
+#ifndef SPRITE_ADAPTOR_HPP
+#define SPRITE_ADAPTOR_HPP
 
 #include "./ISprite.hpp"
 
-class SpriteWrapper : public ISprite, virtual public sf::Drawable
+class SpriteAdaptor : public ISprite, virtual public sf::Drawable
 {
 public:
-  SpriteWrapper(sf::Texture &texture);
+  SpriteAdaptor(sf::Texture &texture);
   sf::Vector2f getPosition() const override;
   void setPosition(const sf::Vector2f &position) override;
   void draw(sf::RenderTarget &target, sf::RenderStates states) const override;

@@ -5,7 +5,7 @@
 #include "../../../include/models/IRidley.hpp"
 #include "../../../include/models/IBunker.hpp"
 #include "../../../include/models/IGunship.hpp"
-#include "../../../include/wrappers/IText.hpp"
+#include "../../../include/adaptors/IText.hpp"
 
 void evaluateGunshipLaserMetroidCollision(const CollisionInterface &collision,
                                           IGunshipLaser &gunshipLaser,

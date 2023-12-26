@@ -1,10 +1,10 @@
 #ifndef GAME_HPP
 #define GAME_HPP
 
-#include "./wrappers/IRenderWindow.hpp"
-#include "./wrappers/ISound.hpp"
-#include "./wrappers/IClock.hpp"
-#include "./wrappers/IText.hpp"
+#include "./adaptors/IRenderWindow.hpp"
+#include "./adaptors/ISound.hpp"
+#include "./adaptors/IClock.hpp"
+#include "./adaptors/IText.hpp"
 #include "./models/IBunker.hpp"
 #include "./models/IGunship.hpp"
 #include "./models/IGunshipLaser.hpp"

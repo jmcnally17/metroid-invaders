@@ -1,12 +1,12 @@
-#ifndef RENDER_WINDOW_WRAPPER_HPP
-#define RENDER_WINDOW_WRAPPER_HPP
+#ifndef RENDER_WINDOW_ADAPTOR_HPP
+#define RENDER_WINDOW_ADAPTOR_HPP
 
 #include "./IRenderWindow.hpp"
 
-class RenderWindowWrapper : public IRenderWindow
+class RenderWindowAdaptor : public IRenderWindow
 {
 public:
-  RenderWindowWrapper(sf::VideoMode mode, const sf::String name);
+  RenderWindowAdaptor(sf::VideoMode mode, const sf::String name);
   bool isOpen() const;
   bool pollEvent(sf::Event &event);
   void close();

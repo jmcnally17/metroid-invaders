@@ -2,7 +2,7 @@
 #define MOCK_CLOCK_HPP
 
 #include <gmock/gmock.h>
-#include "../../include/wrappers/IClock.hpp"
+#include "../../include/adaptors/IClock.hpp"
 
 class MockClock : public IClock
 {

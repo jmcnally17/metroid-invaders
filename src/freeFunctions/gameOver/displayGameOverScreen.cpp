@@ -1,5 +1,5 @@
-#include "../../../include/wrappers/IRenderWindow.hpp"
-#include "../../../include/wrappers/IText.hpp"
+#include "../../../include/adaptors/IRenderWindow.hpp"
+#include "../../../include/adaptors/IText.hpp"
 
 void displayGameOverScreen(IRenderWindow &window, const IText &gameOverText, const IText &scoreText, const IText &playAgainText)
 {

@@ -3,8 +3,8 @@
 #include "../../../include/models/IMetroid.hpp"
 #include "../../../include/models/IMetroidLaser.hpp"
 #include "../../../include/models/IRidley.hpp"
-#include "../../../include/wrappers/IClock.hpp"
-#include "../../../include/wrappers/ISound.hpp"
+#include "../../../include/adaptors/IClock.hpp"
+#include "../../../include/adaptors/ISound.hpp"
 
 void moveGunship(IGunship &gunship, int direction)
 {

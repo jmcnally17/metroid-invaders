@@ -3,7 +3,7 @@
 
 #include "./Invader.hpp"
 #include "./IMetroid.hpp"
-#include "../wrappers/ISound.hpp"
+#include "../adaptors/ISound.hpp"
 
 class Metroid : public Invader, public IMetroid
 {

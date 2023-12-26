@@ -2,7 +2,7 @@
 #define MOCK_SPRITE_HPP
 
 #include <gmock/gmock.h>
-#include "../../include/wrappers/ISprite.hpp"
+#include "../../include/adaptors/ISprite.hpp"
 
 class MockSprite : public ISprite
 {

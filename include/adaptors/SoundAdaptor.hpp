@@ -1,12 +1,12 @@
-#ifndef SOUND_WRAPPER_HPP
-#define SOUND_WRAPPER_HPP
+#ifndef SOUND_ADAPTOR_HPP
+#define SOUND_ADAPTOR_HPP
 
 #include "./ISound.hpp"
 
-class SoundWrapper : public ISound
+class SoundAdaptor : public ISound
 {
 public:
-  SoundWrapper(const sf::SoundBuffer &buffer);
+  SoundAdaptor(const sf::SoundBuffer &buffer);
   void play() override;
   void setLoop(bool loop) override;
   void stop() override;

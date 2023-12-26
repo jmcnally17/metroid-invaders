@@ -4,7 +4,7 @@
 #include "./MovingGameObject.hpp"
 #include "./IGunship.hpp"
 #include "./IGunshipLaser.hpp"
-#include "../wrappers/ISound.hpp"
+#include "../adaptors/ISound.hpp"
 
 class Gunship : public MovingGameObject, public IGunship
 {

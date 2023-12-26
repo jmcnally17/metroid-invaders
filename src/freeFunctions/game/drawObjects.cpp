@@ -1,5 +1,5 @@
-#include "../../../include/wrappers/IRenderWindow.hpp"
-#include "../../../include/wrappers/IText.hpp"
+#include "../../../include/adaptors/IRenderWindow.hpp"
+#include "../../../include/adaptors/IText.hpp"
 #include "../../../include/models/IBunker.hpp"
 #include "../../../include/models/IGunship.hpp"
 #include "../../../include/models/IGunshipLaser.hpp"

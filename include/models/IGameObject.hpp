@@ -2,8 +2,8 @@
 #define I_GAME_OBJECT_HPP
 
 #include <SFML/Graphics.hpp>
-#include "../wrappers/ISprite.hpp"
-#include "../wrappers/IRenderWindow.hpp"
+#include "../adaptors/ISprite.hpp"
+#include "../adaptors/IRenderWindow.hpp"
 
 class IGameObject
 {

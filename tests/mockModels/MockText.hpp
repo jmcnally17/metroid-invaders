@@ -2,7 +2,7 @@
 #define MOCK_TEXT_HPP
 
 #include <gmock/gmock.h>
-#include "../../include/wrappers/IText.hpp"
+#include "../../include/adaptors/IText.hpp"
 
 class MockText : public IText
 {

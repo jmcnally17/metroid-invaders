@@ -1,6 +1,6 @@
 #include "../../../include/models/IMetroid.hpp"
 #include "../../../include/models/IRidley.hpp"
-#include "../../../include/wrappers/IClock.hpp"
+#include "../../../include/adaptors/IClock.hpp"
 
 bool areMetroidsDead(const std::array<std::array<IMetroid*, 11>, 5> &metroids)
 {

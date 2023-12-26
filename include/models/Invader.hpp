@@ -2,7 +2,7 @@
 #define INVADER_HPP
 
 #include "./MovingGameObject.hpp"
-#include "../wrappers/ISound.hpp"
+#include "../adaptors/ISound.hpp"
 
 class Invader : public MovingGameObject
 {

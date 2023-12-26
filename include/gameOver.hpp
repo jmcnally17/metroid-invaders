@@ -1,10 +1,10 @@
 #ifndef END_GAME_HPP
 #define END_GAME_HPP
 
-#include "./wrappers/IRenderWindow.hpp"
-#include "./wrappers/IText.hpp"
-#include "./wrappers/ISound.hpp"
-#include "./wrappers/IClock.hpp"
+#include "./adaptors/IRenderWindow.hpp"
+#include "./adaptors/IText.hpp"
+#include "./adaptors/ISound.hpp"
+#include "./adaptors/IClock.hpp"
 #include "./models/IGunship.hpp"
 #include "./models/IGunshipLaser.hpp"
 #include "./models/IMetroid.hpp"

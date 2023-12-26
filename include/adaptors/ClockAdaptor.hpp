@@ -1,9 +1,9 @@
-#ifndef CLOCK_WRAPPER_HPP
-#define CLOCK_WRAPPER_HPP
+#ifndef CLOCK_ADAPTOR_HPP
+#define CLOCK_ADAPTOR_HPP
 
 #include "./IClock.hpp"
 
-class ClockWrapper : public IClock, public sf::Clock
+class ClockAdaptor : public IClock, public sf::Clock
 {
 public:
   sf::Time getElapsedTime() const override;

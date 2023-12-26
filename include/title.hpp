@@ -1,11 +1,11 @@
 #ifndef TITLE_HPP
 #define TITLE_HPP
 
-#include "./wrappers/IRenderWindow.hpp"
-#include "./wrappers/ISprite.hpp"
-#include "./wrappers/IText.hpp"
-#include "./wrappers/ISound.hpp"
-#include "./wrappers/IClock.hpp"
+#include "./adaptors/IRenderWindow.hpp"
+#include "./adaptors/ISprite.hpp"
+#include "./adaptors/IText.hpp"
+#include "./adaptors/ISound.hpp"
+#include "./adaptors/IClock.hpp"
 
 void displayTitleScreen(IRenderWindow &window, const ISprite &background, const IText &titleText, const IText &instructionsText);
 

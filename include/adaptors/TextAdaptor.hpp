@@ -1,12 +1,12 @@
-#ifndef TEXT_WRAPPER_HPP
-#define TEXT_WRAPPER_HPP
+#ifndef TEXT_ADAPTOR_HPP
+#define TEXT_ADAPTOR_HPP
 
 #include "./IText.hpp"
 
-class TextWrapper : public IText, virtual public sf::Drawable
+class TextAdaptor : public IText, virtual public sf::Drawable
 {
 public:
-  TextWrapper(const sf::String &string, const sf::Font &font);
+  TextAdaptor(const sf::String &string, const sf::Font &font);
   void setPosition(const sf::Vector2f &position) override;
   void setCharacterSize(unsigned int size);
   void draw(sf::RenderTarget &target, sf::RenderStates states) const override;

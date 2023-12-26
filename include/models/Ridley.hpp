@@ -3,7 +3,7 @@
 
 #include "./Invader.hpp"
 #include "./IRidley.hpp"
-#include "../wrappers/ISound.hpp"
+#include "../adaptors/ISound.hpp"
 
 class Ridley : public Invader, public IRidley
 {

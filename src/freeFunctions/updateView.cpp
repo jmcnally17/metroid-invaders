@@ -1,4 +1,4 @@
-#include "../../include/wrappers/IRenderWindow.hpp"
+#include "../../include/adaptors/IRenderWindow.hpp"
 
 void adjustView(IRenderWindow &window, int windowWidth, int windowHeight)
 {
