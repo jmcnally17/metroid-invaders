@@ -1,18 +1,18 @@
 #ifndef COLLISION_INTERFACE_HPP
 #define COLLISION_INTERFACE_HPP
 
-#include "../models/objectInterface.hpp"
+#include "../models/IGameObject.hpp"
 
 class CollisionInterface
 {
 public:
-  virtual bool haveCollided(const ObjectInterface &object1, const ObjectInterface &object2) const = 0;
+  virtual bool haveCollided(const IGameObject &gameObject1, const IGameObject &gameObject2) const = 0;
 };
 
 class Collision : public CollisionInterface
 {
 public:
-  bool haveCollided(const ObjectInterface &object1, const ObjectInterface &object2) const override;
+  bool haveCollided(const IGameObject &gameObject1, const IGameObject &gameObject2) const override;
 };
 
 #endif

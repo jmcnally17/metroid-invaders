@@ -1,6 +1,6 @@
-#include "../../../include/models/iMetroid.hpp"
-#include "../../../include/models/iRidley.hpp"
-#include "../../../include/wrappers/iClock.hpp"
+#include "../../../include/models/IMetroid.hpp"
+#include "../../../include/models/IRidley.hpp"
+#include "../../../include/wrappers/IClock.hpp"
 
 bool areMetroidsDead(const std::array<std::array<IMetroid*, 11>, 5> &metroids)
 {
@@ -19,7 +19,7 @@ bool areMetroidsDead(const std::array<std::array<IMetroid*, 11>, 5> &metroids)
 
 void levelUp(std::unordered_map<std::string, int> &variables,
              const std::array<std::array<IMetroid*, 11>, 5> &metroids,
-             const std::array<ILaser*, 3> &metroidLasers,
+             const std::array<IMetroidLaser*, 3> &metroidLasers,
              IRidley &ridley,
              IClock &movementClock)
 {
@@ -46,7 +46,7 @@ void levelUp(std::unordered_map<std::string, int> &variables,
   }
   for (auto metroidLaser : metroidLasers)
   {
-    metroidLaser->reset();
+    metroidLaser->resetPosition();
   }
   ridley.reset();
   ridley.stopMovementSoundIfPlaying();

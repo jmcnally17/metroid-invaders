@@ -1,7 +1,7 @@
-#include "../../../../include/game.hpp"
-#include "../../../mockModels/mockMetroid.hpp"
-#include "../../../mockModels/mockClock.hpp"
-#include "../../../mockModels/mockSound.hpp"
+#include "../../../../include/Game.hpp"
+#include "../../../mockModels/MockMetroid.hpp"
+#include "../../../mockModels/MockClock.hpp"
+#include "../../../mockModels/MockSound.hpp"
 
 using ::testing::NiceMock;
 using ::testing::Return;
@@ -53,7 +53,7 @@ TEST_F(MoveMetroidsTest, doesNotCallMoveOnMetroidsWhenTimeElapsedIsNotPastInterv
   ON_CALL(movementClock, getElapsedTime())
       .WillByDefault(Return(time));
 
-  EXPECT_CALL(metroid, move())
+  EXPECT_CALL(metroid, move)
       .Times(0);
   moveMetroids(metroids, movementClock, variables, sounds);
 }

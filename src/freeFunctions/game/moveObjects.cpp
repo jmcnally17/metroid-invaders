@@ -1,16 +1,17 @@
-#include "../../../include/models/iGunship.hpp"
-#include "../../../include/models/iLaser.hpp"
-#include "../../../include/models/iMetroid.hpp"
-#include "../../../include/models/iRidley.hpp"
-#include "../../../include/wrappers/iClock.hpp"
-#include "../../../include/wrappers/iSound.hpp"
+#include "../../../include/models/IGunship.hpp"
+#include "../../../include/models/IGunshipLaser.hpp"
+#include "../../../include/models/IMetroid.hpp"
+#include "../../../include/models/IMetroidLaser.hpp"
+#include "../../../include/models/IRidley.hpp"
+#include "../../../include/wrappers/IClock.hpp"
+#include "../../../include/wrappers/ISound.hpp"
 
-void moveGunship(IGunship &gunship, float x)
+void moveGunship(IGunship &gunship, int direction)
 {
-  gunship.move(x);
+  gunship.move(direction);
 }
 
-void moveGunshipLaser(ILaser &gunshipLaser)
+void moveGunshipLaser(IGunshipLaser &gunshipLaser)
 {
   gunshipLaser.move();
 }
@@ -44,7 +45,7 @@ void moveMetroids(const std::array<std::array<IMetroid*, 11>, 5> &metroids,
   }
 }
 
-void moveMetroidLasers(const std::array<ILaser*, 3> &metroidLasers)
+void moveMetroidLasers(const std::array<IMetroidLaser*, 3> &metroidLasers)
 {
   for (auto metroidLaser : metroidLasers)
   {

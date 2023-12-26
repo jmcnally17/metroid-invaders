@@ -1,6 +1,6 @@
-#include "../../../../include/game.hpp"
-#include "../../../mockModels/mockRidley.hpp"
-#include "../../../mockModels/mockSound.hpp"
+#include "../../../../include/Game.hpp"
+#include "../../../mockModels/MockRidley.hpp"
+#include "../../../mockModels/MockSound.hpp"
 
 using ::testing::NiceMock;
 using ::testing::Return;

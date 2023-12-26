@@ -1,5 +1,5 @@
-#include "../../../../include/game.hpp"
-#include "../../../mockModels/mockRidley.hpp"
+#include "../../../../include/Game.hpp"
+#include "../../../mockModels/MockRidley.hpp"
 
 TEST(moveRidley, callsMoveOnRidley)
 {

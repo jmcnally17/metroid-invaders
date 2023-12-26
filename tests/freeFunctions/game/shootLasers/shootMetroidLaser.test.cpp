@@ -1,11 +1,11 @@
-#include "../../../../include/game.hpp"
-#include "../../../mockModels/mockMetroid.hpp"
-#include "../../../mockModels/mockLaser.hpp"
+#include "../../../../include/Game.hpp"
+#include "../../../mockModels/MockMetroid.hpp"
+#include "../../../mockModels/MockMetroidLaser.hpp"
 
 using ::testing::NiceMock;
 using ::testing::Return;
 
-class ShootMetroidLaser : public testing::Test
+class ShootMetroidLaserTest : public testing::Test
 {
 protected:
   NiceMock<MockMetroid> metroid;
@@ -17,12 +17,12 @@ protected:
     {{pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid}},
     {{pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid}},
   }};
-  MockLaser metroidLaser;
-  MockLaser *pMetroidLaser {&metroidLaser};
-  std::array<ILaser*, 3> metroidLasers {pMetroidLaser, pMetroidLaser, pMetroidLaser};
+  MockMetroidLaser metroidLaser;
+  MockMetroidLaser *pMetroidLaser {&metroidLaser};
+  std::array<IMetroidLaser*, 3> metroidLasers {pMetroidLaser, pMetroidLaser, pMetroidLaser};
 };
 
-TEST_F(ShootMetroidLaser, callsShootOnMetroidsIfTheyAreAlive)
+TEST_F(ShootMetroidLaserTest, callsShootOnMetroidsIfTheyAreAlive)
 {
   ON_CALL(metroid, isAlive())
       .WillByDefault(Return(true));
@@ -32,7 +32,7 @@ TEST_F(ShootMetroidLaser, callsShootOnMetroidsIfTheyAreAlive)
   shootMetroidLaser(metroids, metroidLasers);
 }
 
-TEST_F(ShootMetroidLaser, doesNotCallShootOnMetroidsIfTheyAreDead)
+TEST_F(ShootMetroidLaserTest, doesNotCallShootOnMetroidsIfTheyAreDead)
 {
   ON_CALL(metroid, isAlive())
       .WillByDefault(Return(false));

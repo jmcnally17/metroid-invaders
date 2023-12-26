@@ -1,7 +1,7 @@
-#include "../../../include/gameOver.hpp"
-#include "../../mockModels/mockText.hpp"
-#include "../../mockModels/mockSound.hpp"
-#include "../../mockModels/mockClock.hpp"
+#include "../../../include/GameOver.hpp"
+#include "../../mockModels/MockText.hpp"
+#include "../../mockModels/MockSound.hpp"
+#include "../../mockModels/MockClock.hpp"
 
 using ::testing::NiceMock;
 

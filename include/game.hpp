@@ -1,24 +1,25 @@
 #ifndef GAME_HPP
 #define GAME_HPP
 
-#include "./wrappers/iRenderWindow.hpp"
-#include "./wrappers/iSound.hpp"
-#include "./wrappers/iClock.hpp"
-#include "./wrappers/iText.hpp"
-#include "./models/iBunker.hpp"
-#include "./models/iGunship.hpp"
-#include "./models/iLaser.hpp"
-#include "./models/iMetroid.hpp"
-#include "./models/iRidley.hpp"
+#include "./wrappers/IRenderWindow.hpp"
+#include "./wrappers/ISound.hpp"
+#include "./wrappers/IClock.hpp"
+#include "./wrappers/IText.hpp"
+#include "./models/IBunker.hpp"
+#include "./models/IGunship.hpp"
+#include "./models/IGunshipLaser.hpp"
+#include "./models/IMetroidLaser.hpp"
+#include "./models/IMetroid.hpp"
+#include "./models/IRidley.hpp"
 #include "./interfaces/collisionInterface.hpp"
 
 void drawObjects(IRenderWindow &window,
                  const ISprite &gameBackground,
                  const std::array<IBunker*, 4> &bunkers,
                  const IGunship &gunship,
-                 const ILaser &gunshipLaser,
+                 const IGunshipLaser &gunshipLaser,
                  const std::array<std::array<IMetroid*, 11>, 5> &metroids,
-                 const std::array<ILaser*, 3> &metroidLasers,
+                 const std::array<IMetroidLaser*, 3> &metroidLasers,
                  const IRidley &ridley,
                  const IText &scoreText,
                  const IText &highScoreText,
@@ -31,52 +32,52 @@ bool areMetroidsDead(const std::array<std::array<IMetroid*, 11>, 5> &metroids);
 
 void levelUp(std::unordered_map<std::string, int> &variables,
              const std::array<std::array<IMetroid*, 11>, 5> &metroids,
-             const std::array<ILaser*, 3> &metroidLasers,
+             const std::array<IMetroidLaser*, 3> &metroidLasers,
              IRidley &ridley,
              IClock &movementClock);
 
 void evaluateGunshipLaserMetroidCollision(const CollisionInterface &collision,
-                                          ILaser &gunshipLaser,
+                                          IGunshipLaser &gunshipLaser,
                                           const std::array<std::array<IMetroid*, 11>, 5> &metroids,
                                           std::unordered_map<std::string, int> &variables,
                                           IText &scoreText,
                                           IText &highScoreText);
 
 void evaluateGunshipLaserRidleyCollision(const CollisionInterface &collision,
-                                         ILaser &gunshipLaser,
+                                         IGunshipLaser &gunshipLaser,
                                          IRidley &ridley,
                                          std::unordered_map<std::string, int> &variables,
                                          IText &scoreText,
                                          IText &highScoretext);
 
-void evaluateGunshipLaserBunkerCollision(const CollisionInterface &collision, ILaser &gunshipLaser, std::array<IBunker*, 4> &bunkers);
+void evaluateGunshipLaserBunkerCollision(const CollisionInterface &collision, IGunshipLaser &gunshipLaser, std::array<IBunker*, 4> &bunkers);
 
-void evaluateMetroidLaserBunkerCollision(const CollisionInterface &collision, const std::array<ILaser*, 3> &metroidLasers, std::array<IBunker*, 4> &bunkers);
+void evaluateMetroidLaserBunkerCollision(const CollisionInterface &collision, const std::array<IMetroidLaser*, 3> &metroidLasers, std::array<IBunker*, 4> &bunkers);
 
 void evaluateGunshipMetroidLaserCollision(const CollisionInterface &collision,
                                           IGunship &gunship,
-                                          const std::array<ILaser*, 3> &metroidLasers,
-                                          ILaser &gunshipLaser,
+                                          const std::array<IMetroidLaser*, 3> &metroidLasers,
+                                          IGunshipLaser &gunshipLaser,
                                           IText &livesText);
 
 bool haveMetroidsInvaded(const std::array<std::array<IMetroid*, 11>, 5> &metroids);
 
-void moveGunship(IGunship &gunship, float x);
+void moveGunship(IGunship &gunship, int direction);
 
-void moveGunshipLaser(ILaser &gunshipLaser);
+void moveGunshipLaser(IGunshipLaser &gunshipLaser);
 
 void moveMetroids(const std::array<std::array<IMetroid*, 11>, 5> &metroids,
                   IClock &movementClock,
                   std::unordered_map<std::string, int> &variables,
                   std::array<ISound*, 4> &sounds);
 
-void moveMetroidLasers(const std::array<ILaser*, 3> &metroidLasers);
+void moveMetroidLasers(const std::array<IMetroidLaser*, 3> &metroidLasers);
 
 void moveRidley(IRidley &ridley);
 
 void fireGunshipLaser(IGunship &gunship);
 
-void shootMetroidLaser(const std::array<std::array<IMetroid*, 11>, 5> &metroids, const std::array<ILaser*, 3> &metroidLasers);
+void shootMetroidLaser(const std::array<std::array<IMetroid*, 11>, 5> &metroids, const std::array<IMetroidLaser*, 3> &metroidLasers);
 
 void spawnRidley(IRidley &ridley);
 

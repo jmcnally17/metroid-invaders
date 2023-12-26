@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "../../../include/gameOver.hpp"
+#include "../../../include/GameOver.hpp"
 
 class ResetValuesTest : public testing::Test
 {

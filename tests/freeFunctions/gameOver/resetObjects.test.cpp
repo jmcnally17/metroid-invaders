@@ -1,9 +1,10 @@
-#include "../../../include/gameOver.hpp"
-#include "../../mockModels/mockGunship.hpp"
-#include "../../mockModels/mockLaser.hpp"
-#include "../../mockModels/mockMetroid.hpp"
-#include "../../mockModels/mockRidley.hpp"
-#include "../../mockModels/mockBunker.hpp"
+#include "../../../include/GameOver.hpp"
+#include "../../mockModels/MockGunship.hpp"
+#include "../../mockModels/MockGunshipLaser.hpp"
+#include "../../mockModels/MockMetroid.hpp"
+#include "../../mockModels/MockMetroidLaser.hpp"
+#include "../../mockModels/MockRidley.hpp"
+#include "../../mockModels/MockBunker.hpp"
 
 using ::testing::NiceMock;
 
@@ -11,7 +12,7 @@ class ResetObjectsTest : public testing::Test
 {
 protected:
   NiceMock<MockGunship> gunship;
-  NiceMock<MockLaser> gunshipLaser;
+  NiceMock<MockGunshipLaser> gunshipLaser;
   NiceMock<MockMetroid> metroid;
   MockMetroid *pMetroid {&metroid};
   std::array<std::array<IMetroid*, 11>, 5> metroids {{
@@ -21,9 +22,9 @@ protected:
     {{pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid}},
     {{pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid}},
   }};
-  NiceMock<MockLaser> metroidLaser;
-  MockLaser *pMetroidLaser {&metroidLaser};
-  std::array<ILaser*, 3> metroidLasers {pMetroidLaser, pMetroidLaser, pMetroidLaser};
+  NiceMock<MockMetroidLaser> metroidLaser;
+  MockMetroidLaser *pMetroidLaser {&metroidLaser};
+  std::array<IMetroidLaser*, 3> metroidLasers {pMetroidLaser, pMetroidLaser, pMetroidLaser};
   NiceMock<MockRidley> ridley;
   NiceMock<MockBunker> bunker;
   MockBunker *pBunker {&bunker};
@@ -39,7 +40,7 @@ TEST_F(ResetObjectsTest, resetsTheGunship)
 
 TEST_F(ResetObjectsTest, resetsTheGunshipLaser)
 {
-  EXPECT_CALL(gunshipLaser, reset())
+  EXPECT_CALL(gunshipLaser, resetPosition())
       .Times(1);
   resetObjects(gunship, gunshipLaser, metroids, metroidLasers, ridley, bunkers);
 }
@@ -53,7 +54,7 @@ TEST_F(ResetObjectsTest, resetsTheMetroids)
 
 TEST_F(ResetObjectsTest, resetsMetroidLasers)
 {
-  EXPECT_CALL(metroidLaser, reset())
+  EXPECT_CALL(metroidLaser, resetPosition())
       .Times(3);
   resetObjects(gunship, gunshipLaser, metroids, metroidLasers, ridley, bunkers);
 }

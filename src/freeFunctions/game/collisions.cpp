@@ -1,13 +1,14 @@
 #include "../../../include/interfaces/collisionInterface.hpp"
-#include "../../../include/models/iLaser.hpp"
-#include "../../../include/models/iMetroid.hpp"
-#include "../../../include/models/iRidley.hpp"
-#include "../../../include/models/iBunker.hpp"
-#include "../../../include/models/iGunship.hpp"
-#include "../../../include/wrappers/iText.hpp"
+#include "../../../include/models/IGunshipLaser.hpp"
+#include "../../../include/models/IMetroidLaser.hpp"
+#include "../../../include/models/IMetroid.hpp"
+#include "../../../include/models/IRidley.hpp"
+#include "../../../include/models/IBunker.hpp"
+#include "../../../include/models/IGunship.hpp"
+#include "../../../include/wrappers/IText.hpp"
 
 void evaluateGunshipLaserMetroidCollision(const CollisionInterface &collision,
-                                          ILaser &gunshipLaser,
+                                          IGunshipLaser &gunshipLaser,
                                           const std::array<std::array<IMetroid*, 11>, 5> &metroids,
                                           std::unordered_map<std::string, int> &variables,
                                           IText &scoreText,
@@ -26,8 +27,7 @@ void evaluateGunshipLaserMetroidCollision(const CollisionInterface &collision,
         {
           highScoreText.setString("High Score: " + std::to_string(variables["score"]));
         }
-        gunshipLaser.playMetroidDeath();
-        gunshipLaser.reset();
+        gunshipLaser.resetPosition();
         return;
       }
     }
@@ -35,7 +35,7 @@ void evaluateGunshipLaserMetroidCollision(const CollisionInterface &collision,
 }
 
 void evaluateGunshipLaserRidleyCollision(const CollisionInterface &collision,
-                                         ILaser &gunshipLaser,
+                                         IGunshipLaser &gunshipLaser,
                                          IRidley &ridley,
                                          std::unordered_map<std::string, int> &variables,
                                          IText &scoreText,
@@ -50,35 +50,35 @@ void evaluateGunshipLaserRidleyCollision(const CollisionInterface &collision,
     {
       highScoreText.setString("High Score: " + std::to_string(variables["score"]));
     }
-    gunshipLaser.reset();
+    gunshipLaser.resetPosition();
   }
 }
 
-void evaluateGunshipLaserBunkerCollision(const CollisionInterface &collision, ILaser &gunshipLaser, std::array<IBunker*, 4> &bunkers)
+void evaluateGunshipLaserBunkerCollision(const CollisionInterface &collision, IGunshipLaser &gunshipLaser, std::array<IBunker*, 4> &bunkers)
 {
   for (auto bunker : bunkers)
   {
     if (bunker->getHealth() > 0 && collision.haveCollided(gunshipLaser, *bunker))
     {
       bunker->decreaseHealth();
-      gunshipLaser.reset();
+      gunshipLaser.resetPosition();
       return;
     }
   }
 }
 
-void evaluateMetroidLaserBunkerCollision(const CollisionInterface &collision, const std::array<ILaser*, 3> &metroidLasers, std::array<IBunker*, 4> &bunkers)
+void evaluateMetroidLaserBunkerCollision(const CollisionInterface &collision, const std::array<IMetroidLaser*, 3> &metroidLasers, std::array<IBunker*, 4> &bunkers)
 {
   for (auto metroidLaser : metroidLasers)
   {
-    int count = 0;
+    int count {0};
     while (count < 4)
     {
       IBunker *bunker = bunkers[count];
       if (bunker->getHealth() > 0 && collision.haveCollided(*metroidLaser, *bunker))
       {
         bunker->decreaseHealth();
-        metroidLaser->reset();
+        metroidLaser->resetPosition();
         count = 4;
       }
       else
@@ -91,8 +91,8 @@ void evaluateMetroidLaserBunkerCollision(const CollisionInterface &collision, co
 
 void evaluateGunshipMetroidLaserCollision(const CollisionInterface &collision,
                                           IGunship &gunship,
-                                          const std::array<ILaser*, 3> &metroidLasers,
-                                          ILaser &gunshipLaser,
+                                          const std::array<IMetroidLaser*, 3> &metroidLasers,
+                                          IGunshipLaser &gunshipLaser,
                                           IText &livesText)
 {
   for (auto metroidLaser : metroidLasers)
@@ -101,10 +101,10 @@ void evaluateGunshipMetroidLaserCollision(const CollisionInterface &collision,
     {
       gunship.loseLife();
       gunship.resetPosition();
-      gunshipLaser.reset();
+      gunshipLaser.resetPosition();
       for (auto metroidLaser : metroidLasers)
       {
-        metroidLaser->reset();
+        metroidLaser->resetPosition();
       }
       livesText.setString("Lives: " + std::to_string(gunship.getLives()));
       return;

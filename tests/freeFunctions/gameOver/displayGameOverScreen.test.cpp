@@ -1,6 +1,6 @@
-#include "../../../include/gameOver.hpp"
-#include "../../mockModels/mockRenderWindow.hpp"
-#include "../../mockModels/mockText.hpp"
+#include "../../../include/GameOver.hpp"
+#include "../../mockModels/MockRenderWindow.hpp"
+#include "../../mockModels/MockText.hpp"
 
 using ::testing::NiceMock;
 

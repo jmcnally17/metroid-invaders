@@ -1,11 +1,11 @@
-#include "../../../../include/game.hpp"
-#include "../../../mockModels/mockLaser.hpp"
+#include "../../../../include/Game.hpp"
+#include "../../../mockModels/MockMetroidLaser.hpp"
 
 TEST(moveMetroidLasers, callsMoveOnMetroidLasers)
 {
-  MockLaser metroidLaser;
-  MockLaser *pMetroidLaser {&metroidLaser};
-  std::array<ILaser*, 3> metroidLasers {pMetroidLaser, pMetroidLaser, pMetroidLaser};
+  MockMetroidLaser metroidLaser;
+  MockMetroidLaser *pMetroidLaser {&metroidLaser};
+  std::array<IMetroidLaser*, 3> metroidLasers {pMetroidLaser, pMetroidLaser, pMetroidLaser};
 
   EXPECT_CALL(metroidLaser, move())
       .Times(3);

@@ -1,7 +1,7 @@
-#include "../../../../include/game.hpp"
+#include "../../../../include/Game.hpp"
 #include "../../../mockInterfaces/mockCollision.hpp"
-#include "../../../mockModels/mockLaser.hpp"
-#include "../../../mockModels/mockBunker.hpp"
+#include "../../../mockModels/MockGunshipLaser.hpp"
+#include "../../../mockModels/MockBunker.hpp"
 
 using ::testing::NiceMock;
 using ::testing::Return;
@@ -10,7 +10,7 @@ class EvaluateGunshipLaserBunkerCollisionTest : public testing::Test
 {
 protected:
   NiceMock<MockCollision> collision;
-  NiceMock<MockLaser> gunshipLaser;
+  NiceMock<MockGunshipLaser> gunshipLaser;
   NiceMock<MockBunker> bunker;
   MockBunker *pBunker {&bunker};
   std::array<IBunker*, 4> bunkers {pBunker, pBunker, pBunker, pBunker};
@@ -35,7 +35,7 @@ TEST_F(EvaluateGunshipLaserBunkerCollisionTest, resetsTheGunshipLaserWhenCollidi
   ON_CALL(collision, haveCollided)
       .WillByDefault(Return(true));
 
-  EXPECT_CALL(gunshipLaser, reset())
+  EXPECT_CALL(gunshipLaser, resetPosition())
       .Times(1);
   evaluateGunshipLaserBunkerCollision(collision, gunshipLaser, bunkers);
 }
@@ -49,7 +49,7 @@ TEST_F(EvaluateGunshipLaserBunkerCollisionTest, doesNotCarryOutCollisionMechanic
 
   EXPECT_CALL(bunker, decreaseHealth)
       .Times(0);
-  EXPECT_CALL(gunshipLaser, reset)
+  EXPECT_CALL(gunshipLaser, resetPosition)
       .Times(0);
   evaluateGunshipLaserBunkerCollision(collision, gunshipLaser, bunkers);
 }
@@ -63,7 +63,7 @@ TEST_F(EvaluateGunshipLaserBunkerCollisionTest, doesNotCarryOutCollisionMechanic
 
   EXPECT_CALL(bunker, decreaseHealth)
       .Times(0);
-  EXPECT_CALL(gunshipLaser, reset)
+  EXPECT_CALL(gunshipLaser, resetPosition)
       .Times(0);
   evaluateGunshipLaserBunkerCollision(collision, gunshipLaser, bunkers);
 }

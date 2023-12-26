@@ -1,13 +1,15 @@
 #include <fstream>
-#include "../../include/wrappers/spriteWrapper.hpp"
-#include "../../include/wrappers/textWrapper.hpp"
-#include "../../include/wrappers/soundWrapper.hpp"
-#include "../../include/models/bunker.hpp"
-#include "../../include/models/gunshipLaser.hpp"
-#include "../../include/models/gunship.hpp"
-#include "../../include/models/metroids.hpp"
-#include "../../include/models/metroidLaser.hpp"
-#include "../../include/models/ridley.hpp"
+#include "../../include/wrappers/SpriteWrapper.hpp"
+#include "../../include/wrappers/TextWrapper.hpp"
+#include "../../include/wrappers/SoundWrapper.hpp"
+#include "../../include/models/Bunker.hpp"
+#include "../../include/models/GunshipLaser.hpp"
+#include "../../include/models/Gunship.hpp"
+#include "../../include/models/Larva.hpp"
+#include "../../include/models/Alpha.hpp"
+#include "../../include/models/Gamma.hpp"
+#include "../../include/models/MetroidLaser.hpp"
+#include "../../include/models/Ridley.hpp"
 
 SpriteWrapper makeBackground(std::string fileName)
 {
@@ -55,8 +57,8 @@ std::array<IBunker*, 4> makeBunkers()
   
   std::array<IBunker*, 4> bunkers;
   
-  float xOffset = 192;
-  float xIncrement = 336;
+  float xOffset {192};
+  float xIncrement {336};
   
   for (int i = 0; i < 4; i++)
   {
@@ -78,11 +80,7 @@ GunshipLaser makeGunshipLaser()
   gunshipLaserTexture.loadFromFile("resources/images/sprites/gunshipLaser.png");
   SpriteWrapper *gunshipLaserSprite {new SpriteWrapper(gunshipLaserTexture)};
 
-  sf::SoundBuffer deathBuffer;
-  deathBuffer.loadFromFile("resources/audio/metroidDeath.wav");
-  SoundWrapper *deathSound {new SoundWrapper(deathBuffer)};
-
-  GunshipLaser gunshipLaser(gunshipLaserSprite, deathSound);
+  GunshipLaser gunshipLaser(gunshipLaserSprite);
   return gunshipLaser;
 }
 
@@ -113,12 +111,15 @@ std::array<std::array<IMetroid*, 11>, 5> makeMetroids()
   alphaTexture.loadFromFile("resources/images/sprites/alpha.png");
   sf::Texture gammaTexture;
   gammaTexture.loadFromFile("resources/images/sprites/gamma.png");
+  sf::SoundBuffer deathBuffer;
+  deathBuffer.loadFromFile("resources/audio/metroidDeath.wav");
+  SoundWrapper *deathSound {new SoundWrapper(deathBuffer)};
 
   std::array<std::array<IMetroid*, 11>, 5> metroids;
 
-  float xOffset = 282;
-  float yOffset = 348;
-  float extraLarvaXOffset = 12;
+  float xOffset {282};
+  float yOffset {348};
+  float extraLarvaXOffset {12};
 
   for (int i = 0; i < 5; i++)
   {
@@ -128,19 +129,19 @@ std::array<std::array<IMetroid*, 11>, 5> makeMetroids()
       if (i == 0)
       {
         SpriteWrapper *larvaSprite {new SpriteWrapper(larvaTexture)};
-        Larva *larva {new Larva(j * 90 + xOffset + extraLarvaXOffset, i * 90 + yOffset, larvaSprite)};
+        Larva *larva {new Larva(j * 90 + xOffset + extraLarvaXOffset, i * 90 + yOffset, larvaSprite, deathSound)};
         metroidRow[j] = {larva};
       }
       else if (i < 3)
       {
         SpriteWrapper *alphaSprite {new SpriteWrapper(alphaTexture)};
-        Alpha *alpha {new Alpha(j * 90 + xOffset, i * 90 + yOffset, alphaSprite)};
+        Alpha *alpha {new Alpha(j * 90 + xOffset, i * 90 + yOffset, alphaSprite, deathSound)};
         metroidRow[j] = {alpha};
       }
       else
       {
         SpriteWrapper *gammaSprite {new SpriteWrapper(gammaTexture)};
-        Gamma *gamma {new Gamma(j * 90 + xOffset, i * 90 + yOffset, gammaSprite)};
+        Gamma *gamma {new Gamma(j * 90 + xOffset, i * 90 + yOffset, gammaSprite, deathSound)};
         metroidRow[j] = {gamma};
       }
     }
@@ -150,12 +151,12 @@ std::array<std::array<IMetroid*, 11>, 5> makeMetroids()
   return metroids;
 }
 
-std::array<ILaser*, 3> makeMetroidLasers()
+std::array<IMetroidLaser*, 3> makeMetroidLasers()
 {
   sf::Texture metroidLaserTexture;
   metroidLaserTexture.loadFromFile("resources/images/sprites/metroidLaser.png");
   
-  std::array<ILaser*, 3> metroidLasers;
+  std::array<IMetroidLaser*, 3> metroidLasers;
   for (int i = 0; i < 3; i++)
   {
     SpriteWrapper *metroidLaserSprite {new SpriteWrapper(metroidLaserTexture)};
@@ -184,7 +185,7 @@ Ridley makeRidley()
   deathBuffer.loadFromFile("resources/audio/ridleyDeath.wav");
   SoundWrapper *deathSound {new SoundWrapper(deathBuffer)};
 
-  Ridley ridley(ridleyRightSprite, ridleyLeftSprite, movementSound, deathSound);
+  Ridley ridley(ridleyRightSprite, deathSound, ridleyLeftSprite, movementSound);
   return ridley;
 }
 

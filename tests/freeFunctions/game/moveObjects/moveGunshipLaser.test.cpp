@@ -1,9 +1,9 @@
-#include "../../../../include/game.hpp"
-#include "../../../mockModels/mockLaser.hpp"
+#include "../../../../include/Game.hpp"
+#include "../../../mockModels/MockGunshipLaser.hpp"
 
 TEST(moveGunshipLaser, callsMoveOnGunshipLaser)
 {
-  MockLaser gunshipLaser;
+  MockGunshipLaser gunshipLaser;
 
   EXPECT_CALL(gunshipLaser, move())
       .Times(1);

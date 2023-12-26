@@ -1,4 +1,4 @@
-#include "../../../include/models/iRidley.hpp"
+#include "../../../include/models/IRidley.hpp"
 
 void monitorRidleyMovementSound(IRidley &ridley)
 {

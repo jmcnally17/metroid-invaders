@@ -1,6 +1,6 @@
-#include "../../../include/wrappers/iRenderWindow.hpp"
-#include "../../../include/wrappers/iSprite.hpp"
-#include "../../../include/wrappers/iText.hpp"
+#include "../../../include/wrappers/IRenderWindow.hpp"
+#include "../../../include/wrappers/ISprite.hpp"
+#include "../../../include/wrappers/IText.hpp"
 
 void displayTitleScreen(IRenderWindow &window, const ISprite &background, const IText &titleText, const IText &instructionsText)
 {

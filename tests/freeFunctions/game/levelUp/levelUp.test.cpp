@@ -1,8 +1,8 @@
-#include "../../../../include/game.hpp"
-#include "../../../mockModels/mockMetroid.hpp"
-#include "../../../mockModels/mockLaser.hpp"
-#include "../../../mockModels/mockRidley.hpp"
-#include "../../../mockModels/mockClock.hpp"
+#include "../../../../include/Game.hpp"
+#include "../../../mockModels/MockMetroid.hpp"
+#include "../../../mockModels/MockMetroidLaser.hpp"
+#include "../../../mockModels/MockRidley.hpp"
+#include "../../../mockModels/MockClock.hpp"
 
 using ::testing::NiceMock;
 using ::testing::Return;
@@ -25,9 +25,9 @@ protected:
     {{pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid}},
     {{pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid}},
   }};
-  NiceMock<MockLaser> metroidLaser;
-  MockLaser *pMetroidLaser {&metroidLaser};
-  std::array<ILaser*, 3> metroidLasers {pMetroidLaser, pMetroidLaser, pMetroidLaser};
+  NiceMock<MockMetroidLaser> metroidLaser;
+  MockMetroidLaser *pMetroidLaser {&metroidLaser};
+  std::array<IMetroidLaser*, 3> metroidLasers {pMetroidLaser, pMetroidLaser, pMetroidLaser};
   NiceMock<MockRidley> ridley;
   NiceMock<MockClock> movementClock;
 };
@@ -78,7 +78,7 @@ TEST_F(LevelUpTest, doesNotChangeDirectionOnMetroidsIfTheyAreMovingRight)
   ON_CALL(metroid, getDirection())
       .WillByDefault(Return(1));
 
-  EXPECT_CALL(metroid, changeDirection())
+  EXPECT_CALL(metroid, changeDirection)
       .Times(0);
   levelUp(variables, metroids, metroidLasers, ridley, movementClock);
 }
@@ -95,7 +95,7 @@ TEST_F(LevelUpTest, setsNextLevelPositionOnMetroids)
 
 TEST_F(LevelUpTest, resetsTheMetroidLasers)
 {
-  EXPECT_CALL(metroidLaser, reset())
+  EXPECT_CALL(metroidLaser, resetPosition())
       .Times(3);
   levelUp(variables, metroids, metroidLasers, ridley, movementClock);
 }

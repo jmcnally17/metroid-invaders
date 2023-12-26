@@ -1,5 +1,5 @@
-#include "../../../../include/game.hpp"
-#include "../../../mockModels/mockGunship.hpp"
+#include "../../../../include/Game.hpp"
+#include "../../../mockModels/MockGunship.hpp"
 
 TEST(fireGunshipLaser, callsFireOnGunship)
 {

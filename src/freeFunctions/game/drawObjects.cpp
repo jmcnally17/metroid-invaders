@@ -1,18 +1,19 @@
-#include "../../../include/wrappers/iRenderWindow.hpp"
-#include "../../../include/wrappers/iText.hpp"
-#include "../../../include/models/iBunker.hpp"
-#include "../../../include/models/iGunship.hpp"
-#include "../../../include/models/iLaser.hpp"
-#include "../../../include/models/iMetroid.hpp"
-#include "../../../include/models/iRidley.hpp"
+#include "../../../include/wrappers/IRenderWindow.hpp"
+#include "../../../include/wrappers/IText.hpp"
+#include "../../../include/models/IBunker.hpp"
+#include "../../../include/models/IGunship.hpp"
+#include "../../../include/models/IGunshipLaser.hpp"
+#include "../../../include/models/IMetroidLaser.hpp"
+#include "../../../include/models/IMetroid.hpp"
+#include "../../../include/models/IRidley.hpp"
 
 void drawObjects(IRenderWindow &window,
                  const ISprite &gameBackground,
                  const std::array<IBunker*, 4> &bunkers,
                  const IGunship &gunship,
-                 const ILaser &gunshipLaser,
+                 const IGunshipLaser &gunshipLaser,
                  const std::array<std::array<IMetroid*, 11>, 5> &metroids,
-                 const std::array<ILaser*, 3> &metroidLasers,
+                 const std::array<IMetroidLaser*, 3> &metroidLasers,
                  const IRidley &ridley,
                  const IText &scoreText,
                  const IText &highScoreText,

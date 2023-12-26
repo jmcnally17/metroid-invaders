@@ -1,7 +1,7 @@
-#include "../../../include/title.hpp"
-#include "../../mockModels/mockRenderWindow.hpp"
-#include "../../mockModels/mockSprite.hpp"
-#include "../../mockModels/mockText.hpp"
+#include "../../../include/Title.hpp"
+#include "../../mockModels/MockRenderWindow.hpp"
+#include "../../mockModels/MockSprite.hpp"
+#include "../../mockModels/MockText.hpp"
 
 using ::testing::NiceMock;
 

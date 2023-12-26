@@ -1,7 +1,7 @@
-#include "../../../../include/game.hpp"
+#include "../../../../include/Game.hpp"
 #include "../../../mockInterfaces/mockCollision.hpp"
-#include "../../../mockModels/mockLaser.hpp"
-#include "../../../mockModels/mockBunker.hpp"
+#include "../../../mockModels/MockMetroidLaser.hpp"
+#include "../../../mockModels/MockBunker.hpp"
 
 using ::testing::NiceMock;
 using ::testing::Return;
@@ -10,9 +10,9 @@ class EvaluateMetroidLaserBunkerCollisionTest : public testing::Test
 {
 protected:
   NiceMock<MockCollision> collision;
-  NiceMock<MockLaser> metroidLaser;
-  MockLaser *pMetroidLaser {&metroidLaser};
-  std::array<ILaser*, 3> metroidLasers {pMetroidLaser, pMetroidLaser, pMetroidLaser};
+  NiceMock<MockMetroidLaser> metroidLaser;
+  MockMetroidLaser *pMetroidLaser {&metroidLaser};
+  std::array<IMetroidLaser*, 3> metroidLasers {pMetroidLaser, pMetroidLaser, pMetroidLaser};
   NiceMock<MockBunker> bunker;
   MockBunker *pBunker {&bunker};
   std::array<IBunker*, 4> bunkers {pBunker, pBunker, pBunker, pBunker};
@@ -37,7 +37,7 @@ TEST_F(EvaluateMetroidLaserBunkerCollisionTest, resetsMetroidLasersWhenColliding
   ON_CALL(collision, haveCollided)
       .WillByDefault(Return(true));
 
-  EXPECT_CALL(metroidLaser, reset())
+  EXPECT_CALL(metroidLaser, resetPosition())
       .Times(3);
   evaluateMetroidLaserBunkerCollision(collision, metroidLasers, bunkers);
 }
@@ -51,7 +51,7 @@ TEST_F(EvaluateMetroidLaserBunkerCollisionTest, doesNotCarryOutCollisionMechanic
 
   EXPECT_CALL(bunker, decreaseHealth)
       .Times(0);
-  EXPECT_CALL(metroidLaser, reset)
+  EXPECT_CALL(metroidLaser, resetPosition)
       .Times(0);
   evaluateMetroidLaserBunkerCollision(collision, metroidLasers, bunkers);
 }
@@ -65,7 +65,7 @@ TEST_F(EvaluateMetroidLaserBunkerCollisionTest, doesNotCarryOutCollisionMechanic
 
   EXPECT_CALL(bunker, decreaseHealth)
       .Times(0);
-  EXPECT_CALL(metroidLaser, reset)
+  EXPECT_CALL(metroidLaser, resetPosition)
       .Times(0);
   evaluateMetroidLaserBunkerCollision(collision, metroidLasers, bunkers);
 }

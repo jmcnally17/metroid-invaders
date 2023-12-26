@@ -1,8 +1,8 @@
-#include "../../../../include/game.hpp"
-#include "../../../mockInterfaces/mockCollision.hpp"
-#include "../../../mockModels/mockLaser.hpp"
-#include "../../../mockModels/mockMetroid.hpp"
-#include "../../../mockModels/mockText.hpp"
+#include "../../../../include/Game.hpp"
+#include "../../../mockInterfaces/MockCollision.hpp"
+#include "../../../mockModels/MockGunshipLaser.hpp"
+#include "../../../mockModels/MockMetroid.hpp"
+#include "../../../mockModels/MockText.hpp"
 
 using ::testing::NiceMock;
 using ::testing::Return;
@@ -11,7 +11,7 @@ class EvaluateGunshipLaserMetroidCollisionTest : public testing::Test
 {
 protected:
   NiceMock<MockCollision> collision;
-  NiceMock<MockLaser> gunshipLaser;
+  NiceMock<MockGunshipLaser> gunshipLaser;
   NiceMock<MockMetroid> metroid;
   MockMetroid *pMetroid {&metroid};
   std::array<std::array<IMetroid*, 11>, 5> metroids {{
@@ -38,9 +38,7 @@ TEST_F(EvaluateGunshipLaserMetroidCollisionTest, killsMetroidThatIsAliveAndGunsh
 
   EXPECT_CALL(metroid, die())
       .Times(1);
-  EXPECT_CALL(gunshipLaser, reset())
-      .Times(1);
-  EXPECT_CALL(gunshipLaser, playMetroidDeath())
+  EXPECT_CALL(gunshipLaser, resetPosition())
       .Times(1);
   evaluateGunshipLaserMetroidCollision(collision, gunshipLaser, metroids, variables, scoreText, highScoreText);
 }
@@ -99,9 +97,7 @@ TEST_F(EvaluateGunshipLaserMetroidCollisionTest, doesNotKillMetroidsThatAreAlive
 
   EXPECT_CALL(metroid, die())
       .Times(0);
-  EXPECT_CALL(gunshipLaser, reset())
-      .Times(0);
-  EXPECT_CALL(gunshipLaser, playMetroidDeath())
+  EXPECT_CALL(gunshipLaser, resetPosition)
       .Times(0);
   evaluateGunshipLaserMetroidCollision(collision, gunshipLaser, metroids, variables, scoreText, highScoreText);
 }
@@ -115,9 +111,7 @@ TEST_F(EvaluateGunshipLaserMetroidCollisionTest, doesNotKillMetroidsThatAreDeadA
 
   EXPECT_CALL(metroid, die())
       .Times(0);
-  EXPECT_CALL(gunshipLaser, reset())
-      .Times(0);
-  EXPECT_CALL(gunshipLaser, playMetroidDeath())
+  EXPECT_CALL(gunshipLaser, resetPosition)
       .Times(0);
   evaluateGunshipLaserMetroidCollision(collision, gunshipLaser, metroids, variables, scoreText, highScoreText);
 }
@@ -131,9 +125,7 @@ TEST_F(EvaluateGunshipLaserMetroidCollisionTest, doesNotKillMetroidsThatAreDeadA
 
   EXPECT_CALL(metroid, die())
       .Times(0);
-  EXPECT_CALL(gunshipLaser, reset())
-      .Times(0);
-  EXPECT_CALL(gunshipLaser, playMetroidDeath())
+  EXPECT_CALL(gunshipLaser, resetPosition)
       .Times(0);
   evaluateGunshipLaserMetroidCollision(collision, gunshipLaser, metroids, variables, scoreText, highScoreText);
 }

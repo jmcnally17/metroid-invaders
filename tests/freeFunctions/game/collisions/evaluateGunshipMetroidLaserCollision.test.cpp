@@ -1,7 +1,8 @@
-#include "../../../../include/game.hpp"
+#include "../../../../include/Game.hpp"
 #include "../../../mockInterfaces/mockCollision.hpp"
-#include "../../../mockModels/mockGunship.hpp"
-#include "../../../mockModels/mockLaser.hpp"
+#include "../../../mockModels/MockGunship.hpp"
+#include "../../../mockModels/MockMetroidLaser.hpp"
+#include "../../../mockModels/MockGunshipLaser.hpp"
 #include "../../../mockModels/mockText.hpp"
 
 using ::testing::NiceMock;
@@ -12,10 +13,10 @@ class EvaluateGunshipMetroidLaserCollisionTest : public testing::Test
 protected:
   NiceMock<MockCollision> collision;
   NiceMock<MockGunship> gunship;
-  NiceMock<MockLaser> metroidLaser;
-  MockLaser *pMetroidLaser {&metroidLaser};
-  std::array<ILaser*, 3> metroidLasers {pMetroidLaser, pMetroidLaser, pMetroidLaser};
-  NiceMock<MockLaser> gunshipLaser;
+  NiceMock<MockMetroidLaser> metroidLaser;
+  MockMetroidLaser *pMetroidLaser {&metroidLaser};
+  std::array<IMetroidLaser*, 3> metroidLasers {pMetroidLaser, pMetroidLaser, pMetroidLaser};
+  NiceMock<MockGunshipLaser> gunshipLaser;
   NiceMock<MockText> livesText;
 };
 
@@ -44,7 +45,7 @@ TEST_F(EvaluateGunshipMetroidLaserCollisionTest, callsResetOnMetroidLasers)
   ON_CALL(collision, haveCollided)
       .WillByDefault(Return(true));
 
-  EXPECT_CALL(metroidLaser, reset())
+  EXPECT_CALL(metroidLaser, resetPosition())
       .Times(3);
   evaluateGunshipMetroidLaserCollision(collision, gunship, metroidLasers, gunshipLaser, livesText);
 }
@@ -54,7 +55,7 @@ TEST_F(EvaluateGunshipMetroidLaserCollisionTest, callsResetOnGunshipLaser)
   ON_CALL(collision, haveCollided)
       .WillByDefault(Return(true));
 
-  EXPECT_CALL(gunshipLaser, reset())
+  EXPECT_CALL(gunshipLaser, resetPosition())
       .Times(1);
   evaluateGunshipMetroidLaserCollision(collision, gunship, metroidLasers, gunshipLaser, livesText);
 }
@@ -78,13 +79,13 @@ TEST_F(EvaluateGunshipMetroidLaserCollisionTest, doesNotModifyAnythingIfThereAre
   ON_CALL(gunship, getLives())
       .WillByDefault(Return(1));
 
-  EXPECT_CALL(gunship, loseLife())
+  EXPECT_CALL(gunship, loseLife)
       .Times(0);
-  EXPECT_CALL(gunship, resetPosition())
+  EXPECT_CALL(gunship, resetPosition)
       .Times(0);
-  EXPECT_CALL(metroidLaser, reset())
+  EXPECT_CALL(metroidLaser, resetPosition)
       .Times(0);
-  EXPECT_CALL(gunshipLaser, reset())
+  EXPECT_CALL(gunshipLaser, resetPosition)
       .Times(0);
   EXPECT_CALL(livesText, setString)
       .Times(0);

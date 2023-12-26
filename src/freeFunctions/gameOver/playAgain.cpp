@@ -1,20 +1,21 @@
-#include "../../../include/wrappers/iText.hpp"
-#include "../../../include/wrappers/iSound.hpp"
-#include "../../../include/wrappers/iClock.hpp"
-#include "../../../include/models/iGunship.hpp"
-#include "../../../include/models/iLaser.hpp"
-#include "../../../include/models/iMetroid.hpp"
-#include "../../../include/models/iRidley.hpp"
-#include "../../../include/models/iBunker.hpp"
+#include "../../../include/wrappers/IText.hpp"
+#include "../../../include/wrappers/ISound.hpp"
+#include "../../../include/wrappers/IClock.hpp"
+#include "../../../include/models/IGunship.hpp"
+#include "../../../include/models/IGunshipLaser.hpp"
+#include "../../../include/models/IMetroid.hpp"
+#include "../../../include/models/IMetroidLaser.hpp"
+#include "../../../include/models/IRidley.hpp"
+#include "../../../include/models/IBunker.hpp"
 
-void resetObjects(IGunship &gunship, ILaser &gunshipLaser,
+void resetObjects(IGunship &gunship, IGunshipLaser &gunshipLaser,
                   const std::array<std::array<IMetroid*, 11>, 5> &metroids,
-                  const std::array<ILaser*, 3> &metroidLasers,
+                  const std::array<IMetroidLaser*, 3> &metroidLasers,
                   IRidley &ridley,
                   const std::array<IBunker*, 4> &bunkers)
 {
   gunship.reset();
-  gunshipLaser.reset();
+  gunshipLaser.resetPosition();
   for (auto metroidRow : metroids)
   {
     for (auto metroid : metroidRow)
@@ -24,7 +25,7 @@ void resetObjects(IGunship &gunship, ILaser &gunshipLaser,
   }
   for (auto metroidLaser : metroidLasers)
   {
-    metroidLaser->reset();
+    metroidLaser->resetPosition();
   }
   ridley.reset();
   for (auto bunker : bunkers)

@@ -1,6 +1,6 @@
-#include "../../../include/title.hpp"
-#include "../../mockModels/mockSound.hpp"
-#include "../../mockModels/mockClock.hpp"
+#include "../../../include/Title.hpp"
+#include "../../mockModels/MockSound.hpp"
+#include "../../mockModels/MockClock.hpp"
 
 using ::testing::NiceMock;
 

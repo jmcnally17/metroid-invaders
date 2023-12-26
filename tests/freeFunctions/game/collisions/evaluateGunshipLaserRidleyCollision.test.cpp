@@ -1,8 +1,8 @@
-#include "../../../../include/game.hpp"
-#include "../../../mockInterfaces/mockCollision.hpp"
-#include "../../../mockModels/mockLaser.hpp"
-#include "../../../mockModels/mockRidley.hpp"
-#include "../../../mockModels/mockText.hpp"
+#include "../../../../include/Game.hpp"
+#include "../../../mockInterfaces/MockCollision.hpp"
+#include "../../../mockModels/MockGunshipLaser.hpp"
+#include "../../../mockModels/MockRidley.hpp"
+#include "../../../mockModels/MockText.hpp"
 
 using ::testing::NiceMock;
 using ::testing::Return;
@@ -11,7 +11,7 @@ class EvaluateGunshipLaserRidleyCollisionTest : public testing::Test
 {
 protected:
   NiceMock<MockCollision> collision;
-  NiceMock<MockLaser> gunshipLaser;
+  NiceMock<MockGunshipLaser> gunshipLaser;
   NiceMock<MockRidley> ridley;
   std::unordered_map<std::string, int> variables {
     {"score", 430},
@@ -75,7 +75,7 @@ TEST_F(EvaluateGunshipLaserRidleyCollisionTest, resetsTheGunshipLaser)
   ON_CALL(collision, haveCollided)
       .WillByDefault(Return(true));
 
-  EXPECT_CALL(gunshipLaser, reset())
+  EXPECT_CALL(gunshipLaser, resetPosition())
       .Times(1);
   evaluateGunshipLaserRidleyCollision(collision, gunshipLaser, ridley, variables, scoreText, highScoreText);
 }
@@ -91,7 +91,7 @@ TEST_F(EvaluateGunshipLaserRidleyCollisionTest, doesNotModifyAnythingIfRidleyAnd
       .Times(0);
   EXPECT_CALL(scoreText, setString)
       .Times(0);
-  EXPECT_CALL(gunshipLaser, reset())
+  EXPECT_CALL(gunshipLaser, resetPosition)
       .Times(0);
   evaluateGunshipLaserRidleyCollision(collision, gunshipLaser, ridley, variables, scoreText, highScoreText);
   EXPECT_EQ(variables["score"], 430);

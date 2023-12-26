@@ -1,12 +1,13 @@
-#include "../../../include/game.hpp"
-#include "../../mockModels/mockSprite.hpp"
-#include "../../mockModels/mockRenderWindow.hpp"
-#include "../../mockModels/mockBunker.hpp"
-#include "../../mockModels/mockGunship.hpp"
-#include "../../mockModels/mockLaser.hpp"
-#include "../../mockModels/mockMetroid.hpp"
-#include "../../mockModels/mockRidley.hpp"
-#include "../../mockModels/mockText.hpp"
+#include "../../../include/Game.hpp"
+#include "../../mockModels/MockSprite.hpp"
+#include "../../mockModels/MockRenderWindow.hpp"
+#include "../../mockModels/MockBunker.hpp"
+#include "../../mockModels/MockGunship.hpp"
+#include "../../mockModels/MockGunshipLaser.hpp"
+#include "../../mockModels/MockMetroidLaser.hpp"
+#include "../../mockModels/MockMetroid.hpp"
+#include "../../mockModels/MockRidley.hpp"
+#include "../../mockModels/MockText.hpp"
 
 using ::testing::NiceMock;
 using ::testing::Return;
@@ -20,7 +21,7 @@ protected:
   MockBunker *pBunker {&bunker};
   std::array<IBunker*, 4> bunkers {pBunker, pBunker, pBunker, pBunker};
   NiceMock<MockGunship> gunship;
-  NiceMock<MockLaser> gunshipLaser;
+  NiceMock<MockGunshipLaser> gunshipLaser;
   NiceMock<MockMetroid> metroid;
   MockMetroid *pMetroid {&metroid};
   std::array<std::array<IMetroid*, 11>, 5> metroids {{
@@ -30,9 +31,9 @@ protected:
     {{pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid}},
     {{pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid, pMetroid}},
   }};
-  NiceMock<MockLaser> metroidLaser;
-  MockLaser *pMetroidLaser {&metroidLaser};
-  std::array<ILaser*, 3> metroidLasers {pMetroidLaser, pMetroidLaser, pMetroidLaser};
+  NiceMock<MockMetroidLaser> metroidLaser;
+  MockMetroidLaser *pMetroidLaser {&metroidLaser};
+  std::array<IMetroidLaser*, 3> metroidLasers {pMetroidLaser, pMetroidLaser, pMetroidLaser};
   NiceMock<MockRidley> ridley;
   MockText scoreText;
   MockText highScoreText;

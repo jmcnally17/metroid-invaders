@@ -1,8 +1,8 @@
 #include <fstream>
-#include "../../../include/models/iMetroid.hpp"
-#include "../../../include/models/iRidley.hpp"
-#include "../../../include/wrappers/iText.hpp"
-#include "../../../include/wrappers/iSound.hpp"
+#include "../../../include/models/IMetroid.hpp"
+#include "../../../include/models/IRidley.hpp"
+#include "../../../include/wrappers/IText.hpp"
+#include "../../../include/wrappers/ISound.hpp"
 
 bool haveMetroidsInvaded(const std::array<std::array<IMetroid*, 11>, 5> &metroids)
 {
