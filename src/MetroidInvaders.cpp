@@ -9,39 +9,19 @@
 
 int main()
 {
+  // set up the game window
   RenderWindowAdaptor window(sf::VideoMode(1536, 1344), "Metroid Invaders");
   
   ClockAdaptor frameClock;
   
-  sf::Font m56;
-  m56.loadFromFile("resources/fonts/MicroN56.ttf");
-  sf::Color white {sf::Color::White};
-  sf::Color green {sf::Color::Green};
-  
   // backgrounds
-  SpriteAdaptor titleBackground {Factory::makeBackground("title")};
-  SpriteAdaptor gameBackground {Factory::makeBackground("game")};
+  std::unordered_map<std::string, ISprite*> backgrounds {Factory::makeBackgrounds()};
   
   // text objects
-  std::string titleString {"Metroid Invaders"};
-  std::string instructionsString {"Press enter to play!"};
-  std::string scoreString {"Score: 0"};
-  std::string highScoreString {"High Score: 0"};
-  std::string livesString {"Lives: 3"};
-  std::string gameOverString {"Game Over"};
-  std::string playAgainString {"Press p to play again"};
-  TextAdaptor titleText {Factory::makeText(titleString, m56, 100, green, 0.5, 768, 100)};
-  TextAdaptor instructionsText {Factory::makeText(instructionsString, m56, 50, green, 0.5, 768, 1200)};
-  TextAdaptor scoreText {Factory::makeText(scoreString, m56, 50, white, 0, 20, 0)};
-  TextAdaptor highScoreText {Factory::makeText(highScoreString, m56, 50, white, 0.5, 768, 0)};
-  TextAdaptor livesText {Factory::makeText(livesString, m56, 50, white, 0, 1250, 0)};
-  TextAdaptor gameOverText {Factory::makeText(gameOverString, m56, 153, white, 0.5, 768, 200)};
-  TextAdaptor playAgainText {Factory::makeText(playAgainString, m56, 48, white, 0.5, 768, 1000)};
+  std::unordered_map<std::string, IText*> textObjects {Factory::makeTextObjects()};
   
   // audio objects
-  SoundAdaptor titleTheme {Factory::makeTheme("title")};
-  SoundAdaptor battleTheme {Factory::makeTheme("battle")};
-  SoundAdaptor creditsTheme {Factory::makeTheme("credits")};
+  std::unordered_map<std::string, ISound*> themes {Factory::makeThemes()};
   
   // game objects
   std::array<IBunker*, 4> bunkers {Factory::makeBunkers()};
@@ -55,7 +35,7 @@ int main()
   ClockAdaptor movementClock;
   Collision collisionInterface;
   
-  // variables
+  // game variables
   std::unordered_map<std::string, int> variables {
     {"soundCounter", 0},
     {"interval", 665},
@@ -68,8 +48,8 @@ int main()
   // final setup
   bool isPlaying {false};
   bool gameOver {false};
-  pullHighScore(variables, highScoreText);
-  titleTheme.play();
+  pullHighScore(variables, *textObjects["highScore"]);
+  themes["title"]->play();
 
   while (window.isOpen())
   {
@@ -90,21 +70,21 @@ int main()
     {
       if (isPlaying)
       {
-        drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, highScoreText, livesText, rectangles);
+        drawObjects(window, *backgrounds["game"], bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, *textObjects["score"], *textObjects["highScore"], *textObjects["lives"], rectangles);
         monitorRidleyMovementSound(ridley);
         if (areMetroidsDead(metroids))
         {
           levelUp(variables, metroids, metroidLasers, ridley, movementClock);
         }
-        evaluateGunshipLaserMetroidCollision(collisionInterface, gunshipLaser, metroids, variables, scoreText, highScoreText);
-        evaluateGunshipLaserRidleyCollision(collisionInterface, gunshipLaser, ridley, variables, scoreText, highScoreText);
+        evaluateGunshipLaserMetroidCollision(collisionInterface, gunshipLaser, metroids, variables, *textObjects["score"], *textObjects["highScore"]);
+        evaluateGunshipLaserRidleyCollision(collisionInterface, gunshipLaser, ridley, variables, *textObjects["score"], *textObjects["highScore"]);
         evaluateGunshipLaserBunkerCollision(collisionInterface, gunshipLaser, bunkers);
         evaluateMetroidLaserBunkerCollision(collisionInterface, metroidLasers, bunkers);
-        evaluateGunshipMetroidLaserCollision(collisionInterface, gunship, metroidLasers, gunshipLaser, livesText);
+        evaluateGunshipMetroidLaserCollision(collisionInterface, gunship, metroidLasers, gunshipLaser, *textObjects["lives"]);
         if (haveMetroidsInvaded(metroids) || gunship.getLives() == 0)
         {
-          endGame(isPlaying, gameOver, ridley, battleTheme, creditsTheme);
-          updateHighScore(variables, scoreText, highScoreText);
+          endGame(isPlaying, gameOver, ridley, *themes["battle"], *themes["credits"]);
+          updateHighScore(variables, *textObjects["score"], *textObjects["highScore"]);
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
         {
@@ -127,20 +107,20 @@ int main()
       }
       else if (gameOver)
       {
-        displayGameOverScreen(window, gameOverText, scoreText, playAgainText);
+        displayGameOverScreen(window, *textObjects["gameOver"], *textObjects["score"], *textObjects["playAgain"]);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
         {
           resetObjects(gunship, gunshipLaser, metroids, metroidLasers, ridley, bunkers);
           resetValues(isPlaying, gameOver, variables);
-          resetInformationObjects(scoreText, livesText, creditsTheme, battleTheme, movementClock);
+          resetInformationObjects(*textObjects["score"], *textObjects["lives"], *themes["credits"], *themes["battle"], movementClock);
         }
       }
       else
       {
-        displayTitleScreen(window, titleBackground, titleText, instructionsText);
+        displayTitleScreen(window, *backgrounds["title"], *textObjects["title"], *textObjects["instructions"]);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
         {
-          play(isPlaying, titleTheme, battleTheme, movementClock);
+          play(isPlaying, *themes["title"], *themes["battle"], movementClock);
         }
       }
       frameClock.restart();

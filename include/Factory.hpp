@@ -14,10 +14,9 @@
 class Factory
 {
 public:
-  static SpriteAdaptor makeBackground(std::string fileName);
-  static std::array<IText*, 7> makeTextObjects();
-  static TextAdaptor makeText(std::string, const sf::Font &font, int characterSize, const sf::Color &color, float originFactor, float x, float y);
-  static SoundAdaptor makeTheme(std::string fileName);
+  static std::unordered_map<std::string, ISprite*> makeBackgrounds();
+  static std::unordered_map<std::string, IText*> makeTextObjects();
+  static std::unordered_map<std::string, ISound*> makeThemes();
   static std::array<IBunker*, 4> makeBunkers();
   static GunshipLaser makeGunshipLaser();
   static Gunship makeGunship(GunshipLaser &gunshipLaser);
@@ -26,6 +25,11 @@ public:
   static Ridley makeRidley();
   static std::array<ISound*, 4> makeMetroidSounds();
   static std::array<sf::RectangleShape, 2> makeRectangles();
+  
+private:
+  static SpriteAdaptor *makeBackground(std::string fileName);
+  static TextAdaptor *makeText(std::string, const sf::Font &font, int characterSize, const sf::Color &color, float originFactor, float x, float y);
+  static SoundAdaptor *makeTheme(std::string fileName);
 };
 
 #endif

@@ -5,35 +5,60 @@
 #include "../../include/models/Gamma.hpp"
 #include "../../include/models/MetroidLaser.hpp"
 
-SpriteAdaptor Factory::makeBackground(std::string fileName)
+std::unordered_map<std::string, ISprite*> Factory::makeBackgrounds()
 {
-  sf::Texture backgroundTexture;
-  backgroundTexture.loadFromFile("resources/images/backgrounds/" + fileName + ".png");
-  SpriteAdaptor background(backgroundTexture);
-
-  return background;
+  SpriteAdaptor *titleBackground {Factory::makeBackground("title")};
+  SpriteAdaptor *gameBackground {Factory::makeBackground("game")};
+  
+  return std::unordered_map<std::string, ISprite*> {
+    {"title", titleBackground},
+    {"game", gameBackground},
+  };
 }
 
-TextAdaptor Factory::makeText(std::string string, const sf::Font &font, int characterSize, const sf::Color &color, float originFactor, float x, float y)
+std::unordered_map<std::string, IText*> Factory::makeTextObjects()
 {
-  TextAdaptor text(string, font);
-  text.setCharacterSize(characterSize);
-  text.setFillColor(color);
-  sf::FloatRect textRect {text.getLocalBounds()};
-  text.setOrigin(textRect.width * originFactor, 0);
-  text.setPosition(sf::Vector2f(x, y));
-
-  return text;
+  sf::Font m56;
+  m56.loadFromFile("resources/fonts/MicroN56.ttf");
+  sf::Color white {sf::Color::White};
+  sf::Color green {sf::Color::Green};
+  std::string titleString {"Metroid Invaders"};
+  std::string instructionsString {"Press enter to play!"};
+  std::string scoreString {"Score: 0"};
+  std::string highScoreString {"High Score: 0"};
+  std::string livesString {"Lives: 3"};
+  std::string gameOverString {"Game Over"};
+  std::string playAgainString {"Press p to play again"};
+  TextAdaptor *titleText {makeText(titleString, m56, 100, green, 0.5, 768, 100)};
+  TextAdaptor *instructionsText {makeText(instructionsString, m56, 50, green, 0.5, 768, 1200)};
+  TextAdaptor *scoreText {makeText(scoreString, m56, 50, white, 0, 20, 0)};
+  TextAdaptor *highScoreText {makeText(highScoreString, m56, 50, white, 0.5, 768, 0)};
+  TextAdaptor *livesText {makeText(livesString, m56, 50, white, 0, 1250, 0)};
+  TextAdaptor *gameOverText {makeText(gameOverString, m56, 153, white, 0.5, 768, 200)};
+  TextAdaptor *playAgainText {makeText(playAgainString, m56, 48, white, 0.5, 768, 1000)};
+  
+  return std::unordered_map<std::string, IText*> {
+    {"title", titleText},
+    {"instructions", instructionsText},
+    {"score", scoreText},
+    {"highScore", highScoreText},
+    {"lives", livesText},
+    {"gameOver", gameOverText},
+    {"playAgain", playAgainText},
+  };
 }
 
-SoundAdaptor Factory::makeTheme(std::string fileName)
+std::unordered_map<std::string, ISound*> Factory::makeThemes()
 {
-  sf::SoundBuffer buffer;
-  buffer.loadFromFile("resources/audio/" + fileName + ".wav");
-  SoundAdaptor theme(buffer);
-  theme.setLoop(true);
-
-  return theme;
+  SoundAdaptor *titleTheme {Factory::makeTheme("title")};
+  SoundAdaptor *battleTheme {Factory::makeTheme("battle")};
+  SoundAdaptor *creditsTheme {Factory::makeTheme("credits")};
+  
+  return std::unordered_map<std::string, ISound*> {
+    {"title", titleTheme},
+    {"battle", battleTheme},
+    {"credits", creditsTheme},
+  };
 }
 
 std::array<IBunker*, 4> Factory::makeBunkers()
@@ -215,4 +240,35 @@ std::array<sf::RectangleShape, 2> Factory::makeRectangles()
   rectangle2.setFillColor(sf::Color::Black);
 
   return {rectangle1, rectangle2};
+}
+
+SpriteAdaptor *Factory::makeBackground(std::string fileName)
+{
+  sf::Texture backgroundTexture;
+  backgroundTexture.loadFromFile("resources/images/backgrounds/" + fileName + ".png");
+  SpriteAdaptor *background {new SpriteAdaptor(backgroundTexture)};
+
+  return background;
+}
+
+TextAdaptor *Factory::makeText(std::string string, const sf::Font &font, int characterSize, const sf::Color &color, float originFactor, float x, float y)
+{
+  TextAdaptor *text {new TextAdaptor(string, font)};
+  text->setCharacterSize(characterSize);
+  text->setFillColor(color);
+  sf::FloatRect textRect {text->getLocalBounds()};
+  text->setOrigin(textRect.width * originFactor, 0);
+  text->setPosition(sf::Vector2f(x, y));
+
+  return text;
+}
+
+SoundAdaptor *Factory::makeTheme(std::string fileName)
+{
+  sf::SoundBuffer buffer;
+  buffer.loadFromFile("resources/audio/" + fileName + ".wav");
+  SoundAdaptor *theme {new SoundAdaptor(buffer)};
+  theme->setLoop(true);
+
+  return theme;
 }
