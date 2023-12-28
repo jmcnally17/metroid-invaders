@@ -49,7 +49,8 @@ int main()
   bool isPlaying {false};
   bool gameOver {false};
   pullHighScore(variables, *textObjects["highScore"]);
-  themes["title"]->play();
+  auto titleTheme {themes.find("title")->second};
+  titleTheme->play();
 
   while (window.isOpen())
   {
