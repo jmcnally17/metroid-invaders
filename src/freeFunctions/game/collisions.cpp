@@ -11,8 +11,7 @@ void evaluateGunshipLaserMetroidCollision(const CollisionInterface &collision,
                                           IGunshipLaser &gunshipLaser,
                                           const std::array<std::array<IMetroid*, 11>, 5> &metroids,
                                           std::unordered_map<std::string, int> &variables,
-                                          IText &scoreText,
-                                          IText &highScoreText)
+                                          const std::unordered_map<std::string, IText*> &textObjects)
 {
   for (auto row : metroids)
   {
@@ -22,10 +21,12 @@ void evaluateGunshipLaserMetroidCollision(const CollisionInterface &collision,
       {
         metroid->die();
         variables["score"] += metroid->getPoints();
-        scoreText.setString("Score: " + std::to_string(variables["score"]));
+        auto scoreText {textObjects.find("score")->second};
+        scoreText->setString("Score: " + std::to_string(variables["score"]));
         if (variables["score"] > variables["highScore"])
         {
-          highScoreText.setString("High Score: " + std::to_string(variables["score"]));
+          auto highScoreText {textObjects.find("highScore")->second};
+          highScoreText->setString("High Score: " + std::to_string(variables["score"]));
         }
         gunshipLaser.resetPosition();
         return;
@@ -38,17 +39,18 @@ void evaluateGunshipLaserRidleyCollision(const CollisionInterface &collision,
                                          IGunshipLaser &gunshipLaser,
                                          IRidley &ridley,
                                          std::unordered_map<std::string, int> &variables,
-                                         IText &scoreText,
-                                         IText &highScoreText)
+                                         const std::unordered_map<std::string, IText*> &textObjects)
 {
   if (collision.haveCollided(gunshipLaser, ridley))
   {
     ridley.die();
     variables["score"] += ridley.getPoints();
-    scoreText.setString("Score: " + std::to_string(variables["score"]));
+    auto scoreText {textObjects.find("score")->second};
+    scoreText->setString("Score: " + std::to_string(variables["score"]));
     if (variables["score"] > variables["highScore"])
     {
-      highScoreText.setString("High Score: " + std::to_string(variables["score"]));
+      auto highScoreText {textObjects.find("highScore")->second};
+      highScoreText->setString("High Score: " + std::to_string(variables["score"]));
     }
     gunshipLaser.resetPosition();
   }
@@ -93,7 +95,7 @@ void evaluateGunshipMetroidLaserCollision(const CollisionInterface &collision,
                                           IGunship &gunship,
                                           const std::array<IMetroidLaser*, 3> &metroidLasers,
                                           IGunshipLaser &gunshipLaser,
-                                          IText &livesText)
+                                          const std::unordered_map<std::string, IText*> &textObjects)
 {
   for (auto metroidLaser : metroidLasers)
   {
@@ -106,7 +108,8 @@ void evaluateGunshipMetroidLaserCollision(const CollisionInterface &collision,
       {
         metroidLaser->resetPosition();
       }
-      livesText.setString("Lives: " + std::to_string(gunship.getLives()));
+      auto livesText {textObjects.find("lives")->second};
+      livesText->setString("Lives: " + std::to_string(gunship.getLives()));
       return;
     }
   }

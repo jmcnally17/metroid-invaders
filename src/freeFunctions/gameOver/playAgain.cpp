@@ -45,13 +45,17 @@ void resetValues(bool &isPlaying, bool &gameOver, std::unordered_map<std::string
   variables["score"] = 0;
 }
 
-void resetInformationObjects(IText &scoreText, IText &livesText, ISound &creditsTheme, ISound &battleTheme, IClock &movementClock)
+void resetInformationObjects(const std::unordered_map<std::string, IText*> &textObjects, const std::unordered_map<std::string, ISound*> &themes, IClock &movementClock)
 {
-  scoreText.setString("Score: 0");
-  scoreText.setPosition(sf::Vector2f(20, 0));
-  scoreText.setOrigin(0, 0);
-  livesText.setString("Lives: 3");
-  creditsTheme.stop();
-  battleTheme.play();
+  auto scoreText {textObjects.find("score")->second};
+  auto livesText {textObjects.find("lives")->second};
+  auto creditsTheme {themes.find("credits")->second};
+  auto battleTheme {themes.find("battle")->second};
+  scoreText->setString("Score: 0");
+  scoreText->setPosition(sf::Vector2f(20, 0));
+  scoreText->setOrigin(0, 0);
+  livesText->setString("Lives: 3");
+  creditsTheme->stop();
+  battleTheme->play();
   movementClock.restart();
 }

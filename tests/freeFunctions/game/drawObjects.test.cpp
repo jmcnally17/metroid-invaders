@@ -17,6 +17,10 @@ class DrawObjectsTest : public testing::Test
 protected:
   NiceMock<MockRenderWindow> window;
   MockSprite gameBackground;
+  MockSprite *pGameBackground {&gameBackground};
+  std::unordered_map<std::string, ISprite*> backgrounds {
+    {"game", pGameBackground},
+  };
   NiceMock<MockBunker> bunker;
   MockBunker *pBunker {&bunker};
   std::array<IBunker*, 4> bunkers {pBunker, pBunker, pBunker, pBunker};
@@ -36,8 +40,16 @@ protected:
   std::array<IMetroidLaser*, 3> metroidLasers {pMetroidLaser, pMetroidLaser, pMetroidLaser};
   NiceMock<MockRidley> ridley;
   MockText scoreText;
+  MockText *pScoreText {&scoreText};
   MockText highScoreText;
+  MockText *pHighScoreText {&highScoreText};
   MockText livesText;
+  MockText *pLivesText {&livesText};
+  std::unordered_map<std::string, IText*> textObjects {
+    {"score", pScoreText},
+    {"highScore", pHighScoreText},
+    {"lives", pLivesText},
+  };
   sf::RectangleShape rectangle;
   std::array<sf::RectangleShape, 2> rectangles {rectangle, rectangle};
 };
@@ -46,28 +58,28 @@ TEST_F(DrawObjectsTest, callsClearOnTheWindow)
 {
   EXPECT_CALL(window, clear())
       .Times(1);
-  drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, highScoreText, livesText, rectangles);
+  drawObjects(window, backgrounds, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, textObjects, rectangles);
 }
 
 TEST_F(DrawObjectsTest, callsDrawOnTheBunkers)
 {
   EXPECT_CALL(bunker, draw)
       .Times(4);
-  drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, highScoreText, livesText, rectangles);
+  drawObjects(window, backgrounds, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, textObjects, rectangles);
 }
 
 TEST_F(DrawObjectsTest, callsDrawOnTheGunship)
 {
   EXPECT_CALL(gunship, draw)
       .Times(1);
-  drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, highScoreText, livesText, rectangles);
+  drawObjects(window, backgrounds, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, textObjects, rectangles);
 }
 
 TEST_F(DrawObjectsTest, callsDrawOnTheGunshipLaser)
 {
   EXPECT_CALL(gunshipLaser, draw)
       .Times(1);
-  drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, highScoreText, livesText, rectangles);
+  drawObjects(window, backgrounds, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, textObjects, rectangles);
 }
 
 TEST_F(DrawObjectsTest, callsDrawOnAllTheMetroidsIfTheyAreAlive)
@@ -77,7 +89,7 @@ TEST_F(DrawObjectsTest, callsDrawOnAllTheMetroidsIfTheyAreAlive)
 
   EXPECT_CALL(metroid, draw)
       .Times(55);
-  drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, highScoreText, livesText, rectangles);
+  drawObjects(window, backgrounds, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, textObjects, rectangles);
 }
 
 TEST_F(DrawObjectsTest, doesNotCallDrawOnAllTheMetroidsIfTheyAreDead)
@@ -87,21 +99,21 @@ TEST_F(DrawObjectsTest, doesNotCallDrawOnAllTheMetroidsIfTheyAreDead)
 
   EXPECT_CALL(metroid, draw)
       .Times(0);
-  drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, highScoreText, livesText, rectangles);
+  drawObjects(window, backgrounds, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, textObjects, rectangles);
 }
 
 TEST_F(DrawObjectsTest, drawsTheMetroidLasers)
 {
   EXPECT_CALL(metroidLaser, draw)
       .Times(3);
-  drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, highScoreText, livesText, rectangles);
+  drawObjects(window, backgrounds, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, textObjects, rectangles);
 }
 
 TEST_F(DrawObjectsTest, drawsRidley)
 {
   EXPECT_CALL(ridley, draw)
       .Times(1);
-  drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, highScoreText, livesText, rectangles);
+  drawObjects(window, backgrounds, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, textObjects, rectangles);
 }
 
 TEST_F(DrawObjectsTest, drawsTheBackgroundAndScoreAndHighScoreAndLivesTextAndRectangles)
@@ -109,12 +121,12 @@ TEST_F(DrawObjectsTest, drawsTheBackgroundAndScoreAndHighScoreAndLivesTextAndRec
   EXPECT_CALL(window, draw(testing::Truly([](const sf::Drawable &drawable)
                                           { return true; })))
       .Times(6);
-  drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, highScoreText, livesText, rectangles);
+  drawObjects(window, backgrounds, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, textObjects, rectangles);
 }
 
 TEST_F(DrawObjectsTest, callsDisplayOnTheWindow)
 {
   EXPECT_CALL(window, display())
       .Times(1);
-  drawObjects(window, gameBackground, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, scoreText, highScoreText, livesText, rectangles);
+  drawObjects(window, backgrounds, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, textObjects, rectangles);
 }

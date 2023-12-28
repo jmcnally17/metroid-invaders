@@ -7,8 +7,8 @@
 #include "./adaptors/ISound.hpp"
 #include "./adaptors/IClock.hpp"
 
-void displayTitleScreen(IRenderWindow &window, const ISprite &background, const IText &titleText, const IText &instructionsText);
+void displayTitleScreen(IRenderWindow &window, const std::unordered_map<std::string, ISprite*> &backgrounds, const std::unordered_map<std::string, IText*> &textObjects);
 
-void play(bool &isPlaying, ISound &titleTheme, ISound &battleTheme, IClock &movementClock);
+void play(bool &isPlaying, const std::unordered_map<std::string, ISound*> &themes, IClock &movementClock);
 
 #endif

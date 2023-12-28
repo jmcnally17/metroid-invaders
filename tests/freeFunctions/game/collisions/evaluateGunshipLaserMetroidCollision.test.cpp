@@ -26,7 +26,13 @@ protected:
     {"highScore", 120},
   };
   NiceMock<MockText> scoreText;
+  MockText *pScoreText {&scoreText};
   MockText highScoreText;
+  MockText *pHighScoreText {&highScoreText};
+  std::unordered_map<std::string, IText*> textObjects {
+    {"score", pScoreText},
+    {"highScore", pHighScoreText},
+  };
 };
 
 TEST_F(EvaluateGunshipLaserMetroidCollisionTest, killsMetroidThatIsAliveAndGunshipLaserIsCollidingWith)
@@ -40,7 +46,7 @@ TEST_F(EvaluateGunshipLaserMetroidCollisionTest, killsMetroidThatIsAliveAndGunsh
       .Times(1);
   EXPECT_CALL(gunshipLaser, resetPosition())
       .Times(1);
-  evaluateGunshipLaserMetroidCollision(collision, gunshipLaser, metroids, variables, scoreText, highScoreText);
+  evaluateGunshipLaserMetroidCollision(collision, gunshipLaser, metroids, variables, textObjects);
 }
 
 TEST_F(EvaluateGunshipLaserMetroidCollisionTest, addsTheMetroidPointsToTheScore)
@@ -54,7 +60,7 @@ TEST_F(EvaluateGunshipLaserMetroidCollisionTest, addsTheMetroidPointsToTheScore)
 
   EXPECT_CALL(scoreText, setString("Score: 30"))
       .Times(1);
-  evaluateGunshipLaserMetroidCollision(collision, gunshipLaser, metroids, variables, scoreText, highScoreText);
+  evaluateGunshipLaserMetroidCollision(collision, gunshipLaser, metroids, variables, textObjects);
   EXPECT_EQ(variables["score"], 30);
 }
 
@@ -71,7 +77,7 @@ TEST_F(EvaluateGunshipLaserMetroidCollisionTest, updatesTheHighScoreTextIfScoreS
 
   EXPECT_CALL(highScoreText, setString("High Score: 150"))
       .Times(1);
-  evaluateGunshipLaserMetroidCollision(collision, gunshipLaser, metroids, variables, scoreText, highScoreText);
+  evaluateGunshipLaserMetroidCollision(collision, gunshipLaser, metroids, variables, textObjects);
 }
 
 TEST_F(EvaluateGunshipLaserMetroidCollisionTest, doesNotUpdateTheHighScoreTextIfScoreDoesNotSurpassHighScore)
@@ -85,7 +91,7 @@ TEST_F(EvaluateGunshipLaserMetroidCollisionTest, doesNotUpdateTheHighScoreTextIf
 
   EXPECT_CALL(highScoreText, setString)
       .Times(0);
-  evaluateGunshipLaserMetroidCollision(collision, gunshipLaser, metroids, variables, scoreText, highScoreText);
+  evaluateGunshipLaserMetroidCollision(collision, gunshipLaser, metroids, variables, textObjects);
 }
 
 TEST_F(EvaluateGunshipLaserMetroidCollisionTest, doesNotKillMetroidsThatAreAliveAndGunshipLaserIsNotCollidingWith)
@@ -99,7 +105,7 @@ TEST_F(EvaluateGunshipLaserMetroidCollisionTest, doesNotKillMetroidsThatAreAlive
       .Times(0);
   EXPECT_CALL(gunshipLaser, resetPosition)
       .Times(0);
-  evaluateGunshipLaserMetroidCollision(collision, gunshipLaser, metroids, variables, scoreText, highScoreText);
+  evaluateGunshipLaserMetroidCollision(collision, gunshipLaser, metroids, variables, textObjects);
 }
 
 TEST_F(EvaluateGunshipLaserMetroidCollisionTest, doesNotKillMetroidsThatAreDeadAndGunshipLaserIsCollidingWith)
@@ -113,7 +119,7 @@ TEST_F(EvaluateGunshipLaserMetroidCollisionTest, doesNotKillMetroidsThatAreDeadA
       .Times(0);
   EXPECT_CALL(gunshipLaser, resetPosition)
       .Times(0);
-  evaluateGunshipLaserMetroidCollision(collision, gunshipLaser, metroids, variables, scoreText, highScoreText);
+  evaluateGunshipLaserMetroidCollision(collision, gunshipLaser, metroids, variables, textObjects);
 }
 
 TEST_F(EvaluateGunshipLaserMetroidCollisionTest, doesNotKillMetroidsThatAreDeadAndGunshipLaserIsNotCollidingWith)
@@ -127,5 +133,5 @@ TEST_F(EvaluateGunshipLaserMetroidCollisionTest, doesNotKillMetroidsThatAreDeadA
       .Times(0);
   EXPECT_CALL(gunshipLaser, resetPosition)
       .Times(0);
-  evaluateGunshipLaserMetroidCollision(collision, gunshipLaser, metroids, variables, scoreText, highScoreText);
+  evaluateGunshipLaserMetroidCollision(collision, gunshipLaser, metroids, variables, textObjects);
 }

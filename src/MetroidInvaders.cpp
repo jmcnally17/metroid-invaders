@@ -70,21 +70,21 @@ int main()
     {
       if (isPlaying)
       {
-        drawObjects(window, *backgrounds["game"], bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, *textObjects["score"], *textObjects["highScore"], *textObjects["lives"], rectangles);
+        drawObjects(window, backgrounds, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, textObjects, rectangles);
         monitorRidleyMovementSound(ridley);
         if (areMetroidsDead(metroids))
         {
           levelUp(variables, metroids, metroidLasers, ridley, movementClock);
         }
-        evaluateGunshipLaserMetroidCollision(collisionInterface, gunshipLaser, metroids, variables, *textObjects["score"], *textObjects["highScore"]);
-        evaluateGunshipLaserRidleyCollision(collisionInterface, gunshipLaser, ridley, variables, *textObjects["score"], *textObjects["highScore"]);
+        evaluateGunshipLaserMetroidCollision(collisionInterface, gunshipLaser, metroids, variables, textObjects);
+        evaluateGunshipLaserRidleyCollision(collisionInterface, gunshipLaser, ridley, variables, textObjects);
         evaluateGunshipLaserBunkerCollision(collisionInterface, gunshipLaser, bunkers);
         evaluateMetroidLaserBunkerCollision(collisionInterface, metroidLasers, bunkers);
-        evaluateGunshipMetroidLaserCollision(collisionInterface, gunship, metroidLasers, gunshipLaser, *textObjects["lives"]);
+        evaluateGunshipMetroidLaserCollision(collisionInterface, gunship, metroidLasers, gunshipLaser, textObjects);
         if (haveMetroidsInvaded(metroids) || gunship.getLives() == 0)
         {
-          endGame(isPlaying, gameOver, ridley, *themes["battle"], *themes["credits"]);
-          updateHighScore(variables, *textObjects["score"], *textObjects["highScore"]);
+          endGame(isPlaying, gameOver, ridley, themes);
+          updateHighScore(variables, textObjects);
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
         {
@@ -107,20 +107,20 @@ int main()
       }
       else if (gameOver)
       {
-        displayGameOverScreen(window, *textObjects["gameOver"], *textObjects["score"], *textObjects["playAgain"]);
+        displayGameOverScreen(window, textObjects);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
         {
           resetObjects(gunship, gunshipLaser, metroids, metroidLasers, ridley, bunkers);
           resetValues(isPlaying, gameOver, variables);
-          resetInformationObjects(*textObjects["score"], *textObjects["lives"], *themes["credits"], *themes["battle"], movementClock);
+          resetInformationObjects(textObjects, themes, movementClock);
         }
       }
       else
       {
-        displayTitleScreen(window, *backgrounds["title"], *textObjects["title"], *textObjects["instructions"]);
+        displayTitleScreen(window, backgrounds, textObjects);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
         {
-          play(isPlaying, *themes["title"], *themes["battle"], movementClock);
+          play(isPlaying, themes, movementClock);
         }
       }
       frameClock.restart();

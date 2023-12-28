@@ -18,7 +18,13 @@ protected:
     {"highScore", 1000},
   };
   NiceMock<MockText> scoreText;
+  MockText *pScoreText {&scoreText};
   MockText highScoreText;
+  MockText *pHighScoreText {&highScoreText};
+  std::unordered_map<std::string, IText*> textObjects {
+    {"score", pScoreText},
+    {"highScore", pHighScoreText},
+  };
 };
 
 TEST_F(EvaluateGunshipLaserRidleyCollisionTest, killsRidleyIfCollidingWithGunshipLaser)
@@ -28,7 +34,7 @@ TEST_F(EvaluateGunshipLaserRidleyCollisionTest, killsRidleyIfCollidingWithGunshi
 
   EXPECT_CALL(ridley, die())
       .Times(1);
-  evaluateGunshipLaserRidleyCollision(collision, gunshipLaser, ridley, variables, scoreText, highScoreText);
+  evaluateGunshipLaserRidleyCollision(collision, gunshipLaser, ridley, variables, textObjects);
 }
 
 TEST_F(EvaluateGunshipLaserRidleyCollisionTest, addsTheRidleyPointsToTheScore)
@@ -40,7 +46,7 @@ TEST_F(EvaluateGunshipLaserRidleyCollisionTest, addsTheRidleyPointsToTheScore)
 
   EXPECT_CALL(scoreText, setString("Score: 580"))
       .Times(1);
-  evaluateGunshipLaserRidleyCollision(collision, gunshipLaser, ridley, variables, scoreText, highScoreText);
+  evaluateGunshipLaserRidleyCollision(collision, gunshipLaser, ridley, variables, textObjects);
   EXPECT_EQ(variables["score"], 580);
 }
 
@@ -55,7 +61,7 @@ TEST_F(EvaluateGunshipLaserRidleyCollisionTest, updatesTheHighScoreTextIfScoreSu
 
   EXPECT_CALL(highScoreText, setString("High Score: 580"))
       .Times(1);
-  evaluateGunshipLaserRidleyCollision(collision, gunshipLaser, ridley, variables, scoreText, highScoreText);
+  evaluateGunshipLaserRidleyCollision(collision, gunshipLaser, ridley, variables, textObjects);
 }
 
 TEST_F(EvaluateGunshipLaserRidleyCollisionTest, doesNotUpdatesTheHighScoreTextIfScoreDoesNotSurpassHighScore)
@@ -67,7 +73,7 @@ TEST_F(EvaluateGunshipLaserRidleyCollisionTest, doesNotUpdatesTheHighScoreTextIf
 
   EXPECT_CALL(highScoreText, setString)
       .Times(0);
-  evaluateGunshipLaserRidleyCollision(collision, gunshipLaser, ridley, variables, scoreText, highScoreText);
+  evaluateGunshipLaserRidleyCollision(collision, gunshipLaser, ridley, variables, textObjects);
 }
 
 TEST_F(EvaluateGunshipLaserRidleyCollisionTest, resetsTheGunshipLaser)
@@ -77,7 +83,7 @@ TEST_F(EvaluateGunshipLaserRidleyCollisionTest, resetsTheGunshipLaser)
 
   EXPECT_CALL(gunshipLaser, resetPosition())
       .Times(1);
-  evaluateGunshipLaserRidleyCollision(collision, gunshipLaser, ridley, variables, scoreText, highScoreText);
+  evaluateGunshipLaserRidleyCollision(collision, gunshipLaser, ridley, variables, textObjects);
 }
 
 TEST_F(EvaluateGunshipLaserRidleyCollisionTest, doesNotModifyAnythingIfRidleyAndLaserAreNotColliding)
@@ -93,6 +99,6 @@ TEST_F(EvaluateGunshipLaserRidleyCollisionTest, doesNotModifyAnythingIfRidleyAnd
       .Times(0);
   EXPECT_CALL(gunshipLaser, resetPosition)
       .Times(0);
-  evaluateGunshipLaserRidleyCollision(collision, gunshipLaser, ridley, variables, scoreText, highScoreText);
+  evaluateGunshipLaserRidleyCollision(collision, gunshipLaser, ridley, variables, textObjects);
   EXPECT_EQ(variables["score"], 430);
 }

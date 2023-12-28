@@ -12,7 +12,7 @@
 #include "./models/IRidley.hpp"
 #include "./models/IBunker.hpp"
 
-void displayGameOverScreen(IRenderWindow &window, const IText &gameOverText, const IText &scoreText, const IText &playAgainText);
+void displayGameOverScreen(IRenderWindow &window, const std::unordered_map<std::string, IText*> &textObjects);
 
 void resetObjects(IGunship &gunship, IGunshipLaser &gunshipLaser,
                   const std::array<std::array<IMetroid*, 11>, 5> &metroids,
@@ -22,6 +22,6 @@ void resetObjects(IGunship &gunship, IGunshipLaser &gunshipLaser,
 
 void resetValues(bool &isPlaying, bool &gameOver, std::unordered_map<std::string, int> &variables);
 
-void resetInformationObjects(IText &scoreText, IText &livesText, ISound &creditsTheme, ISound &battleTheme, IClock &movementClock);
+void resetInformationObjects(const std::unordered_map<std::string, IText*> &textObjects, const std::unordered_map<std::string, ISound*> &themes, IClock &movementClock);
 
 #endif

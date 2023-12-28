@@ -18,6 +18,10 @@ protected:
   std::array<IMetroidLaser*, 3> metroidLasers {pMetroidLaser, pMetroidLaser, pMetroidLaser};
   NiceMock<MockGunshipLaser> gunshipLaser;
   NiceMock<MockText> livesText;
+  MockText *pLivesText {&livesText};
+  std::unordered_map<std::string, IText*> textObjects {
+    {"lives", pLivesText},
+  };
 };
 
 TEST_F(EvaluateGunshipMetroidLaserCollisionTest, callsLoseLifeOnGunship)
@@ -27,7 +31,7 @@ TEST_F(EvaluateGunshipMetroidLaserCollisionTest, callsLoseLifeOnGunship)
 
   EXPECT_CALL(gunship, loseLife())
       .Times(1);
-  evaluateGunshipMetroidLaserCollision(collision, gunship, metroidLasers, gunshipLaser, livesText);
+  evaluateGunshipMetroidLaserCollision(collision, gunship, metroidLasers, gunshipLaser, textObjects);
 }
 
 TEST_F(EvaluateGunshipMetroidLaserCollisionTest, callsResetPositionOnGunship)
@@ -37,7 +41,7 @@ TEST_F(EvaluateGunshipMetroidLaserCollisionTest, callsResetPositionOnGunship)
 
   EXPECT_CALL(gunship, resetPosition())
       .Times(1);
-  evaluateGunshipMetroidLaserCollision(collision, gunship, metroidLasers, gunshipLaser, livesText);
+  evaluateGunshipMetroidLaserCollision(collision, gunship, metroidLasers, gunshipLaser, textObjects);
 }
 
 TEST_F(EvaluateGunshipMetroidLaserCollisionTest, callsResetOnMetroidLasers)
@@ -47,7 +51,7 @@ TEST_F(EvaluateGunshipMetroidLaserCollisionTest, callsResetOnMetroidLasers)
 
   EXPECT_CALL(metroidLaser, resetPosition())
       .Times(3);
-  evaluateGunshipMetroidLaserCollision(collision, gunship, metroidLasers, gunshipLaser, livesText);
+  evaluateGunshipMetroidLaserCollision(collision, gunship, metroidLasers, gunshipLaser, textObjects);
 }
 
 TEST_F(EvaluateGunshipMetroidLaserCollisionTest, callsResetOnGunshipLaser)
@@ -57,7 +61,7 @@ TEST_F(EvaluateGunshipMetroidLaserCollisionTest, callsResetOnGunshipLaser)
 
   EXPECT_CALL(gunshipLaser, resetPosition())
       .Times(1);
-  evaluateGunshipMetroidLaserCollision(collision, gunship, metroidLasers, gunshipLaser, livesText);
+  evaluateGunshipMetroidLaserCollision(collision, gunship, metroidLasers, gunshipLaser, textObjects);
 }
 
 TEST_F(EvaluateGunshipMetroidLaserCollisionTest, updatesTheLivesText)
@@ -69,7 +73,7 @@ TEST_F(EvaluateGunshipMetroidLaserCollisionTest, updatesTheLivesText)
 
   EXPECT_CALL(livesText, setString("Lives: 1"))
       .Times(1);
-  evaluateGunshipMetroidLaserCollision(collision, gunship, metroidLasers, gunshipLaser, livesText);
+  evaluateGunshipMetroidLaserCollision(collision, gunship, metroidLasers, gunshipLaser, textObjects);
 }
 
 TEST_F(EvaluateGunshipMetroidLaserCollisionTest, doesNotModifyAnythingIfThereAreNoCollisions)
@@ -89,5 +93,5 @@ TEST_F(EvaluateGunshipMetroidLaserCollisionTest, doesNotModifyAnythingIfThereAre
       .Times(0);
   EXPECT_CALL(livesText, setString)
       .Times(0);
-  evaluateGunshipMetroidLaserCollision(collision, gunship, metroidLasers, gunshipLaser, livesText);
+  evaluateGunshipMetroidLaserCollision(collision, gunship, metroidLasers, gunshipLaser, textObjects);
 }
