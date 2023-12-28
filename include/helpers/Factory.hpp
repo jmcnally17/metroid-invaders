@@ -1,15 +1,15 @@
 #ifndef FACTORY_HPP
 #define FACTORY_HPP
 
-#include "./adaptors/SpriteAdaptor.hpp"
-#include "./adaptors/TextAdaptor.hpp"
-#include "./adaptors/SoundAdaptor.hpp"
-#include "./models/IBunker.hpp"
-#include "./models/GunshipLaser.hpp"
-#include "./models/Gunship.hpp"
-#include "./models/IMetroid.hpp"
-#include "./models/IMetroidLaser.hpp"
-#include "./models/Ridley.hpp"
+#include "../adaptors/SpriteAdaptor.hpp"
+#include "../adaptors/TextAdaptor.hpp"
+#include "../adaptors/SoundAdaptor.hpp"
+#include "../models/IBunker.hpp"
+#include "../models/GunshipLaser.hpp"
+#include "../models/Gunship.hpp"
+#include "../models/IMetroid.hpp"
+#include "../models/IMetroidLaser.hpp"
+#include "../models/Ridley.hpp"
 
 class Factory
 {

@@ -1,4 +1,4 @@
-#include "../../include/Factory.hpp"
+#include "../../include/helpers/Factory.hpp"
 #include "../../include/models/Bunker.hpp"
 #include "../../include/models/Larva.hpp"
 #include "../../include/models/Alpha.hpp"
