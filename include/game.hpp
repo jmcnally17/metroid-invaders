@@ -11,7 +11,6 @@
 #include "./models/IMetroidLaser.hpp"
 #include "./models/IMetroid.hpp"
 #include "./models/IRidley.hpp"
-#include "./interfaces/collisionInterface.hpp"
 
 void drawObjects(IRenderWindow &window,
                  const std::unordered_map<std::string, ISprite*> &backgrounds,
@@ -34,24 +33,21 @@ void levelUp(std::unordered_map<std::string, int> &variables,
              IRidley &ridley,
              IClock &movementClock);
 
-void evaluateGunshipLaserMetroidCollision(const CollisionInterface &collision,
-                                          IGunshipLaser &gunshipLaser,
+void evaluateGunshipLaserMetroidCollision(IGunshipLaser &gunshipLaser,
                                           const std::array<std::array<IMetroid*, 11>, 5> &metroids,
                                           std::unordered_map<std::string, int> &variables,
                                           const std::unordered_map<std::string, IText*> &textObjects);
 
-void evaluateGunshipLaserRidleyCollision(const CollisionInterface &collision,
-                                         IGunshipLaser &gunshipLaser,
+void evaluateGunshipLaserRidleyCollision(IGunshipLaser &gunshipLaser,
                                          IRidley &ridley,
                                          std::unordered_map<std::string, int> &variables,
                                          const std::unordered_map<std::string, IText*> &textObjects);
 
-void evaluateGunshipLaserBunkerCollision(const CollisionInterface &collision, IGunshipLaser &gunshipLaser, std::array<IBunker*, 4> &bunkers);
+void evaluateGunshipLaserBunkerCollision(IGunshipLaser &gunshipLaser, std::array<IBunker*, 4> &bunkers);
 
-void evaluateMetroidLaserBunkerCollision(const CollisionInterface &collision, const std::array<IMetroidLaser*, 3> &metroidLasers, std::array<IBunker*, 4> &bunkers);
+void evaluateMetroidLaserBunkerCollision(const std::array<IMetroidLaser*, 3> &metroidLasers, std::array<IBunker*, 4> &bunkers);
 
-void evaluateGunshipMetroidLaserCollision(const CollisionInterface &collision,
-                                          IGunship &gunship,
+void evaluateGunshipMetroidLaserCollision(IGunship &gunship,
                                           const std::array<IMetroidLaser*, 3> &metroidLasers,
                                           IGunshipLaser &gunshipLaser,
                                           const std::unordered_map<std::string, IText*> &textObjects);

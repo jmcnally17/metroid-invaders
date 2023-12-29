@@ -1,5 +1,4 @@
 #include "../../../../include/Game.hpp"
-#include "../../../mockInterfaces/mockCollision.hpp"
 #include "../../../mockModels/MockMetroidLaser.hpp"
 #include "../../../mockModels/MockBunker.hpp"
 
@@ -9,7 +8,6 @@ using ::testing::Return;
 class EvaluateMetroidLaserBunkerCollisionTest : public testing::Test
 {
 protected:
-  NiceMock<MockCollision> collision;
   NiceMock<MockMetroidLaser> metroidLaser;
   MockMetroidLaser *pMetroidLaser {&metroidLaser};
   std::array<IMetroidLaser*, 3> metroidLasers {pMetroidLaser, pMetroidLaser, pMetroidLaser};
@@ -22,50 +20,50 @@ TEST_F(EvaluateMetroidLaserBunkerCollisionTest, decreasesHealthOfBunkersWhenColl
 {
   ON_CALL(bunker, getHealth())
       .WillByDefault(Return(10));
-  ON_CALL(collision, haveCollided)
+  ON_CALL(metroidLaser, intersects)
       .WillByDefault(Return(true));
 
   EXPECT_CALL(bunker, decreaseHealth())
       .Times(3);
-  evaluateMetroidLaserBunkerCollision(collision, metroidLasers, bunkers);
+  evaluateMetroidLaserBunkerCollision(metroidLasers, bunkers);
 }
 
 TEST_F(EvaluateMetroidLaserBunkerCollisionTest, resetsMetroidLasersWhenColliding)
 {
   ON_CALL(bunker, getHealth())
       .WillByDefault(Return(10));
-  ON_CALL(collision, haveCollided)
+  ON_CALL(metroidLaser, intersects)
       .WillByDefault(Return(true));
 
   EXPECT_CALL(metroidLaser, resetPosition())
       .Times(3);
-  evaluateMetroidLaserBunkerCollision(collision, metroidLasers, bunkers);
+  evaluateMetroidLaserBunkerCollision(metroidLasers, bunkers);
 }
 
 TEST_F(EvaluateMetroidLaserBunkerCollisionTest, doesNotCarryOutCollisionMechanicsIfHealthIs0)
 {
   ON_CALL(bunker, getHealth())
       .WillByDefault(Return(0));
-  ON_CALL(collision, haveCollided)
+  ON_CALL(metroidLaser, intersects)
       .WillByDefault(Return(true));
 
   EXPECT_CALL(bunker, decreaseHealth)
       .Times(0);
   EXPECT_CALL(metroidLaser, resetPosition)
       .Times(0);
-  evaluateMetroidLaserBunkerCollision(collision, metroidLasers, bunkers);
+  evaluateMetroidLaserBunkerCollision(metroidLasers, bunkers);
 }
 
 TEST_F(EvaluateMetroidLaserBunkerCollisionTest, doesNotCarryOutCollisionMechanicsWhenNotColliding)
 {
   ON_CALL(bunker, getHealth())
       .WillByDefault(Return(10));
-  ON_CALL(collision, haveCollided)
+  ON_CALL(metroidLaser, intersects)
       .WillByDefault(Return(false));
 
   EXPECT_CALL(bunker, decreaseHealth)
       .Times(0);
   EXPECT_CALL(metroidLaser, resetPosition)
       .Times(0);
-  evaluateMetroidLaserBunkerCollision(collision, metroidLasers, bunkers);
+  evaluateMetroidLaserBunkerCollision(metroidLasers, bunkers);
 }

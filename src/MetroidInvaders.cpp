@@ -5,7 +5,6 @@
 #include "../include/helpers/Factory.hpp"
 #include "../include/adaptors/RenderWindowAdaptor.hpp"
 #include "../include/adaptors/ClockAdaptor.hpp"
-#include "../include/interfaces/collisionInterface.hpp"
 
 int main()
 {
@@ -33,7 +32,6 @@ int main()
   std::array<ISound*, 4> metroidSounds {Factory::makeMetroidSounds()};
   std::array<sf::RectangleShape, 2> rectangles {Factory::makeRectangles()};
   ClockAdaptor movementClock;
-  Collision collisionInterface;
   
   // game variables
   std::unordered_map<std::string, int> variables {
@@ -77,11 +75,11 @@ int main()
         {
           levelUp(variables, metroids, metroidLasers, ridley, movementClock);
         }
-        evaluateGunshipLaserMetroidCollision(collisionInterface, gunshipLaser, metroids, variables, textObjects);
-        evaluateGunshipLaserRidleyCollision(collisionInterface, gunshipLaser, ridley, variables, textObjects);
-        evaluateGunshipLaserBunkerCollision(collisionInterface, gunshipLaser, bunkers);
-        evaluateMetroidLaserBunkerCollision(collisionInterface, metroidLasers, bunkers);
-        evaluateGunshipMetroidLaserCollision(collisionInterface, gunship, metroidLasers, gunshipLaser, textObjects);
+        evaluateGunshipLaserMetroidCollision(gunshipLaser, metroids, variables, textObjects);
+        evaluateGunshipLaserRidleyCollision(gunshipLaser, ridley, variables, textObjects);
+        evaluateGunshipLaserBunkerCollision(gunshipLaser, bunkers);
+        evaluateMetroidLaserBunkerCollision(metroidLasers, bunkers);
+        evaluateGunshipMetroidLaserCollision(gunship, metroidLasers, gunshipLaser, textObjects);
         if (haveMetroidsInvaded(metroids) || gunship.getLives() == 0)
         {
           endGame(isPlaying, gameOver, ridley, themes);

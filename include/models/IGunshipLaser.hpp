@@ -1,6 +1,8 @@
 #ifndef I_GUNSHIP_LASER_HPP
 #define I_GUNSHIP_LASER_HPP
 
+#include "./IGameObject.hpp"
+
 class IGunshipLaser : public IGameObject
 {
 public:

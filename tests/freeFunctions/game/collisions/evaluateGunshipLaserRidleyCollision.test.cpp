@@ -1,5 +1,4 @@
 #include "../../../../include/Game.hpp"
-#include "../../../mockInterfaces/MockCollision.hpp"
 #include "../../../mockModels/MockGunshipLaser.hpp"
 #include "../../../mockModels/MockRidley.hpp"
 #include "../../../mockModels/MockText.hpp"
@@ -10,7 +9,6 @@ using ::testing::Return;
 class EvaluateGunshipLaserRidleyCollisionTest : public testing::Test
 {
 protected:
-  NiceMock<MockCollision> collision;
   NiceMock<MockGunshipLaser> gunshipLaser;
   NiceMock<MockRidley> ridley;
   std::unordered_map<std::string, int> variables {
@@ -29,24 +27,24 @@ protected:
 
 TEST_F(EvaluateGunshipLaserRidleyCollisionTest, killsRidleyIfCollidingWithGunshipLaser)
 {
-  ON_CALL(collision, haveCollided)
+  ON_CALL(gunshipLaser, intersects)
       .WillByDefault(Return(true));
 
   EXPECT_CALL(ridley, die())
       .Times(1);
-  evaluateGunshipLaserRidleyCollision(collision, gunshipLaser, ridley, variables, textObjects);
+  evaluateGunshipLaserRidleyCollision(gunshipLaser, ridley, variables, textObjects);
 }
 
 TEST_F(EvaluateGunshipLaserRidleyCollisionTest, addsTheRidleyPointsToTheScore)
 {
-  ON_CALL(collision, haveCollided)
+  ON_CALL(gunshipLaser, intersects)
       .WillByDefault(Return(true));
   ON_CALL(ridley, getPoints())
       .WillByDefault(Return(150));
 
   EXPECT_CALL(scoreText, setString("Score: 580"))
       .Times(1);
-  evaluateGunshipLaserRidleyCollision(collision, gunshipLaser, ridley, variables, textObjects);
+  evaluateGunshipLaserRidleyCollision(gunshipLaser, ridley, variables, textObjects);
   EXPECT_EQ(variables["score"], 580);
 }
 
@@ -54,41 +52,41 @@ TEST_F(EvaluateGunshipLaserRidleyCollisionTest, updatesTheHighScoreTextIfScoreSu
 {
   variables["highScore"] = {450};
 
-  ON_CALL(collision, haveCollided)
+  ON_CALL(gunshipLaser, intersects)
       .WillByDefault(Return(true));
   ON_CALL(ridley, getPoints())
       .WillByDefault(Return(150));
 
   EXPECT_CALL(highScoreText, setString("High Score: 580"))
       .Times(1);
-  evaluateGunshipLaserRidleyCollision(collision, gunshipLaser, ridley, variables, textObjects);
+  evaluateGunshipLaserRidleyCollision(gunshipLaser, ridley, variables, textObjects);
 }
 
 TEST_F(EvaluateGunshipLaserRidleyCollisionTest, doesNotUpdatesTheHighScoreTextIfScoreDoesNotSurpassHighScore)
 {
-  ON_CALL(collision, haveCollided)
+  ON_CALL(gunshipLaser, intersects)
       .WillByDefault(Return(true));
   ON_CALL(ridley, getPoints())
       .WillByDefault(Return(150));
 
   EXPECT_CALL(highScoreText, setString)
       .Times(0);
-  evaluateGunshipLaserRidleyCollision(collision, gunshipLaser, ridley, variables, textObjects);
+  evaluateGunshipLaserRidleyCollision(gunshipLaser, ridley, variables, textObjects);
 }
 
 TEST_F(EvaluateGunshipLaserRidleyCollisionTest, resetsTheGunshipLaser)
 {
-  ON_CALL(collision, haveCollided)
+  ON_CALL(gunshipLaser, intersects)
       .WillByDefault(Return(true));
 
   EXPECT_CALL(gunshipLaser, resetPosition())
       .Times(1);
-  evaluateGunshipLaserRidleyCollision(collision, gunshipLaser, ridley, variables, textObjects);
+  evaluateGunshipLaserRidleyCollision(gunshipLaser, ridley, variables, textObjects);
 }
 
 TEST_F(EvaluateGunshipLaserRidleyCollisionTest, doesNotModifyAnythingIfRidleyAndLaserAreNotColliding)
 {
-  ON_CALL(collision, haveCollided)
+  ON_CALL(gunshipLaser, intersects)
       .WillByDefault(Return(false));
   ON_CALL(ridley, getPoints())
       .WillByDefault(Return(150));
@@ -99,6 +97,6 @@ TEST_F(EvaluateGunshipLaserRidleyCollisionTest, doesNotModifyAnythingIfRidleyAnd
       .Times(0);
   EXPECT_CALL(gunshipLaser, resetPosition)
       .Times(0);
-  evaluateGunshipLaserRidleyCollision(collision, gunshipLaser, ridley, variables, textObjects);
+  evaluateGunshipLaserRidleyCollision(gunshipLaser, ridley, variables, textObjects);
   EXPECT_EQ(variables["score"], 430);
 }

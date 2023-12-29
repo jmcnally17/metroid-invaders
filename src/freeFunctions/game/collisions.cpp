@@ -1,4 +1,3 @@
-#include "../../../include/interfaces/collisionInterface.hpp"
 #include "../../../include/models/IGunshipLaser.hpp"
 #include "../../../include/models/IMetroidLaser.hpp"
 #include "../../../include/models/IMetroid.hpp"
@@ -7,8 +6,7 @@
 #include "../../../include/models/IGunship.hpp"
 #include "../../../include/adaptors/IText.hpp"
 
-void evaluateGunshipLaserMetroidCollision(const CollisionInterface &collision,
-                                          IGunshipLaser &gunshipLaser,
+void evaluateGunshipLaserMetroidCollision(IGunshipLaser &gunshipLaser,
                                           const std::array<std::array<IMetroid*, 11>, 5> &metroids,
                                           std::unordered_map<std::string, int> &variables,
                                           const std::unordered_map<std::string, IText*> &textObjects)
@@ -17,7 +15,7 @@ void evaluateGunshipLaserMetroidCollision(const CollisionInterface &collision,
   {
     for (auto metroid : row)
     {
-      if (metroid->isAlive() && collision.haveCollided(gunshipLaser, *metroid))
+      if (metroid->isAlive() && gunshipLaser.intersects(*metroid))
       {
         metroid->die();
         variables["score"] += metroid->getPoints();
@@ -35,13 +33,12 @@ void evaluateGunshipLaserMetroidCollision(const CollisionInterface &collision,
   }
 }
 
-void evaluateGunshipLaserRidleyCollision(const CollisionInterface &collision,
-                                         IGunshipLaser &gunshipLaser,
+void evaluateGunshipLaserRidleyCollision(IGunshipLaser &gunshipLaser,
                                          IRidley &ridley,
                                          std::unordered_map<std::string, int> &variables,
                                          const std::unordered_map<std::string, IText*> &textObjects)
 {
-  if (collision.haveCollided(gunshipLaser, ridley))
+  if (gunshipLaser.intersects(ridley))
   {
     ridley.die();
     variables["score"] += ridley.getPoints();
@@ -56,11 +53,11 @@ void evaluateGunshipLaserRidleyCollision(const CollisionInterface &collision,
   }
 }
 
-void evaluateGunshipLaserBunkerCollision(const CollisionInterface &collision, IGunshipLaser &gunshipLaser, std::array<IBunker*, 4> &bunkers)
+void evaluateGunshipLaserBunkerCollision(IGunshipLaser &gunshipLaser, std::array<IBunker*, 4> &bunkers)
 {
   for (auto bunker : bunkers)
   {
-    if (bunker->getHealth() > 0 && collision.haveCollided(gunshipLaser, *bunker))
+    if (bunker->getHealth() > 0 && gunshipLaser.intersects(*bunker))
     {
       bunker->decreaseHealth();
       gunshipLaser.resetPosition();
@@ -69,7 +66,7 @@ void evaluateGunshipLaserBunkerCollision(const CollisionInterface &collision, IG
   }
 }
 
-void evaluateMetroidLaserBunkerCollision(const CollisionInterface &collision, const std::array<IMetroidLaser*, 3> &metroidLasers, std::array<IBunker*, 4> &bunkers)
+void evaluateMetroidLaserBunkerCollision(const std::array<IMetroidLaser*, 3> &metroidLasers, std::array<IBunker*, 4> &bunkers)
 {
   for (auto metroidLaser : metroidLasers)
   {
@@ -77,7 +74,7 @@ void evaluateMetroidLaserBunkerCollision(const CollisionInterface &collision, co
     while (count < 4)
     {
       IBunker *bunker = bunkers[count];
-      if (bunker->getHealth() > 0 && collision.haveCollided(*metroidLaser, *bunker))
+      if (bunker->getHealth() > 0 && metroidLaser->intersects(*bunker))
       {
         bunker->decreaseHealth();
         metroidLaser->resetPosition();
@@ -91,15 +88,14 @@ void evaluateMetroidLaserBunkerCollision(const CollisionInterface &collision, co
   }
 }
 
-void evaluateGunshipMetroidLaserCollision(const CollisionInterface &collision,
-                                          IGunship &gunship,
+void evaluateGunshipMetroidLaserCollision(IGunship &gunship,
                                           const std::array<IMetroidLaser*, 3> &metroidLasers,
                                           IGunshipLaser &gunshipLaser,
                                           const std::unordered_map<std::string, IText*> &textObjects)
 {
   for (auto metroidLaser : metroidLasers)
   {
-    if (collision.haveCollided(gunship, *metroidLaser))
+    if (gunship.intersects(*metroidLaser))
     {
       gunship.loseLife();
       gunship.resetPosition();

@@ -1,7 +1,7 @@
 #ifndef I_RIDLEY_HPP
 #define I_RIDLEY_HPP
 
-#include "./GameObject.hpp"
+#include "./IGameObject.hpp"
 
 class IRidley : public IGameObject
 {
