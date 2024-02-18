@@ -2,6 +2,7 @@
 #include "../include/Title.hpp"
 #include "../include/Game.hpp"
 #include "../include/GameOver.hpp"
+#include "../include/helpers/Collision.hpp"
 #include "../include/helpers/Factory.hpp"
 #include "../include/adaptors/RenderWindowAdaptor.hpp"
 #include "../include/adaptors/ClockAdaptor.hpp"
@@ -75,11 +76,7 @@ int main()
         {
           levelUp(variables, metroids, metroidLasers, ridley, movementClock);
         }
-        evaluateGunshipLaserMetroidCollision(gunshipLaser, metroids, variables, textObjects);
-        evaluateGunshipLaserRidleyCollision(gunshipLaser, ridley, variables, textObjects);
-        evaluateGunshipLaserBunkerCollision(gunshipLaser, bunkers);
-        evaluateMetroidLaserBunkerCollision(metroidLasers, bunkers);
-        evaluateGunshipMetroidLaserCollision(gunship, metroidLasers, gunshipLaser, textObjects);
+        Collision::checkForCollision(bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, textObjects, variables);
         if (haveMetroidsInvaded(metroids) || gunship.getLives() == 0)
         {
           endGame(isPlaying, gameOver, ridley, themes);

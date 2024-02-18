@@ -33,25 +33,6 @@ void levelUp(std::unordered_map<std::string, int> &variables,
              IRidley &ridley,
              IClock &movementClock);
 
-void evaluateGunshipLaserMetroidCollision(IGunshipLaser &gunshipLaser,
-                                          const std::array<std::array<IMetroid*, 11>, 5> &metroids,
-                                          std::unordered_map<std::string, int> &variables,
-                                          const std::unordered_map<std::string, IText*> &textObjects);
-
-void evaluateGunshipLaserRidleyCollision(IGunshipLaser &gunshipLaser,
-                                         IRidley &ridley,
-                                         std::unordered_map<std::string, int> &variables,
-                                         const std::unordered_map<std::string, IText*> &textObjects);
-
-void evaluateGunshipLaserBunkerCollision(IGunshipLaser &gunshipLaser, std::array<IBunker*, 4> &bunkers);
-
-void evaluateMetroidLaserBunkerCollision(const std::array<IMetroidLaser*, 3> &metroidLasers, std::array<IBunker*, 4> &bunkers);
-
-void evaluateGunshipMetroidLaserCollision(IGunship &gunship,
-                                          const std::array<IMetroidLaser*, 3> &metroidLasers,
-                                          IGunshipLaser &gunshipLaser,
-                                          const std::unordered_map<std::string, IText*> &textObjects);
-
 bool haveMetroidsInvaded(const std::array<std::array<IMetroid*, 11>, 5> &metroids);
 
 void moveGunship(IGunship &gunship, int direction);
