@@ -1,5 +1,5 @@
-#ifndef GAME_HPP
-#define GAME_HPP
+#ifndef GAME_FUNCTIONS_HPP
+#define GAME_FUNCTIONS_HPP
 
 #include "./adaptors/IRenderWindow.hpp"
 #include "./adaptors/ISound.hpp"

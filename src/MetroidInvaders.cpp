@@ -1,9 +1,10 @@
 #include "../include/MetroidInvaders.hpp"
 #include "../include/Title.hpp"
-#include "../include/Game.hpp"
-#include "../include/GameOver.hpp"
-#include "../include/helpers/Collision.hpp"
+#include "../include/game.hpp"
+#include "../include/gameOver.hpp"
+#include "../include/helpers/Game.hpp"
 #include "../include/helpers/Factory.hpp"
+#include "../include/helpers/game/Collision.hpp"
 #include "../include/adaptors/RenderWindowAdaptor.hpp"
 #include "../include/adaptors/ClockAdaptor.hpp"
 
@@ -43,6 +44,10 @@ int main()
     {"score", 0},
     {"highScore", 0},
   };
+  
+  // helpers
+  Collision collision;
+  Game game(collision);
 
   // final setup
   bool isPlaying {false};
@@ -76,7 +81,7 @@ int main()
         {
           levelUp(variables, metroids, metroidLasers, ridley, movementClock);
         }
-        Collision::checkForCollision(bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, textObjects, variables);
+        game.checkForCollisions(bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, textObjects, variables);
         if (haveMetroidsInvaded(metroids) || gunship.getLives() == 0)
         {
           endGame(isPlaying, gameOver, ridley, themes);
