@@ -12,17 +12,6 @@
 #include "./models/IMetroid.hpp"
 #include "./models/IRidley.hpp"
 
-void drawObjects(IRenderWindow &window,
-                 const std::unordered_map<std::string, ISprite*> &backgrounds,
-                 const std::array<IBunker*, 4> &bunkers,
-                 const IGunship &gunship,
-                 const IGunshipLaser &gunshipLaser,
-                 const std::array<std::array<IMetroid*, 11>, 5> &metroids,
-                 const std::array<IMetroidLaser*, 3> &metroidLasers,
-                 const IRidley &ridley,
-                 const std::unordered_map<std::string, IText*> &textObjects,
-                 const std::array<sf::RectangleShape, 2> &rectangles);
-
 void monitorRidleyMovementSound(IRidley &ridley);
 
 bool areMetroidsDead(const std::array<std::array<IMetroid*, 11>, 5> &metroids);

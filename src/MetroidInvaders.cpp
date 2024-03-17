@@ -4,6 +4,7 @@
 #include "../include/gameOver.hpp"
 #include "../include/helpers/Game.hpp"
 #include "../include/helpers/Factory.hpp"
+#include "../include/helpers/Graphics.hpp"
 #include "../include/helpers/game/Collision.hpp"
 #include "../include/adaptors/RenderWindowAdaptor.hpp"
 #include "../include/adaptors/ClockAdaptor.hpp"
@@ -47,6 +48,7 @@ int main()
   
   // helpers
   Collision collision;
+  Graphics graphics;
   Game game(collision);
 
   // final setup
@@ -75,7 +77,7 @@ int main()
     {
       if (isPlaying)
       {
-        drawObjects(window, backgrounds, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, textObjects, rectangles);
+        graphics.drawObjects(window, backgrounds, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, textObjects, rectangles);
         monitorRidleyMovementSound(ridley);
         if (areMetroidsDead(metroids))
         {
