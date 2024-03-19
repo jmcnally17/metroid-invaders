@@ -17,10 +17,11 @@ class GraphicsTest : public testing::Test
 protected:
   Graphics graphics;
   NiceMock<MockRenderWindow> window;
-  MockSprite gameBackground;
-  MockSprite *pGameBackground {&gameBackground};
+  MockSprite background;
+  MockSprite *pBackground {&background};
   std::unordered_map<std::string, ISprite*> backgrounds {
-    {"game", pGameBackground},
+    {"title", pBackground},
+    {"game", pBackground},
   };
   NiceMock<MockBunker> bunker;
   MockBunker *pBunker {&bunker};
@@ -43,13 +44,39 @@ protected:
   MockText text;
   MockText *pText {&text};
   std::unordered_map<std::string, IText*> textObjects {
+    {"title", pText},
+    {"instructions", pText},
     {"score", pText},
     {"highScore", pText},
     {"lives", pText},
+    {"gameOver", pText},
+    {"playAgain", pText},
   };
   sf::RectangleShape rectangle;
   std::array<sf::RectangleShape, 2> rectangles {rectangle, rectangle};
 };
+
+TEST_F(GraphicsTest, clearsTheWindow)
+{
+  EXPECT_CALL(window, clear())
+      .Times(1);
+  graphics.displayTitleScreen(window, backgrounds, textObjects);
+}
+
+TEST_F(GraphicsTest, drawsTheBackgroundImageAndTitleTextAndInstructionsText)
+{
+  EXPECT_CALL(window, draw(testing::Truly([](const sf::Drawable &drawable)
+                                          { return true; })))
+      .Times(3);
+  graphics.displayTitleScreen(window, backgrounds, textObjects);
+}
+
+TEST_F(GraphicsTest, displaysTheWindow)
+{
+  EXPECT_CALL(window, display())
+      .Times(1);
+  graphics.displayTitleScreen(window, backgrounds, textObjects);
+}
 
 TEST_F(GraphicsTest, drawObjectsCallsClearOnTheWindow)
 {
@@ -126,4 +153,26 @@ TEST_F(GraphicsTest, drawObjectsCallsDisplayOnTheWindow)
   EXPECT_CALL(window, display())
       .Times(1);
   graphics.drawObjects(window, backgrounds, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, textObjects, rectangles);
+}
+
+TEST_F(GraphicsTest, displayGameOverScreenCallsClearOnTheWindow)
+{
+  EXPECT_CALL(window, clear())
+      .Times(1);
+  graphics.displayGameOverScreen(window, textObjects);
+}
+
+TEST_F(GraphicsTest, displayGameOverScreenDrawsTheGameOverTextAndScoreTextAndPlayAgainText)
+{
+  EXPECT_CALL(window, draw(testing::Truly([](const sf::Drawable &drawable)
+                                          { return true; })))
+      .Times(3);
+  graphics.displayGameOverScreen(window, textObjects);
+}
+
+TEST_F(GraphicsTest, displayGameOverScreenCallsDisplayOnTheWindow)
+{
+  EXPECT_CALL(window, display())
+      .Times(1);
+  graphics.displayGameOverScreen(window, textObjects);
 }

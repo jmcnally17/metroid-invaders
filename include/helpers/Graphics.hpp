@@ -14,6 +14,7 @@
 class Graphics
 {
 public:
+  void displayTitleScreen(IRenderWindow &window, const std::unordered_map<std::string, ISprite*> &backgrounds, const std::unordered_map<std::string, IText*> &textObjects) const;
   void drawObjects(IRenderWindow &window,
                    const std::unordered_map<std::string, ISprite*> &backgrounds,
                    const std::array<IBunker*, 4> &bunkers,
@@ -24,6 +25,7 @@ public:
                    const IRidley &ridley,
                    const std::unordered_map<std::string, IText*> &textObjects,
                    const std::array<sf::RectangleShape, 2> &rectangles) const;
+  void displayGameOverScreen(IRenderWindow &window, const std::unordered_map<std::string, IText*> &textObjects) const;
 };
 
 #endif

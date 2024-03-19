@@ -110,7 +110,7 @@ int main()
       }
       else if (gameOver)
       {
-        displayGameOverScreen(window, textObjects);
+        graphics.displayGameOverScreen(window, textObjects);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
         {
           resetObjects(gunship, gunshipLaser, metroids, metroidLasers, ridley, bunkers);
@@ -120,7 +120,7 @@ int main()
       }
       else
       {
-        displayTitleScreen(window, backgrounds, textObjects);
+        graphics.displayTitleScreen(window, backgrounds, textObjects);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
         {
           play(isPlaying, themes, movementClock);

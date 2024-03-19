@@ -12,8 +12,6 @@
 #include "./models/IRidley.hpp"
 #include "./models/IBunker.hpp"
 
-void displayGameOverScreen(IRenderWindow &window, const std::unordered_map<std::string, IText*> &textObjects);
-
 void resetObjects(IGunship &gunship, IGunshipLaser &gunshipLaser,
                   const std::array<std::array<IMetroid*, 11>, 5> &metroids,
                   const std::array<IMetroidLaser*, 3> &metroidLasers,
