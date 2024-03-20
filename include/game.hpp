@@ -18,13 +18,7 @@ void levelUp(std::unordered_map<std::string, int> &variables,
              IRidley &ridley,
              IClock &movementClock);
 
-void moveGunship(IGunship &gunship, int direction);
-
-void moveGunshipLaser(IGunshipLaser &gunshipLaser);
-
 void moveMetroidLasers(const std::array<IMetroidLaser*, 3> &metroidLasers);
-
-void fireGunshipLaser(IGunship &gunship);
 
 void shootMetroidLaser(const std::array<std::array<IMetroid*, 11>, 5> &metroids, const std::array<IMetroidLaser*, 3> &metroidLasers);
 

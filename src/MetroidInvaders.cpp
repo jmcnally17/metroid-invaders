@@ -6,6 +6,7 @@
 #include "../include/helpers/Factory.hpp"
 #include "../include/helpers/Graphics.hpp"
 #include "../include/helpers/game/Collision.hpp"
+#include "../include/helpers/game/GunshipManager.hpp"
 #include "../include/helpers/game/MetroidManager.hpp"
 #include "../include/helpers/game/RidleyManager.hpp"
 #include "../include/adaptors/RenderWindowAdaptor.hpp"
@@ -52,6 +53,7 @@ int main()
   Collision collision;
   Graphics graphics;
   Game game(collision);
+  GunshipManager gunshipManager;
   MetroidManager metroidManager;
   RidleyManager ridleyManager;
 
@@ -95,19 +97,19 @@ int main()
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
         {
-          moveGunship(gunship, 1);
+          gunshipManager.moveGunship(gunship, 1);
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
         {
-          moveGunship(gunship, -1);
+          gunshipManager.moveGunship(gunship, -1);
         }
-        moveGunshipLaser(gunshipLaser);
+        gunshipManager.moveGunshipLaser(gunshipLaser);
         metroidManager.moveMetroids(metroids, movementClock, variables, metroidSounds);
         moveMetroidLasers(metroidLasers);
         ridleyManager.moveRidley(ridley);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
         {
-          fireGunshipLaser(gunship);
+          gunshipManager.fireGunshipLaser(gunship);
         }
         shootMetroidLaser(metroids, metroidLasers);
         ridleyManager.spawnRidley(ridley);
