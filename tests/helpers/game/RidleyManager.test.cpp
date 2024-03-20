@@ -1,9 +1,6 @@
 #include "../../../include/helpers/game/RidleyManager.hpp"
 #include "../../mockModels/MockRidley.hpp"
 
-using ::testing::NiceMock;
-using ::testing::Return;
-
 class RidleyManagerTest : public testing::Test
 {
 protected:

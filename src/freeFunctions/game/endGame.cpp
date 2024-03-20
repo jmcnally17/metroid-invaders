@@ -1,23 +1,7 @@
 #include <fstream>
-#include "../../../include/models/IMetroid.hpp"
 #include "../../../include/models/IRidley.hpp"
 #include "../../../include/adaptors/IText.hpp"
 #include "../../../include/adaptors/ISound.hpp"
-
-bool haveMetroidsInvaded(const std::array<std::array<IMetroid*, 11>, 5> &metroids)
-{
-  for (auto row : metroids)
-  {
-    for (auto metroid : row)
-    {
-      if (metroid->isAlive() && metroid->getPosition().y >= 1128)
-      {
-        return true;
-      }
-    }
-  }
-  return false;
-}
 
 void endGame(bool &isPlaying, bool &gameOver, IRidley &ridley, std::unordered_map<std::string, ISound*> &themes)
 {

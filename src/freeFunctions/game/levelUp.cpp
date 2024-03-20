@@ -2,21 +2,6 @@
 #include "../../../include/models/IRidley.hpp"
 #include "../../../include/adaptors/IClock.hpp"
 
-bool areMetroidsDead(const std::array<std::array<IMetroid*, 11>, 5> &metroids)
-{
-  for (auto row : metroids)
-  {
-    for (auto metroid : row)
-    {
-      if (metroid->isAlive())
-      {
-        return false;
-      }
-    }
-  }
-  return true;
-}
-
 void levelUp(std::unordered_map<std::string, int> &variables,
              const std::array<std::array<IMetroid*, 11>, 5> &metroids,
              const std::array<IMetroidLaser*, 3> &metroidLasers,

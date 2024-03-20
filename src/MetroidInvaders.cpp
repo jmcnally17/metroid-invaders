@@ -6,6 +6,7 @@
 #include "../include/helpers/Factory.hpp"
 #include "../include/helpers/Graphics.hpp"
 #include "../include/helpers/game/Collision.hpp"
+#include "../include/helpers/game/MetroidManager.hpp"
 #include "../include/helpers/game/RidleyManager.hpp"
 #include "../include/adaptors/RenderWindowAdaptor.hpp"
 #include "../include/adaptors/ClockAdaptor.hpp"
@@ -51,6 +52,7 @@ int main()
   Collision collision;
   Graphics graphics;
   Game game(collision);
+  MetroidManager metroidManager;
   RidleyManager ridleyManager;
 
   // final setup
@@ -81,12 +83,12 @@ int main()
       {
         graphics.drawObjects(window, backgrounds, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, textObjects, rectangles);
         ridleyManager.monitorRidleyMovementSound(ridley);
-        if (areMetroidsDead(metroids))
+        if (metroidManager.areMetroidsDead(metroids))
         {
           levelUp(variables, metroids, metroidLasers, ridley, movementClock);
         }
         game.checkForCollisions(bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, textObjects, variables);
-        if (haveMetroidsInvaded(metroids) || gunship.getLives() == 0)
+        if (metroidManager.haveMetroidsInvaded(metroids) || gunship.getLives() == 0)
         {
           endGame(isPlaying, gameOver, ridley, themes);
           updateHighScore(variables, textObjects);
@@ -100,7 +102,7 @@ int main()
           moveGunship(gunship, -1);
         }
         moveGunshipLaser(gunshipLaser);
-        moveMetroids(metroids, movementClock, variables, metroidSounds);
+        metroidManager.moveMetroids(metroids, movementClock, variables, metroidSounds);
         moveMetroidLasers(metroidLasers);
         ridleyManager.moveRidley(ridley);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))

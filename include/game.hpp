@@ -12,24 +12,15 @@
 #include "./models/IMetroid.hpp"
 #include "./models/IRidley.hpp"
 
-bool areMetroidsDead(const std::array<std::array<IMetroid*, 11>, 5> &metroids);
-
 void levelUp(std::unordered_map<std::string, int> &variables,
              const std::array<std::array<IMetroid*, 11>, 5> &metroids,
              const std::array<IMetroidLaser*, 3> &metroidLasers,
              IRidley &ridley,
              IClock &movementClock);
 
-bool haveMetroidsInvaded(const std::array<std::array<IMetroid*, 11>, 5> &metroids);
-
 void moveGunship(IGunship &gunship, int direction);
 
 void moveGunshipLaser(IGunshipLaser &gunshipLaser);
-
-void moveMetroids(const std::array<std::array<IMetroid*, 11>, 5> &metroids,
-                  IClock &movementClock,
-                  std::unordered_map<std::string, int> &variables,
-                  std::array<ISound*, 4> &sounds);
 
 void moveMetroidLasers(const std::array<IMetroidLaser*, 3> &metroidLasers);
 
