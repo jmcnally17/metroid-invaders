@@ -56,14 +56,14 @@ protected:
   std::array<sf::RectangleShape, 2> rectangles {rectangle, rectangle};
 };
 
-TEST_F(GraphicsTest, clearsTheWindow)
+TEST_F(GraphicsTest, displayTitleScreenClearsTheWindow)
 {
   EXPECT_CALL(window, clear())
       .Times(1);
   graphics.displayTitleScreen(window, backgrounds, textObjects);
 }
 
-TEST_F(GraphicsTest, drawsTheBackgroundImageAndTitleTextAndInstructionsText)
+TEST_F(GraphicsTest, displayTitleScreenDrawsTheBackgroundImageAndTitleTextAndInstructionsText)
 {
   EXPECT_CALL(window, draw(testing::Truly([](const sf::Drawable &drawable)
                                           { return true; })))
@@ -71,7 +71,7 @@ TEST_F(GraphicsTest, drawsTheBackgroundImageAndTitleTextAndInstructionsText)
   graphics.displayTitleScreen(window, backgrounds, textObjects);
 }
 
-TEST_F(GraphicsTest, displaysTheWindow)
+TEST_F(GraphicsTest, displayTitleScreenDisplaysTheWindow)
 {
   EXPECT_CALL(window, display())
       .Times(1);

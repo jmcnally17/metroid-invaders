@@ -6,6 +6,7 @@
 #include "../include/helpers/Factory.hpp"
 #include "../include/helpers/Graphics.hpp"
 #include "../include/helpers/game/Collision.hpp"
+#include "../include/helpers/game/RidleyManager.hpp"
 #include "../include/adaptors/RenderWindowAdaptor.hpp"
 #include "../include/adaptors/ClockAdaptor.hpp"
 
@@ -50,6 +51,7 @@ int main()
   Collision collision;
   Graphics graphics;
   Game game(collision);
+  RidleyManager ridleyManager;
 
   // final setup
   bool isPlaying {false};
@@ -78,7 +80,7 @@ int main()
       if (isPlaying)
       {
         graphics.drawObjects(window, backgrounds, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, textObjects, rectangles);
-        monitorRidleyMovementSound(ridley);
+        ridleyManager.monitorRidleyMovementSound(ridley);
         if (areMetroidsDead(metroids))
         {
           levelUp(variables, metroids, metroidLasers, ridley, movementClock);
@@ -100,13 +102,13 @@ int main()
         moveGunshipLaser(gunshipLaser);
         moveMetroids(metroids, movementClock, variables, metroidSounds);
         moveMetroidLasers(metroidLasers);
-        moveRidley(ridley);
+        ridleyManager.moveRidley(ridley);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
         {
           fireGunshipLaser(gunship);
         }
         shootMetroidLaser(metroids, metroidLasers);
-        spawnRidley(ridley);
+        ridleyManager.spawnRidley(ridley);
       }
       else if (gameOver)
       {

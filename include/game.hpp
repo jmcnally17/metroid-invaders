@@ -12,8 +12,6 @@
 #include "./models/IMetroid.hpp"
 #include "./models/IRidley.hpp"
 
-void monitorRidleyMovementSound(IRidley &ridley);
-
 bool areMetroidsDead(const std::array<std::array<IMetroid*, 11>, 5> &metroids);
 
 void levelUp(std::unordered_map<std::string, int> &variables,
@@ -35,13 +33,9 @@ void moveMetroids(const std::array<std::array<IMetroid*, 11>, 5> &metroids,
 
 void moveMetroidLasers(const std::array<IMetroidLaser*, 3> &metroidLasers);
 
-void moveRidley(IRidley &ridley);
-
 void fireGunshipLaser(IGunship &gunship);
 
 void shootMetroidLaser(const std::array<std::array<IMetroid*, 11>, 5> &metroids, const std::array<IMetroidLaser*, 3> &metroidLasers);
-
-void spawnRidley(IRidley &ridley);
 
 void endGame(bool &isPlaying, bool &gameOver, IRidley &ridley, std::unordered_map<std::string, ISound*> &themes);
 

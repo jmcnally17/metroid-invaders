@@ -52,8 +52,3 @@ void moveMetroidLasers(const std::array<IMetroidLaser*, 3> &metroidLasers)
     metroidLaser->move();
   }
 }
-
-void moveRidley(IRidley &ridley)
-{
-  ridley.move();
-}
