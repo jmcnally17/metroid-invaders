@@ -58,3 +58,25 @@ void MetroidManager::moveMetroids(const std::array<std::array<IMetroid*, 11>, 5>
     variables["soundCounter"]++;
   }
 }
+
+void MetroidManager::moveMetroidLasers(const std::array<IMetroidLaser*, 3> &metroidLasers) const
+{
+  for (auto metroidLaser : metroidLasers)
+  {
+    metroidLaser->move();
+  }
+}
+
+void MetroidManager::shootMetroidLaser(const std::array<std::array<IMetroid*, 11>, 5> &metroids, const std::array<IMetroidLaser*, 3> &metroidLasers) const
+{
+  for (auto row : metroids)
+  {
+    for (auto metroid : row)
+    {
+      if (metroid->isAlive())
+      {
+        metroid->shoot(metroidLasers);
+      }
+    }
+  }
+}

@@ -1,11 +1,13 @@
 #include "../../include/helpers/Game.hpp"
 #include "../mockHelpers/game/MockCollision.hpp"
 #include "../mockModels/MockBunker.hpp"
+#include "../mockModels/MockClock.hpp"
 #include "../mockModels/MockGunship.hpp"
 #include "../mockModels/MockGunshipLaser.hpp"
 #include "../mockModels/MockMetroid.hpp"
 #include "../mockModels/MockMetroidLaser.hpp"
 #include "../mockModels/MockRidley.hpp"
+#include "../mockModels/MockSound.hpp"
 #include "../mockModels/MockText.hpp"
 
 using ::testing::NiceMock;
@@ -38,6 +40,16 @@ protected:
   MockRidley *pRidley {&ridley};
   std::unordered_map<std::string, int> variables {};
   std::unordered_map<std::string, IText*> textObjects {};
+  bool isPlaying {false};
+  NiceMock<MockSound> titleTheme;
+  MockSound *pTitleTheme {&titleTheme};
+  NiceMock<MockSound> battleTheme;
+  MockSound *pBattleTheme {&battleTheme};
+  std::unordered_map<std::string, ISound*> themes {
+    {"title", pTitleTheme},
+    {"battle", pBattleTheme},
+  };
+  NiceMock<MockClock> movementClock;
 };
 
 TEST_F(GameTest, checkForCollisionsChecksGunshipLaserBunkerCollision)
@@ -73,4 +85,31 @@ TEST_F(GameTest, checkForCollisionsChecksMetroidLaserBunkerCollision)
   EXPECT_CALL(collision, checkMetroidLaserBunkerCollision(metroidLasers, bunkers))
     .Times(1);
   game.checkForCollisions(bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, textObjects, variables);
+}
+
+TEST_F(GameTest, playSetsIsPlayingToTrue)
+{
+  game.play(isPlaying, themes, movementClock);
+  EXPECT_TRUE(isPlaying);
+}
+
+TEST_F(GameTest, playStopsTheTitleTheme)
+{
+  EXPECT_CALL(titleTheme, stop())
+      .Times(1);
+  game.play(isPlaying, themes, movementClock);
+}
+
+TEST_F(GameTest, playPlaysTheBattleTheme)
+{
+  EXPECT_CALL(battleTheme, play())
+      .Times(1);
+  game.play(isPlaying, themes, movementClock);
+}
+
+TEST_F(GameTest, playRestartsTheClock)
+{
+  EXPECT_CALL(movementClock, restart())
+      .Times(1);
+  game.play(isPlaying, themes, movementClock);
 }

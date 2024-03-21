@@ -1,6 +1,7 @@
 #include "../../../include/helpers/game/MetroidManager.hpp"
 #include "../../mockModels/MockClock.hpp"
 #include "../../mockModels/MockMetroid.hpp"
+#include "../../mockModels/MockMetroidLaser.hpp"
 #include "../../mockModels/MockSound.hpp"
 
 using ::testing::NiceMock;
@@ -37,6 +38,9 @@ protected:
     {"step", 7},
     {"soundCounter", 1},
   };
+  MockMetroidLaser metroidLaser;
+  MockMetroidLaser *pMetroidLaser {&metroidLaser};
+  std::array<IMetroidLaser*, 3> metroidLasers {pMetroidLaser, pMetroidLaser, pMetroidLaser};
 };
 
 TEST_F(MetroidManagerTest, areMetroidsDeadReturnsTrueIfAllMetroidsAreDead)
@@ -217,4 +221,31 @@ TEST_F(MetroidManagerTest, moveMetroidsIncreasesSoundCounterBy1WhenTimeElapsedIs
 
   metroidManager.moveMetroids(metroids, movementClock, variables, sounds);
   EXPECT_EQ(variables["soundCounter"], 27);
+}
+
+TEST_F(MetroidManagerTest, moveMetroidLasersCallsMoveOnMetroidLasers)
+{
+  EXPECT_CALL(metroidLaser, move())
+      .Times(3);
+  metroidManager.moveMetroidLasers(metroidLasers);
+}
+
+TEST_F(MetroidManagerTest, shootMetroidLaserCallsShootOnMetroidsIfTheyAreAlive)
+{
+  ON_CALL(metroid1, isAlive())
+      .WillByDefault(Return(true));
+
+  EXPECT_CALL(metroid1, shoot)
+      .Times(55);
+  metroidManager.shootMetroidLaser(metroids, metroidLasers);
+}
+
+TEST_F(MetroidManagerTest, shootMetroidLaserDoesNotCallShootOnMetroidsIfTheyAreDead)
+{
+  ON_CALL(metroid1, isAlive())
+      .WillByDefault(Return(false));
+
+  EXPECT_CALL(metroid1, shoot)
+      .Times(0);
+  metroidManager.shootMetroidLaser(metroids, metroidLasers);
 }

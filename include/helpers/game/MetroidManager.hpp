@@ -4,6 +4,7 @@
 #include "../../adaptors/IClock.hpp"
 #include "../../adaptors/ISound.hpp"
 #include "../../models/IMetroid.hpp"
+#include "../../models/IMetroidLaser.hpp"
 
 class MetroidManager
 {
@@ -14,6 +15,8 @@ public:
                     IClock &movementClock,
                     std::unordered_map<std::string, int> &variables,
                     std::array<ISound*, 4> &sounds) const;
+  void moveMetroidLasers(const std::array<IMetroidLaser*, 3> &metroidLasers) const;
+  void shootMetroidLaser(const std::array<std::array<IMetroid*, 11>, 5> &metroids, const std::array<IMetroidLaser*, 3> &metroidLasers) const;
 };
 
 #endif

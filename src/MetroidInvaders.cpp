@@ -1,16 +1,13 @@
-#include "../include/MetroidInvaders.hpp"
-#include "../include/Title.hpp"
-#include "../include/game.hpp"
-#include "../include/gameOver.hpp"
-#include "../include/helpers/Game.hpp"
-#include "../include/helpers/Factory.hpp"
-#include "../include/helpers/Graphics.hpp"
-#include "../include/helpers/game/Collision.hpp"
-#include "../include/helpers/game/GunshipManager.hpp"
-#include "../include/helpers/game/MetroidManager.hpp"
-#include "../include/helpers/game/RidleyManager.hpp"
 #include "../include/adaptors/RenderWindowAdaptor.hpp"
 #include "../include/adaptors/ClockAdaptor.hpp"
+#include "../include/helpers/Factory.hpp"
+#include "../include/helpers/Game.hpp"
+#include "../include/helpers/game/Collision.hpp"
+#include "../include/helpers/game/GunshipManager.hpp"
+#include "../include/helpers/game/LevelManager.hpp"
+#include "../include/helpers/game/MetroidManager.hpp"
+#include "../include/helpers/game/RidleyManager.hpp"
+#include "../include/helpers/Graphics.hpp"
 
 int main()
 {
@@ -54,13 +51,14 @@ int main()
   Graphics graphics;
   Game game(collision);
   GunshipManager gunshipManager;
+  LevelManager levelManager;
   MetroidManager metroidManager;
   RidleyManager ridleyManager;
 
   // final setup
   bool isPlaying {false};
   bool gameOver {false};
-  pullHighScore(variables, *textObjects["highScore"]);
+  game.pullHighScore(variables, *textObjects["highScore"]);
   auto titleTheme {themes.find("title")->second};
   titleTheme->play();
 
@@ -75,7 +73,7 @@ int main()
       }
       else if (event.type == sf::Event::Resized)
       {
-        adjustView(window, event.size.width, event.size.height);
+        game.adjustView(window, event.size.width, event.size.height);
       }
     }
 
@@ -87,13 +85,13 @@ int main()
         ridleyManager.monitorRidleyMovementSound(ridley);
         if (metroidManager.areMetroidsDead(metroids))
         {
-          levelUp(variables, metroids, metroidLasers, ridley, movementClock);
+          levelManager.levelUp(variables, metroids, metroidLasers, ridley, movementClock);
         }
         game.checkForCollisions(bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, textObjects, variables);
         if (metroidManager.haveMetroidsInvaded(metroids) || gunship.getLives() == 0)
         {
-          endGame(isPlaying, gameOver, ridley, themes);
-          updateHighScore(variables, textObjects);
+          levelManager.endGame(isPlaying, gameOver, ridley, themes);
+          levelManager.updateHighScore(variables, textObjects);
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
         {
@@ -105,13 +103,13 @@ int main()
         }
         gunshipManager.moveGunshipLaser(gunshipLaser);
         metroidManager.moveMetroids(metroids, movementClock, variables, metroidSounds);
-        moveMetroidLasers(metroidLasers);
+        metroidManager.moveMetroidLasers(metroidLasers);
         ridleyManager.moveRidley(ridley);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
         {
           gunshipManager.fireGunshipLaser(gunship);
         }
-        shootMetroidLaser(metroids, metroidLasers);
+        metroidManager.shootMetroidLaser(metroids, metroidLasers);
         ridleyManager.spawnRidley(ridley);
       }
       else if (gameOver)
@@ -119,9 +117,9 @@ int main()
         graphics.displayGameOverScreen(window, textObjects);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
         {
-          resetObjects(gunship, gunshipLaser, metroids, metroidLasers, ridley, bunkers);
-          resetValues(isPlaying, gameOver, variables);
-          resetInformationObjects(textObjects, themes, movementClock);
+          levelManager.resetObjects(gunship, gunshipLaser, metroids, metroidLasers, ridley, bunkers);
+          levelManager.resetValues(isPlaying, gameOver, variables);
+          levelManager.resetInformationObjects(textObjects, themes, movementClock);
         }
       }
       else
@@ -129,7 +127,7 @@ int main()
         graphics.displayTitleScreen(window, backgrounds, textObjects);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
         {
-          play(isPlaying, themes, movementClock);
+          game.play(isPlaying, themes, movementClock);
         }
       }
       frameClock.restart();
