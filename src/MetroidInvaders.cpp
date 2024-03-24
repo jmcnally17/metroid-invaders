@@ -3,6 +3,7 @@
 #include "../include/helpers/Factory.hpp"
 #include "../include/helpers/Game.hpp"
 #include "../include/helpers/game/Collision.hpp"
+#include "../include/helpers/game/GameObjectManager.hpp"
 #include "../include/helpers/game/GunshipManager.hpp"
 #include "../include/helpers/game/LevelManager.hpp"
 #include "../include/helpers/game/MetroidManager.hpp"
@@ -47,13 +48,14 @@ int main()
   };
   
   // helpers
-  Collision collision;
+  Collision *collision {new Collision()};
   Graphics graphics;
-  Game game(collision);
-  GunshipManager gunshipManager;
-  LevelManager levelManager;
-  MetroidManager metroidManager;
-  RidleyManager ridleyManager;
+  Game game;
+  GunshipManager *gunshipManager {new GunshipManager()};
+  LevelManager *levelManager {new LevelManager()};
+  MetroidManager *metroidManager {new MetroidManager()};
+  RidleyManager *ridleyManager {new RidleyManager};
+  GameObjectManager gameObjectManager(collision, gunshipManager, levelManager, metroidManager, ridleyManager);
 
   // final setup
   bool isPlaying {false};
@@ -82,44 +84,16 @@ int main()
       if (isPlaying)
       {
         graphics.drawObjects(window, backgrounds, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, textObjects, rectangles);
-        ridleyManager.monitorRidleyMovementSound(ridley);
-        if (metroidManager.areMetroidsDead(metroids))
-        {
-          levelManager.levelUp(variables, metroids, metroidLasers, ridley, movementClock);
-        }
-        game.checkForCollisions(bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, textObjects, variables);
-        if (metroidManager.haveMetroidsInvaded(metroids) || gunship.getLives() == 0)
-        {
-          levelManager.endGame(isPlaying, gameOver, ridley, themes);
-          levelManager.updateHighScore(variables, textObjects);
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-        {
-          gunshipManager.moveGunship(gunship, 1);
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-        {
-          gunshipManager.moveGunship(gunship, -1);
-        }
-        gunshipManager.moveGunshipLaser(gunshipLaser);
-        metroidManager.moveMetroids(metroids, movementClock, variables, metroidSounds);
-        metroidManager.moveMetroidLasers(metroidLasers);
-        ridleyManager.moveRidley(ridley);
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-        {
-          gunshipManager.fireGunshipLaser(gunship);
-        }
-        metroidManager.shootMetroidLaser(metroids, metroidLasers);
-        ridleyManager.spawnRidley(ridley);
+        gameObjectManager.implementGameObjects(bunkers, gunship, gunshipLaser, metroids, metroidLasers, metroidSounds, ridley, textObjects, themes, variables, isPlaying, gameOver, movementClock);
       }
       else if (gameOver)
       {
         graphics.displayGameOverScreen(window, textObjects);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
         {
-          levelManager.resetObjects(gunship, gunshipLaser, metroids, metroidLasers, ridley, bunkers);
-          levelManager.resetValues(isPlaying, gameOver, variables);
-          levelManager.resetInformationObjects(textObjects, themes, movementClock);
+          levelManager->resetObjects(gunship, gunshipLaser, metroids, metroidLasers, ridley, bunkers);
+          levelManager->resetValues(isPlaying, gameOver, variables);
+          levelManager->resetInformationObjects(textObjects, themes, movementClock);
         }
       }
       else

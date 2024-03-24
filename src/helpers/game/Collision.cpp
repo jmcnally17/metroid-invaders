@@ -1,5 +1,14 @@
 #include "../../../include/helpers/game/Collision.hpp"
 
+void Collision::checkCollisions(const std::array<IBunker *, 4> &bunkers, IGunship &gunship, IGunshipLaser &gunshipLaser, const std::array<std::array<IMetroid *, 11>, 5> &metroids, const std::array<IMetroidLaser *, 3> &metroidLasers, IRidley &ridley, const std::unordered_map<std::string, IText *> &textObjects, std::unordered_map<std::string, int> &variables) const
+{
+  checkGunshipLaserMetroidCollision(gunshipLaser, metroids, variables, textObjects);
+  checkGunshipLaserRidleyCollision(gunshipLaser, ridley, variables, textObjects);
+  checkGunshipLaserBunkerCollision(gunshipLaser, bunkers);
+  checkMetroidLaserBunkerCollision(metroidLasers, bunkers);
+  checkGunshipMetroidLaserCollision(gunship, metroidLasers, gunshipLaser, textObjects);
+}
+
 void Collision::checkGunshipLaserBunkerCollision(IGunshipLaser &gunshipLaser, const std::array<IBunker*, 4> &bunkers) const
 {
   for (auto bunker : bunkers)

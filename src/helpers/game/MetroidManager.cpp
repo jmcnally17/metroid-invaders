@@ -33,7 +33,7 @@ bool MetroidManager::haveMetroidsInvaded(const std::array<std::array<IMetroid*, 
 void MetroidManager::moveMetroids(const std::array<std::array<IMetroid*, 11>, 5> &metroids,
                   IClock &movementClock,
                   std::unordered_map<std::string, int> &variables,
-                  std::array<ISound*, 4> &sounds) const
+                  const std::array<ISound*, 4> &sounds) const
 {
   if (movementClock.getElapsedTime().asMilliseconds() >= variables["interval"] * variables["step"])
   {

@@ -1,8 +1,6 @@
 #include <fstream>
 #include "../../include/helpers/Game.hpp"
 
-Game::Game(ICollision &collision) : collision_(collision){}
-
 void Game::pullHighScore(std::unordered_map<std::string, int> &variables, IText &highScoreText) const
 {
   std::string highScoreString;
@@ -39,15 +37,6 @@ void Game::adjustView(IRenderWindow &window, int windowWidth, int windowHeight) 
 
   sf::FloatRect visibleArea(newXOrigin, newYOrigin, newWidth, newHeight);
   window.setView(sf::View(visibleArea));
-}
-
-void Game::checkForCollisions(const std::array<IBunker *, 4> &bunkers, IGunship &gunship, IGunshipLaser &gunshipLaser, const std::array<std::array<IMetroid *, 11>, 5> &metroids, const std::array<IMetroidLaser *, 3> &metroidLasers, IRidley &ridley, const std::unordered_map<std::string, IText *> &textObjects, std::unordered_map<std::string, int> &variables) const
-{
-  collision_.checkGunshipLaserMetroidCollision(gunshipLaser, metroids, variables, textObjects);
-  collision_.checkGunshipLaserRidleyCollision(gunshipLaser, ridley, variables, textObjects);
-  collision_.checkGunshipLaserBunkerCollision(gunshipLaser, bunkers);
-  collision_.checkMetroidLaserBunkerCollision(metroidLasers, bunkers);
-  collision_.checkGunshipMetroidLaserCollision(gunship, metroidLasers, gunshipLaser, textObjects);
 }
 
 void Game::play(bool &isPlaying, const std::unordered_map<std::string, ISound*> &themes, IClock &movementClock) const

@@ -37,7 +37,7 @@ void LevelManager::levelUp(std::unordered_map<std::string, int> &variables,
   movementClock.restart();
 }
 
-void LevelManager::endGame(bool &isPlaying, bool &gameOver, IRidley &ridley, std::unordered_map<std::string, ISound*> &themes) const
+void LevelManager::endGame(bool &isPlaying, bool &gameOver, IRidley &ridley, const std::unordered_map<std::string, ISound*> &themes) const
 {
   isPlaying = false;
   gameOver = true;
