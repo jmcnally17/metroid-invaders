@@ -12,9 +12,8 @@
 
 int main()
 {
-  // set up the game window
+  // set up the game window and frame clock
   RenderWindowAdaptor window(sf::VideoMode(1536, 1344), "Metroid Invaders");
-  
   ClockAdaptor frameClock;
   
   // backgrounds
@@ -57,7 +56,7 @@ int main()
   RidleyManager *ridleyManager {new RidleyManager};
   GameObjectManager gameObjectManager(collision, gunshipManager, levelManager, metroidManager, ridleyManager);
 
-  // final setup
+  // final setup for the title screen
   bool isPlaying {false};
   bool gameOver {false};
   game.pullHighScore(variables, *textObjects["highScore"]);
@@ -91,9 +90,7 @@ int main()
         graphics.displayGameOverScreen(window, textObjects);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
         {
-          levelManager->resetObjects(gunship, gunshipLaser, metroids, metroidLasers, ridley, bunkers);
-          levelManager->resetValues(isPlaying, gameOver, variables);
-          levelManager->resetInformationObjects(textObjects, themes, movementClock);
+          levelManager->reset(gunship, gunshipLaser, metroids, metroidLasers, ridley, bunkers, isPlaying, gameOver, variables, textObjects, themes, movementClock);
         }
       }
       else
