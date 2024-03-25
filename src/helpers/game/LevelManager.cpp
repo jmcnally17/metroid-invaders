@@ -71,16 +71,16 @@ void LevelManager::updateHighScore(std::unordered_map<std::string, int> &variabl
 }
 
 void LevelManager::reset(IGunship &gunship,
-                   IGunshipLaser &gunshipLaser,
-                   const std::array<std::array<IMetroid*, 11>, 5> &metroids,
-                   const std::array<IMetroidLaser*, 3> &metroidLasers,
-                   IRidley &ridley,
-                   const std::array<IBunker*, 4> &bunkers,
-                   bool &isPlaying, bool &gameOver,
-                   std::unordered_map<std::string, int> &variables,
-                   const std::unordered_map<std::string, IText*> &textObjects,
-                   const std::unordered_map<std::string, ISound*> &themes,
-                   IClock &movementClock) const
+                         IGunshipLaser &gunshipLaser,
+                         const std::array<std::array<IMetroid*, 11>, 5> &metroids,
+                         const std::array<IMetroidLaser*, 3> &metroidLasers,
+                         IRidley &ridley,
+                         const std::array<IBunker*, 4> &bunkers,
+                         bool &isPlaying, bool &gameOver,
+                         std::unordered_map<std::string, int> &variables,
+                         const std::unordered_map<std::string, IText*> &textObjects,
+                         const std::unordered_map<std::string, ISound*> &themes,
+                         IClock &movementClock) const
 {
   resetObjects(gunship, gunshipLaser, metroids, metroidLasers, ridley, bunkers);
   resetValues(isPlaying, gameOver, variables);
@@ -88,10 +88,10 @@ void LevelManager::reset(IGunship &gunship,
 }
 
 void LevelManager::resetObjects(IGunship &gunship, IGunshipLaser &gunshipLaser,
-                  const std::array<std::array<IMetroid*, 11>, 5> &metroids,
-                  const std::array<IMetroidLaser*, 3> &metroidLasers,
-                  IRidley &ridley,
-                  const std::array<IBunker*, 4> &bunkers) const
+                                const std::array<std::array<IMetroid*, 11>, 5> &metroids,
+                                const std::array<IMetroidLaser*, 3> &metroidLasers,
+                                IRidley &ridley,
+                                const std::array<IBunker*, 4> &bunkers) const
 {
   gunship.reset();
   gunshipLaser.resetPosition();
