@@ -1,4 +1,5 @@
 #include "../../../include/helpers/game/LevelManager.hpp"
+#include "../../../include/struct/GameObjectList.hpp"
 #include "../../mockModels/MockBunker.hpp"
 #include "../../mockModels/MockClock.hpp"
 #include "../../mockModels/MockGunship.hpp"
@@ -15,6 +16,15 @@ using ::testing::Return;
 class LevelManagerTest : public testing::Test
 {
 protected:
+  void SetUp() override {
+    gameObjects.bunkers = bunkers;
+    gameObjects.gunship = pGunship;
+    gameObjects.gunshipLaser = pGunshipLaser;
+    gameObjects.metroids = metroids;
+    gameObjects.metroidLasers = metroidLasers;
+    gameObjects.ridley = pRidley;
+  };
+  
   LevelManager levelManager;
   std::unordered_map<std::string, int> variables {
     {"interval", 105},
@@ -23,6 +33,13 @@ protected:
     {"step", 15},
     {"score", 1030},
   };
+  NiceMock<MockGunship> gunship;
+  MockGunship *pGunship {&gunship};
+  NiceMock<MockGunshipLaser> gunshipLaser;
+  MockGunshipLaser *pGunshipLaser {&gunshipLaser};
+  NiceMock<MockBunker> bunker;
+  MockBunker *pBunker {&bunker};
+  std::array<IBunker*, 4> bunkers {pBunker, pBunker, pBunker, pBunker};
   NiceMock<MockMetroid> metroid;
   MockMetroid *pMetroid {&metroid};
   std::array<std::array<IMetroid*, 11>, 5> metroids {{
@@ -36,6 +53,8 @@ protected:
   MockMetroidLaser *pMetroidLaser {&metroidLaser};
   std::array<IMetroidLaser*, 3> metroidLasers {pMetroidLaser, pMetroidLaser, pMetroidLaser};
   NiceMock<MockRidley> ridley;
+  MockRidley *pRidley {&ridley};
+  GameObjectList gameObjects;
   NiceMock<MockClock> movementClock;
   bool isPlaying {true};
   bool gameOver {false};
@@ -55,34 +74,29 @@ protected:
     {"score", pScoreText},
     {"lives", pLivesText},
   };
-  NiceMock<MockGunship> gunship;
-  NiceMock<MockGunshipLaser> gunshipLaser;
-  NiceMock<MockBunker> bunker;
-  MockBunker *pBunker {&bunker};
-  std::array<IBunker*, 4> bunkers {pBunker, pBunker, pBunker, pBunker};
 };
 
 TEST_F(LevelManagerTest, levelUpAdds1ToTheLevelVariable)
 {
-  levelManager.levelUp(variables, metroids, metroidLasers, ridley, movementClock);
+  levelManager.levelUp(variables, gameObjects, movementClock);
   EXPECT_EQ(variables["level"], 6);
 }
 
 TEST_F(LevelManagerTest, levelUpResetsTheInterval)
 {
-  levelManager.levelUp(variables, metroids, metroidLasers, ridley, movementClock);
+  levelManager.levelUp(variables, gameObjects, movementClock);
   EXPECT_EQ(variables["interval"], 665);
 }
 
 TEST_F(LevelManagerTest, levelUpResetsTheStepCounter)
 {
-  levelManager.levelUp(variables, metroids, metroidLasers, ridley, movementClock);
+  levelManager.levelUp(variables, gameObjects, movementClock);
   EXPECT_EQ(variables["step"], 1);
 }
 
 TEST_F(LevelManagerTest, levelUpResetsTheSoundCounter)
 {
-  levelManager.levelUp(variables, metroids, metroidLasers, ridley, movementClock);
+  levelManager.levelUp(variables, gameObjects, movementClock);
   EXPECT_EQ(variables["soundCounter"], 0);
 }
 
@@ -90,7 +104,7 @@ TEST_F(LevelManagerTest, levelUpCallsResurrectOnEachMetroid)
 {
   EXPECT_CALL(metroid, resurrect())
       .Times(55);
-  levelManager.levelUp(variables, metroids, metroidLasers, ridley, movementClock);
+  levelManager.levelUp(variables, gameObjects, movementClock);
 }
 
 TEST_F(LevelManagerTest, levelUpChangesDirectionOnMetroidsIfTheyAreMovingLeft)
@@ -100,7 +114,7 @@ TEST_F(LevelManagerTest, levelUpChangesDirectionOnMetroidsIfTheyAreMovingLeft)
 
   EXPECT_CALL(metroid, changeDirection())
       .Times(55);
-  levelManager.levelUp(variables, metroids, metroidLasers, ridley, movementClock);
+  levelManager.levelUp(variables, gameObjects, movementClock);
 }
 
 TEST_F(LevelManagerTest, levelUpDoesNotChangeDirectionOnMetroidsIfTheyAreMovingRight)
@@ -110,7 +124,7 @@ TEST_F(LevelManagerTest, levelUpDoesNotChangeDirectionOnMetroidsIfTheyAreMovingR
 
   EXPECT_CALL(metroid, changeDirection)
       .Times(0);
-  levelManager.levelUp(variables, metroids, metroidLasers, ridley, movementClock);
+  levelManager.levelUp(variables, gameObjects, movementClock);
 }
 
 TEST_F(LevelManagerTest, levelUpSetsNextLevelPositionOnMetroids)
@@ -120,35 +134,35 @@ TEST_F(LevelManagerTest, levelUpSetsNextLevelPositionOnMetroids)
 
   EXPECT_CALL(metroid, setPosition(sf::Vector2f(400, 1170)))
       .Times(55);
-  levelManager.levelUp(variables, metroids, metroidLasers, ridley, movementClock);
+  levelManager.levelUp(variables, gameObjects, movementClock);
 }
 
 TEST_F(LevelManagerTest, levelUpResetsTheMetroidLasers)
 {
   EXPECT_CALL(metroidLaser, resetPosition())
       .Times(3);
-  levelManager.levelUp(variables, metroids, metroidLasers, ridley, movementClock);
+  levelManager.levelUp(variables, gameObjects, movementClock);
 }
 
 TEST_F(LevelManagerTest, levelUpResetsRidley)
 {
   EXPECT_CALL(ridley, reset())
       .Times(1);
-  levelManager.levelUp(variables, metroids, metroidLasers, ridley, movementClock);
+  levelManager.levelUp(variables, gameObjects, movementClock);
 }
 
 TEST_F(LevelManagerTest, levelUpStopsRidleyMovementSoundIfPlaying)
 {
   EXPECT_CALL(ridley, stopMovementSoundIfPlaying())
       .Times(1);
-  levelManager.levelUp(variables, metroids, metroidLasers, ridley, movementClock);
+  levelManager.levelUp(variables, gameObjects, movementClock);
 }
 
 TEST_F(LevelManagerTest, levelUpRestartsTheClock)
 {
   EXPECT_CALL(movementClock, restart())
       .Times(1);
-  levelManager.levelUp(variables, metroids, metroidLasers, ridley, movementClock);
+  levelManager.levelUp(variables, gameObjects, movementClock);
 }
 
 TEST_F(LevelManagerTest, endGameChangesIsPlayingToFalse)
@@ -188,42 +202,42 @@ TEST_F(LevelManagerTest, resetObjectsResetsTheGunship)
 {
   EXPECT_CALL(gunship, reset())
       .Times(1);
-  levelManager.resetObjects(gunship, gunshipLaser, metroids, metroidLasers, ridley, bunkers);
+  levelManager.resetObjects(gameObjects);
 }
 
 TEST_F(LevelManagerTest, resetObjectsResetsTheGunshipLaser)
 {
   EXPECT_CALL(gunshipLaser, resetPosition())
       .Times(1);
-  levelManager.resetObjects(gunship, gunshipLaser, metroids, metroidLasers, ridley, bunkers);
+  levelManager.resetObjects(gameObjects);
 }
 
 TEST_F(LevelManagerTest, resetObjectsResetsTheMetroids)
 {
   EXPECT_CALL(metroid, reset())
       .Times(55);
-  levelManager.resetObjects(gunship, gunshipLaser, metroids, metroidLasers, ridley, bunkers);
+  levelManager.resetObjects(gameObjects);
 }
 
 TEST_F(LevelManagerTest, resetObjectsResetsMetroidLasers)
 {
   EXPECT_CALL(metroidLaser, resetPosition())
       .Times(3);
-  levelManager.resetObjects(gunship, gunshipLaser, metroids, metroidLasers, ridley, bunkers);
+  levelManager.resetObjects(gameObjects);
 }
 
 TEST_F(LevelManagerTest, resetObjectsResetsRidley)
 {
   EXPECT_CALL(ridley, reset())
       .Times(1);
-  levelManager.resetObjects(gunship, gunshipLaser, metroids, metroidLasers, ridley, bunkers);
+  levelManager.resetObjects(gameObjects);
 }
 
 TEST_F(LevelManagerTest, resetObjectsResetsTheBunkers)
 {
   EXPECT_CALL(bunker, reset())
       .Times(4);
-  levelManager.resetObjects(gunship, gunshipLaser, metroids, metroidLasers, ridley, bunkers);
+  levelManager.resetObjects(gameObjects);
 }
 
 TEST_F(LevelManagerTest, resetValuesSetsIsPlayingToTrue)

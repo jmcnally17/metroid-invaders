@@ -1,4 +1,5 @@
 #include "../../include/helpers/Graphics.hpp"
+#include "../../include/struct/GameObjectList.hpp"
 #include "../mockModels/MockBunker.hpp"
 #include "../mockModels/MockGunship.hpp"
 #include "../mockModels/MockGunshipLaser.hpp"
@@ -15,6 +16,15 @@ using ::testing::Return;
 class GraphicsTest : public testing::Test
 {
 protected:
+  void SetUp() override {
+    gameObjects.bunkers = bunkers;
+    gameObjects.gunship = pGunship;
+    gameObjects.gunshipLaser = pGunshipLaser;
+    gameObjects.metroids = metroids;
+    gameObjects.metroidLasers = metroidLasers;
+    gameObjects.ridley = pRidley;
+  };
+  
   Graphics graphics;
   NiceMock<MockRenderWindow> window;
   MockSprite background;
@@ -27,7 +37,9 @@ protected:
   MockBunker *pBunker {&bunker};
   std::array<IBunker*, 4> bunkers {pBunker, pBunker, pBunker, pBunker};
   NiceMock<MockGunship> gunship;
+  MockGunship *pGunship {&gunship};
   NiceMock<MockGunshipLaser> gunshipLaser;
+  MockGunshipLaser *pGunshipLaser {&gunshipLaser};
   NiceMock<MockMetroid> metroid;
   MockMetroid *pMetroid {&metroid};
   std::array<std::array<IMetroid*, 11>, 5> metroids {{
@@ -41,6 +53,8 @@ protected:
   MockMetroidLaser *pMetroidLaser {&metroidLaser};
   std::array<IMetroidLaser*, 3> metroidLasers {pMetroidLaser, pMetroidLaser, pMetroidLaser};
   NiceMock<MockRidley> ridley;
+  MockRidley *pRidley {&ridley};
+  GameObjectList gameObjects;
   MockText text;
   MockText *pText {&text};
   std::unordered_map<std::string, IText*> textObjects {
@@ -82,28 +96,28 @@ TEST_F(GraphicsTest, drawObjectsCallsClearOnTheWindow)
 {
   EXPECT_CALL(window, clear())
       .Times(1);
-  graphics.drawObjects(window, backgrounds, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, textObjects, rectangles);
+  graphics.drawObjects(window, backgrounds, gameObjects, textObjects, rectangles);
 }
 
 TEST_F(GraphicsTest, drawObjectsCallsDrawOnTheBunkers)
 {
   EXPECT_CALL(bunker, draw)
       .Times(4);
-  graphics.drawObjects(window, backgrounds, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, textObjects, rectangles);
+  graphics.drawObjects(window, backgrounds, gameObjects, textObjects, rectangles);
 }
 
 TEST_F(GraphicsTest, drawObjectsCallsDrawOnTheGunship)
 {
   EXPECT_CALL(gunship, draw)
       .Times(1);
-  graphics.drawObjects(window, backgrounds, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, textObjects, rectangles);
+  graphics.drawObjects(window, backgrounds, gameObjects, textObjects, rectangles);
 }
 
 TEST_F(GraphicsTest, drawObjectsCallsDrawOnTheGunshipLaser)
 {
   EXPECT_CALL(gunshipLaser, draw)
       .Times(1);
-  graphics.drawObjects(window, backgrounds, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, textObjects, rectangles);
+  graphics.drawObjects(window, backgrounds, gameObjects, textObjects, rectangles);
 }
 
 TEST_F(GraphicsTest, drawObjectsCallsDrawOnAllTheMetroidsIfTheyAreAlive)
@@ -113,7 +127,7 @@ TEST_F(GraphicsTest, drawObjectsCallsDrawOnAllTheMetroidsIfTheyAreAlive)
 
   EXPECT_CALL(metroid, draw)
       .Times(55);
-  graphics.drawObjects(window, backgrounds, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, textObjects, rectangles);
+  graphics.drawObjects(window, backgrounds, gameObjects, textObjects, rectangles);
 }
 
 TEST_F(GraphicsTest, drawObjectsDoesNotCallDrawOnAllTheMetroidsIfTheyAreDead)
@@ -123,21 +137,21 @@ TEST_F(GraphicsTest, drawObjectsDoesNotCallDrawOnAllTheMetroidsIfTheyAreDead)
 
   EXPECT_CALL(metroid, draw)
       .Times(0);
-  graphics.drawObjects(window, backgrounds, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, textObjects, rectangles);
+  graphics.drawObjects(window, backgrounds, gameObjects, textObjects, rectangles);
 }
 
 TEST_F(GraphicsTest, drawObjectsDrawsTheMetroidLasers)
 {
   EXPECT_CALL(metroidLaser, draw)
       .Times(3);
-  graphics.drawObjects(window, backgrounds, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, textObjects, rectangles);
+  graphics.drawObjects(window, backgrounds, gameObjects, textObjects, rectangles);
 }
 
 TEST_F(GraphicsTest, drawObjectsDrawsRidley)
 {
   EXPECT_CALL(ridley, draw)
       .Times(1);
-  graphics.drawObjects(window, backgrounds, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, textObjects, rectangles);
+  graphics.drawObjects(window, backgrounds, gameObjects, textObjects, rectangles);
 }
 
 TEST_F(GraphicsTest, drawObjectsDrawsTheBackgroundAndScoreAndHighScoreAndLivesTextAndRectangles)
@@ -145,14 +159,14 @@ TEST_F(GraphicsTest, drawObjectsDrawsTheBackgroundAndScoreAndHighScoreAndLivesTe
   EXPECT_CALL(window, draw(testing::Truly([](const sf::Drawable &drawable)
                                           { return true; })))
       .Times(6);
-  graphics.drawObjects(window, backgrounds, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, textObjects, rectangles);
+  graphics.drawObjects(window, backgrounds, gameObjects, textObjects, rectangles);
 }
 
 TEST_F(GraphicsTest, drawObjectsCallsDisplayOnTheWindow)
 {
   EXPECT_CALL(window, display())
       .Times(1);
-  graphics.drawObjects(window, backgrounds, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, textObjects, rectangles);
+  graphics.drawObjects(window, backgrounds, gameObjects, textObjects, rectangles);
 }
 
 TEST_F(GraphicsTest, displayGameOverScreenCallsClearOnTheWindow)

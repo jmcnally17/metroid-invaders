@@ -9,6 +9,7 @@
 #include "../include/helpers/game/MetroidManager.hpp"
 #include "../include/helpers/game/RidleyManager.hpp"
 #include "../include/helpers/Graphics.hpp"
+#include "../include/struct/GameObjectList.hpp"
 
 int main()
 {
@@ -28,10 +29,20 @@ int main()
   // game objects
   std::array<IBunker*, 4> bunkers {Factory::makeBunkers()};
   GunshipLaser gunshipLaser {Factory::makeGunshipLaser()};
+  GunshipLaser *pGunshipLaser {&gunshipLaser};
   Gunship gunship {Factory::makeGunship(gunshipLaser)};
+  Gunship *pGunship {&gunship};
   std::array<std::array<IMetroid*, 11>, 5> metroids {Factory::makeMetroids()};
   std::array<IMetroidLaser*, 3> metroidLasers {Factory::makeMetroidLasers()};
   Ridley ridley {Factory::makeRidley()};
+  Ridley *pRidley {&ridley};
+  GameObjectList gameObjects;
+  gameObjects.bunkers = bunkers;
+  gameObjects.gunship = pGunship;
+  gameObjects.gunshipLaser = pGunshipLaser;
+  gameObjects.metroids = metroids;
+  gameObjects.metroidLasers = metroidLasers;
+  gameObjects.ridley = pRidley;
   std::array<ISound*, 4> metroidSounds {Factory::makeMetroidSounds()};
   std::array<sf::RectangleShape, 2> rectangles {Factory::makeRectangles()};
   ClockAdaptor movementClock;
@@ -82,15 +93,15 @@ int main()
     {
       if (isPlaying)
       {
-        graphics.drawObjects(window, backgrounds, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, textObjects, rectangles);
-        gameObjectManager.implementGameObjects(bunkers, gunship, gunshipLaser, metroids, metroidLasers, metroidSounds, ridley, textObjects, themes, variables, isPlaying, gameOver, movementClock);
+        graphics.drawObjects(window, backgrounds, gameObjects, textObjects, rectangles);
+        gameObjectManager.implementGameObjects(gameObjects, metroidSounds, textObjects, themes, variables, isPlaying, gameOver, movementClock);
       }
       else if (gameOver)
       {
         graphics.displayGameOverScreen(window, textObjects);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
         {
-          levelManager->reset(gunship, gunshipLaser, metroids, metroidLasers, ridley, bunkers, isPlaying, gameOver, variables, textObjects, themes, movementClock);
+          levelManager->reset(gameObjects, isPlaying, gameOver, variables, textObjects, themes, movementClock);
         }
       }
       else
