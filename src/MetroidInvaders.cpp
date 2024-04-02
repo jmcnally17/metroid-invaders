@@ -9,7 +9,6 @@
 #include "../include/helpers/game/MetroidManager.hpp"
 #include "../include/helpers/game/RidleyManager.hpp"
 #include "../include/helpers/Graphics.hpp"
-#include "../include/struct/GameObjectList.hpp"
 
 int main()
 {
@@ -27,22 +26,7 @@ int main()
   std::unordered_map<std::string, ISound*> themes {Factory::makeThemes()};
   
   // game objects
-  std::array<IBunker*, 4> bunkers {Factory::makeBunkers()};
-  GunshipLaser gunshipLaser {Factory::makeGunshipLaser()};
-  GunshipLaser *pGunshipLaser {&gunshipLaser};
-  Gunship gunship {Factory::makeGunship(gunshipLaser)};
-  Gunship *pGunship {&gunship};
-  std::array<std::array<IMetroid*, 11>, 5> metroids {Factory::makeMetroids()};
-  std::array<IMetroidLaser*, 3> metroidLasers {Factory::makeMetroidLasers()};
-  Ridley ridley {Factory::makeRidley()};
-  Ridley *pRidley {&ridley};
-  GameObjectList gameObjects;
-  gameObjects.bunkers = bunkers;
-  gameObjects.gunship = pGunship;
-  gameObjects.gunshipLaser = pGunshipLaser;
-  gameObjects.metroids = metroids;
-  gameObjects.metroidLasers = metroidLasers;
-  gameObjects.ridley = pRidley;
+  GameObjectList gameObjects {Factory::makeGameObjects()};
   std::array<ISound*, 4> metroidSounds {Factory::makeMetroidSounds()};
   std::array<sf::RectangleShape, 2> rectangles {Factory::makeRectangles()};
   ClockAdaptor movementClock;

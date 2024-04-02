@@ -61,6 +61,21 @@ std::unordered_map<std::string, ISound*> Factory::makeThemes()
   };
 }
 
+GameObjectList Factory::makeGameObjects()
+{
+  GameObjectList gameObjects;
+  
+  gameObjects.bunkers = makeBunkers();
+  GunshipLaser *gunshipLaser {makeGunshipLaser()};
+  gameObjects.gunshipLaser = gunshipLaser;
+  gameObjects.gunship = makeGunship(gunshipLaser);
+  gameObjects.metroids = makeMetroids();
+  gameObjects.metroidLasers = makeMetroidLasers();
+  gameObjects.ridley = makeRidley();
+  
+  return gameObjects;
+}
+
 std::array<IBunker*, 4> Factory::makeBunkers()
 {
   sf::Texture bunkerTexture1;
@@ -93,17 +108,17 @@ std::array<IBunker*, 4> Factory::makeBunkers()
   return bunkers;
 }
 
-GunshipLaser Factory::makeGunshipLaser()
+GunshipLaser *Factory::makeGunshipLaser()
 {
   sf::Texture gunshipLaserTexture;
   gunshipLaserTexture.loadFromFile("resources/images/sprites/gunshipLaser.png");
   SpriteAdaptor *gunshipLaserSprite {new SpriteAdaptor(gunshipLaserTexture)};
 
-  GunshipLaser gunshipLaser(gunshipLaserSprite);
+  GunshipLaser *gunshipLaser {new GunshipLaser(gunshipLaserSprite)};
   return gunshipLaser;
 }
 
-Gunship Factory::makeGunship(GunshipLaser &gunshipLaser)
+Gunship *Factory::makeGunship(GunshipLaser *gunshipLaser)
 {
   sf::Texture gunshipTexture;
   gunshipTexture.loadFromFile("resources/images/sprites/gunship.png");
@@ -117,8 +132,7 @@ Gunship Factory::makeGunship(GunshipLaser &gunshipLaser)
   deathSoundBuffer.loadFromFile("resources/audio/gunshipDeath.wav");
   SoundAdaptor *deathSound {new SoundAdaptor(deathSoundBuffer)};
 
-  GunshipLaser *pGunshipLaser {&gunshipLaser};
-  Gunship gunship(gunshipSprite, pGunshipLaser, fireSound, deathSound);
+  Gunship *gunship {new Gunship(gunshipSprite, gunshipLaser, fireSound, deathSound)};
   return gunship;
 }
 
@@ -186,7 +200,7 @@ std::array<IMetroidLaser*, 3> Factory::makeMetroidLasers()
   return metroidLasers;
 }
 
-Ridley Factory::makeRidley()
+Ridley *Factory::makeRidley()
 {
   sf::Texture ridleyRightTexture;
   ridleyRightTexture.loadFromFile("resources/images/sprites/ridleyRight.png");
@@ -204,7 +218,7 @@ Ridley Factory::makeRidley()
   deathBuffer.loadFromFile("resources/audio/ridleyDeath.wav");
   SoundAdaptor *deathSound {new SoundAdaptor(deathBuffer)};
 
-  Ridley ridley(ridleyRightSprite, deathSound, ridleyLeftSprite, movementSound);
+  Ridley *ridley {new Ridley(ridleyRightSprite, deathSound, ridleyLeftSprite, movementSound)};
   return ridley;
 }
 
