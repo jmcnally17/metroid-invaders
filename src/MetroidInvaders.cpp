@@ -12,9 +12,9 @@
 
 int main()
 {
-  // set up the game window and frame clock
+  // set up the game window and game clock
   RenderWindowAdaptor window(sf::VideoMode(1536, 1344), "Metroid Invaders");
-  ClockAdaptor frameClock;
+  ClockAdaptor gameClock;
   
   // backgrounds
   std::unordered_map<std::string, ISprite*> backgrounds {Factory::makeBackgrounds()};
@@ -72,12 +72,15 @@ int main()
         game.adjustView(window, event.size.width, event.size.height);
       }
     }
+    
+    if (isPlaying) {
+      graphics.drawObjects(window, backgrounds, gameObjects, textObjects, rectangles);
+    }
 
-    if (frameClock.getElapsedTime().asMicroseconds() >= 6250)
+    if (gameClock.getElapsedTime().asMicroseconds() >= 6250)
     {
       if (isPlaying)
       {
-        graphics.drawObjects(window, backgrounds, gameObjects, textObjects, rectangles);
         gameObjectManager.implementGameObjects(gameObjects, metroidSounds, textObjects, themes, variables, isPlaying, gameOver, movementClock);
       }
       else if (gameOver)
@@ -96,7 +99,7 @@ int main()
           game.play(isPlaying, themes, movementClock);
         }
       }
-      frameClock.restart();
+      gameClock.restart();
     }
   }
 
