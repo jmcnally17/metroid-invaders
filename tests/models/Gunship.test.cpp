@@ -1,3 +1,4 @@
+#include "../../include/Constants.hpp"
 #include "../../include/models/Gunship.hpp"
 #include "../mockModels/MockSprite.hpp"
 #include "../mockModels/MockGunshipLaser.hpp"
@@ -19,7 +20,6 @@ protected:
   NiceMock<MockSound> deathSound;
   MockSound *pDeathSound {&deathSound};
   Gunship gunship {Gunship(pSprite, pGunshipLaser, pFireSound, pDeathSound)};
-  sf::FloatRect spriteBounds {sf::FloatRect(sf::Vector2f(120, 1224), sf::Vector2f(78, 45))};
 };
 
 TEST_F(GunshipTest, setsLivesToThreeUponInstantiation)
@@ -29,7 +29,7 @@ TEST_F(GunshipTest, setsLivesToThreeUponInstantiation)
 
 TEST_F(GunshipTest, setsSpritePositionUponInstantiation)
 {
-  EXPECT_CALL(sprite, setPosition(sf::Vector2f(120, 1224)))
+  EXPECT_CALL(sprite, setPosition(sf::Vector2f(7.5 * Constants::lengthScale, 76.5 * Constants::lengthScale)))
       .Times(1);
   Gunship gunship(pSprite, pGunshipLaser, pFireSound, pDeathSound);
 }
@@ -37,9 +37,9 @@ TEST_F(GunshipTest, setsSpritePositionUponInstantiation)
 TEST_F(GunshipTest, moveMovesSpriteToTheRight)
 {
   ON_CALL(sprite, getPosition())
-      .WillByDefault(Return(sf::Vector2f(600, 1224)));
+      .WillByDefault(Return(sf::Vector2f(37.5 * Constants::lengthScale, 76.5 * Constants::lengthScale)));
 
-  EXPECT_CALL(sprite, move(sf::Vector2f(3.2, 0)))
+  EXPECT_CALL(sprite, move(sf::Vector2f(0.2 * Constants::lengthScale, 0)))
       .Times(1);
   gunship.move(1);
 }
@@ -47,9 +47,9 @@ TEST_F(GunshipTest, moveMovesSpriteToTheRight)
 TEST_F(GunshipTest, moveMovesSpriteToTheLeft)
 {
   ON_CALL(sprite, getPosition())
-      .WillByDefault(Return(sf::Vector2f(600, 1224)));
+      .WillByDefault(Return(sf::Vector2f(37.5 * Constants::lengthScale, 76.5 * Constants::lengthScale)));
 
-  EXPECT_CALL(sprite, move(sf::Vector2f(-3.2, 0)))
+  EXPECT_CALL(sprite, move(sf::Vector2f(-0.2 * Constants::lengthScale, 0)))
       .Times(1);
   gunship.move(-1);
 }
@@ -57,7 +57,7 @@ TEST_F(GunshipTest, moveMovesSpriteToTheLeft)
 TEST_F(GunshipTest, moveDoesNotMoveSpriteToTheRightIfAtRightSideOfWindow)
 {
   ON_CALL(sprite, getPosition())
-      .WillByDefault(Return(sf::Vector2f(1550, 1224)));
+      .WillByDefault(Return(sf::Vector2f(96.875 * Constants::lengthScale, 76.5 * Constants::lengthScale)));
 
   EXPECT_CALL(sprite, move)
       .Times(0);
@@ -67,7 +67,7 @@ TEST_F(GunshipTest, moveDoesNotMoveSpriteToTheRightIfAtRightSideOfWindow)
 TEST_F(GunshipTest, moveDoesNotMoveSpriteToTheLeftIfAtLeftSideOfWindow)
 {
   ON_CALL(sprite, getPosition())
-      .WillByDefault(Return(sf::Vector2f(-10, 1224)));
+      .WillByDefault(Return(sf::Vector2f(-0.625 * Constants::lengthScale, 76.5 * Constants::lengthScale)));
 
   EXPECT_CALL(sprite, move)
       .Times(0);
@@ -84,12 +84,12 @@ TEST_F(GunshipTest, fireChecksPositionOfGunshipLaser)
 TEST_F(GunshipTest, fireSetsPositionDownOnGunshipLaserWhenAboveBoard)
 {
   ON_CALL(gunshipLaser, getPosition)
-      .WillByDefault(Return(sf::Vector2f(500, -26)));
+      .WillByDefault(Return(sf::Vector2f(31.25 * Constants::lengthScale, -1.625 * Constants::lengthScale)));
   ON_CALL(sprite, getPosition())
-      .WillByDefault(Return(sf::Vector2f(700, 1224)));
-  float gunshipLaserXTarget = gunship.getPosition().x + (78 - 6) / 2;
+      .WillByDefault(Return(sf::Vector2f(43.75 * Constants::lengthScale, 76.5 * Constants::lengthScale)));
+  float gunshipLaserXTarget = gunship.getPosition().x + (2.25 * Constants::lengthScale);
 
-  EXPECT_CALL(gunshipLaser, setPosition(sf::Vector2f(gunshipLaserXTarget, 1224)))
+  EXPECT_CALL(gunshipLaser, setPosition(sf::Vector2f(gunshipLaserXTarget, 76.5 * Constants::lengthScale)))
       .Times(1);
   gunship.fire();
 }
@@ -97,7 +97,7 @@ TEST_F(GunshipTest, fireSetsPositionDownOnGunshipLaserWhenAboveBoard)
 TEST_F(GunshipTest, fireCallsPlayOnFireSoundWhenAboveBoard)
 {
   ON_CALL(gunshipLaser, getPosition)
-      .WillByDefault(Return(sf::Vector2f(500, -26)));
+      .WillByDefault(Return(sf::Vector2f(31.25 * Constants::lengthScale, -1.625 * Constants::lengthScale)));
 
   EXPECT_CALL(fireSound, play())
       .Times(1);
@@ -107,7 +107,7 @@ TEST_F(GunshipTest, fireCallsPlayOnFireSoundWhenAboveBoard)
 TEST_F(GunshipTest, fireDoesNotSetPositionDownOnGunshipLaserWhenOnBoard)
 {
   ON_CALL(gunshipLaser, getPosition)
-      .WillByDefault(Return(sf::Vector2f(500, 500)));
+      .WillByDefault(Return(sf::Vector2f(31.25 * Constants::lengthScale, 31.25 * Constants::lengthScale)));
 
   EXPECT_CALL(gunshipLaser, setPosition)
       .Times(0);
@@ -117,7 +117,7 @@ TEST_F(GunshipTest, fireDoesNotSetPositionDownOnGunshipLaserWhenOnBoard)
 TEST_F(GunshipTest, fireDoesNotCallPlayOnFireSoundWhenOnBoard)
 {
   ON_CALL(gunshipLaser, getPosition)
-      .WillByDefault(Return(sf::Vector2f(500, 500)));
+      .WillByDefault(Return(sf::Vector2f(31.25 * Constants::lengthScale, 31.25 * Constants::lengthScale)));
 
   EXPECT_CALL(fireSound, play)
       .Times(0);
@@ -126,7 +126,7 @@ TEST_F(GunshipTest, fireDoesNotCallPlayOnFireSoundWhenOnBoard)
 
 TEST_F(GunshipTest, resetSetsSpriteBackToStartingPoint)
 {
-  EXPECT_CALL(sprite, setPosition(sf::Vector2f(120, 1224)))
+  EXPECT_CALL(sprite, setPosition(sf::Vector2f(7.5 * Constants::lengthScale, 76.5 * Constants::lengthScale)))
       .Times(1);
   gunship.reset();
 }

@@ -1,3 +1,4 @@
+#include "../../../include/Constants.hpp"
 #include "../../../include/helpers/game/MetroidManager.hpp"
 
 bool MetroidManager::areMetroidsDead(const std::array<std::array<IMetroid*, 11>, 5> &metroids) const
@@ -21,7 +22,7 @@ bool MetroidManager::haveMetroidsInvaded(const std::array<std::array<IMetroid*, 
   {
     for (auto metroid : row)
     {
-      if (metroid->isAlive() && metroid->getPosition().y >= 1128)
+      if (metroid->isAlive() && metroid->getPosition().y >= 70.5 * Constants::lengthScale)
       {
         return true;
       }

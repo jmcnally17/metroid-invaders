@@ -10,6 +10,7 @@ public:
   virtual void setPosition(const sf::Vector2f &position) = 0;
   virtual void move(const sf::Vector2f &offset) = 0;
   virtual sf::FloatRect getGlobalBounds() const = 0;
+  virtual void setScale(const sf::Vector2f &scale) = 0;
 };
 
 #endif

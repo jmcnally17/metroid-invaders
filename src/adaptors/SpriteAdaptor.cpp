@@ -29,3 +29,8 @@ sf::FloatRect SpriteAdaptor::getGlobalBounds() const
 {
   return sprite_.getGlobalBounds();
 }
+
+void SpriteAdaptor::setScale(const sf::Vector2f &scale)
+{
+  sprite_.setScale(scale);
+}

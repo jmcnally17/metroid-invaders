@@ -1,3 +1,4 @@
+#include "../../../include/Constants.hpp"
 #include "../../../include/helpers/game/LevelManager.hpp"
 #include "../../../include/struct/GameObjectList.hpp"
 #include "../../mockModels/MockBunker.hpp"
@@ -132,7 +133,8 @@ TEST_F(LevelManagerTest, levelUpSetsNextLevelPositionOnMetroids)
   ON_CALL(metroid, getOriginalPosition())
       .WillByDefault(Return(sf::Vector2f(400, 960)));
 
-  EXPECT_CALL(metroid, setPosition(sf::Vector2f(400, 1170)))
+  float newYPosition = 960 + (variables["level"] * 2.625 * Constants::lengthScale);
+  EXPECT_CALL(metroid, setPosition(sf::Vector2f(400, newYPosition)))
       .Times(55);
   levelManager.levelUp(variables, gameObjects, movementClock);
 }
@@ -286,7 +288,7 @@ TEST_F(LevelManagerTest, resetInformationObjectsUpdatesScoreText)
 {
   EXPECT_CALL(scoreText, setString("Score: 0"))
       .Times(1);
-  EXPECT_CALL(scoreText, setPosition(sf::Vector2f(20, 0)))
+  EXPECT_CALL(scoreText, setPosition(sf::Vector2f(1.25 * Constants::lengthScale, 0)))
       .Times(1);
   EXPECT_CALL(scoreText, setOrigin(0, 0))
       .Times(1);

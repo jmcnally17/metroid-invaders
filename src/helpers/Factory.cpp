@@ -1,3 +1,4 @@
+#include "../../include/Constants.hpp"
 #include "../../include/helpers/Factory.hpp"
 #include "../../include/models/Bunker.hpp"
 #include "../../include/models/Larva.hpp"
@@ -29,13 +30,13 @@ std::unordered_map<std::string, IText*> Factory::makeTextObjects()
   std::string livesString {"Lives: 3"};
   std::string gameOverString {"Game Over"};
   std::string playAgainString {"Press p to play again"};
-  TextAdaptor *titleText {makeText(titleString, m56, 100, green, 0.5, 768, 100)};
-  TextAdaptor *instructionsText {makeText(instructionsString, m56, 50, green, 0.5, 768, 1200)};
-  TextAdaptor *scoreText {makeText(scoreString, m56, 50, white, 0, 20, 0)};
-  TextAdaptor *highScoreText {makeText(highScoreString, m56, 50, white, 0.5, 768, 0)};
-  TextAdaptor *livesText {makeText(livesString, m56, 50, white, 0, 1250, 0)};
-  TextAdaptor *gameOverText {makeText(gameOverString, m56, 153, white, 0.5, 768, 200)};
-  TextAdaptor *playAgainText {makeText(playAgainString, m56, 48, white, 0.5, 768, 1000)};
+  TextAdaptor *titleText {makeText(titleString, m56, 6.25 * Constants::lengthScale, green, 0.5, 48 * Constants::lengthScale, 16 * Constants::lengthScale)};
+  TextAdaptor *instructionsText {makeText(instructionsString, m56, 3.125 * Constants::lengthScale, green, 0.5, 48 * Constants::lengthScale, 75 * Constants::lengthScale)};
+  TextAdaptor *scoreText {makeText(scoreString, m56, 3.125 * Constants::lengthScale, white, 0, 1.25 * Constants::lengthScale, 0)};
+  TextAdaptor *highScoreText {makeText(highScoreString, m56, 3.125 * Constants::lengthScale, white, 0.5, 48 * Constants::lengthScale, 0)};
+  TextAdaptor *livesText {makeText(livesString, m56, 3.125 * Constants::lengthScale, white, 0, 78.125 * Constants::lengthScale, 0)};
+  TextAdaptor *gameOverText {makeText(gameOverString, m56, 9.5625 * Constants::lengthScale, white, 0.5, 48 * Constants::lengthScale, 12.5 * Constants::lengthScale)};
+  TextAdaptor *playAgainText {makeText(playAgainString, m56, 3 * Constants::lengthScale, white, 0.5, 48 * Constants::lengthScale, 62.5 * Constants::lengthScale)};
   
   return std::unordered_map<std::string, IText*> {
     {"title", titleText},
@@ -91,8 +92,8 @@ std::array<IBunker*, 4> Factory::makeBunkers()
   
   std::array<IBunker*, 4> bunkers;
   
-  float xOffset {192};
-  float xIncrement {336};
+  float xOffset {12 * Constants::lengthScale};
+  float xIncrement {21 * Constants::lengthScale};
   
   for (int i = 0; i < 4; i++)
   {
@@ -101,7 +102,7 @@ std::array<IBunker*, 4> Factory::makeBunkers()
     SpriteAdaptor *bunkerSprite3 {new SpriteAdaptor(bunkerTexture3)};
     SpriteAdaptor *bunkerSprite4 {new SpriteAdaptor(bunkerTexture4)};
     SpriteAdaptor *bunkerSprite5 {new SpriteAdaptor(bunkerTexture5)};
-    Bunker *bunker {new Bunker(xOffset + (xIncrement * i), 1032, bunkerSprite1, bunkerSprite2, bunkerSprite3, bunkerSprite4, bunkerSprite5)};
+    Bunker *bunker {new Bunker(xOffset + (xIncrement * i), 64.5 * Constants::lengthScale, bunkerSprite1, bunkerSprite2, bunkerSprite3, bunkerSprite4, bunkerSprite5)};
     bunkers[i] = bunker;
   }
 
@@ -150,9 +151,10 @@ std::array<std::array<IMetroid*, 11>, 5> Factory::makeMetroids()
 
   std::array<std::array<IMetroid*, 11>, 5> metroids;
 
-  float xOffset {282};
-  float yOffset {348};
-  float extraLarvaXOffset {12};
+  float xOffset {static_cast<float>(17.625 * Constants::lengthScale)};
+  float yOffset {static_cast<float>(21.75 * Constants::lengthScale)};
+  float extraLarvaXOffset {static_cast<float>(0.75 * Constants::lengthScale)};
+  float distanceBetweenMetroids {static_cast<float>(5.625 * Constants::lengthScale)};
 
   for (int i = 0; i < 5; i++)
   {
@@ -162,19 +164,19 @@ std::array<std::array<IMetroid*, 11>, 5> Factory::makeMetroids()
       if (i == 0)
       {
         SpriteAdaptor *larvaSprite {new SpriteAdaptor(larvaTexture)};
-        Larva *larva {new Larva(j * 90 + xOffset + extraLarvaXOffset, i * 90 + yOffset, larvaSprite, deathSound)};
+        Larva *larva {new Larva(j * distanceBetweenMetroids + xOffset + extraLarvaXOffset, i * distanceBetweenMetroids + yOffset, larvaSprite, deathSound)};
         metroidRow[j] = {larva};
       }
       else if (i < 3)
       {
         SpriteAdaptor *alphaSprite {new SpriteAdaptor(alphaTexture)};
-        Alpha *alpha {new Alpha(j * 90 + xOffset, i * 90 + yOffset, alphaSprite, deathSound)};
+        Alpha *alpha {new Alpha(j * distanceBetweenMetroids + xOffset, i * distanceBetweenMetroids + yOffset, alphaSprite, deathSound)};
         metroidRow[j] = {alpha};
       }
       else
       {
         SpriteAdaptor *gammaSprite {new SpriteAdaptor(gammaTexture)};
-        Gamma *gamma {new Gamma(j * 90 + xOffset, i * 90 + yOffset, gammaSprite, deathSound)};
+        Gamma *gamma {new Gamma(j * distanceBetweenMetroids + xOffset, i * distanceBetweenMetroids + yOffset, gammaSprite, deathSound)};
         metroidRow[j] = {gamma};
       }
     }
@@ -246,11 +248,11 @@ std::array<ISound*, 4> Factory::makeMetroidSounds()
 
 std::array<sf::RectangleShape, 2> Factory::makeRectangles()
 {
-  sf::RectangleShape rectangle1(sf::Vector2f(96, 42));
-  rectangle1.setPosition(sf::Vector2f(-96, 200));
+  sf::RectangleShape rectangle1(sf::Vector2f(6 * Constants::lengthScale, 2.625 * Constants::lengthScale));
+  rectangle1.setPosition(sf::Vector2f(-6 * Constants::lengthScale, 12.5 * Constants::lengthScale));
   rectangle1.setFillColor(sf::Color::Black);
-  sf::RectangleShape rectangle2(sf::Vector2f(96, 42));
-  rectangle2.setPosition(sf::Vector2f(1536, 200));
+  sf::RectangleShape rectangle2(sf::Vector2f(6 * Constants::lengthScale, 2.625 * Constants::lengthScale));
+  rectangle2.setPosition(sf::Vector2f(96 * Constants::lengthScale, 12.5 * Constants::lengthScale));
   rectangle2.setFillColor(sf::Color::Black);
 
   return {rectangle1, rectangle2};
@@ -261,6 +263,7 @@ SpriteAdaptor *Factory::makeBackground(std::string fileName)
   sf::Texture backgroundTexture;
   backgroundTexture.loadFromFile("resources/images/backgrounds/" + fileName + ".png");
   SpriteAdaptor *background {new SpriteAdaptor(backgroundTexture)};
+  background->setScale(sf::Vector2f(Constants::lengthScale / 16, Constants::lengthScale / 16));
 
   return background;
 }

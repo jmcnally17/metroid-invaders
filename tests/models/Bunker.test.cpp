@@ -1,3 +1,4 @@
+#include "../../include/Constants.hpp"
 #include "../../include/models/Bunker.hpp"
 #include "../mockModels/MockSprite.hpp"
 #include "../mockModels/MockRenderWindow.hpp"
@@ -18,24 +19,38 @@ protected:
   MockSprite *pSprite4 {&sprite4};
   NiceMock<MockSprite> sprite5;
   MockSprite *pSprite5 {&sprite5};
-  Bunker bunker {Bunker(900, 300, pSprite1, pSprite2, pSprite3, pSprite4, pSprite5)};
+  Bunker bunker {Bunker(56.25 * Constants::lengthScale, 18.75 * Constants::lengthScale, pSprite1, pSprite2, pSprite3, pSprite4, pSprite5)};
   MockRenderWindow window;
-  sf::FloatRect spriteBounds {sf::FloatRect(sf::Vector2f(900, 300), sf::Vector2f(144, 108))};
 };
 
 TEST_F(BunkerTest, setsSpritePositionsUponInstantiation)
 {
-  EXPECT_CALL(sprite1, setPosition(sf::Vector2f(900, 300)))
+  EXPECT_CALL(sprite1, setPosition(sf::Vector2f(56.25 * Constants::lengthScale, 18.75 * Constants::lengthScale)))
       .Times(1);
-  EXPECT_CALL(sprite2, setPosition(sf::Vector2f(900, 300)))
+  EXPECT_CALL(sprite2, setPosition(sf::Vector2f(56.25 * Constants::lengthScale, 18.75 * Constants::lengthScale)))
       .Times(1);
-  EXPECT_CALL(sprite3, setPosition(sf::Vector2f(900, 300)))
+  EXPECT_CALL(sprite3, setPosition(sf::Vector2f(56.25 * Constants::lengthScale, 18.75 * Constants::lengthScale)))
       .Times(1);
-  EXPECT_CALL(sprite4, setPosition(sf::Vector2f(900, 300)))
+  EXPECT_CALL(sprite4, setPosition(sf::Vector2f(56.25 * Constants::lengthScale, 18.75 * Constants::lengthScale)))
       .Times(1);
-  EXPECT_CALL(sprite5, setPosition(sf::Vector2f(900, 300)))
+  EXPECT_CALL(sprite5, setPosition(sf::Vector2f(56.25 * Constants::lengthScale, 18.75 * Constants::lengthScale)))
       .Times(1);
-  Bunker bunker(900, 300, pSprite1, pSprite2, pSprite3, pSprite4, pSprite5);
+  Bunker bunker(56.25 * Constants::lengthScale, 18.75 * Constants::lengthScale, pSprite1, pSprite2, pSprite3, pSprite4, pSprite5);
+}
+
+TEST_F(BunkerTest, setsSpriteScalesUponInstantiation)
+{
+  EXPECT_CALL(sprite1, setScale(sf::Vector2f(Constants::lengthScale / 16, Constants::lengthScale / 16)))
+      .Times(1);
+  EXPECT_CALL(sprite2, setScale(sf::Vector2f(Constants::lengthScale / 16, Constants::lengthScale / 16)))
+      .Times(1);
+  EXPECT_CALL(sprite3, setScale(sf::Vector2f(Constants::lengthScale / 16, Constants::lengthScale / 16)))
+      .Times(1);
+  EXPECT_CALL(sprite4, setScale(sf::Vector2f(Constants::lengthScale / 16, Constants::lengthScale / 16)))
+      .Times(1);
+  EXPECT_CALL(sprite5, setScale(sf::Vector2f(Constants::lengthScale / 16, Constants::lengthScale / 16)))
+      .Times(1);
+  Bunker bunker(56.25 * Constants::lengthScale, 18.75 * Constants::lengthScale, pSprite1, pSprite2, pSprite3, pSprite4, pSprite5);
 }
 
 TEST_F(BunkerTest, hasAHealthClassMemberOf10)

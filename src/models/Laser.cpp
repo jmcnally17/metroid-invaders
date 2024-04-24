@@ -1,6 +1,7 @@
+#include "../../include/Constants.hpp"
 #include "../../include/models/Laser.hpp"
 
-Laser::Laser(float x, float y, ISprite *sprite, int direction) : MovingGameObject(x, y, sprite, 6.4), direction_(direction) {}
+Laser::Laser(float x, float y, ISprite *sprite, int direction) : MovingGameObject(x, y, sprite, 0.4 * Constants::lengthScale), direction_(direction) {}
 
 int Laser::getDirection() const
 {

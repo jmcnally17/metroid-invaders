@@ -1,5 +1,6 @@
 #include "../include/adaptors/RenderWindowAdaptor.hpp"
 #include "../include/adaptors/ClockAdaptor.hpp"
+#include "../include/Constants.hpp"
 #include "../include/helpers/Factory.hpp"
 #include "../include/helpers/Game.hpp"
 #include "../include/helpers/game/Collision.hpp"
@@ -13,7 +14,7 @@
 int main()
 {
   // set up the game window and game clock
-  RenderWindowAdaptor window(sf::VideoMode(1536, 1344), "Metroid Invaders");
+  RenderWindowAdaptor window(sf::VideoMode(96 * Constants::lengthScale, 84 * Constants::lengthScale), "Metroid Invaders");
   ClockAdaptor gameClock;
   
   // backgrounds

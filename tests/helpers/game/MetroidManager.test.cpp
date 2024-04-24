@@ -1,3 +1,4 @@
+#include "../../../include/Constants.hpp"
 #include "../../../include/helpers/game/MetroidManager.hpp"
 #include "../../mockModels/MockClock.hpp"
 #include "../../mockModels/MockMetroid.hpp"
@@ -68,9 +69,9 @@ TEST_F(MetroidManagerTest, haveMetroidsInvadedReturnsTrueIfAMetroidHasReachedThe
   metroids[3][7] = {pMetroid2};
   
   ON_CALL(metroid1, getPosition)
-      .WillByDefault(Return(sf::Vector2f(500, 900)));
+      .WillByDefault(Return(sf::Vector2f(500, 10 * Constants::lengthScale)));
   ON_CALL(metroid2, getPosition)
-    .WillByDefault(Return(sf::Vector2f(500, 1128)));
+    .WillByDefault(Return(sf::Vector2f(500, 70.5 * Constants::lengthScale)));
   ON_CALL(metroid1, isAlive)
       .WillByDefault(Return(false));
   ON_CALL(metroid2, isAlive)
@@ -82,7 +83,7 @@ TEST_F(MetroidManagerTest, haveMetroidsInvadedReturnsTrueIfAMetroidHasReachedThe
 TEST_F(MetroidManagerTest, haveMetroidsInvadedReturnsfalseIfMetroidsHaveNotReachedTheBottomAndAreAlive)
 {
   ON_CALL(metroid1, getPosition)
-      .WillByDefault(Return(sf::Vector2f(500, 900)));
+      .WillByDefault(Return(sf::Vector2f(500, 10 * Constants::lengthScale)));
   ON_CALL(metroid1, isAlive)
       .WillByDefault(Return(true));
 
@@ -92,7 +93,7 @@ TEST_F(MetroidManagerTest, haveMetroidsInvadedReturnsfalseIfMetroidsHaveNotReach
 TEST_F(MetroidManagerTest, haveMetroidsInvadedReturnsfalseIfMetroidsHaveReachedTheBottomButAreDead)
 {
   ON_CALL(metroid1, getPosition)
-      .WillByDefault(Return(sf::Vector2f(500, 1128)));
+      .WillByDefault(Return(sf::Vector2f(500, 70.5 * Constants::lengthScale)));
   ON_CALL(metroid1, isAlive)
       .WillByDefault(Return(false));
 

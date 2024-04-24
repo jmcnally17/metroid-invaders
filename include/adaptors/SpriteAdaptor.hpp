@@ -12,6 +12,7 @@ public:
   void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
   void move(const sf::Vector2f &offset) override;
   sf::FloatRect getGlobalBounds() const override;
+  void setScale(const sf::Vector2f &scale) override;
 
 private:
   sf::Texture texture_;

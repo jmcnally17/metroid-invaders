@@ -1,9 +1,11 @@
+#include "../../include/Constants.hpp"
 #include "../../include/models/Ridley.hpp"
 
 Ridley::Ridley(ISprite *rightSprite, ISound *deathSound, ISprite *leftSprite, ISound *movementSound)
-    : Invader(-96, 200, rightSprite, 1.6, 150, -1, deathSound), leftSprite_(leftSprite), movementSound_(movementSound)
+    : Invader(-6 * Constants::lengthScale, 12.5 * Constants::lengthScale, rightSprite, 0.1 * Constants::lengthScale, 150, -1, deathSound), leftSprite_(leftSprite), movementSound_(movementSound)
 {
-  leftSprite_->setPosition(sf::Vector2f(-96, 200));
+  leftSprite_->setPosition(sf::Vector2f(-6 * Constants::lengthScale, 12.5 * Constants::lengthScale));
+  leftSprite_->setScale(sf::Vector2f(Constants::lengthScale / 16, Constants::lengthScale / 16));
   movementSound_->setLoop(true);
 }
 
@@ -21,7 +23,7 @@ void Ridley::setPosition(const sf::Vector2f &position)
 void Ridley::draw(IRenderWindow &window) const
 {
   float xPosition {getPosition().x};
-  if (xPosition > -96 && xPosition < 1536)
+  if (xPosition > -6 * Constants::lengthScale && xPosition < 96 * Constants::lengthScale)
   {
     direction_ == 1 ? Invader::draw(window) : window.draw(*leftSprite_);
   }
@@ -45,11 +47,11 @@ int Ridley::getPoints() const
 void Ridley::spawn(int randomNumber)
 {
   float xPosition {getPosition().x};
-  if (randomNumber == 0 && (xPosition <= -96 || xPosition >= 1536))
+  if (randomNumber == 0 && (xPosition <= -6 * Constants::lengthScale || xPosition >= 96 * Constants::lengthScale))
   {
     changeDirection();
-    sprite_->move(sf::Vector2f(1.6 * direction_, 0));
-    leftSprite_->move(sf::Vector2f(1.6 * direction_, 0));
+    sprite_->move(sf::Vector2f(0.1 * Constants::lengthScale * direction_, 0));
+    leftSprite_->move(sf::Vector2f(0.1 * Constants::lengthScale * direction_, 0));
     movementSound_->play();
   }
 }
@@ -57,10 +59,10 @@ void Ridley::spawn(int randomNumber)
 void Ridley::move()
 {
   float xPosition {getPosition().x};
-  if (xPosition > -96 && xPosition < 1536)
+  if (xPosition > -6 * Constants::lengthScale && xPosition < 96 * Constants::lengthScale)
   {
     Invader::move();
-    leftSprite_->move(sf::Vector2f(1.6 * direction_, 0));
+    leftSprite_->move(sf::Vector2f(0.1 * Constants::lengthScale * direction_, 0));
   }
 }
 
@@ -81,7 +83,7 @@ void Ridley::stopMovementSoundIfPlaying()
 void Ridley::stopMovementSoundIfAtSideOfWindow()
 {
   float xPosition {getPosition().x};
-  if (xPosition <= -96 || xPosition >= 1536)
+  if (xPosition <= -6 * Constants::lengthScale || xPosition >= 96 * Constants::lengthScale)
   {
     stopMovementSoundIfPlaying();
   }
@@ -89,8 +91,8 @@ void Ridley::stopMovementSoundIfAtSideOfWindow()
 
 void Ridley::die()
 {
-  float newXPosition = direction_ == 1 ? 1536 : -96;
-  setPosition(sf::Vector2f(newXPosition, 200));
+  float newXPosition = direction_ == 1 ? 96 * Constants::lengthScale : -6 * Constants::lengthScale;
+  setPosition(sf::Vector2f(newXPosition, 12.5 * Constants::lengthScale));
   movementSound_->stop();
   deathSound_->play();
 }
