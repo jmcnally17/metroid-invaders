@@ -1,8 +1,10 @@
 #include "../include/adaptors/RenderWindowAdaptor.hpp"
 #include "../include/adaptors/ClockAdaptor.hpp"
+#include "../include/Constants.hpp"
 #include "../include/helpers/Factory.hpp"
 #include "../include/helpers/Game.hpp"
 #include "../include/helpers/game/Collision.hpp"
+#include "../include/helpers/game/GameObjectManager.hpp"
 #include "../include/helpers/game/GunshipManager.hpp"
 #include "../include/helpers/game/LevelManager.hpp"
 #include "../include/helpers/game/MetroidManager.hpp"
@@ -11,10 +13,9 @@
 
 int main()
 {
-  // set up the game window
-  RenderWindowAdaptor window(sf::VideoMode(1536, 1344), "Metroid Invaders");
-  
-  ClockAdaptor frameClock;
+  // set up the game window and game clock
+  RenderWindowAdaptor window(sf::VideoMode(96 * Constants::LENGTH_SCALE, 84 * Constants::LENGTH_SCALE), "Metroid Invaders");
+  ClockAdaptor gameClock;
   
   // backgrounds
   std::unordered_map<std::string, ISprite*> backgrounds {Factory::makeBackgrounds()};
@@ -26,12 +27,7 @@ int main()
   std::unordered_map<std::string, ISound*> themes {Factory::makeThemes()};
   
   // game objects
-  std::array<IBunker*, 4> bunkers {Factory::makeBunkers()};
-  GunshipLaser gunshipLaser {Factory::makeGunshipLaser()};
-  Gunship gunship {Factory::makeGunship(gunshipLaser)};
-  std::array<std::array<IMetroid*, 11>, 5> metroids {Factory::makeMetroids()};
-  std::array<IMetroidLaser*, 3> metroidLasers {Factory::makeMetroidLasers()};
-  Ridley ridley {Factory::makeRidley()};
+  GameObjectList gameObjects {Factory::makeGameObjects()};
   std::array<ISound*, 4> metroidSounds {Factory::makeMetroidSounds()};
   std::array<sf::RectangleShape, 2> rectangles {Factory::makeRectangles()};
   ClockAdaptor movementClock;
@@ -47,15 +43,16 @@ int main()
   };
   
   // helpers
-  Collision collision;
+  Collision *collision {new Collision()};
   Graphics graphics;
-  Game game(collision);
-  GunshipManager gunshipManager;
-  LevelManager levelManager;
-  MetroidManager metroidManager;
-  RidleyManager ridleyManager;
+  Game game;
+  GunshipManager *gunshipManager {new GunshipManager()};
+  LevelManager *levelManager {new LevelManager()};
+  MetroidManager *metroidManager {new MetroidManager()};
+  RidleyManager *ridleyManager {new RidleyManager};
+  GameObjectManager gameObjectManager(collision, gunshipManager, levelManager, metroidManager, ridleyManager);
 
-  // final setup
+  // final setup for the title screen
   bool isPlaying {false};
   bool gameOver {false};
   game.pullHighScore(variables, *textObjects["highScore"]);
@@ -76,50 +73,23 @@ int main()
         game.adjustView(window, event.size.width, event.size.height);
       }
     }
+    
+    if (isPlaying) {
+      graphics.drawObjects(window, backgrounds, gameObjects, textObjects, rectangles);
+    }
 
-    if (frameClock.getElapsedTime().asMicroseconds() >= 6250)
+    if (gameClock.getElapsedTime().asMicroseconds() >= Constants::FRAME_LENGTH)
     {
       if (isPlaying)
       {
-        graphics.drawObjects(window, backgrounds, bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, textObjects, rectangles);
-        ridleyManager.monitorRidleyMovementSound(ridley);
-        if (metroidManager.areMetroidsDead(metroids))
-        {
-          levelManager.levelUp(variables, metroids, metroidLasers, ridley, movementClock);
-        }
-        game.checkForCollisions(bunkers, gunship, gunshipLaser, metroids, metroidLasers, ridley, textObjects, variables);
-        if (metroidManager.haveMetroidsInvaded(metroids) || gunship.getLives() == 0)
-        {
-          levelManager.endGame(isPlaying, gameOver, ridley, themes);
-          levelManager.updateHighScore(variables, textObjects);
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-        {
-          gunshipManager.moveGunship(gunship, 1);
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-        {
-          gunshipManager.moveGunship(gunship, -1);
-        }
-        gunshipManager.moveGunshipLaser(gunshipLaser);
-        metroidManager.moveMetroids(metroids, movementClock, variables, metroidSounds);
-        metroidManager.moveMetroidLasers(metroidLasers);
-        ridleyManager.moveRidley(ridley);
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-        {
-          gunshipManager.fireGunshipLaser(gunship);
-        }
-        metroidManager.shootMetroidLaser(metroids, metroidLasers);
-        ridleyManager.spawnRidley(ridley);
+        gameObjectManager.implementGameObjects(gameObjects, metroidSounds, textObjects, themes, variables, isPlaying, gameOver, movementClock);
       }
       else if (gameOver)
       {
         graphics.displayGameOverScreen(window, textObjects);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
         {
-          levelManager.resetObjects(gunship, gunshipLaser, metroids, metroidLasers, ridley, bunkers);
-          levelManager.resetValues(isPlaying, gameOver, variables);
-          levelManager.resetInformationObjects(textObjects, themes, movementClock);
+          levelManager->reset(gameObjects, isPlaying, gameOver, variables, textObjects, themes, movementClock);
         }
       }
       else
@@ -130,7 +100,11 @@ int main()
           game.play(isPlaying, themes, movementClock);
         }
       }
-      frameClock.restart();
+      gameClock.restart();
+    }
+    
+    if (isPlaying) {
+      metroidManager->moveMetroids(gameObjects.metroids, movementClock, variables, metroidSounds);
     }
   }
 

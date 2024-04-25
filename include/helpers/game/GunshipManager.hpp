@@ -1,15 +1,14 @@
 #ifndef GUNSHIP_MANAGER_HPP
 #define GUNSHIP_MANAGER_HPP
 
-#include "../../models/IGunship.hpp"
-#include "../../models/IGunshipLaser.hpp"
+#include "./IGunshipManager.hpp"
 
-class GunshipManager
+class GunshipManager : public IGunshipManager
 {
 public:
-  void moveGunship(IGunship &gunship, int direction) const;
-  void moveGunshipLaser(IGunshipLaser &gunshipLaser) const;
-  void fireGunshipLaser(IGunship &gunship) const;
+  void moveGunship(IGunship &gunship, int direction) const override;
+  void moveGunshipLaser(IGunshipLaser &gunshipLaser) const override;
+  void fireGunshipLaser(IGunship &gunship) const override;
 };
 
 #endif

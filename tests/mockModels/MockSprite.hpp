@@ -12,6 +12,7 @@ public:
   MOCK_METHOD(void, draw, (sf::RenderTarget & target, sf::RenderStates states), (const));
   MOCK_METHOD(void, move, (const sf::Vector2f &offset));
   MOCK_METHOD(sf::FloatRect, getGlobalBounds, (), (const));
+  MOCK_METHOD(void, setScale, (const sf::Vector2f &scale));
 };
 
 #endif

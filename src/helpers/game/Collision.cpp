@@ -1,5 +1,20 @@
 #include "../../../include/helpers/game/Collision.hpp"
 
+void Collision::checkCollisions(const GameObjectList &gameObjects, const std::unordered_map<std::string, IText *> &textObjects, std::unordered_map<std::string, int> &variables) const
+{
+  std::array<IBunker*, 4> bunkers {gameObjects.bunkers};
+  IGunship *gunship {gameObjects.gunship};
+  IGunshipLaser *gunshipLaser {gameObjects.gunshipLaser};
+  std::array<std::array<IMetroid*, 11>, 5> metroids {gameObjects.metroids};
+  std::array<IMetroidLaser*, 3> metroidLasers {gameObjects.metroidLasers};
+  IRidley *ridley {gameObjects.ridley};
+  checkGunshipLaserMetroidCollision(*gunshipLaser, metroids, variables, textObjects);
+  checkGunshipLaserRidleyCollision(*gunshipLaser, *ridley, variables, textObjects);
+  checkGunshipLaserBunkerCollision(*gunshipLaser, bunkers);
+  checkMetroidLaserBunkerCollision(metroidLasers, bunkers);
+  checkGunshipMetroidLaserCollision(*gunship, metroidLasers, *gunshipLaser, textObjects);
+}
+
 void Collision::checkGunshipLaserBunkerCollision(IGunshipLaser &gunshipLaser, const std::array<IBunker*, 4> &bunkers) const
 {
   for (auto bunker : bunkers)

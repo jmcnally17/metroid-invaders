@@ -1,3 +1,4 @@
+#include "../../include/Constants.hpp"
 #include "../../include/models/Laser.hpp"
 #include "../mockModels/MockSprite.hpp"
 
@@ -9,12 +10,14 @@ class LaserTest : public testing::Test
 protected:
   NiceMock<MockSprite> sprite;
   MockSprite *pSprite {&sprite};
-  Laser laser {Laser(200, 300, pSprite, -1)};
+  Laser laser {Laser(12.5 * Constants::LENGTH_SCALE, 18.75 * Constants::LENGTH_SCALE, pSprite, -1)};
+  float speed {0.4 * Constants::LENGTH_SCALE * Constants::FRAME_LENGTH / 6250};
+
 };
 
 TEST_F(LaserTest, setsSpeedUponInstantiation)
 {
-  EXPECT_FLOAT_EQ(laser.getSpeed(), 6.4);
+  EXPECT_FLOAT_EQ(laser.getSpeed(), speed);
 }
 
 TEST_F(LaserTest, setsDirectionUponInstantiation)
@@ -24,7 +27,7 @@ TEST_F(LaserTest, setsDirectionUponInstantiation)
 
 TEST_F(LaserTest, moveCallsMoveOnSpriteVerticallyAccordingToSpeedAndDirection)
 {
-  EXPECT_CALL(sprite, move(sf::Vector2f(0, -6.4)))
+  EXPECT_CALL(sprite, move(sf::Vector2f(0, -speed)))
     .Times(1);
   laser.move();
 }

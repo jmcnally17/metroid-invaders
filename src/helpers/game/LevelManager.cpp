@@ -1,17 +1,14 @@
 #include <fstream>
+#include "../../../include/Constants.hpp"
 #include "../../../include/helpers/game/LevelManager.hpp"
 
-void LevelManager::levelUp(std::unordered_map<std::string, int> &variables,
-             const std::array<std::array<IMetroid*, 11>, 5> &metroids,
-             const std::array<IMetroidLaser*, 3> &metroidLasers,
-             IRidley &ridley,
-             IClock &movementClock) const
+void LevelManager::levelUp(std::unordered_map<std::string, int> &variables, const GameObjectList &gameObjects, IClock &movementClock) const
 {
   variables["level"]++;
   variables["interval"] = 665;
   variables["step"] = 1;
   variables["soundCounter"] = 0;
-  for (auto row : metroids)
+  for (auto row : gameObjects.metroids)
   {
     for (auto metroid : row)
     {
@@ -23,21 +20,21 @@ void LevelManager::levelUp(std::unordered_map<std::string, int> &variables,
       sf::Vector2f originalPosition {metroid->getOriginalPosition()};
       float originalXPosition {originalPosition.x};
       float originalYPosition {originalPosition.y};
-      float levelUpShift = (variables["level"] - 1) * 42;
+      float levelUpShift = (variables["level"] - 1) * 2.625 * Constants::LENGTH_SCALE;
       sf::Vector2f levelUpPosition(originalXPosition, originalYPosition + levelUpShift);
       metroid->setPosition(levelUpPosition);
     }
   }
-  for (auto metroidLaser : metroidLasers)
+  for (auto metroidLaser : gameObjects.metroidLasers)
   {
     metroidLaser->resetPosition();
   }
-  ridley.reset();
-  ridley.stopMovementSoundIfPlaying();
+  gameObjects.ridley->reset();
+  gameObjects.ridley->stopMovementSoundIfPlaying();
   movementClock.restart();
 }
 
-void LevelManager::endGame(bool &isPlaying, bool &gameOver, IRidley &ridley, std::unordered_map<std::string, ISound*> &themes) const
+void LevelManager::endGame(bool &isPlaying, bool &gameOver, IRidley &ridley, const std::unordered_map<std::string, ISound*> &themes) const
 {
   isPlaying = false;
   gameOver = true;
@@ -46,32 +43,6 @@ void LevelManager::endGame(bool &isPlaying, bool &gameOver, IRidley &ridley, std
   auto creditsTheme {themes.find("credits")->second};
   battleTheme->stop();
   creditsTheme->play();
-}
-
-void LevelManager::resetObjects(IGunship &gunship, IGunshipLaser &gunshipLaser,
-                  const std::array<std::array<IMetroid*, 11>, 5> &metroids,
-                  const std::array<IMetroidLaser*, 3> &metroidLasers,
-                  IRidley &ridley,
-                  const std::array<IBunker*, 4> &bunkers) const
-{
-  gunship.reset();
-  gunshipLaser.resetPosition();
-  for (auto metroidRow : metroids)
-  {
-    for (auto metroid : metroidRow)
-    {
-      metroid->reset();
-    }
-  }
-  for (auto metroidLaser : metroidLasers)
-  {
-    metroidLaser->resetPosition();
-  }
-  ridley.reset();
-  for (auto bunker : bunkers)
-  {
-    bunker->reset();
-  }
 }
 
 void LevelManager::updateHighScore(std::unordered_map<std::string, int> &variables, const std::unordered_map<std::string, IText*> &textObjects) const
@@ -91,9 +62,38 @@ void LevelManager::updateHighScore(std::unordered_map<std::string, int> &variabl
   {
     scoreText->setString("You scored " + std::to_string(variables["score"]) + " points");
   }
-  scoreText->setPosition(sf::Vector2f(768, 600));
+  scoreText->setPosition(sf::Vector2f(48 * Constants::LENGTH_SCALE, 37.5 * Constants::LENGTH_SCALE));
   sf::FloatRect scoreTextRect {scoreText->getLocalBounds()};
   scoreText->setOrigin(scoreTextRect.width / 2, 0);
+}
+
+void LevelManager::reset(const GameObjectList &gameObjects, bool &isPlaying, bool &gameOver, std::unordered_map<std::string, int> &variables, const std::unordered_map<std::string, IText*> &textObjects, const std::unordered_map<std::string, ISound*> &themes, IClock &movementClock) const
+{
+  resetObjects(gameObjects);
+  resetValues(isPlaying, gameOver, variables);
+  resetInformationObjects(textObjects, themes, movementClock);
+}
+
+void LevelManager::resetObjects(const GameObjectList &gameObjects) const
+{
+  gameObjects.gunship->reset();
+  gameObjects.gunshipLaser->resetPosition();
+  for (auto metroidRow : gameObjects.metroids)
+  {
+    for (auto metroid : metroidRow)
+    {
+      metroid->reset();
+    }
+  }
+  for (auto metroidLaser : gameObjects.metroidLasers)
+  {
+    metroidLaser->resetPosition();
+  }
+  gameObjects.ridley->reset();
+  for (auto bunker : gameObjects.bunkers)
+  {
+    bunker->reset();
+  }
 }
 
 void LevelManager::resetValues(bool &isPlaying, bool &gameOver, std::unordered_map<std::string, int> &variables) const
@@ -114,7 +114,7 @@ void LevelManager::resetInformationObjects(const std::unordered_map<std::string,
   auto creditsTheme {themes.find("credits")->second};
   auto battleTheme {themes.find("battle")->second};
   scoreText->setString("Score: 0");
-  scoreText->setPosition(sf::Vector2f(20, 0));
+  scoreText->setPosition(sf::Vector2f(1.25 * Constants::LENGTH_SCALE, 0));
   scoreText->setOrigin(0, 0);
   livesText->setString("Lives: 3");
   creditsTheme->stop();

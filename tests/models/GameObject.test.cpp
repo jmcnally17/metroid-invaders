@@ -1,3 +1,4 @@
+#include "../../include/Constants.hpp"
 #include "../../include/models/GameObject.hpp"
 #include "../mockModels/MockSprite.hpp"
 #include "../mockModels/MockRenderWindow.hpp"
@@ -19,6 +20,13 @@ protected:
 TEST_F(GameObjectTest, setsSpritePositionUponInstantiation)
 {
   EXPECT_CALL(sprite, setPosition(sf::Vector2f(900, 300)))
+    .Times(1);
+  GameObject gameObject(900, 300, pSprite);
+}
+
+TEST_F(GameObjectTest, setsSpriteScaleUponInstantiation)
+{
+  EXPECT_CALL(sprite, setScale(sf::Vector2f(Constants::LENGTH_SCALE / 16, Constants::LENGTH_SCALE / 16)))
     .Times(1);
   GameObject gameObject(900, 300, pSprite);
 }
