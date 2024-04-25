@@ -29,7 +29,6 @@ void GameObjectManager::implementGameObjects(const GameObjectList &gameObjects, 
     gunshipManager_->moveGunship(*gunship, -1);
   }
   gunshipManager_->moveGunshipLaser(*gunshipLaser);
-  metroidManager_->moveMetroids(metroids, movementClock, variables, metroidSounds);
   metroidManager_->moveMetroidLasers(metroidLasers);
   ridleyManager_->moveRidley(*ridley);
   if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))

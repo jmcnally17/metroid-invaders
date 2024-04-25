@@ -102,6 +102,10 @@ int main()
       }
       gameClock.restart();
     }
+    
+    if (isPlaying) {
+      metroidManager->moveMetroids(gameObjects.metroids, movementClock, variables, metroidSounds);
+    }
   }
 
   return 0;
