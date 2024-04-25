@@ -20,7 +20,7 @@ void LevelManager::levelUp(std::unordered_map<std::string, int> &variables, cons
       sf::Vector2f originalPosition {metroid->getOriginalPosition()};
       float originalXPosition {originalPosition.x};
       float originalYPosition {originalPosition.y};
-      float levelUpShift = (variables["level"] - 1) * 2.625 * Constants::lengthScale;
+      float levelUpShift = (variables["level"] - 1) * 2.625 * Constants::LENGTH_SCALE;
       sf::Vector2f levelUpPosition(originalXPosition, originalYPosition + levelUpShift);
       metroid->setPosition(levelUpPosition);
     }
@@ -62,7 +62,7 @@ void LevelManager::updateHighScore(std::unordered_map<std::string, int> &variabl
   {
     scoreText->setString("You scored " + std::to_string(variables["score"]) + " points");
   }
-  scoreText->setPosition(sf::Vector2f(48 * Constants::lengthScale, 37.5 * Constants::lengthScale));
+  scoreText->setPosition(sf::Vector2f(48 * Constants::LENGTH_SCALE, 37.5 * Constants::LENGTH_SCALE));
   sf::FloatRect scoreTextRect {scoreText->getLocalBounds()};
   scoreText->setOrigin(scoreTextRect.width / 2, 0);
 }
@@ -114,7 +114,7 @@ void LevelManager::resetInformationObjects(const std::unordered_map<std::string,
   auto creditsTheme {themes.find("credits")->second};
   auto battleTheme {themes.find("battle")->second};
   scoreText->setString("Score: 0");
-  scoreText->setPosition(sf::Vector2f(1.25 * Constants::lengthScale, 0));
+  scoreText->setPosition(sf::Vector2f(1.25 * Constants::LENGTH_SCALE, 0));
   scoreText->setOrigin(0, 0);
   livesText->setString("Lives: 3");
   creditsTheme->stop();

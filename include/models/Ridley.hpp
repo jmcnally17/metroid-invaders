@@ -15,7 +15,7 @@ public:
   sf::FloatRect getGlobalBounds() const override;
   bool intersects(const IGameObject &gameObject) const override;
   int getPoints() const override;
-  void spawn(int randomNumber = rand() % 2000) override;
+  void spawn(int randomNumber = rand() % (12500000 / Constants::FRAME_LENGTH)) override;
   void move() override;
   void reset() override;
   void stopMovementSoundIfPlaying() override;

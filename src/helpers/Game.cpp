@@ -17,23 +17,23 @@ void Game::pullHighScore(std::unordered_map<std::string, int> &variables, IText 
 
 void Game::adjustView(IRenderWindow &window, int windowWidth, int windowHeight) const
 {
-  float widthRatio {(float)windowWidth / 96 * Constants::lengthScale};
-  float heightRatio {(float)windowHeight / 84 * Constants::lengthScale};
+  float widthRatio {(float)windowWidth / 96 * Constants::LENGTH_SCALE};
+  float heightRatio {(float)windowHeight / 84 * Constants::LENGTH_SCALE};
 
   float newXOrigin {0};
   float newYOrigin {0};
-  float newWidth {96 * Constants::lengthScale};
-  float newHeight {84 * Constants::lengthScale};
+  float newWidth {96 * Constants::LENGTH_SCALE};
+  float newHeight {84 * Constants::LENGTH_SCALE};
 
   if (widthRatio < heightRatio)
   {
     newHeight *= heightRatio / widthRatio;
-    newYOrigin = ((84 * Constants::lengthScale) - newHeight) / 2;
+    newYOrigin = ((84 * Constants::LENGTH_SCALE) - newHeight) / 2;
   }
   else
   {
     newWidth *= widthRatio / heightRatio;
-    newXOrigin = ((96 * Constants::lengthScale) - newWidth) / 2;
+    newXOrigin = ((96 * Constants::LENGTH_SCALE) - newWidth) / 2;
   }
 
   sf::FloatRect visibleArea(newXOrigin, newYOrigin, newWidth, newHeight);

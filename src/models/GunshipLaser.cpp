@@ -1,7 +1,7 @@
 #include "../../include/Constants.hpp"
 #include "../../include/models/GunshipLaser.hpp"
 
-GunshipLaser::GunshipLaser(ISprite *sprite) : Laser(7.5 * Constants::lengthScale, -1.5 * Constants::lengthScale, sprite, -1) {}
+GunshipLaser::GunshipLaser(ISprite *sprite) : Laser(7.5 * Constants::LENGTH_SCALE, -1.5 * Constants::LENGTH_SCALE, sprite, -1) {}
 
 sf::Vector2f GunshipLaser::getPosition() const
 {
@@ -15,7 +15,7 @@ void GunshipLaser::setPosition(const sf::Vector2f &position)
 
 void GunshipLaser::draw(IRenderWindow &window) const
 {
-  if (getPosition().y > -1.5 * Constants::lengthScale)
+  if (getPosition().y > -1.5 * Constants::LENGTH_SCALE)
   {
     Laser::draw(window);
   }
@@ -38,7 +38,7 @@ void GunshipLaser::resetPosition()
 
 void GunshipLaser::move()
 {
-  if (getPosition().y > -1.5 * Constants::lengthScale)
+  if (getPosition().y > -1.5 * Constants::LENGTH_SCALE)
   {
     Laser::move();
   }

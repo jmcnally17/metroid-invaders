@@ -2,7 +2,7 @@
 #include "../../include/models/Gunship.hpp"
 
 Gunship::Gunship(ISprite *sprite, IGunshipLaser *gunshipLaser, ISound *fireSound, ISound *deathSound)
-    : MovingGameObject(7.5 * Constants::lengthScale, 76.5 * Constants::lengthScale, sprite, 0.2 * Constants::lengthScale), lives_(3), gunshipLaser_(gunshipLaser), fireSound_(fireSound), deathSound_(deathSound) {}
+    : MovingGameObject(7.5 * Constants::LENGTH_SCALE, 76.5 * Constants::LENGTH_SCALE, sprite, 0.2 * Constants::LENGTH_SCALE * Constants::FRAME_LENGTH / 6250), lives_(3), gunshipLaser_(gunshipLaser), fireSound_(fireSound), deathSound_(deathSound) {}
 
 sf::Vector2f Gunship::getPosition() const
 {
@@ -42,7 +42,7 @@ int Gunship::getLives() const
 void Gunship::move(int direction)
 {
   float velocity {speed_ * direction};
-  if (getPosition().x + velocity >= 0 && getPosition().x + velocity <= 91.125 * Constants::lengthScale)
+  if (getPosition().x + velocity >= 0 && getPosition().x + velocity <= 91.125 * Constants::LENGTH_SCALE)
   {
     sprite_->move(sf::Vector2f(velocity, 0));
   }
@@ -50,9 +50,9 @@ void Gunship::move(int direction)
 
 void Gunship::fire()
 {
-  if (gunshipLaser_->getPosition().y <= -1.5 * Constants::lengthScale)
+  if (gunshipLaser_->getPosition().y <= -1.5 * Constants::LENGTH_SCALE)
   {
-    float startingXPosition {static_cast<float>(getPosition().x + (2.25 * Constants::lengthScale))};
+    float startingXPosition {static_cast<float>(getPosition().x + (2.25 * Constants::LENGTH_SCALE))};
     gunshipLaser_->setPosition(sf::Vector2f(startingXPosition, getPosition().y));
     fireSound_->play();
   }

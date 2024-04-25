@@ -14,7 +14,7 @@
 int main()
 {
   // set up the game window and game clock
-  RenderWindowAdaptor window(sf::VideoMode(96 * Constants::lengthScale, 84 * Constants::lengthScale), "Metroid Invaders");
+  RenderWindowAdaptor window(sf::VideoMode(96 * Constants::LENGTH_SCALE, 84 * Constants::LENGTH_SCALE), "Metroid Invaders");
   ClockAdaptor gameClock;
   
   // backgrounds
@@ -78,7 +78,7 @@ int main()
       graphics.drawObjects(window, backgrounds, gameObjects, textObjects, rectangles);
     }
 
-    if (gameClock.getElapsedTime().asMicroseconds() >= 6250)
+    if (gameClock.getElapsedTime().asMicroseconds() >= Constants::FRAME_LENGTH)
     {
       if (isPlaying)
       {

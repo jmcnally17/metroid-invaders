@@ -133,7 +133,7 @@ TEST_F(LevelManagerTest, levelUpSetsNextLevelPositionOnMetroids)
   ON_CALL(metroid, getOriginalPosition())
       .WillByDefault(Return(sf::Vector2f(400, 960)));
 
-  float newYPosition = 960 + (variables["level"] * 2.625 * Constants::lengthScale);
+  float newYPosition = 960 + (variables["level"] * 2.625 * Constants::LENGTH_SCALE);
   EXPECT_CALL(metroid, setPosition(sf::Vector2f(400, newYPosition)))
       .Times(55);
   levelManager.levelUp(variables, gameObjects, movementClock);
@@ -288,7 +288,7 @@ TEST_F(LevelManagerTest, resetInformationObjectsUpdatesScoreText)
 {
   EXPECT_CALL(scoreText, setString("Score: 0"))
       .Times(1);
-  EXPECT_CALL(scoreText, setPosition(sf::Vector2f(1.25 * Constants::lengthScale, 0)))
+  EXPECT_CALL(scoreText, setPosition(sf::Vector2f(1.25 * Constants::LENGTH_SCALE, 0)))
       .Times(1);
   EXPECT_CALL(scoreText, setOrigin(0, 0))
       .Times(1);

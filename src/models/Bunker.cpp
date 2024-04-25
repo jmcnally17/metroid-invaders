@@ -9,10 +9,10 @@ Bunker::Bunker(float x, float y, ISprite *sprite1, ISprite *sprite2, ISprite *sp
   sprite3_->setPosition(position);
   sprite4_->setPosition(position);
   sprite5_->setPosition(position);
-  sprite2_->setScale(sf::Vector2f(Constants::lengthScale / 16, Constants::lengthScale / 16));
-  sprite3_->setScale(sf::Vector2f(Constants::lengthScale / 16, Constants::lengthScale / 16));
-  sprite4_->setScale(sf::Vector2f(Constants::lengthScale / 16, Constants::lengthScale / 16));
-  sprite5_->setScale(sf::Vector2f(Constants::lengthScale / 16, Constants::lengthScale / 16));
+  sprite2_->setScale(sf::Vector2f(Constants::LENGTH_SCALE / 16, Constants::LENGTH_SCALE / 16));
+  sprite3_->setScale(sf::Vector2f(Constants::LENGTH_SCALE / 16, Constants::LENGTH_SCALE / 16));
+  sprite4_->setScale(sf::Vector2f(Constants::LENGTH_SCALE / 16, Constants::LENGTH_SCALE / 16));
+  sprite5_->setScale(sf::Vector2f(Constants::LENGTH_SCALE / 16, Constants::LENGTH_SCALE / 16));
 }
 
 sf::Vector2f Bunker::getPosition() const

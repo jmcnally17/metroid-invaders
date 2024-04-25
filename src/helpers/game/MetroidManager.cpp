@@ -22,7 +22,7 @@ bool MetroidManager::haveMetroidsInvaded(const std::array<std::array<IMetroid*, 
   {
     for (auto metroid : row)
     {
-      if (metroid->isAlive() && metroid->getPosition().y >= 70.5 * Constants::lengthScale)
+      if (metroid->isAlive() && metroid->getPosition().y >= 70.5 * Constants::LENGTH_SCALE)
       {
         return true;
       }

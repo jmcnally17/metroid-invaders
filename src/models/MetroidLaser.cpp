@@ -1,7 +1,7 @@
 #include "../../include/Constants.hpp"
 #include "../../include/models/MetroidLaser.hpp"
 
-MetroidLaser::MetroidLaser(ISprite *sprite) : Laser(7.5 * Constants::lengthScale, 84 * Constants::lengthScale, sprite, 1) {}
+MetroidLaser::MetroidLaser(ISprite *sprite) : Laser(7.5 * Constants::LENGTH_SCALE, 84 * Constants::LENGTH_SCALE, sprite, 1) {}
 
 sf::Vector2f MetroidLaser::getPosition() const
 {
@@ -15,7 +15,7 @@ void MetroidLaser::setPosition(const sf::Vector2f &position)
 
 void MetroidLaser::draw(IRenderWindow &window) const
 {
-  if (getPosition().y < 84 * Constants::lengthScale)
+  if (getPosition().y < 84 * Constants::LENGTH_SCALE)
   {
     Laser::draw(window);
   }
@@ -38,7 +38,7 @@ void MetroidLaser::resetPosition()
 
 void MetroidLaser::move()
 {
-  if (getPosition().y < 84 * Constants::lengthScale)
+  if (getPosition().y < 84 * Constants::LENGTH_SCALE)
   {
     Laser::move();
   }

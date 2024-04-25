@@ -15,7 +15,7 @@ protected:
   MockSprite *pSprite {&sprite};
   NiceMock<MockSound> deathSound;
   MockSound *pDeathSound {&deathSound};
-  Metroid metroid {Metroid(18.75 * Constants::lengthScale, 20 * Constants::lengthScale, pSprite, 50, pDeathSound)};
+  Metroid metroid {Metroid(18.75 * Constants::LENGTH_SCALE, 20 * Constants::LENGTH_SCALE, pSprite, 50, pDeathSound)};
   MockRenderWindow window;
   NiceMock<MockMetroidLaser> metroidLaser1;
   MockMetroidLaser *pMetroidLaser1 {&metroidLaser1};
@@ -74,9 +74,9 @@ TEST_F(MetroidTest, drawDoesNotCallDrawOnSpriteWhenNotAlive)
 TEST_F(MetroidTest, moveMovesSpriteToTheRightWhenDirectionIsOneAndNotAtSideBoundary)
 {
   ON_CALL(sprite, getPosition())
-    .WillByDefault(Return(sf::Vector2f(18.75 * Constants::lengthScale, 20 * Constants::lengthScale)));
+    .WillByDefault(Return(sf::Vector2f(18.75 * Constants::LENGTH_SCALE, 20 * Constants::LENGTH_SCALE)));
 
-  EXPECT_CALL(sprite, move(sf::Vector2f(Constants::lengthScale * 14.1 / 16, 0)))
+  EXPECT_CALL(sprite, move(sf::Vector2f(Constants::LENGTH_SCALE * 14.1 / 16, 0)))
     .Times(1);
   metroid.move();
 }
@@ -85,9 +85,9 @@ TEST_F(MetroidTest, moveMovesSpriteToTheLeftWhenDirectionIsMinusOneAndNotAtSideB
 {
   metroid.changeDirection(); // set direction_ to -1
   ON_CALL(sprite, getPosition())
-    .WillByDefault(Return(sf::Vector2f(18.75 * Constants::lengthScale, 20 * Constants::lengthScale)));
+    .WillByDefault(Return(sf::Vector2f(18.75 * Constants::LENGTH_SCALE, 20 * Constants::LENGTH_SCALE)));
 
-  EXPECT_CALL(sprite, move(sf::Vector2f(-Constants::lengthScale * 14.1 / 16, 0)))
+  EXPECT_CALL(sprite, move(sf::Vector2f(-Constants::LENGTH_SCALE * 14.1 / 16, 0)))
     .Times(1);
   metroid.move();
 }
@@ -96,10 +96,10 @@ TEST_F(MetroidTest, moveMovesSpriteToTheRightWhenAtLeftBoundaryAndJustMovedDownI
 {
   metroid.changeDirection(); // set direction_ to -1
   ON_CALL(sprite, getPosition())
-    .WillByDefault(Return(sf::Vector2f(1.125 * Constants::lengthScale, 20 * Constants::lengthScale)));
+    .WillByDefault(Return(sf::Vector2f(1.125 * Constants::LENGTH_SCALE, 20 * Constants::LENGTH_SCALE)));
   metroid.move();            // call to move metroid down which sets justMovedDown_ to true and direction back to 1
 
-  EXPECT_CALL(sprite, move(sf::Vector2f(Constants::lengthScale * 14.1 / 16, 0)))
+  EXPECT_CALL(sprite, move(sf::Vector2f(Constants::LENGTH_SCALE * 14.1 / 16, 0)))
     .Times(1);
   metroid.move();
 }
@@ -107,10 +107,10 @@ TEST_F(MetroidTest, moveMovesSpriteToTheRightWhenAtLeftBoundaryAndJustMovedDownI
 TEST_F(MetroidTest, moveMovesSpriteToTheLeftWhenAtRightBoundaryAndJustMovedDownIsTrue)
 {
   ON_CALL(sprite, getPosition())
-    .WillByDefault(Return(sf::Vector2f(36.375 * Constants::lengthScale, 20 * Constants::lengthScale)));
+    .WillByDefault(Return(sf::Vector2f(36.375 * Constants::LENGTH_SCALE, 20 * Constants::LENGTH_SCALE)));
   metroid.move(); // call to move metroid down which sets justMovedDown_ to true
 
-  EXPECT_CALL(sprite, move(sf::Vector2f(-Constants::lengthScale * 14.1 / 16, 0)))
+  EXPECT_CALL(sprite, move(sf::Vector2f(-Constants::LENGTH_SCALE * 14.1 / 16, 0)))
     .Times(1);
   metroid.move();
 }
@@ -118,7 +118,7 @@ TEST_F(MetroidTest, moveMovesSpriteToTheLeftWhenAtRightBoundaryAndJustMovedDownI
 TEST_F(MetroidTest, moveSetsJustMovedDownToFalseWhenAtLeftBoundaryAndJustMovedDownIsTrue)
 {
   ON_CALL(sprite, getPosition())
-    .WillByDefault(Return(sf::Vector2f(1.125 * Constants::lengthScale, 20 * Constants::lengthScale)));
+    .WillByDefault(Return(sf::Vector2f(1.125 * Constants::LENGTH_SCALE, 20 * Constants::LENGTH_SCALE)));
   metroid.move(); // call to move metroid down which sets justMovedDown_ to true
 
   metroid.move();
@@ -128,7 +128,7 @@ TEST_F(MetroidTest, moveSetsJustMovedDownToFalseWhenAtLeftBoundaryAndJustMovedDo
 TEST_F(MetroidTest, moveSetsJustMovedDownToFalseWhenAtRightBoundaryAndJustMovedDownIsTrue)
 {
   ON_CALL(sprite, getPosition())
-    .WillByDefault(Return(sf::Vector2f(36.375 * Constants::lengthScale, 20 * Constants::lengthScale)));
+    .WillByDefault(Return(sf::Vector2f(36.375 * Constants::LENGTH_SCALE, 20 * Constants::LENGTH_SCALE)));
   metroid.move(); // call to move metroid down which sets justMovedDown_ to true
 
   metroid.move();
@@ -138,9 +138,9 @@ TEST_F(MetroidTest, moveSetsJustMovedDownToFalseWhenAtRightBoundaryAndJustMovedD
 TEST_F(MetroidTest, moveMovesSpriteDownWhenAtRightBoundaryAndJustMovedDownIsFalse)
 {
   ON_CALL(sprite, getPosition())
-    .WillByDefault(Return(sf::Vector2f(36.375 * Constants::lengthScale, 20 * Constants::lengthScale)));
+    .WillByDefault(Return(sf::Vector2f(36.375 * Constants::LENGTH_SCALE, 20 * Constants::LENGTH_SCALE)));
 
-  EXPECT_CALL(sprite, move(sf::Vector2f(0, 2.625 * Constants::lengthScale)))
+  EXPECT_CALL(sprite, move(sf::Vector2f(0, 2.625 * Constants::LENGTH_SCALE)))
     .Times(1);
   metroid.move();
 }
@@ -148,7 +148,7 @@ TEST_F(MetroidTest, moveMovesSpriteDownWhenAtRightBoundaryAndJustMovedDownIsFals
 TEST_F(MetroidTest, moveChangesDirectionWhenAtRightBoundaryAndJustMovedDownIsFalse)
 {
   ON_CALL(sprite, getPosition())
-    .WillByDefault(Return(sf::Vector2f(36.375 * Constants::lengthScale, 20 * Constants::lengthScale)));
+    .WillByDefault(Return(sf::Vector2f(36.375 * Constants::LENGTH_SCALE, 20 * Constants::LENGTH_SCALE)));
 
   metroid.move();
   EXPECT_EQ(metroid.getDirection(), -1);
@@ -157,7 +157,7 @@ TEST_F(MetroidTest, moveChangesDirectionWhenAtRightBoundaryAndJustMovedDownIsFal
 TEST_F(MetroidTest, moveSetsJustMovedDownToTrueWhenAtRightBoundaryAndJustMovedDownIsFalse)
 {
   ON_CALL(sprite, getPosition())
-    .WillByDefault(Return(sf::Vector2f(36.375 * Constants::lengthScale, 20 * Constants::lengthScale)));
+    .WillByDefault(Return(sf::Vector2f(36.375 * Constants::LENGTH_SCALE, 20 * Constants::LENGTH_SCALE)));
 
   metroid.move();
   EXPECT_TRUE(metroid.hasJustMovedDown());
@@ -166,9 +166,9 @@ TEST_F(MetroidTest, moveSetsJustMovedDownToTrueWhenAtRightBoundaryAndJustMovedDo
 TEST_F(MetroidTest, moveMovesSpriteDownWhenAtLeftBoundaryAndJustMovedDownIsFalse)
 {
   ON_CALL(sprite, getPosition())
-    .WillByDefault(Return(sf::Vector2f(1.125 * Constants::lengthScale, 20 * Constants::lengthScale)));
+    .WillByDefault(Return(sf::Vector2f(1.125 * Constants::LENGTH_SCALE, 20 * Constants::LENGTH_SCALE)));
 
-  EXPECT_CALL(sprite, move(sf::Vector2f(0, 2.625 * Constants::lengthScale)))
+  EXPECT_CALL(sprite, move(sf::Vector2f(0, 2.625 * Constants::LENGTH_SCALE)))
     .Times(1);
   metroid.move();
 }
@@ -177,7 +177,7 @@ TEST_F(MetroidTest, moveChangesDirectionWhenAtLeftBoundaryAndJustMovedDownIsFals
 {
   metroid.changeDirection(); // set direction_ to -1
   ON_CALL(sprite, getPosition())
-    .WillByDefault(Return(sf::Vector2f(1.125 * Constants::lengthScale, 20 * Constants::lengthScale)));
+    .WillByDefault(Return(sf::Vector2f(1.125 * Constants::LENGTH_SCALE, 20 * Constants::LENGTH_SCALE)));
 
   metroid.move();
   EXPECT_EQ(metroid.getDirection(), 1);
@@ -186,7 +186,7 @@ TEST_F(MetroidTest, moveChangesDirectionWhenAtLeftBoundaryAndJustMovedDownIsFals
 TEST_F(MetroidTest, moveSetsJustMovedDownToTrueWhenAtLeftBoundaryAndJustMovedDownIsFalse)
 {
   ON_CALL(sprite, getPosition())
-    .WillByDefault(Return(sf::Vector2f(1.125 * Constants::lengthScale, 20 * Constants::lengthScale)));
+    .WillByDefault(Return(sf::Vector2f(1.125 * Constants::LENGTH_SCALE, 20 * Constants::LENGTH_SCALE)));
 
   metroid.move();
   EXPECT_TRUE(metroid.hasJustMovedDown());
@@ -202,7 +202,7 @@ TEST_F(MetroidTest, resurrectSetsAliveBackToTrue)
 
 TEST_F(MetroidTest, resetSetsSpritePositionBackToOriginalPosition)
 {
-  EXPECT_CALL(sprite, setPosition(sf::Vector2f(18.75 * Constants::lengthScale, 20 * Constants::lengthScale)))
+  EXPECT_CALL(sprite, setPosition(sf::Vector2f(18.75 * Constants::LENGTH_SCALE, 20 * Constants::LENGTH_SCALE)))
     .Times(1);
   metroid.reset();
 }
@@ -226,13 +226,13 @@ TEST_F(MetroidTest, resetSetsDirectionBackToOne)
 TEST_F(MetroidTest, shootSetsPositionOfFirstMetroidLaserIfBelowBoard)
 {
   ON_CALL(sprite, getGlobalBounds())
-    .WillByDefault(Return(sf::FloatRect(sf::Vector2f(18.75 * Constants::lengthScale, 20 * Constants::lengthScale), sf::Vector2f(4.125 * Constants::lengthScale, 3 * Constants::lengthScale))));
+    .WillByDefault(Return(sf::FloatRect(sf::Vector2f(18.75 * Constants::LENGTH_SCALE, 20 * Constants::LENGTH_SCALE), sf::Vector2f(4.125 * Constants::LENGTH_SCALE, 3 * Constants::LENGTH_SCALE))));
   ON_CALL(sprite, getPosition())
-    .WillByDefault(Return(sf::Vector2f(18.75 * Constants::lengthScale, 20 * Constants::lengthScale)));
+    .WillByDefault(Return(sf::Vector2f(18.75 * Constants::LENGTH_SCALE, 20 * Constants::LENGTH_SCALE)));
   ON_CALL(metroidLaser1, getPosition())
-    .WillByDefault(Return(sf::Vector2f(7.5 * Constants::lengthScale, 84 * Constants::lengthScale)));
+    .WillByDefault(Return(sf::Vector2f(7.5 * Constants::LENGTH_SCALE, 84 * Constants::LENGTH_SCALE)));
 
-  EXPECT_CALL(metroidLaser1, setPosition(sf::Vector2f(20.25 * Constants::lengthScale, 23 * Constants::lengthScale)))
+  EXPECT_CALL(metroidLaser1, setPosition(sf::Vector2f(20.25 * Constants::LENGTH_SCALE, 23 * Constants::LENGTH_SCALE)))
     .Times(1);
   metroid.shoot(metroidLasers, 0);
 }
@@ -240,15 +240,15 @@ TEST_F(MetroidTest, shootSetsPositionOfFirstMetroidLaserIfBelowBoard)
 TEST_F(MetroidTest, shootSetsPositionOfSecondMetroidLaserIfBelowBoardAndFirstMetroidLaserIsOnBoard)
 {
   ON_CALL(sprite, getGlobalBounds())
-    .WillByDefault(Return(sf::FloatRect(sf::Vector2f(18.75 * Constants::lengthScale, 20 * Constants::lengthScale), sf::Vector2f(4.125 * Constants::lengthScale, 3 * Constants::lengthScale))));
+    .WillByDefault(Return(sf::FloatRect(sf::Vector2f(18.75 * Constants::LENGTH_SCALE, 20 * Constants::LENGTH_SCALE), sf::Vector2f(4.125 * Constants::LENGTH_SCALE, 3 * Constants::LENGTH_SCALE))));
   ON_CALL(sprite, getPosition())
-    .WillByDefault(Return(sf::Vector2f(18.75 * Constants::lengthScale, 20 * Constants::lengthScale)));
+    .WillByDefault(Return(sf::Vector2f(18.75 * Constants::LENGTH_SCALE, 20 * Constants::LENGTH_SCALE)));
   ON_CALL(metroidLaser1, getPosition())
-    .WillByDefault(Return(sf::Vector2f(7.5 * Constants::lengthScale, 56.25 * Constants::lengthScale)));
+    .WillByDefault(Return(sf::Vector2f(7.5 * Constants::LENGTH_SCALE, 56.25 * Constants::LENGTH_SCALE)));
   ON_CALL(metroidLaser2, getPosition())
-    .WillByDefault(Return(sf::Vector2f(7.5 * Constants::lengthScale, 84 * Constants::lengthScale)));
+    .WillByDefault(Return(sf::Vector2f(7.5 * Constants::LENGTH_SCALE, 84 * Constants::LENGTH_SCALE)));
 
-  EXPECT_CALL(metroidLaser2, setPosition(sf::Vector2f(20.25 * Constants::lengthScale, 23 * Constants::lengthScale)))
+  EXPECT_CALL(metroidLaser2, setPosition(sf::Vector2f(20.25 * Constants::LENGTH_SCALE, 23 * Constants::LENGTH_SCALE)))
     .Times(1);
   metroid.shoot(metroidLasers, 0);
 }
@@ -256,17 +256,17 @@ TEST_F(MetroidTest, shootSetsPositionOfSecondMetroidLaserIfBelowBoardAndFirstMet
 TEST_F(MetroidTest, shootSetsPositionOfThirdMetroidLaserIfBelowBoardAndFirstAndSecondMetroidLasersAreOnBoard)
 {
   ON_CALL(sprite, getGlobalBounds())
-    .WillByDefault(Return(sf::FloatRect(sf::Vector2f(18.75 * Constants::lengthScale, 20 * Constants::lengthScale), sf::Vector2f(4.125 * Constants::lengthScale, 3 * Constants::lengthScale))));
+    .WillByDefault(Return(sf::FloatRect(sf::Vector2f(18.75 * Constants::LENGTH_SCALE, 20 * Constants::LENGTH_SCALE), sf::Vector2f(4.125 * Constants::LENGTH_SCALE, 3 * Constants::LENGTH_SCALE))));
   ON_CALL(sprite, getPosition())
-    .WillByDefault(Return(sf::Vector2f(18.75 * Constants::lengthScale, 20 * Constants::lengthScale)));
+    .WillByDefault(Return(sf::Vector2f(18.75 * Constants::LENGTH_SCALE, 20 * Constants::LENGTH_SCALE)));
   ON_CALL(metroidLaser1, getPosition())
-    .WillByDefault(Return(sf::Vector2f(7.5 * Constants::lengthScale, 56.25 * Constants::lengthScale)));
+    .WillByDefault(Return(sf::Vector2f(7.5 * Constants::LENGTH_SCALE, 56.25 * Constants::LENGTH_SCALE)));
   ON_CALL(metroidLaser2, getPosition())
-    .WillByDefault(Return(sf::Vector2f(7.5 * Constants::lengthScale, 37.5 * Constants::lengthScale)));
+    .WillByDefault(Return(sf::Vector2f(7.5 * Constants::LENGTH_SCALE, 37.5 * Constants::LENGTH_SCALE)));
   ON_CALL(metroidLaser3, getPosition())
-    .WillByDefault(Return(sf::Vector2f(7.5 * Constants::lengthScale, 84 * Constants::lengthScale)));
+    .WillByDefault(Return(sf::Vector2f(7.5 * Constants::LENGTH_SCALE, 84 * Constants::LENGTH_SCALE)));
 
-  EXPECT_CALL(metroidLaser3, setPosition(sf::Vector2f(20.25 * Constants::lengthScale, 23 * Constants::lengthScale)))
+  EXPECT_CALL(metroidLaser3, setPosition(sf::Vector2f(20.25 * Constants::LENGTH_SCALE, 23 * Constants::LENGTH_SCALE)))
     .Times(1);
   metroid.shoot(metroidLasers, 0);
 }
@@ -274,15 +274,15 @@ TEST_F(MetroidTest, shootSetsPositionOfThirdMetroidLaserIfBelowBoardAndFirstAndS
 TEST_F(MetroidTest, shootDoesNotSetPositionOfAnyMetroidLaserIfTheyAreAllOnBoard)
 {
   ON_CALL(sprite, getGlobalBounds())
-    .WillByDefault(Return(sf::FloatRect(sf::Vector2f(18.75 * Constants::lengthScale, 20 * Constants::lengthScale), sf::Vector2f(4.125 * Constants::lengthScale, 3 * Constants::lengthScale))));
+    .WillByDefault(Return(sf::FloatRect(sf::Vector2f(18.75 * Constants::LENGTH_SCALE, 20 * Constants::LENGTH_SCALE), sf::Vector2f(4.125 * Constants::LENGTH_SCALE, 3 * Constants::LENGTH_SCALE))));
   ON_CALL(sprite, getPosition())
-    .WillByDefault(Return(sf::Vector2f(18.75 * Constants::lengthScale, 20 * Constants::lengthScale)));
+    .WillByDefault(Return(sf::Vector2f(18.75 * Constants::LENGTH_SCALE, 20 * Constants::LENGTH_SCALE)));
   ON_CALL(metroidLaser1, getPosition())
-    .WillByDefault(Return(sf::Vector2f(7.5 * Constants::lengthScale, 56.25 * Constants::lengthScale)));
+    .WillByDefault(Return(sf::Vector2f(7.5 * Constants::LENGTH_SCALE, 56.25 * Constants::LENGTH_SCALE)));
   ON_CALL(metroidLaser2, getPosition())
-    .WillByDefault(Return(sf::Vector2f(7.5 * Constants::lengthScale, 37.5 * Constants::lengthScale)));
+    .WillByDefault(Return(sf::Vector2f(7.5 * Constants::LENGTH_SCALE, 37.5 * Constants::LENGTH_SCALE)));
   ON_CALL(metroidLaser3, getPosition())
-    .WillByDefault(Return(sf::Vector2f(7.5 * Constants::lengthScale, 18.75 * Constants::lengthScale)));
+    .WillByDefault(Return(sf::Vector2f(7.5 * Constants::LENGTH_SCALE, 18.75 * Constants::LENGTH_SCALE)));
 
   EXPECT_CALL(metroidLaser1, setPosition)
     .Times(0);
@@ -296,15 +296,15 @@ TEST_F(MetroidTest, shootDoesNotSetPositionOfAnyMetroidLaserIfTheyAreAllOnBoard)
 TEST_F(MetroidTest, shootDoesNotSetPositionOfAnyMetroidLaserIfRandomNumberIsNot0)
 {
   ON_CALL(sprite, getGlobalBounds())
-    .WillByDefault(Return(sf::FloatRect(sf::Vector2f(18.75 * Constants::lengthScale, 20 * Constants::lengthScale), sf::Vector2f(4.125 * Constants::lengthScale, 3 * Constants::lengthScale))));
+    .WillByDefault(Return(sf::FloatRect(sf::Vector2f(18.75 * Constants::LENGTH_SCALE, 20 * Constants::LENGTH_SCALE), sf::Vector2f(4.125 * Constants::LENGTH_SCALE, 3 * Constants::LENGTH_SCALE))));
   ON_CALL(sprite, getPosition())
-    .WillByDefault(Return(sf::Vector2f(18.75 * Constants::lengthScale, 20 * Constants::lengthScale)));
+    .WillByDefault(Return(sf::Vector2f(18.75 * Constants::LENGTH_SCALE, 20 * Constants::LENGTH_SCALE)));
   ON_CALL(metroidLaser1, getPosition())
-    .WillByDefault(Return(sf::Vector2f(7.5 * Constants::lengthScale, 84 * Constants::lengthScale)));
+    .WillByDefault(Return(sf::Vector2f(7.5 * Constants::LENGTH_SCALE, 84 * Constants::LENGTH_SCALE)));
   ON_CALL(metroidLaser2, getPosition())
-    .WillByDefault(Return(sf::Vector2f(7.5 * Constants::lengthScale, 84 * Constants::lengthScale)));
+    .WillByDefault(Return(sf::Vector2f(7.5 * Constants::LENGTH_SCALE, 84 * Constants::LENGTH_SCALE)));
   ON_CALL(metroidLaser3, getPosition())
-    .WillByDefault(Return(sf::Vector2f(7.5 * Constants::lengthScale, 84 * Constants::lengthScale)));
+    .WillByDefault(Return(sf::Vector2f(7.5 * Constants::LENGTH_SCALE, 84 * Constants::LENGTH_SCALE)));
 
   EXPECT_CALL(metroidLaser1, setPosition)
     .Times(0);

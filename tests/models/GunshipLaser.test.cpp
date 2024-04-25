@@ -17,7 +17,7 @@ protected:
 
 TEST_F(GunshipLaserTest, setsSpritePositionUponInstantiation)
 {
-  EXPECT_CALL(sprite, setPosition(sf::Vector2f(7.5 * Constants::lengthScale, -1.5 * Constants::lengthScale)))
+  EXPECT_CALL(sprite, setPosition(sf::Vector2f(7.5 * Constants::LENGTH_SCALE, -1.5 * Constants::LENGTH_SCALE)))
       .Times(1);
   GunshipLaser gunshipLaser(pSprite);
 }
@@ -25,7 +25,7 @@ TEST_F(GunshipLaserTest, setsSpritePositionUponInstantiation)
 TEST_F(GunshipLaserTest, drawCallsDrawOnWindowArgumentWhenGunshipLaserIsOnBoard)
 {
   ON_CALL(sprite, getPosition())
-      .WillByDefault(Return(sf::Vector2f(37.5 * Constants::lengthScale, 43.75 * Constants::lengthScale)));
+      .WillByDefault(Return(sf::Vector2f(37.5 * Constants::LENGTH_SCALE, 43.75 * Constants::LENGTH_SCALE)));
 
   EXPECT_CALL(window, draw(testing::Truly([](const sf::Drawable &drawable)
                                           { return true; })))
@@ -36,7 +36,7 @@ TEST_F(GunshipLaserTest, drawCallsDrawOnWindowArgumentWhenGunshipLaserIsOnBoard)
 TEST_F(GunshipLaserTest, drawDoesNotCallDrawOnWindowArgumentWhenGunshipLaserIsAboveBoard)
 {
   ON_CALL(sprite, getPosition())
-      .WillByDefault(Return(sf::Vector2f(7.5 * Constants::lengthScale, -1.5 * Constants::lengthScale)));
+      .WillByDefault(Return(sf::Vector2f(7.5 * Constants::LENGTH_SCALE, -1.5 * Constants::LENGTH_SCALE)));
 
   EXPECT_CALL(window, draw)
       .Times(0);
@@ -46,9 +46,10 @@ TEST_F(GunshipLaserTest, drawDoesNotCallDrawOnWindowArgumentWhenGunshipLaserIsAb
 TEST_F(GunshipLaserTest, moveCallsMoveOnSpriteWhenGunshipLaserIsOnTheBoard)
 {
   ON_CALL(sprite, getPosition())
-      .WillByDefault(Return(sf::Vector2f(31.25 * Constants::lengthScale, 62.5 * Constants::lengthScale)));
+      .WillByDefault(Return(sf::Vector2f(31.25 * Constants::LENGTH_SCALE, 62.5 * Constants::LENGTH_SCALE)));
 
-  EXPECT_CALL(sprite, move(sf::Vector2f(0, -0.4 * Constants::lengthScale)))
+  float speed {0.4 * Constants::LENGTH_SCALE * Constants::FRAME_LENGTH / 6250};
+  EXPECT_CALL(sprite, move(sf::Vector2f(0, -speed)))
       .Times(1);
   gunshipLaser.move();
 }
@@ -56,7 +57,7 @@ TEST_F(GunshipLaserTest, moveCallsMoveOnSpriteWhenGunshipLaserIsOnTheBoard)
 TEST_F(GunshipLaserTest, moveDoesNothingWhenGunshipLaserIsAboveTheBoard)
 {
   ON_CALL(sprite, getPosition())
-      .WillByDefault(Return(sf::Vector2f(7.5 * Constants::lengthScale, -1.5 * Constants::lengthScale)));
+      .WillByDefault(Return(sf::Vector2f(7.5 * Constants::LENGTH_SCALE, -1.5 * Constants::LENGTH_SCALE)));
 
   EXPECT_CALL(sprite, move)
       .Times(0);

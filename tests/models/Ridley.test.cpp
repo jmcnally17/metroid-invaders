@@ -20,29 +20,30 @@ protected:
   MockSound *pMovementSound {&movementSound};
   Ridley ridley {Ridley(pRightSprite, pDeathSound, pLeftSprite, pMovementSound)};
   MockRenderWindow window;
+  float speed {0.1 * Constants::LENGTH_SCALE * Constants::FRAME_LENGTH / 6250};
 };
 
 TEST_F(RidleyTest, setsPositionOnSpritesUponInstantiation)
 {
-  EXPECT_CALL(rightSprite, setPosition(sf::Vector2f(-6 * Constants::lengthScale, 12.5 * Constants::lengthScale)))
+  EXPECT_CALL(rightSprite, setPosition(sf::Vector2f(-6 * Constants::LENGTH_SCALE, 12.5 * Constants::LENGTH_SCALE)))
       .Times(1);
-  EXPECT_CALL(leftSprite, setPosition(sf::Vector2f(-6 * Constants::lengthScale, 12.5 * Constants::lengthScale)))
+  EXPECT_CALL(leftSprite, setPosition(sf::Vector2f(-6 * Constants::LENGTH_SCALE, 12.5 * Constants::LENGTH_SCALE)))
       .Times(1);
   Ridley ridley {Ridley(pRightSprite, pDeathSound, pLeftSprite, pMovementSound)};
 }
 
 TEST_F(RidleyTest, setsScaleOnSpritesUponInstantiation)
 {
-  EXPECT_CALL(rightSprite, setScale(sf::Vector2f(Constants::lengthScale / 16, Constants::lengthScale / 16)))
+  EXPECT_CALL(rightSprite, setScale(sf::Vector2f(Constants::LENGTH_SCALE / 16, Constants::LENGTH_SCALE / 16)))
       .Times(1);
-  EXPECT_CALL(leftSprite, setScale(sf::Vector2f(Constants::lengthScale / 16, Constants::lengthScale / 16)))
+  EXPECT_CALL(leftSprite, setScale(sf::Vector2f(Constants::LENGTH_SCALE / 16, Constants::LENGTH_SCALE / 16)))
       .Times(1);
   Ridley ridley {Ridley(pRightSprite, pDeathSound, pLeftSprite, pMovementSound)};
 }
 
 TEST_F(RidleyTest, setsSpeedUponInstantiation)
 {
-  EXPECT_FLOAT_EQ(ridley.getSpeed(), 0.1 * Constants::lengthScale);
+  EXPECT_FLOAT_EQ(ridley.getSpeed(), speed);
 }
 
 TEST_F(RidleyTest, setsPointsUponInstantiation)
@@ -64,17 +65,17 @@ TEST_F(RidleyTest, setsLoopOnMovementSoundToTrue)
 
 TEST_F(RidleyTest, setPositionUpdatesSpritePositions)
 {
-  EXPECT_CALL(rightSprite, setPosition(sf::Vector2f(31.25 * Constants::lengthScale, 57.5 * Constants::lengthScale)))
+  EXPECT_CALL(rightSprite, setPosition(sf::Vector2f(31.25 * Constants::LENGTH_SCALE, 57.5 * Constants::LENGTH_SCALE)))
       .Times(1);
-  EXPECT_CALL(leftSprite, setPosition(sf::Vector2f(31.25 * Constants::lengthScale, 57.5 * Constants::lengthScale)))
+  EXPECT_CALL(leftSprite, setPosition(sf::Vector2f(31.25 * Constants::LENGTH_SCALE, 57.5 * Constants::LENGTH_SCALE)))
       .Times(1);
-  ridley.setPosition(sf::Vector2f(31.25 * Constants::lengthScale, 57.5 * Constants::lengthScale));
+  ridley.setPosition(sf::Vector2f(31.25 * Constants::LENGTH_SCALE, 57.5 * Constants::LENGTH_SCALE));
 }
 
 TEST_F(RidleyTest, drawCallsDrawOnLeftSpriteClassMemberWhenOnTheBoardAndDirectionIsMinus1)
 {
   ON_CALL(rightSprite, getPosition())
-      .WillByDefault(Return(sf::Vector2f(31.25 * Constants::lengthScale, 12.5 * Constants::lengthScale)));
+      .WillByDefault(Return(sf::Vector2f(31.25 * Constants::LENGTH_SCALE, 12.5 * Constants::LENGTH_SCALE)));
 
   EXPECT_CALL(window, draw(testing::Truly([](const sf::Drawable &drawable)
                                           { return true; })))
@@ -86,7 +87,7 @@ TEST_F(RidleyTest, drawCallsDrawOnRightSpriteClassMemberWhenOnTheBoardAndDirecti
 {
   ridley.changeDirection(); // set direction to 1
   ON_CALL(rightSprite, getPosition())
-      .WillByDefault(Return(sf::Vector2f(31.25 * Constants::lengthScale, 12.5 * Constants::lengthScale)));
+      .WillByDefault(Return(sf::Vector2f(31.25 * Constants::LENGTH_SCALE, 12.5 * Constants::LENGTH_SCALE)));
 
   EXPECT_CALL(window, draw(testing::Truly([](const sf::Drawable &drawable)
                                           { return true; })))
@@ -97,7 +98,7 @@ TEST_F(RidleyTest, drawCallsDrawOnRightSpriteClassMemberWhenOnTheBoardAndDirecti
 TEST_F(RidleyTest, drawDoesNotCallDrawOnSpriteClassMemberWhenLeftOfTheBoard)
 {
   ON_CALL(rightSprite, getPosition())
-      .WillByDefault(Return(sf::Vector2f(-6 * Constants::lengthScale, 12.5 * Constants::lengthScale)));
+      .WillByDefault(Return(sf::Vector2f(-6 * Constants::LENGTH_SCALE, 12.5 * Constants::LENGTH_SCALE)));
 
   EXPECT_CALL(window, draw)
       .Times(0);
@@ -107,7 +108,7 @@ TEST_F(RidleyTest, drawDoesNotCallDrawOnSpriteClassMemberWhenLeftOfTheBoard)
 TEST_F(RidleyTest, drawDoesNotCallDrawOnTheSpriteClassMemberWhenRightOfTheBoard)
 {
   ON_CALL(rightSprite, getPosition())
-      .WillByDefault(Return(sf::Vector2f(96 * Constants::lengthScale, 12.5 * Constants::lengthScale)));
+      .WillByDefault(Return(sf::Vector2f(96 * Constants::LENGTH_SCALE, 12.5 * Constants::LENGTH_SCALE)));
 
   EXPECT_CALL(window, draw)
       .Times(0);
@@ -117,7 +118,7 @@ TEST_F(RidleyTest, drawDoesNotCallDrawOnTheSpriteClassMemberWhenRightOfTheBoard)
 TEST_F(RidleyTest, spawnChangesDirectionToOne)
 {
   ON_CALL(rightSprite, getPosition())
-      .WillByDefault(Return(sf::Vector2f(-6 * Constants::lengthScale, 12.5 * Constants::lengthScale)));
+      .WillByDefault(Return(sf::Vector2f(-6 * Constants::LENGTH_SCALE, 12.5 * Constants::LENGTH_SCALE)));
 
   ridley.spawn(0);
   EXPECT_EQ(ridley.getDirection(), 1);
@@ -127,7 +128,7 @@ TEST_F(RidleyTest, spawnChangesDirectionBackToMinusOne)
 {
   ridley.changeDirection(); // Set direction to 1
   ON_CALL(rightSprite, getPosition())
-      .WillByDefault(Return(sf::Vector2f(96 * Constants::lengthScale, 12.5 * Constants::lengthScale)));
+      .WillByDefault(Return(sf::Vector2f(96 * Constants::LENGTH_SCALE, 12.5 * Constants::LENGTH_SCALE)));
 
   ridley.spawn(0);
   EXPECT_EQ(ridley.getDirection(), -1);
@@ -136,11 +137,11 @@ TEST_F(RidleyTest, spawnChangesDirectionBackToMinusOne)
 TEST_F(RidleyTest, spawnShiftsSpritesToTheRightWhenAtLeftBoundary)
 {
   ON_CALL(rightSprite, getPosition())
-      .WillByDefault(Return(sf::Vector2f(-6 * Constants::lengthScale, 12.5 * Constants::lengthScale)));
+      .WillByDefault(Return(sf::Vector2f(-6 * Constants::LENGTH_SCALE, 12.5 * Constants::LENGTH_SCALE)));
 
-  EXPECT_CALL(rightSprite, move(sf::Vector2f(0.1 * Constants::lengthScale, 0)))
+  EXPECT_CALL(rightSprite, move(sf::Vector2f(speed, 0)))
       .Times(1);
-  EXPECT_CALL(leftSprite, move(sf::Vector2f(0.1 * Constants::lengthScale, 0)))
+  EXPECT_CALL(leftSprite, move(sf::Vector2f(speed, 0)))
       .Times(1);
   ridley.spawn(0);
 }
@@ -149,11 +150,11 @@ TEST_F(RidleyTest, spawnShiftsSpritesToTheLeftWhenAtRightBoundary)
 {
   ridley.changeDirection(); // Set direction to 1
   ON_CALL(rightSprite, getPosition())
-      .WillByDefault(Return(sf::Vector2f(96 * Constants::lengthScale, 12.5 * Constants::lengthScale)));
+      .WillByDefault(Return(sf::Vector2f(96 * Constants::LENGTH_SCALE, 12.5 * Constants::LENGTH_SCALE)));
 
-  EXPECT_CALL(rightSprite, move(sf::Vector2f(-0.1 * Constants::lengthScale, 0)))
+  EXPECT_CALL(rightSprite, move(sf::Vector2f(-speed, 0)))
       .Times(1);
-  EXPECT_CALL(leftSprite, move(sf::Vector2f(-0.1 * Constants::lengthScale, 0)))
+  EXPECT_CALL(leftSprite, move(sf::Vector2f(-speed, 0)))
       .Times(1);
   ridley.spawn(0);
 }
@@ -161,7 +162,7 @@ TEST_F(RidleyTest, spawnShiftsSpritesToTheLeftWhenAtRightBoundary)
 TEST_F(RidleyTest, spawnPlaysTheMovementSound)
 {
   ON_CALL(rightSprite, getPosition())
-      .WillByDefault(Return(sf::Vector2f(-6 * Constants::lengthScale, 12.5 * Constants::lengthScale)));
+      .WillByDefault(Return(sf::Vector2f(-6 * Constants::LENGTH_SCALE, 12.5 * Constants::LENGTH_SCALE)));
 
   EXPECT_CALL(movementSound, play())
       .Times(1);
@@ -171,7 +172,7 @@ TEST_F(RidleyTest, spawnPlaysTheMovementSound)
 TEST_F(RidleyTest, spawnDoesNotSpawnRidleyWhenNotAtLeftOrRightBoundary)
 {
   ON_CALL(rightSprite, getPosition())
-      .WillByDefault(Return(sf::Vector2f(31.25 * Constants::lengthScale, 12.5 * Constants::lengthScale)));
+      .WillByDefault(Return(sf::Vector2f(31.25 * Constants::LENGTH_SCALE, 12.5 * Constants::LENGTH_SCALE)));
 
   EXPECT_CALL(movementSound, play())
       .Times(0);
@@ -186,7 +187,7 @@ TEST_F(RidleyTest, spawnDoesNotSpawnRidleyWhenNotAtLeftOrRightBoundary)
 TEST_F(RidleyTest, spawnDoesNotSpawnRidleyWhenRandomNumberIsNotZero)
 {
   ON_CALL(rightSprite, getPosition())
-      .WillByDefault(Return(sf::Vector2f(-6 * Constants::lengthScale, 12.5 * Constants::lengthScale)));
+      .WillByDefault(Return(sf::Vector2f(-6 * Constants::LENGTH_SCALE, 12.5 * Constants::LENGTH_SCALE)));
 
   EXPECT_CALL(movementSound, play())
       .Times(0);
@@ -201,11 +202,11 @@ TEST_F(RidleyTest, spawnDoesNotSpawnRidleyWhenRandomNumberIsNotZero)
 TEST_F(RidleyTest, moveMovesSpritesToTheLeftWhenDirectionIsMinusOneAndNotAtLeftOrRightBoundary)
 {
   ON_CALL(rightSprite, getPosition())
-      .WillByDefault(Return(sf::Vector2f(31.25 * Constants::lengthScale, 12.5 * Constants::lengthScale)));
+      .WillByDefault(Return(sf::Vector2f(31.25 * Constants::LENGTH_SCALE, 12.5 * Constants::LENGTH_SCALE)));
 
-  EXPECT_CALL(rightSprite, move(sf::Vector2f(-0.1 * Constants::lengthScale, 0)))
+  EXPECT_CALL(rightSprite, move(sf::Vector2f(-speed, 0)))
       .Times(1);
-  EXPECT_CALL(leftSprite, move(sf::Vector2f(-0.1 * Constants::lengthScale, 0)))
+  EXPECT_CALL(leftSprite, move(sf::Vector2f(-speed, 0)))
       .Times(1);
   ridley.move();
 }
@@ -214,11 +215,11 @@ TEST_F(RidleyTest, moveMovesSpritesToTheRightWhenDirectionIsOneAndNotAtLeftOrRgh
 {
   ridley.changeDirection(); // Set direction to 1
   ON_CALL(rightSprite, getPosition())
-      .WillByDefault(Return(sf::Vector2f(31.25 * Constants::lengthScale, 12.5 * Constants::lengthScale)));
+      .WillByDefault(Return(sf::Vector2f(31.25 * Constants::LENGTH_SCALE, 12.5 * Constants::LENGTH_SCALE)));
 
-  EXPECT_CALL(rightSprite, move(sf::Vector2f(0.1 * Constants::lengthScale, 0)))
+  EXPECT_CALL(rightSprite, move(sf::Vector2f(speed, 0)))
       .Times(1);
-  EXPECT_CALL(leftSprite, move(sf::Vector2f(0.1 * Constants::lengthScale, 0)))
+  EXPECT_CALL(leftSprite, move(sf::Vector2f(speed, 0)))
       .Times(1);
   ridley.move();
 }
@@ -226,7 +227,7 @@ TEST_F(RidleyTest, moveMovesSpritesToTheRightWhenDirectionIsOneAndNotAtLeftOrRgh
 TEST_F(RidleyTest, moveDoesNotChangePositionWhenAtLeftBoundary)
 {
   ON_CALL(rightSprite, getPosition())
-      .WillByDefault(Return(sf::Vector2f(-6 * Constants::lengthScale, 12.5 * Constants::lengthScale)));
+      .WillByDefault(Return(sf::Vector2f(-6 * Constants::LENGTH_SCALE, 12.5 * Constants::LENGTH_SCALE)));
 
   EXPECT_CALL(rightSprite, move)
       .Times(0);
@@ -238,7 +239,7 @@ TEST_F(RidleyTest, moveDoesNotChangePositionWhenAtLeftBoundary)
 TEST_F(RidleyTest, moveDoesNotChangePositionWhenAtRightBoundary)
 {
   ON_CALL(rightSprite, getPosition())
-      .WillByDefault(Return(sf::Vector2f(96 * Constants::lengthScale, 12.5 * Constants::lengthScale)));
+      .WillByDefault(Return(sf::Vector2f(96 * Constants::LENGTH_SCALE, 12.5 * Constants::LENGTH_SCALE)));
 
   EXPECT_CALL(rightSprite, move)
       .Times(0);
@@ -249,9 +250,9 @@ TEST_F(RidleyTest, moveDoesNotChangePositionWhenAtRightBoundary)
 
 TEST_F(RidleyTest, resetSetsSpritePositionsBackToOriginalPosition)
 {
-  EXPECT_CALL(rightSprite, setPosition(sf::Vector2f(-6 * Constants::lengthScale, 12.5 * Constants::lengthScale)))
+  EXPECT_CALL(rightSprite, setPosition(sf::Vector2f(-6 * Constants::LENGTH_SCALE, 12.5 * Constants::LENGTH_SCALE)))
       .Times(1);
-  EXPECT_CALL(leftSprite, setPosition(sf::Vector2f(-6 * Constants::lengthScale, 12.5 * Constants::lengthScale)))
+  EXPECT_CALL(leftSprite, setPosition(sf::Vector2f(-6 * Constants::LENGTH_SCALE, 12.5 * Constants::LENGTH_SCALE)))
       .Times(1);
   ridley.reset();
 }
@@ -287,7 +288,7 @@ TEST_F(RidleyTest, stopMovementSoundIfPlayingDoesNotStopMovementSoundIfItIsNotPl
 TEST_F(RidleyTest, stopMovementSoundIfAtSideOfWindowStopsMovementSoundIfAtLeftSideAndPlaying)
 {
   ON_CALL(rightSprite, getPosition())
-      .WillByDefault(Return(sf::Vector2f(-6 * Constants::lengthScale, 12.5 * Constants::lengthScale)));
+      .WillByDefault(Return(sf::Vector2f(-6 * Constants::LENGTH_SCALE, 12.5 * Constants::LENGTH_SCALE)));
   ON_CALL(movementSound, getStatus())
       .WillByDefault(Return(sf::Sound::Playing));
 
@@ -299,7 +300,7 @@ TEST_F(RidleyTest, stopMovementSoundIfAtSideOfWindowStopsMovementSoundIfAtLeftSi
 TEST_F(RidleyTest, stopMovementSoundIfAtSideOfWindowStopsMovementSoundIfAtRightSideAndPlaying)
 {
   ON_CALL(rightSprite, getPosition())
-      .WillByDefault(Return(sf::Vector2f(96 * Constants::lengthScale, 12.5 * Constants::lengthScale)));
+      .WillByDefault(Return(sf::Vector2f(96 * Constants::LENGTH_SCALE, 12.5 * Constants::LENGTH_SCALE)));
   ON_CALL(movementSound, getStatus())
       .WillByDefault(Return(sf::Sound::Playing));
 
@@ -311,7 +312,7 @@ TEST_F(RidleyTest, stopMovementSoundIfAtSideOfWindowStopsMovementSoundIfAtRightS
 TEST_F(RidleyTest, stopMovementSoundIfAtSideOfWindowDoesNotStopMovementSoundIfInTheWindowAndPlaying)
 {
   ON_CALL(rightSprite, getPosition())
-      .WillByDefault(Return(sf::Vector2f(31.25 * Constants::lengthScale, 12.5 * Constants::lengthScale)));
+      .WillByDefault(Return(sf::Vector2f(31.25 * Constants::LENGTH_SCALE, 12.5 * Constants::LENGTH_SCALE)));
   ON_CALL(movementSound, getStatus())
       .WillByDefault(Return(sf::Sound::Playing));
 
@@ -323,7 +324,7 @@ TEST_F(RidleyTest, stopMovementSoundIfAtSideOfWindowDoesNotStopMovementSoundIfIn
 TEST_F(RidleyTest, stopMovementSoundIfAtSideOfWindowDoesNotStopMovementSoundIfNotPlaying)
 {
   ON_CALL(rightSprite, getPosition())
-      .WillByDefault(Return(sf::Vector2f(-6 * Constants::lengthScale, 12.5 * Constants::lengthScale)));
+      .WillByDefault(Return(sf::Vector2f(-6 * Constants::LENGTH_SCALE, 12.5 * Constants::LENGTH_SCALE)));
   ON_CALL(movementSound, getStatus())
       .WillByDefault(Return(sf::Sound::Stopped));
 
@@ -336,11 +337,11 @@ TEST_F(RidleyTest, dieSetsSpritePositionsToRightBoundaryWhenDirectionIsOne)
 {
   ridley.changeDirection(); // Set direction to 1
   ON_CALL(rightSprite, getPosition())
-      .WillByDefault(Return(sf::Vector2f(31.25 * Constants::lengthScale, 12.5 * Constants::lengthScale)));
+      .WillByDefault(Return(sf::Vector2f(31.25 * Constants::LENGTH_SCALE, 12.5 * Constants::LENGTH_SCALE)));
 
-  EXPECT_CALL(rightSprite, setPosition(sf::Vector2f(96 * Constants::lengthScale, 12.5 * Constants::lengthScale)))
+  EXPECT_CALL(rightSprite, setPosition(sf::Vector2f(96 * Constants::LENGTH_SCALE, 12.5 * Constants::LENGTH_SCALE)))
       .Times(1);
-  EXPECT_CALL(leftSprite, setPosition(sf::Vector2f(96 * Constants::lengthScale, 12.5 * Constants::lengthScale)))
+  EXPECT_CALL(leftSprite, setPosition(sf::Vector2f(96 * Constants::LENGTH_SCALE, 12.5 * Constants::LENGTH_SCALE)))
       .Times(1);
   ridley.die();
 }
@@ -348,11 +349,11 @@ TEST_F(RidleyTest, dieSetsSpritePositionsToRightBoundaryWhenDirectionIsOne)
 TEST_F(RidleyTest, dieSetsSpritePositionsToLeftBoundaryWhenDirectionIsMinusOne)
 {
   ON_CALL(rightSprite, getPosition())
-      .WillByDefault(Return(sf::Vector2f(31.25 * Constants::lengthScale, 12.5 * Constants::lengthScale)));
+      .WillByDefault(Return(sf::Vector2f(31.25 * Constants::LENGTH_SCALE, 12.5 * Constants::LENGTH_SCALE)));
 
-  EXPECT_CALL(rightSprite, setPosition(sf::Vector2f(-6 * Constants::lengthScale, 12.5 * Constants::lengthScale)))
+  EXPECT_CALL(rightSprite, setPosition(sf::Vector2f(-6 * Constants::LENGTH_SCALE, 12.5 * Constants::LENGTH_SCALE)))
       .Times(1);
-  EXPECT_CALL(leftSprite, setPosition(sf::Vector2f(-6 * Constants::lengthScale, 12.5 * Constants::lengthScale)))
+  EXPECT_CALL(leftSprite, setPosition(sf::Vector2f(-6 * Constants::LENGTH_SCALE, 12.5 * Constants::LENGTH_SCALE)))
       .Times(1);
   ridley.die();
 }

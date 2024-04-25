@@ -26,7 +26,7 @@ TEST_F(GameObjectTest, setsSpritePositionUponInstantiation)
 
 TEST_F(GameObjectTest, setsSpriteScaleUponInstantiation)
 {
-  EXPECT_CALL(sprite, setScale(sf::Vector2f(Constants::lengthScale / 16, Constants::lengthScale / 16)))
+  EXPECT_CALL(sprite, setScale(sf::Vector2f(Constants::LENGTH_SCALE / 16, Constants::LENGTH_SCALE / 16)))
     .Times(1);
   GameObject gameObject(900, 300, pSprite);
 }

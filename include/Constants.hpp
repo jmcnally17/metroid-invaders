@@ -2,7 +2,8 @@
 #define CONSTANTS_HPP
 
 namespace Constants {
-  const float lengthScale {11.0};
+  constexpr float LENGTH_SCALE {11.0};
+  constexpr int FRAME_LENGTH {6250};
 }
 
 #endif

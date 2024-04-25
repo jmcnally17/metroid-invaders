@@ -30,13 +30,13 @@ std::unordered_map<std::string, IText*> Factory::makeTextObjects()
   std::string livesString {"Lives: 3"};
   std::string gameOverString {"Game Over"};
   std::string playAgainString {"Press p to play again"};
-  TextAdaptor *titleText {makeText(titleString, m56, 6.25 * Constants::lengthScale, green, 0.5, 48 * Constants::lengthScale, 16 * Constants::lengthScale)};
-  TextAdaptor *instructionsText {makeText(instructionsString, m56, 3.125 * Constants::lengthScale, green, 0.5, 48 * Constants::lengthScale, 75 * Constants::lengthScale)};
-  TextAdaptor *scoreText {makeText(scoreString, m56, 3.125 * Constants::lengthScale, white, 0, 1.25 * Constants::lengthScale, 0)};
-  TextAdaptor *highScoreText {makeText(highScoreString, m56, 3.125 * Constants::lengthScale, white, 0.5, 48 * Constants::lengthScale, 0)};
-  TextAdaptor *livesText {makeText(livesString, m56, 3.125 * Constants::lengthScale, white, 0, 78.125 * Constants::lengthScale, 0)};
-  TextAdaptor *gameOverText {makeText(gameOverString, m56, 9.5625 * Constants::lengthScale, white, 0.5, 48 * Constants::lengthScale, 12.5 * Constants::lengthScale)};
-  TextAdaptor *playAgainText {makeText(playAgainString, m56, 3 * Constants::lengthScale, white, 0.5, 48 * Constants::lengthScale, 62.5 * Constants::lengthScale)};
+  TextAdaptor *titleText {makeText(titleString, m56, 6.25 * Constants::LENGTH_SCALE, green, 0.5, 48 * Constants::LENGTH_SCALE, 16 * Constants::LENGTH_SCALE)};
+  TextAdaptor *instructionsText {makeText(instructionsString, m56, 3.125 * Constants::LENGTH_SCALE, green, 0.5, 48 * Constants::LENGTH_SCALE, 75 * Constants::LENGTH_SCALE)};
+  TextAdaptor *scoreText {makeText(scoreString, m56, 3.125 * Constants::LENGTH_SCALE, white, 0, 1.25 * Constants::LENGTH_SCALE, 0)};
+  TextAdaptor *highScoreText {makeText(highScoreString, m56, 3.125 * Constants::LENGTH_SCALE, white, 0.5, 48 * Constants::LENGTH_SCALE, 0)};
+  TextAdaptor *livesText {makeText(livesString, m56, 3.125 * Constants::LENGTH_SCALE, white, 0, 78.125 * Constants::LENGTH_SCALE, 0)};
+  TextAdaptor *gameOverText {makeText(gameOverString, m56, 9.5625 * Constants::LENGTH_SCALE, white, 0.5, 48 * Constants::LENGTH_SCALE, 12.5 * Constants::LENGTH_SCALE)};
+  TextAdaptor *playAgainText {makeText(playAgainString, m56, 3 * Constants::LENGTH_SCALE, white, 0.5, 48 * Constants::LENGTH_SCALE, 62.5 * Constants::LENGTH_SCALE)};
   
   return std::unordered_map<std::string, IText*> {
     {"title", titleText},
@@ -92,8 +92,8 @@ std::array<IBunker*, 4> Factory::makeBunkers()
   
   std::array<IBunker*, 4> bunkers;
   
-  float xOffset {12 * Constants::lengthScale};
-  float xIncrement {21 * Constants::lengthScale};
+  float xOffset {12 * Constants::LENGTH_SCALE};
+  float xIncrement {21 * Constants::LENGTH_SCALE};
   
   for (int i = 0; i < 4; i++)
   {
@@ -102,7 +102,7 @@ std::array<IBunker*, 4> Factory::makeBunkers()
     SpriteAdaptor *bunkerSprite3 {new SpriteAdaptor(bunkerTexture3)};
     SpriteAdaptor *bunkerSprite4 {new SpriteAdaptor(bunkerTexture4)};
     SpriteAdaptor *bunkerSprite5 {new SpriteAdaptor(bunkerTexture5)};
-    Bunker *bunker {new Bunker(xOffset + (xIncrement * i), 64.5 * Constants::lengthScale, bunkerSprite1, bunkerSprite2, bunkerSprite3, bunkerSprite4, bunkerSprite5)};
+    Bunker *bunker {new Bunker(xOffset + (xIncrement * i), 64.5 * Constants::LENGTH_SCALE, bunkerSprite1, bunkerSprite2, bunkerSprite3, bunkerSprite4, bunkerSprite5)};
     bunkers[i] = bunker;
   }
 
@@ -151,10 +151,10 @@ std::array<std::array<IMetroid*, 11>, 5> Factory::makeMetroids()
 
   std::array<std::array<IMetroid*, 11>, 5> metroids;
 
-  float xOffset {static_cast<float>(17.625 * Constants::lengthScale)};
-  float yOffset {static_cast<float>(21.75 * Constants::lengthScale)};
-  float extraLarvaXOffset {static_cast<float>(0.75 * Constants::lengthScale)};
-  float distanceBetweenMetroids {static_cast<float>(5.625 * Constants::lengthScale)};
+  float xOffset {static_cast<float>(17.625 * Constants::LENGTH_SCALE)};
+  float yOffset {static_cast<float>(21.75 * Constants::LENGTH_SCALE)};
+  float extraLarvaXOffset {static_cast<float>(0.75 * Constants::LENGTH_SCALE)};
+  float distanceBetweenMetroids {static_cast<float>(5.625 * Constants::LENGTH_SCALE)};
 
   for (int i = 0; i < 5; i++)
   {
@@ -248,11 +248,11 @@ std::array<ISound*, 4> Factory::makeMetroidSounds()
 
 std::array<sf::RectangleShape, 2> Factory::makeRectangles()
 {
-  sf::RectangleShape rectangle1(sf::Vector2f(6 * Constants::lengthScale, 2.625 * Constants::lengthScale));
-  rectangle1.setPosition(sf::Vector2f(-6 * Constants::lengthScale, 12.5 * Constants::lengthScale));
+  sf::RectangleShape rectangle1(sf::Vector2f(6 * Constants::LENGTH_SCALE, 2.625 * Constants::LENGTH_SCALE));
+  rectangle1.setPosition(sf::Vector2f(-6 * Constants::LENGTH_SCALE, 12.5 * Constants::LENGTH_SCALE));
   rectangle1.setFillColor(sf::Color::Black);
-  sf::RectangleShape rectangle2(sf::Vector2f(6 * Constants::lengthScale, 2.625 * Constants::lengthScale));
-  rectangle2.setPosition(sf::Vector2f(96 * Constants::lengthScale, 12.5 * Constants::lengthScale));
+  sf::RectangleShape rectangle2(sf::Vector2f(6 * Constants::LENGTH_SCALE, 2.625 * Constants::LENGTH_SCALE));
+  rectangle2.setPosition(sf::Vector2f(96 * Constants::LENGTH_SCALE, 12.5 * Constants::LENGTH_SCALE));
   rectangle2.setFillColor(sf::Color::Black);
 
   return {rectangle1, rectangle2};
@@ -263,7 +263,7 @@ SpriteAdaptor *Factory::makeBackground(std::string fileName)
   sf::Texture backgroundTexture;
   backgroundTexture.loadFromFile("resources/images/backgrounds/" + fileName + ".png");
   SpriteAdaptor *background {new SpriteAdaptor(backgroundTexture)};
-  background->setScale(sf::Vector2f(Constants::lengthScale / 16, Constants::lengthScale / 16));
+  background->setScale(sf::Vector2f(Constants::LENGTH_SCALE / 16, Constants::LENGTH_SCALE / 16));
 
   return background;
 }

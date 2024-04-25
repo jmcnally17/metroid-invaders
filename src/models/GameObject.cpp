@@ -4,7 +4,7 @@
 GameObject::GameObject(float x, float y, ISprite *sprite) : sprite_(sprite)
 {
   sprite_->setPosition(sf::Vector2f(x, y));
-  sprite_->setScale(sf::Vector2f(Constants::lengthScale / 16, Constants::lengthScale / 16));
+  sprite_->setScale(sf::Vector2f(Constants::LENGTH_SCALE / 16, Constants::LENGTH_SCALE / 16));
 }
 
 sf::Vector2f GameObject::getPosition() const
