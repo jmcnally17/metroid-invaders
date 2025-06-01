@@ -64,7 +64,7 @@ void LevelManager::updateHighScore(std::unordered_map<std::string, int> &variabl
   }
   scoreText->setPosition(sf::Vector2f(48 * Constants::LENGTH_SCALE, 37.5 * Constants::LENGTH_SCALE));
   sf::FloatRect scoreTextRect {scoreText->getLocalBounds()};
-  scoreText->setOrigin(scoreTextRect.width / 2, 0);
+  scoreText->setOrigin(scoreTextRect.size.x / 2, 0);
 }
 
 void LevelManager::reset(const GameObjectList &gameObjects, bool &isPlaying, bool &gameOver, std::unordered_map<std::string, int> &variables, const std::unordered_map<std::string, IText*> &textObjects, const std::unordered_map<std::string, ISound*> &themes, IClock &movementClock) const

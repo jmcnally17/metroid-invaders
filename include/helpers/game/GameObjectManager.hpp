@@ -6,6 +6,7 @@
 #include "./IGunshipManager.hpp"
 #include "./ILevelManager.hpp"
 #include "./IMetroidManager.hpp"
+#include "../../adaptors/IRenderWindow.hpp"
 #include "./IRidleyManager.hpp"
 
 class GameObjectManager

@@ -31,5 +31,6 @@ bool GameObject::intersects(const IGameObject &gameObject) const
 {
   sf::FloatRect box1 {getGlobalBounds()};
   sf::FloatRect box2 {gameObject.getGlobalBounds()};
-  return box1.intersects(box2);
+  std::optional<sf::FloatRect> intersection {box1.findIntersection(box2)};
+  return intersection.has_value();
 }

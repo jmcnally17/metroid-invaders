@@ -8,7 +8,7 @@ class SoundAdaptor : public ISound
 public:
   SoundAdaptor(const sf::SoundBuffer &buffer);
   void play() override;
-  void setLoop(bool loop) override;
+  void setLooping(bool loop) override;
   void stop() override;
   sf::Sound::Status getStatus() const override;
 

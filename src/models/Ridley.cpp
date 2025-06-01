@@ -6,7 +6,7 @@ Ridley::Ridley(ISprite *rightSprite, ISound *deathSound, ISprite *leftSprite, IS
 {
   leftSprite_->setPosition(sf::Vector2f(-6 * Constants::LENGTH_SCALE, 12.5 * Constants::LENGTH_SCALE));
   leftSprite_->setScale(sf::Vector2f(Constants::LENGTH_SCALE / 16, Constants::LENGTH_SCALE / 16));
-  movementSound_->setLoop(true);
+  movementSound_->setLooping(true);
 }
 
 sf::Vector2f Ridley::getPosition() const
@@ -74,7 +74,7 @@ void Ridley::reset()
 
 void Ridley::stopMovementSoundIfPlaying()
 {
-  if (movementSound_->getStatus() == sf::Sound::Playing)
+  if (movementSound_->getStatus() == sf::SoundSource::Status::Playing)
   {
     movementSound_->stop();
   }

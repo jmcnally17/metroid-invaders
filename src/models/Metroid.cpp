@@ -92,8 +92,8 @@ void Metroid::shoot(const std::array<IMetroidLaser*, 3> &metroidLasers, int rand
   if (randomNumber == 0)
   {
     sf::FloatRect bounds {getGlobalBounds()};
-    float xPosition {static_cast<float>(getPosition().x + (bounds.width / 2) - (0.5625 * Constants::LENGTH_SCALE))};
-    float yPosition {getPosition().y + bounds.height};
+    float xPosition {static_cast<float>(getPosition().x + (bounds.size.x / 2) - (0.5625 * Constants::LENGTH_SCALE))};
+    float yPosition {getPosition().y + bounds.size.y};
     sf::Vector2f newPosition(xPosition, yPosition);
     for (auto metroidLaser : metroidLasers)
     {

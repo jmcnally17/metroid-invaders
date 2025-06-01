@@ -20,18 +20,18 @@ void GameObjectManager::implementGameObjects(const GameObjectList &gameObjects, 
   {
     levelManager_->levelUp(variables, gameObjects, movementClock);
   }
-  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Right))
   {
     gunshipManager_->moveGunship(*gunship, 1);
   }
-  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Left))
   {
     gunshipManager_->moveGunship(*gunship, -1);
   }
   gunshipManager_->moveGunshipLaser(*gunshipLaser);
   metroidManager_->moveMetroidLasers(metroidLasers);
   ridleyManager_->moveRidley(*ridley);
-  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Space))
   {
     gunshipManager_->fireGunshipLaser(*gunship);
   }

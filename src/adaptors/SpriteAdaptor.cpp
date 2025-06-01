@@ -1,9 +1,6 @@
 #include "../../include/adaptors/SpriteAdaptor.hpp"
 
-SpriteAdaptor::SpriteAdaptor(sf::Texture &texture) : texture_(texture)
-{
-  sprite_.setTexture(texture_);
-}
+SpriteAdaptor::SpriteAdaptor(sf::Texture &texture) : texture_(texture), sprite_(sf::Sprite(texture_, sf::IntRect({0, 0}, sf::Vector2<int>(texture_.getSize())))) {}
 
 sf::Vector2f SpriteAdaptor::getPosition() const
 {

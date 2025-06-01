@@ -1,18 +1,15 @@
 #include "../../include/adaptors/SoundAdaptor.hpp"
 
-SoundAdaptor::SoundAdaptor(const sf::SoundBuffer &buffer) : buffer_(buffer)
-{
-  sound_.setBuffer(buffer_);
-}
+SoundAdaptor::SoundAdaptor(const sf::SoundBuffer &buffer) : buffer_(buffer), sound_(sf::Sound(buffer_)) {}
 
 void SoundAdaptor::play()
 {
   sound_.play();
 }
 
-void SoundAdaptor::setLoop(bool loop)
+void SoundAdaptor::setLooping(bool loop)
 {
-  sound_.setLoop(loop);
+  sound_.setLooping(loop);
 }
 
 void SoundAdaptor::stop()

@@ -36,7 +36,7 @@ void Game::adjustView(IRenderWindow &window, int windowWidth, int windowHeight) 
     newXOrigin = ((96 * Constants::LENGTH_SCALE) - newWidth) / 2;
   }
 
-  sf::FloatRect visibleArea(newXOrigin, newYOrigin, newWidth, newHeight);
+  sf::FloatRect visibleArea({newXOrigin, newYOrigin}, {newWidth, newHeight});
   window.setView(sf::View(visibleArea));
 }
 

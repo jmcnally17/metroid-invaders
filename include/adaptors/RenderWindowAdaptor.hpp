@@ -8,7 +8,7 @@ class RenderWindowAdaptor : public IRenderWindow
 public:
   RenderWindowAdaptor(sf::VideoMode mode, const sf::String name);
   bool isOpen() const;
-  bool pollEvent(sf::Event &event);
+  std::optional<sf::Event> pollEvent() override;
   void close();
   void clear() override;
   void draw(const sf::Drawable &drawable) override;

@@ -1,10 +1,6 @@
 #include "../../include/adaptors/TextAdaptor.hpp"
 
-TextAdaptor::TextAdaptor(const sf::String &string, const sf::Font &font) : string_(string), font_(font)
-{
-  text_.setString(string_);
-  text_.setFont(font_);
-}
+TextAdaptor::TextAdaptor(const sf::String &string, const sf::Font &font) : string_(string), font_(font), text_(sf::Text(font_, string_)) {}
 
 void TextAdaptor::setPosition(const sf::Vector2f &position)
 {
@@ -33,7 +29,7 @@ sf::FloatRect TextAdaptor::getLocalBounds() const
 
 void TextAdaptor::setOrigin(float x, float y)
 {
-  text_.setOrigin(x, y);
+  text_.setOrigin({x, y});
 }
 
 void TextAdaptor::setFillColor(const sf::Color &color)

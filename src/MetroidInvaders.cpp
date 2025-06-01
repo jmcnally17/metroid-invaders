@@ -1,3 +1,4 @@
+#include <iostream>
 #include "../include/adaptors/RenderWindowAdaptor.hpp"
 #include "../include/adaptors/ClockAdaptor.hpp"
 #include "../include/Constants.hpp"
@@ -14,7 +15,7 @@
 int main()
 {
   // set up the game window and game clock
-  RenderWindowAdaptor window(sf::VideoMode(96 * Constants::LENGTH_SCALE, 84 * Constants::LENGTH_SCALE), "Metroid Invaders");
+  RenderWindowAdaptor window(sf::VideoMode({static_cast<int>(96 * Constants::LENGTH_SCALE), static_cast<int>(84 * Constants::LENGTH_SCALE)}), "Metroid Invaders");
   ClockAdaptor gameClock;
   
   // backgrounds
@@ -61,20 +62,20 @@ int main()
 
   while (window.isOpen())
   {
-    sf::Event event;
-    while (window.pollEvent(event))
+    while (const std::optional event = window.pollEvent())
     {
-      if (event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+      if (event->is<sf::Event::Closed>() || sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Escape))
       {
         window.close();
       }
-      else if (event.type == sf::Event::Resized)
+      if (const auto* resize = event->getIf<sf::Event::Resized>())
       {
-        game.adjustView(window, event.size.width, event.size.height);
+        game.adjustView(window, resize->size.x, resize->size.y);
       }
     }
     
-    if (isPlaying) {
+    if (isPlaying)
+    {
       graphics.drawObjects(window, backgrounds, gameObjects, textObjects, rectangles);
     }
 
@@ -87,7 +88,7 @@ int main()
       else if (gameOver)
       {
         graphics.displayGameOverScreen(window, textObjects);
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::P))
         {
           levelManager->reset(gameObjects, isPlaying, gameOver, variables, textObjects, themes, movementClock);
         }
@@ -95,7 +96,7 @@ int main()
       else
       {
         graphics.displayTitleScreen(window, backgrounds, textObjects);
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Enter))
         {
           game.play(isPlaying, themes, movementClock);
         }

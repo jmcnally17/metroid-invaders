@@ -7,9 +7,9 @@ bool RenderWindowAdaptor::isOpen() const
   return window_.isOpen();
 }
 
-bool RenderWindowAdaptor::pollEvent(sf::Event &event)
+std::optional<sf::Event> RenderWindowAdaptor::pollEvent()
 {
-  return window_.pollEvent(event);
+  return window_.pollEvent();
 }
 
 void RenderWindowAdaptor::close()

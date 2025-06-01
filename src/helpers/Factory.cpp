@@ -20,7 +20,7 @@ std::unordered_map<std::string, ISprite*> Factory::makeBackgrounds()
 std::unordered_map<std::string, IText*> Factory::makeTextObjects()
 {
   sf::Font m56;
-  m56.loadFromFile("resources/fonts/MicroN56.ttf");
+  m56.openFromFile("resources/fonts/MicroN56.ttf");
   sf::Color white {sf::Color::White};
   sf::Color green {sf::Color::Green};
   std::string titleString {"Metroid Invaders"};
@@ -274,7 +274,7 @@ TextAdaptor *Factory::makeText(std::string string, const sf::Font &font, int cha
   text->setCharacterSize(characterSize);
   text->setFillColor(color);
   sf::FloatRect textRect {text->getLocalBounds()};
-  text->setOrigin(textRect.width * originFactor, 0);
+  text->setOrigin(textRect.size.x * originFactor, 0);
   text->setPosition(sf::Vector2f(x, y));
 
   return text;
@@ -285,7 +285,7 @@ SoundAdaptor *Factory::makeTheme(std::string fileName)
   sf::SoundBuffer buffer;
   buffer.loadFromFile("resources/audio/" + fileName + ".wav");
   SoundAdaptor *theme {new SoundAdaptor(buffer)};
-  theme->setLoop(true);
+  theme->setLooping(true);
 
   return theme;
 }
